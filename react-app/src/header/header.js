@@ -5,12 +5,15 @@ const Header = () =>{
 
     const profileButtonClicked = async () =>{
         try{
-            const respone = await fetch("/api/profile",{
+            const res = await fetch("/api/profile",{
                 method:"GET",
                 headers:{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }});
+            const response = await res.json()
+            console.log(response.message)
+            console.log("TRYing")
         }
         catch(err){
             console.log(err)

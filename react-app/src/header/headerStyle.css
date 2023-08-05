@@ -23,7 +23,7 @@
     border: none;
     cursor: pointer;
     border-radius: 20px;
-    font-size: 25px;
+    font-size: 150%;
   }
   
   .button:hover,
@@ -34,7 +34,7 @@
   }
   
   .profileButton {
-    font-size: 3vw;
+    font-size: 70%;
     background-color: transparent;
     margin-top: 20px;
   }
@@ -55,7 +55,7 @@
   
     .button,
     .profileButton {
-      font-size: 18px;
+      font-size: 15px;
       margin: 5px;
     }
   
@@ -71,6 +71,11 @@
       top: auto;
       right: auto;
       z-index: auto;
+    }
+  
+    /* Adjust the margin for the second profileButton on smaller screens */
+    .profileButton:nth-child(7) {
+      margin-top: 5px;
     }
   }
   

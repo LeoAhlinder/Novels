@@ -29,7 +29,7 @@ const connection = mysql.createConnection({
   })
 
 
-app.get("/api/profile",function(error,results){
-  console.log("SUCESS")
+app.get("/api/profile",function(res,req){
+  res.json({message:"YUP"})
 })
   
