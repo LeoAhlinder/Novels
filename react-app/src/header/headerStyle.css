@@ -1,0 +1,42 @@
+
+
+.header {
+    text-align: center;
+    /* Header.css */
+    display: flex;
+    justify-content: space-evenly; /* Adjust this to your desired spacing */
+    align-items: center; /* Aligns buttons vertically if they have different heights */
+    margin-left: 20%;
+    margin-right: 20%;
+    padding: 10px;
+  }
+
+.header button {
+  /* Add your button styles here */
+  color: white; /* Set the default text color of the buttons */
+  background-color: transparent; /* Set the default background color of the buttons */
+  padding: 8px 16px; /* Add some padding to the buttons */
+  border: none; /* Remove the button border */
+  cursor: pointer; /* Add a pointer cursor on hover */
+  border-radius: 20px;
+  font-size: 25px;
+
+}
+
+.header button:hover {
+  background-color: lightblue; /* Change the background color on hover */
+  color: gray; /* Change the text color on hover */
+  transform: scale(1.1);
+}
+
+.headerDesign{
+    background-color: black;
+    
+}
+
+.header button.profileButton{
+    font-size: 12px;
+    background-color: transparent;
+    margin-top: 50px;
+    margin-right: -100px;
+}
