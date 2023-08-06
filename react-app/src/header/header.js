@@ -1,7 +1,12 @@
 import React from 'react';
 import "./headerStyle.css"
+import { Route } from 'react-router-dom';
+import Libary from '../Profile/Libary';
+
+
 
 const Header = () =>{
+
 
     const profileButtonClicked = async () =>{
         try{
@@ -13,12 +18,22 @@ const Header = () =>{
             }});
             const response = await res.json()
             console.log(response.message)
-            console.log("TRYing")
+            if (!response.ok){
+                console.log(response)
+            }else{
+                <Route 
+                path="/Profile/Libary"
+                element={<Libary/>}
+                />
+
+            }
         }
         catch(err){
             console.log(err)
         }
     }
+
+
 
 
 
