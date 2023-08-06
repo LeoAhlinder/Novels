@@ -10,6 +10,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 
+const port = process.env.PORT || 3000
+
+app.listen(port,()=>{
+  console.log(`Server running on ${port}`)
+})
+
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -24,12 +30,12 @@ const connection = mysql.createConnection({
         return;
     }
     else{
-        console.log("SUCUESSS")
+        console.log("SUCUESSS database")
     }
   })
 
 
-app.get("/api/profile",function(res,req){
+app.get("/api/profile",function(req,res){
   res.json({message:"YUP"})
 })
   
