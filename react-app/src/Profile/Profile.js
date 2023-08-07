@@ -1,4 +1,5 @@
 import React, { useEffect} from 'react';
+import "../Profile/profile.css"
 
 let i = 0
 
@@ -32,7 +33,7 @@ const Profile = () => {
 
     return (
         <div>
-            <h1>Profile Page</h1>
+            <h1 className='profileHeader'>Profile Page</h1>
             <p>test</p>
         </div>
     );

@@ -51,6 +51,7 @@
   @media screen and (max-width: 768px) {
     .header {
       flex-wrap: wrap;
+      font-size: 100%;
     }
   
     .button,
@@ -77,5 +78,22 @@
     .profileButton:nth-child(7) {
       margin-top: 5px;
     }
+
+
   }
-  
+
+  @media screen and (max-width: 450px) {
+    .header {
+      flex-wrap: wrap;
+      font-size: 75%;
+      margin-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 200px) {
+    .header {
+      flex-wrap: wrap;
+      font-size: 40%;
+      margin-left: 0;
+    }
+  }

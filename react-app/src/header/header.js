@@ -17,7 +17,6 @@ const Header = () => {
                 <button className='button'>Create</button>
                 <button className='button'>Search</button>
                 <button className='profileButton' onClick={profileButtonClicked}>Profile</button>
-                <button className='profileButton'>Library</button>
             </div>
         </div>
     );
