@@ -12,5 +12,9 @@
 
 
 .BookList{
-    
+    background-color: blue;
+    margin-left: 3%;
+    width: 80vw;
+    height: 5vh;
+    margin-right: 3%;
 }

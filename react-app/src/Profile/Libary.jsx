@@ -8,12 +8,14 @@ const Libary = (bookIds) =>{
         //Fetch Bookids from User
     })
 
+  
+
+
     return(
       <div className="Libary">
-        <li className="BookList">
-
-        </li>
-        LIBARY
+        <ul>
+          <li className="BookList">TESTNNN</li>
+        </ul>
       </div>  
     );
     
@@ -21,7 +23,7 @@ const Libary = (bookIds) =>{
 }
 
 //Logo,Title,TotalPages,CurrentPage
-Libary()
+//Libary()
 
 
 export default Libary;
