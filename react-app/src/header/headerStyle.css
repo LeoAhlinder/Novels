@@ -17,7 +17,7 @@
   
   .button,
   .profileButton {
-    color: white;
+    color: #acacac    ;
     background-color: transparent;
     padding: 8px 16px;
     border: none;
@@ -28,7 +28,6 @@
   
   .button:hover,
   .profileButton:hover {
-    background-color: lightblue;
     color: gray;
     transform: scale(1.1);
   }

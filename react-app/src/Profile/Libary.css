@@ -1,0 +1,11 @@
+.Libary{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: #333333;
+    margin-top: 3%;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 5px;
+    height: 70vh;
+}
