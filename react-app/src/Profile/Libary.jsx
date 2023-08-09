@@ -7,11 +7,21 @@ const Library = (userId) => {
       try {
         // Fetch Bookids from User
         const res = await fetch(`http://localhost:3001/api/library/${userId}`, {
-          method: "POST",
+          method: "GET",
           headers: 
           { "Content-Type": "application/json",
-          'Accept': 'application/json', },
+          'Accept': 'application/json', }
         });
+
+        if (res.ok){
+          const response = await res.json();
+          console.log(response.data)
+        }
+        else{
+          console.log("error")
+        }
+
+
       } catch (err) {
         console.log(err);
       }

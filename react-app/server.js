@@ -48,18 +48,28 @@ app.get("/api/profile",function(req,res){
 
 })
   
+app.get("/api/library/:userId", async (req, res) => {
+  const id = req.params.userId;
 
-app.get("/api/library",function(req,res){
+  try {
+    const userLibData = await userLibrary(id);
+    res.json({data:userLibData}); // Send the data back as a JSON response
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: "An error occurred while fetching user library data." });
+  }
+});
 
-  const userId = req.body.userId;
+function userLibrary(id) {
+  const query = "SELECT userLibrary.currentPage, Books.* FROM userLibrary JOIN Books ON userLibrary.bookid = Books.bookid WHERE userLibrary.userid = ?";
 
-  res.json({message:userId})
-
-  const query = "SELECT userLibrary.currentPage, Books.* FROM userLibrary JOIN Books ON userLibrary.bookid = Books.bookid WHERE userLibrary.userid = 1"
-
-  connection.query(query,function(results,error){
-    console.log(results)
-    res.json()
-    console.log(error)
-  })
-})
+  return new Promise((resolve, reject) => {
+    connection.query(query, [id], function (error, results) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
