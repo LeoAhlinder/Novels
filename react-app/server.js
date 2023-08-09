@@ -50,3 +50,7 @@ app.get("/api/profile",function(req,res){
   res.json({message:test})
 })
   
+
+app.get("http://localhost:3001/api/library",function(req,res){
+  
+})
