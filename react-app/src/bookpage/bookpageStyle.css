@@ -1,0 +1,18 @@
+.bookHeader{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: 3%;
+}
+
+.logo{
+    height: 35vh;
+    width: 20vw;
+    margin-left: 20%;
+    margin-top: 7%;
+    border-radius: 4px;
+}
+
+.bookInfo{
+    
+}

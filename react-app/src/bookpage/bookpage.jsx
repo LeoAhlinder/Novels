@@ -1,6 +1,7 @@
 import React,{useEffect,useState} from "react";
 import "./bookpageStyle.css"
 import { useLocation } from "react-router-dom";
+import cat from "../coolcat.jpg"
 
 
 const BookPage = () =>{
@@ -35,6 +36,16 @@ const BookPage = () =>{
         }
         bookInfo(bookId)
         });
+
+
+    return(
+      <div >
+        <img src={cat} alt="cat" className="logo"/>
+        <div className="bookInfo"></div>
+
+      
+      </div>      
+    );
 }
 
 export default BookPage;
