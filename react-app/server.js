@@ -73,3 +73,10 @@ function userLibrary(id) {
     });
   });
 }
+
+
+app.get(`/api/book`, async (req,res) =>{
+  const id = req.query.id;
+
+  console.log(id)
+})

@@ -13,9 +13,9 @@ const Library = () => {
       try {
         const res = await fetch(`http://localhost:3001/api/library/${userId}`, {
           method: "GET",
-          headers: {
+          headers: {  
             "Content-Type": "application/json",
-            Accept: "application/json",
+            "Accept": "application/json",
           },
         });
 
@@ -49,7 +49,7 @@ const Library = () => {
 
   function openBook(id){
     console.log(id)
-    navigate(`/Book/${id}`)
+    navigate({pathname:"/book",search:`?id=${id}`})
   }
 
 };
