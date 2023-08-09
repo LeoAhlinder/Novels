@@ -2,6 +2,7 @@ import './App.css';
 import { BrowserRouter as Router,Routes,Route } from 'react-router-dom';
 import Header from "./header/header"
 import Profile from "./Profile/Profile"
+import BookPage from "./bookpage/bookpage"
 
 
 function App() {
@@ -11,6 +12,7 @@ function App() {
       <Header/>
           <Routes>
             <Route exact path="/Profile" Component={Profile}/>
+            <Route exact path="/Book?id" Component={BookPage}/>
           </Routes>
       </div>
     </Router>  

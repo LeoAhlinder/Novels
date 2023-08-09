@@ -1,8 +1,12 @@
 import React,{useEffect,useState} from "react";
 import "./Libary.css"
+import { useNavigate } from "react-router-dom"
+
 
 const Library = () => {
   const [books, setBooks] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userLibrary = async (userId) => {
@@ -45,7 +49,7 @@ const Library = () => {
 
   function openBook(id){
     console.log(id)
-    
+    navigate(`/Book/${id}`)
   }
 
 };
