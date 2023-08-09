@@ -38,7 +38,7 @@ const Library = () => {
     <div className="Library">
       <ul>
         {books.map((book) => (
-          <button className="BookList" onClick={() => openBook(book.bookid)} key={book.bookid}>
+          <button className="BookList" onClick={() => openBook(book)} key={book.bookid}>
             {book.title} - Page: {book.currentPage}
           </button>
         ))}
@@ -47,9 +47,9 @@ const Library = () => {
   );
 
 
-  function openBook(id){
-    console.log(id)
-    navigate({pathname:"/book",search:`?id=${id}`})
+  function openBook(book){
+    console.log(book)
+    navigate({pathname:"/book",search:`?id=${book.bookid}`})
   }
 
 };

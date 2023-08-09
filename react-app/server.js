@@ -77,6 +77,24 @@ function userLibrary(id) {
 
 app.get(`/api/book`, async (req,res) =>{
   const id = req.query.id;
-
-  console.log(id)
+  try{
+    const bookInfo = await bookData(id)
+    res.json({data:bookInfo})
+  }catch(err){
+    console.log(err)
+  }
 })
+
+function bookData(id) {
+  const query = "SELECT * FROM lightnovelonline.books WHERE bookid = ?";
+
+  return new Promise((resolve, reject) => {
+    connection.query(query, [id], function (error, results) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
