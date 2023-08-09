@@ -46,11 +46,20 @@ const connection = mysql.createConnection({
 
 app.get("/api/profile",function(req,res){
 
-  const test = 2
-  res.json({message:test})
 })
   
 
-app.get("http://localhost:3001/api/library",function(req,res){
-  
+app.get("/api/library",function(req,res){
+
+  const userId = req.body.userId;
+
+  res.json({message:userId})
+
+  const query = "SELECT userLibrary.currentPage, Books.* FROM userLibrary JOIN Books ON userLibrary.bookid = Books.bookid WHERE userLibrary.userid = 1"
+
+  connection.query(query,function(results,error){
+    console.log(results)
+    res.json()
+    console.log(error)
+  })
 })

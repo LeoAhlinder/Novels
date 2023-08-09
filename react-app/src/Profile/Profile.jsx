@@ -1,13 +1,8 @@
 import React, { useEffect} from 'react';
 import "../Profile/profile.css"
-import Libary from "./Libary"
-
-let i = 0
-
+import Library from "./Libary"
 
 const Profile = () => {
-    console.log(i)
-    i++
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -20,9 +15,9 @@ const Profile = () => {
                 const response = await res.json();
                 //console.log(response.message)
                 if (!response.ok) {
-                    console.log(response);
+                    //console.log(response);
                 } else {
-                    console.log(response.message)
+                    //console.log(response.message)
                 }
             } catch (err) {
                 console.log("error"+err);
@@ -35,7 +30,7 @@ const Profile = () => {
     return (
         <div>
             <h1 className='profileHeader'>Profile Page</h1>
-            <Libary/>
+            <Library/>
         </div>
     );
 }
