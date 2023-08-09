@@ -34,13 +34,20 @@ const Library = () => {
     <div className="Library">
       <ul>
         {books.map((book) => (
-          <li className="BookList" key={book.bookid}>
+          <button className="BookList" onClick={() => openBook(book.bookid)} key={book.bookid}>
             {book.title} - Page: {book.currentPage}
-          </li>
+          </button>
         ))}
       </ul>
     </div>
   );
+
+
+  function openBook(id){
+    console.log(id)
+    
+  }
+
 };
 
 //Logo,Title,TotalPages,CurrentPage

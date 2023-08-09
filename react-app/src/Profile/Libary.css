@@ -1,8 +1,8 @@
-.Libary{
+.Library{
     justify-content: center;
     align-items: center;
     display: flex;
-    background-color: #333333;
+    background-color: gray;
     margin-top: 3%;
     margin-left: 5%;
     margin-right: 5%;
@@ -11,10 +11,15 @@
 }
 
 
-.BookList{
-    background-color: blue;
-    margin-left: 3%;
+.BookList {
+    background-color: beige;
+    margin-top: 0.25%;
+    border-radius: 5px;
     width: 80vw;
     height: 5vh;
     margin-right: 3%;
-}
+    justify-content: initial;
+    align-items: initial;
+    display:flex;
+    border: none;
+  }
