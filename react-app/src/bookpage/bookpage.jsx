@@ -39,12 +39,16 @@ const BookPage = () =>{
 
 
     return(
-      <div >
-        <img src={cat} alt="cat" className="logo"/>
-        <div className="bookInfo"></div>
-
-      
-      </div>      
+    <div>  
+        <div className="wrapper">
+            <img src={cat} alt="cat" className="logo"/>
+        </div>       
+            
+        <div className="bookInfo">
+            TeST
+        </div>
+    </div>   
+        
     );
 }
 

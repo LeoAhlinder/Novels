@@ -4,15 +4,18 @@
     display: flex;
     margin-top: 3%;
 }
+.wrapper{
+    position: relative;
+}
 
 .logo{
-    height: 35vh;
-    width: 20vw;
-    margin-left: 20%;
-    margin-top: 7%;
+    height: 50vh;
+    width: 25vw;
+    margin-left: 15%;
+    margin-top: 3%;
     border-radius: 4px;
 }
 
 .bookInfo{
-    
+    position: relative;
 }
