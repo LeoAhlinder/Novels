@@ -23,9 +23,11 @@ const LogIn = () =>{
     const createAccount = () =>{
         console.log("create account")
 
-        inputFields.map((i) =>{
+        const logIn = inputFields.map((i) =>{
             const value = document.getElementById(i.id)
+            return (value.id,value.value)
         })
+    console.log(logIn)
     }
 
     return (
