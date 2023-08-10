@@ -24,10 +24,12 @@ const LogIn = () =>{
         console.log("create account")
 
         const logIn = inputFields.map((i) =>{
-            const value = document.getElementById(i.id)
-            return (value.id,value.value)
+            const field = document.getElementById(i.id)
+            return (field.id,field.value)
         })
     console.log(logIn)
+
+
     }
 
     return (
