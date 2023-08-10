@@ -1,25 +1,42 @@
-import React from "react";
+import React, { useState } from 'react';
 import "./logIn.css"
 
-const logIn = () =>{
-    const createAccount = () =>{
-        var inputBox = document.querySelector("loginBox")
-        var newInput = document.createElement("input")
-        newInput.setAttribute("className","input")
-        newInput.setAttribute("type","text")
+const LogIn = () =>{
 
-        inputBox.appendChild(newInput);
+
+
+    const [inputFields, setInputFields] = useState([
+        {placeholder:"Email", id:"email"},
+        {placeholder:"Password", id:"password"},
+    ])
+
+    const maxInputFields = 3;
+    const addInputFieldAllowed = inputFields.length < maxInputFields;
+
+    const addInputField = () =>{
+        setInputFields([
+            ...inputFields,
+            {placeholder:"User Name",id:"userName"}
+        ])
     }
 
+    const createAccount = () =>{
+        console.log("create account")
+
+        inputFields.map((i) =>{
+            const value = document.getElementById(i.id)
+        })
+    }
 
     return (
         <div className="loginBox">
-            <input type="text" className="input" placeholder="Email"/>
-            <input className="input" type="password" placeholder="Password"/>
+            {inputFields.map((field) => (
+                <input className='input' placeholder={field.placeholder} id={field.id}/>
+            ))}
             <button className="Button">Log In</button>
-            <button className="Button"onClick={createAccount} >Create Account</button>
+            <button className="Button" onClick={addInputFieldAllowed ? addInputField : createAccount}>Create Account</button>
         </div>
     );
 }
 
-export default logIn;
+export default LogIn;
