@@ -96,3 +96,11 @@
       margin-left: 0;
     }
   }
+
+  @media screen and (max-width: 100px) {
+    .header {
+      flex-wrap: wrap;
+      font-size: 20%;
+      margin-left: 0;
+    }
+  }
