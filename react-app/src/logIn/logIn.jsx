@@ -7,7 +7,7 @@ const LogIn = () =>{
 
     const [inputFields, setInputFields] = useState([
         {placeholder:"Email", id:"email"},
-        {placeholder:"Password", id:"password"},
+        {placeholder:"Password", id:"password",type:"password"},
     ])
 
     const maxInputFields = 3;
@@ -64,17 +64,45 @@ const LogIn = () =>{
         if (message !== "")
             alert(message)
         else{
-            console.log(logins)
+            createUser(logins)
         }
     }
 
 
-    //const 
+    const createUser = async (logIns) =>{
+        const user = {
+            email:logIns[0],
+            password:logIns[1],
+            username:logIns[2]
+        }
+        try{
+            const res = await fetch("http://localhost:3001/api/createaccount",{
+                method:"POST",
+                headers: {  
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+                body:JSON.stringify(user)
+            });
+            if (res.ok){
+                const response = await res.json();
+                console.log(response)
+            }else{
+                console.log("ERROR")
+            }
+        }catch(err){
+            console.log(err)
+        }
+
+
+
+
+    }
 
     return (
         <div className="loginBox">
             {inputFields.map((field) => (
-                <input className='input' placeholder={field.placeholder} id={field.id}/>
+                <input className='input' placeholder={field.placeholder} id={field.id} type={field.type}/>
             ))}
             <button className="Button">Log In</button>
             <button className="Button" onClick={addInputFieldAllowed ? addInputField : createAccount}>Create Account</button>

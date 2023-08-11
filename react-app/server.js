@@ -98,3 +98,47 @@ function bookData(id) {
     });
   });
 }
+
+
+app.post("/api/createaccount",function(req,res){
+  const data = req.body;
+
+  //Check if user exist already
+
+  connection.query("SELECT * FROM users WHERE userEmail = ? OR userName = ?",[data.email,data.username],function(error,results){
+    if (error) {
+        // Handle the error
+        console.error("Error executing query:", error);
+        res.status(500).json({ error: "An error occurred." });
+        return;
+      }
+    if (results.length > 0)
+     {
+      // User with the provided email or username already exists
+      const existingUser = results[0];
+      if (existingUser.userEmail === data.email && existingUser.userName === data.username){
+        res.json({message:"both exist"})
+      }
+      else if (existingUser.userEmail === data.email) {
+        res.json({message:"email exist"})
+      } 
+      else if (existingUser.userName === data.username) {
+        res.json({message:"userName exist"})
+      } 
+    }
+    else{
+      const query = "INSERT INTO users (userName,userPassword,userEmail) VALUES (?,?,?)"
+      connection.query(query,[data.username,data.password,data.email],function(error,results){
+        if (error){
+          console.log(error)
+        }
+        else{
+          console.log("SUCESS")
+          res.json({message:"user created"})
+        }
+      })
+    }
+  })
+  
+   
+  })

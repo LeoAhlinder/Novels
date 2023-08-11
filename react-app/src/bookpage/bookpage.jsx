@@ -24,7 +24,20 @@ const BookPage = () =>{
                 });
                 if (res.ok){
                     const response = await res.json();
-                    console.log(response.data)
+                    console.log(response)
+                if (response.message === "both exist"){
+                    console.log("username and email in use already")
+                }
+                else if (response.message === "email exist"){
+                    console.log("email in use")
+                }
+                else if (response.message ==="userName exist"){
+                    console.log("username in use")
+                }  
+                else if (response.message === "user created"){
+                    
+                }
+                
                 }else{
                 console.log("error")
                 }
