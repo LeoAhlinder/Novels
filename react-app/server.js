@@ -133,7 +133,6 @@ app.post("/api/createaccount",function(req,res){
           console.log(error)
         }
         else{
-          console.log("SUCESS")
           res.json({message:"user created"})
         }
       })

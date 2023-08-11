@@ -93,10 +93,33 @@ const LogIn = () =>{
         }catch(err){
             console.log(err)
         }
+    }
 
+    async function logInF(){
 
+        const logIn = inputFields.map((i) =>{
+            const field = document.getElementById(i.id);
+            return (field.value)
+        })
 
-
+        
+        console.log(logIn)
+        try{
+            const res = await fetch("http://localhost:3001/api/logIn",{
+                method:"GET",
+                headers: {  
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                },
+            })
+            if (res.ok){
+                const response = await res.json()
+                console.log(response)
+            }
+        }catch(err)
+        {
+            console.log(err)
+        }
     }
 
     return (
@@ -104,7 +127,7 @@ const LogIn = () =>{
             {inputFields.map((field) => (
                 <input className='input' placeholder={field.placeholder} id={field.id} type={field.type}/>
             ))}
-            <button className="Button">Log In</button>
+            <button className="Button" onClick={logInF()}>Log In</button>
             <button className="Button" onClick={addInputFieldAllowed ? addInputField : createAccount}>Create Account</button>
         </div>
     );
