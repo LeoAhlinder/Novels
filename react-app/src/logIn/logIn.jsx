@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import "./logIn.css"
+import { loggedIn } from '../header/header';
+
 
 const LogIn = () =>{
 
@@ -101,20 +103,27 @@ const LogIn = () =>{
             const field = document.getElementById(i.id);
             return (field.value)
         })
-
         
-        console.log(logIn)
         try{
             const res = await fetch("http://localhost:3001/api/logIn",{
-                method:"GET",
+                method:"POST",
                 headers: {  
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
+                body:JSON.stringify(logIn)
             })
             if (res.ok){
                 const response = await res.json()
-                console.log(response)
+                if (response.message === "user exist"){
+                    loginDetailsCookies(logIn)
+                }
+                if (response.message === "no user exist"){
+                    alert("No user with those loggins exist")
+                }
+            }
+            else{
+                console.log("error or some")
             }
         }catch(err)
         {
@@ -122,12 +131,25 @@ const LogIn = () =>{
         }
     }
 
+    function loginDetailsCookies(logIn){
+        const data = {
+            email: logIn[0],
+            password: logIn[1]
+        }
+        console.log(data);
+
+        
+
+
+    }
+
+
     return (
         <div className="loginBox">
             {inputFields.map((field) => (
-                <input className='input' placeholder={field.placeholder} id={field.id} type={field.type}/>
+                <input className='input' placeholder={field.placeholder} id={field.id} type={field.type} key={field.id}/>
             ))}
-            <button className="Button" onClick={logInF()}>Log In</button>
+            <button className="Button" onClick={() =>logInF()}>Log In</button>
             <button className="Button" onClick={addInputFieldAllowed ? addInputField : createAccount}>Create Account</button>
         </div>
     );

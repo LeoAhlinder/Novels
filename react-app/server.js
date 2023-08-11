@@ -5,6 +5,8 @@ const path = require('path');
 const mysql = require("mysql");
 const { error } = require("console");
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
+
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -138,6 +140,25 @@ app.post("/api/createaccount",function(req,res){
       })
     }
   })
-  
-   
+})
+
+app.post("/api/logIn",function(req,res){
+  const data = req.body;
+
+  const query = "SELECT * FROM users WHERE userEmail = ? AND userPassword = ?";
+  connection.query(query,[data[0],data[1]],function(error,results){
+    if (error){
+      console.log(error)
+    }
+    if (results.length > 0){
+
+      const user = results[0]; // Assuming results contain user data
+      const token = jwt.sign({ userId: user.userId }, 'your-secret-key', { expiresIn: '1h' });
+      
+      res.json({ message: "user exist", token: token });
+    }
+    else{
+      res.json({message:"no user exist"})
+    }
   })
+})

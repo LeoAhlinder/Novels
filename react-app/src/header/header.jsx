@@ -27,4 +27,5 @@ const Header = () => {
     );
 }
 
+export const loggedIn = false;
 export default Header;

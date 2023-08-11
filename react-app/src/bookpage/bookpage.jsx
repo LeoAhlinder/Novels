@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect} from "react";
 import "./bookpageStyle.css"
 import { useLocation } from "react-router-dom";
 import cat from "../coolcat.jpg"
