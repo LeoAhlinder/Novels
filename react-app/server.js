@@ -7,7 +7,7 @@ const { error } = require("console");
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 
-
+const secretkey = "leo"
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -50,16 +50,21 @@ app.get("/api/profile",function(req,res){
 
 })
   
-app.get("/api/library/:userId", async (req, res) => {
-  const id = req.params.userId;
-
-  try {
-    const userLibData = await userLibrary(id);
-    res.json({data:userLibData}); // Send the data back as a JSON response
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "An error occurred while fetching user library data." });
-  }
+app.get("/api/library/", ensureToken, async (req, res) => {
+  jwt.verify(req.token, secretkey, async function(err, decodedToken) {
+      if (err) {
+          res.sendStatus(403);
+      } else {
+          try {
+            console.log(decodedToken)
+              const userLibData = await userLibrary(decodedToken.user); // Assuming userId is in the token
+              res.json({ data: userLibData });
+          } catch (error) {
+              console.error(error);
+              res.status(500).json({ error: "An error occurred while fetching user library data." });
+          }
+      }
+  });
 });
 
 function userLibrary(id) {
@@ -153,7 +158,7 @@ app.post("/api/logIn",function(req,res){
     if (results.length > 0){
 
       const user = results[0]; // Assuming results contain user data
-      const token = jwt.sign({ user: user.userid }, 'my-secret-key');
+      const token = jwt.sign({ user: user.userid }, secretkey);
       
       res.json({ message: "user exist", token: token });
     }
@@ -165,7 +170,7 @@ app.post("/api/logIn",function(req,res){
 
 app.get("/api/protected",ensureToken,function(req,res){
 
-  jwt.verify(req.token,"my-secret-key",function(err,data){
+  jwt.verify(req.token,secretkey,function(err,data){
     if (err)(
       res.sendStatus(403)
     )
@@ -174,7 +179,6 @@ app.get("/api/protected",ensureToken,function(req,res){
         message: "this is protected",
         data:data
       })
-      console.log("protected")
     }
   })
 })

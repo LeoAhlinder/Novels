@@ -9,19 +9,26 @@ const Library = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const userLibrary = async (userId) => {
+    const userLibrary = async () => {
       try {
-        const res = await fetch(`http://localhost:3001/api/library/${userId}`, {
+
+        const token = localStorage.getItem("authToken")
+
+
+        const res = await fetch(`http://localhost:3001/api/library/`, {
           method: "GET",
           headers: {  
             "Content-Type": "application/json",
             "Accept": "application/json",
+            Authorization: `Bearer ${token}`
+
           },
         });
 
         if (res.ok) {
           const response = await res.json();
           // Assuming your response.data contains the array of books
+          console.log(response.data)
           setBooks(response.data);
         } else {
           console.log("error");
@@ -36,14 +43,19 @@ const Library = () => {
 
   return (
     <div className="Library">
-      <ul>
-        {books.map((book) => (
-          <button className="BookList" onClick={() => openBook(book)} key={book.bookid}>
-            {book.title} - Page: {book.currentPage}
-          </button>
-        ))}
-      </ul>
-    </div>
+    {books.length > 0 ? (
+        <ul>
+            {books.map((book) => (
+                <button className="BookList" onClick={() => openBook(book)} key={book.bookid}>
+                    {book.title} - Page: {book.currentPage}
+                </button>
+            ))}
+        </ul>
+    ) : (
+        <p>No books</p>
+    )}
+</div>
+
   );
 
 

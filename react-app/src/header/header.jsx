@@ -8,21 +8,23 @@ const Header = () => {
 
     useEffect(() => {
         const checkToken = async (token) => {
-            const response = await fetch("http://localhost:3001/api/protected", {
-                method: "GET", // You can adjust the HTTP method accordingly
-                headers: {
-                    Authorization: `Bearer ${token}` // Include the token in the Authorization header
-                }
-            });
-        
-            if (response.ok) {
-                const data = await response.json();
-                console.log("Token is valid:", data);
-                localStorage.setItem("userid",data.data.user)
-                setLoggedIn(true)
+            try{
+                const response = await fetch("http://localhost:3001/api/protected", {
+                    method: "GET", // You can adjust the HTTP method accordingly
+                    headers: {
+                        Authorization: `Bearer ${token}` // Include the token in the Authorization header
+                    }
+                });
+            
+                if (response.ok) {
+                    const data = await response.json();
+                    setLoggedIn(true)
 
-            } else {
-                console.log("Token validation failed:", response.statusText);
+                } else {
+                    console.log("Token validation failed:", response.statusText);
+                }
+            }catch(err){
+                console.log(err)
             }
         };
         
@@ -34,7 +36,6 @@ const Header = () => {
 
     useEffect(() =>{
         if (window.location.pathname ===  "/Profile"){
-            console.log("profile")
             setLoggedIn(true)
         }
     },[location.pathname])
