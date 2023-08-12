@@ -137,6 +137,8 @@ const LogIn = () =>{
 
         document.cookie = `authToken=${token}; path=/; secure; HttpOnly; SameSite=Strict`;
 
+        console.log(document.cookie)
+
         function hasAuthTokenCookie() {
             const cookies = document.cookie.split(';');
             for (const cookie of cookies) {
