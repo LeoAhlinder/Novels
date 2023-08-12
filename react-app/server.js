@@ -153,13 +153,8 @@ app.post("/api/logIn",function(req,res){
     if (results.length > 0){
 
       const user = results[0]; // Assuming results contain user data
-      
-      console.log(user)
-
       const token = jwt.sign({ user: user.userid }, 'my-secret-key');
       
-
-      console.log(token)
       res.json({ message: "user exist", token: token });
     }
     else{
