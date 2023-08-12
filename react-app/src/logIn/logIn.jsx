@@ -116,7 +116,7 @@ const LogIn = () =>{
             if (res.ok){
                 const response = await res.json()
                 if (response.message === "user exist"){
-                    loginDetailsCookies(response.token)
+                    localStorage.setItem("authToken", response.token);        
                 }
                 if (response.message === "no user exist"){
                     alert("No user with those loggins exist")
@@ -129,36 +129,6 @@ const LogIn = () =>{
         {
             console.log(err)
         }
-    }
-
-    function loginDetailsCookies(token){
-       
-        console.log(token);
-
-        document.cookie = `authToken=${token}; path=/; secure; HttpOnly; SameSite=Strict`;
-
-        console.log(document.cookie)
-
-        function hasAuthTokenCookie() {
-            const cookies = document.cookie.split(';');
-            for (const cookie of cookies) {
-                const [name, value] = cookie.trim().split('=');
-                if (name === 'authToken') {
-                    return true;
-                }
-            }
-            return false;
-        }
-        
-        if (hasAuthTokenCookie()) {
-            console.log("cookie in bannk")
-        } else {
-            // The client does not have the token
-            // The user might not be logged in
-            console.log("no cookie")
-        }
-
-
     }
 
 
