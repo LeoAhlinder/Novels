@@ -29,7 +29,6 @@
   .button:hover,
   .profileButton:hover {
     color: gray;
-    transform: scale(1.1);
   }
   
   .profileButton {

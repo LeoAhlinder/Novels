@@ -1,0 +1,8 @@
+.homeWrapper{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    background-color: red ;
+
+    position: absolute;
+}

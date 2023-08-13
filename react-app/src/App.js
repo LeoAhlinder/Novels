@@ -4,6 +4,7 @@ import Header from "./header/header"
 import Profile from "./Profile/Profile"
 import BookPage from "./bookpage/bookpage"
 import LogIn from "./logIn/logIn"
+import Home from "./Home/Home"
 
 
 function App() {
