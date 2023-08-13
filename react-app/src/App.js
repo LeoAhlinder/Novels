@@ -12,6 +12,7 @@ function App() {
       <div>
       <Header/>
           <Routes>
+            <Route exact path="/" Component={Home}/>
             <Route exact path="/Profile" Component={Profile}/>
             <Route exact path="/book" Component={BookPage}/>
             <Route exact path='/logIn' Component={LogIn}/>

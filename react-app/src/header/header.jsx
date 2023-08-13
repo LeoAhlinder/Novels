@@ -23,10 +23,14 @@ const Header = () => {
     const logIn =  () =>{
         navigate("/logIn")
     }
+    const home = () =>{
+        navigate("/")
+    }
 
     return (
             <div className="headerDesign">
                 <div className="header">
+                    <button className='button' onClick={() => home()}>Home</button>
                     <button className='button'>Hits</button>
                     <button className='button'>Most Popular</button>
                     <button className='button'>Create</button>
