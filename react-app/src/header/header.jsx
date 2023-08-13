@@ -34,9 +34,14 @@ const Header = () => {
     const navigate = useNavigate();
     const [loggedIn, setLoggedIn] = useState(false);
 
+
+
     useEffect(() =>{
-        if (window.location.pathname ===  "/Profile"){
+        if (localStorage.getItem("logIn_status") === "true"){
             setLoggedIn(true)
+        }
+        else{
+            setLoggedIn(false)
         }
     },[location.pathname])
 

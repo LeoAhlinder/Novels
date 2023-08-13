@@ -119,7 +119,7 @@ const LogIn = () =>{
                 const response = await res.json()
                 if (response.message === "user exist"){
                     localStorage.setItem("authToken", response.token);    
-                    sessionStorage.setItem("logIn_status","true")
+                    localStorage.setItem("logIn_status","true")
                     //setLoggedIn(true);
                     navigate("/Profile");
                 }

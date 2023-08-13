@@ -28,7 +28,6 @@ const Library = () => {
         if (res.ok) {
           const response = await res.json();
           // Assuming your response.data contains the array of books
-          console.log(response.data)
           setBooks(response.data);
         } else {
           console.log("error");
@@ -60,7 +59,6 @@ const Library = () => {
 
 
   function openBook(book){
-    console.log(book)
     navigate({pathname:"/book",search:`?id=${book.bookid}`})
   }
 
