@@ -56,7 +56,6 @@ app.get("/api/library/", ensureToken, async (req, res) => {
           res.sendStatus(403);
       } else {
           try {
-            console.log(decodedToken)
               const userLibData = await userLibrary(decodedToken.user); // Assuming userId is in the token
               res.json({ data: userLibData });
           } catch (error) {

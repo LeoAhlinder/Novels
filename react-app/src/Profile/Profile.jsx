@@ -35,10 +35,7 @@ const Profile = () => {
         fetchData();
 
 
-        if (localStorage.getItem("authToken")){
-            console.log("exist")
-        }
-        else{
+        if (!localStorage.getItem("authToken")){
             logOut()
         }
 
