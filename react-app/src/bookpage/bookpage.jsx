@@ -1,7 +1,7 @@
 import React,{useEffect} from "react";
 import "./bookpageStyle.css"
 import { useLocation } from "react-router-dom";
-import cat from "../coolcat.jpg"
+import cat from "../Pictures/coolcat.jpg"
 
 
 const BookPage = () =>{
