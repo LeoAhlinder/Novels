@@ -4,7 +4,7 @@
     display: flex;
     background-color: gray ;
     position: relative;
-    margin-top: 30%;
+    margin-top: 20%;
     margin-left: 10%;
     margin-right: 10%;
     height: 100vh;
@@ -22,6 +22,6 @@
 }
 
 .LibraryPic{
-    padding-top: 88.35%;
-    padding-bottom: 10%;
+    padding-top:20%;
+
 }

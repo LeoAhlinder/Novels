@@ -1,6 +1,6 @@
 import React from "react";
 import "./Homestyle.css"
-import LibraryPic from "../Pictures/librarypic.jpg"
+import LibraryPic from "../Pictures/librarypic_3_1280x300.jpg"
 
 const Home = () =>{
     return(
