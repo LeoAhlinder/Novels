@@ -2,6 +2,7 @@
     align-items: center;
     justify-content: center;
     display: flex;
+    top:0;
     background-color: gray ;
     position: relative;
     margin-top: 20%;

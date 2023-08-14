@@ -9,7 +9,8 @@ const Home = () =>{
                 <img src={LibraryPic} alt="Fantast Library" className="LibraryPic"/>
             </div>
             <div className="homeWrapper">
-                <p>test</p>
+
+                <p>New release</p>
             </div>
         </div>
     )
