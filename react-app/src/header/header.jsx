@@ -14,7 +14,6 @@ const Header = () => {
     useEffect(() => {
         (async () => {
           const tok = await checkToken();
-          console.log(tok);
           if (tok === "valid"){
             setLoggedIn(true)
           }
@@ -42,7 +41,6 @@ const Header = () => {
                 });
 
                 const response = await res.json();
-                console.log(response);
                 if (response.message === "this is protected"){
                     return "valid"
                 }
