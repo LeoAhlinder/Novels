@@ -9,7 +9,8 @@ import LibraryPicMicro from "../Pictures/librarypic_4_150x75.jpg";
 
 const Home = () =>{
     return(
-        <div>
+        <p>te</p>
+        /*<div>
             <div className="homeIntro">
                 <picture className="LibraryPic">
                 <source media="(min-width: 1400px)" srcset={LibraryPicBig}/>
@@ -27,7 +28,7 @@ const Home = () =>{
 
                 <p>New release</p>
             </div>
-        </div>
+        </div>*/
     )
 }
 

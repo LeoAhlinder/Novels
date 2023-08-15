@@ -1,87 +1,87 @@
-.headerDesign {
+*{
+  padding: 0;
+  margin: 0;
+}
+header{
   background-color: black;
 }
-
-.header {
-  text-align: center;
+li{
+  list-style: none;
+}
+a{
+  color: white;
+  text-decoration: none;
+}
+.container{
+  max-width: 1224px;
+  width: 90%;
+  margin: 0 auto;
+}
+.navbar{
+  min-height: 70px;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  margin-left: 20%;
-  margin-right: 20%;
-  padding: 10px;
-  min-width: 350px;
-  position: relative; /* Add position relative to the header container */
 }
-.button,
-.profileButton {
-  color: #acacac;
-  background-color: transparent;
-  padding: 8px 16px;
-  border: none;
+.nav-branding{
+  font-size: 2rem;
   cursor: pointer;
-  border-radius: 20px;
-  font-size: 150%;
+}
+.nav-menu{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
 }
 
-.button:hover,
-.profileButton:hover {
-  color: gray;
+.nav-link{
+  transition: 0.3s ease-out;
 }
-
-.profileButton {
-  font-size: 70%;
-  background-color: transparent;
-  margin-top: 20px;
+.nav-link:hover{
+  color: dodgerblue;
+  cursor: pointer;
 }
-  
-  /* Responsive styles using media queries */
-  @media screen and (max-width: 768px) {
-    .header {
-      flex-wrap: wrap;
-      font-size: 100%;
-    }
-  
-    .button,
-    .profileButton {
-      font-size: 15px;
-      margin: 5px;
-    }
-  
-    .profileButton {
-      font-size: 14px;
-      margin-top: 5px;
-      margin-right: 0;
-    }
-  }
-
-
 .hamburger{
   display: none;
   cursor: pointer;
 }
-
 .bar{
   display: block;
   width: 25px;
   height: 3px;
   margin: 5px auto;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease;
+  transition: all 0.3s ease;
   background-color: white;
 }
-
-@media (max-width:1085px) {
-    .hamburger{
-      display: block;
-      margin: auto;
-      align-items: none;
-      justify-content: none;
-    }
-    .button{
-      display: none;
-    }
-    .profileButton{
-      display: none;
-    }
+@media(max-width:1080px){
+  .hamburger{
+    display: block;
+  }
+ .hamburger.active .bar:nth-child(2){
+    opacity: 0;
+  }
+ .hamburger.active .bar:nth-child(1){
+    transform: translateY(8px) rotate(45deg);
+  }
+ .hamburger.active .bar:nth-child(3){
+    transform: translateY(-8px) rotate(-45deg);
+  }
+ .nav-menu{
+    position: fixed;
+    left: -100%;
+    top: 70px;
+    gap: 0;
+    flex-direction: column;
+    background-color: #262626;
+    width: 100%;
+    text-align: center;
+    transition: 0.3s;
+  }
+ .nav-item{
+    margin: 16px 0;
+  }
+ .nav-menu.active{
+    left: 0;
+  }
 }

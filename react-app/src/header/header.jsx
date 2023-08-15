@@ -67,25 +67,48 @@ const Header = () => {
         navigate("/")
     }
 
+    const hamburger = document.querySelector(".hamburger");
+    const navMenu = document.querySelector(".nav-menu");
+
+    function test(){
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navMenu.classList.toggle("active");
+          })
+    }
+
     return (
-        <div className="headerDesign">
-          <div className="header">
-            <div className='hamburger'>
-              <span className='bar'></span>
-              <span className='bar'></span>
-              <span className='bar'></span>
+        <header>
+            <div class="container"> 
+                <nav class="navbar">
+                    <a onClick={home} class="nav-branding">Novels</a>
+                    <ul class="nav-menu">
+                        <li class="nav-item">
+                            <a className='nav-link'>Hits</a>
+                        </li>
+                        <li class="nav-item">
+                            <a className='nav-link'>Most Popular</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Create</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link">Search</a>
+                        </li>
+                        <li>
+                            <a className='nav-link' onClick={profileButtonClicked}>
+                                {loggedIn ? "Profile" : "Log In or create Account"}
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="hamburger" onClick={test}>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                </nav>
             </div>
-      
-            <button className='button' onClick={() => home()}>Home</button>
-            <button className='button'>Hits</button>
-            <button className='button'>Most Popular</button>
-            <button className='button'>Create</button>
-            <button className='button'>Search</button>
-            <button className='profileButton' onClick={profileButtonClicked}>
-              {loggedIn ? "Profile" : "Log In or create Account"}
-            </button>
-          </div>
-        </div>
+        </header>
       );
       
 }
