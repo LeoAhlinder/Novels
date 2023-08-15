@@ -5,14 +5,12 @@ import { useNavigate } from "react-router-dom"
 const Profile = () => {
     const navigate = useNavigate();
 
-
     if (!localStorage.getItem("authToken")){
         logOut()
     }
 
     function logOut(){
         localStorage.removeItem("authToken")
-        localStorage.setItem("logIn_status","false")
         localStorage.removeItem("userName")
         navigate("/")
     }

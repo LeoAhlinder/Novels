@@ -121,7 +121,6 @@ const LogIn = () =>{
                     localStorage.setItem("authToken", response.token);    
                     const userName = response.userName;
                     localStorage.setItem("userName",userName)
-                    localStorage.setItem("logIn_status","true")
                     //setLoggedIn(true);
                     navigate("/Profile");
                 }

@@ -45,11 +45,6 @@ const connection = mysql.createConnection({
     }
   })
 
-
-app.get("/api/profile",function(req,res){
-  
-})
-  
 app.get("/api/library/", ensureToken, async (req, res) => {
   jwt.verify(req.token, secretkey, async function(err, decodedToken) {
       if (err) {
