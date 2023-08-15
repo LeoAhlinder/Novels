@@ -11,22 +11,60 @@ const Header = () => {
         console.log("TESt222")
     }
 
-    useEffect(() =>{
-        if (localStorage.getItem("logIn_status") === "true"){
+    useEffect(() => {
+        (async () => {
+          const tok = await checkToken();
+          console.log(tok);
+          if (tok === "valid"){
             setLoggedIn(true)
+          }
+          else{
+            setLoggedIn(false)
+          }
+        })();
+      });
+      
+
+    const checkToken = async () => {
+        try {
+            const token = localStorage.getItem("authToken");
+
+            if (!token) {
+                return "unvalid"
+            } else {
+                const res = await fetch(`http://localhost:3001/api/protected/`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                const response = await res.json();
+                console.log(response);
+                if (response.message === "this is protected"){
+                    return "valid"
+                }
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+
+
+    const profileButtonClicked = async () =>{
+        const token = await checkToken()
+        if (token === "valid"){
+            navigate("/Profile")
         }
         else{
-            setLoggedIn(false)
+            navigate("logIn")
         }
-    })
 
-    
-    const profileButtonClicked = () => {
-        navigate("/Profile");
     }
-    const logIn =  () =>{
-        navigate("/logIn")
-    }
+
     const home = () =>{
         navigate("/")
     }
@@ -39,7 +77,7 @@ const Header = () => {
                     <button className='button'>Most Popular</button>
                     <button className='button'>Create</button>
                     <button className='button'>Search</button>
-                    <button className='profileButton' onClick={loggedIn ? profileButtonClicked : logIn}>
+                    <button className='profileButton' onClick={profileButtonClicked}>
                         {loggedIn ? "Profile" : "Log In or create Account"}
                     </button>
                 </div>
