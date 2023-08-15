@@ -67,33 +67,42 @@ const Header = () => {
         navigate("/")
     }
 
-    const hamburger = document.querySelector(".hamburger");
-    const navMenu = document.querySelector(".nav-menu");
 
-    function test(){
+    useEffect(() => {
+        const hamburger = document.querySelector(".hamburger"); // Assuming you have an element with the ID "hamburger"
+        const navMenu = document.querySelector(".nav-menu");     // Assuming you have an element with the ID "nav-menu"
+    
+        console.log(hamburger,navMenu)
+
         hamburger.addEventListener("click", () => {
             hamburger.classList.toggle("active");
             navMenu.classList.toggle("active");
           })
-    }
+        },);
+
+        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
+            hamburger.classList.remove("active");
+            navMenu.classList.remove("active");
+        }
+    ))
 
     return (
         <header>
-            <div class="container"> 
-                <nav class="navbar">
-                    <a onClick={home} class="nav-branding">Novels</a>
-                    <ul class="nav-menu">
-                        <li class="nav-item">
+            <div className="container"> 
+                <nav className="navbar" id='nav-menu'>
+                    <a onClick={home} className="nav-branding">Novels</a>
+                    <ul className="nav-menu">
+                        <li className="nav-item">
                             <a className='nav-link'>Hits</a>
                         </li>
-                        <li class="nav-item">
+                        <li className="nav-item">
                             <a className='nav-link'>Most Popular</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link">Create</a>
+                        <li className="nav-item">
+                            <a className="nav-link">Create</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link">Search</a>
+                        <li className="nav-item">
+                            <a className="nav-link">Search</a>
                         </li>
                         <li>
                             <a className='nav-link' onClick={profileButtonClicked}>
@@ -101,10 +110,10 @@ const Header = () => {
                             </a>
                         </li>
                     </ul>
-                    <div class="hamburger" onClick={test}>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
+                    <div className="hamburger" id='hamburger'>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
                     </div>
                 </nav>
             </div>
