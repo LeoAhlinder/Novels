@@ -54,6 +54,7 @@ const Header = () => {
 
     const profileButtonClicked = async () =>{
         const token = await checkToken()
+        closeMenu()
         if (token === "valid"){
             navigate("/Profile")
         }
@@ -65,44 +66,38 @@ const Header = () => {
 
     const home = () =>{
         navigate("/")
+        setIsMenuOpen(false);
     }
 
 
-    useEffect(() => {
-        const hamburger = document.querySelector(".hamburger"); // Assuming you have an element with the ID "hamburger"
-        const navMenu = document.querySelector(".nav-menu");     // Assuming you have an element with the ID "nav-menu"
-    
-        console.log(hamburger,navMenu)
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-        hamburger.addEventListener("click", () => {
-            hamburger.classList.toggle("active");
-            navMenu.classList.toggle("active");
-          })
-        },);
+    const toggleMenu = () => {
+      setIsMenuOpen(prevState => !prevState);
+    };
+  
+    const closeMenu = () => {
+      setIsMenuOpen(false);
+    };
 
-        document.querySelectorAll(".nav-link").forEach(n => n.addEventListener("click", () => {
-            hamburger.classList.remove("active");
-            navMenu.classList.remove("active");
-        }
-    ))
 
     return (
         <header>
             <div className="container"> 
                 <nav className="navbar" id='nav-menu'>
                     <a onClick={home} className="nav-branding">Novels</a>
-                    <ul className="nav-menu">
+                    <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li className="nav-item">
                             <a className='nav-link'>Hits</a>
                         </li>
                         <li className="nav-item">
-                            <a className='nav-link'>Most Popular</a>
+                            <a className='nav-link' onClick={closeMenu}>Most Popular</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link">Create</a>
+                            <a className="nav-link" onClick={closeMenu}>Create</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link">Search</a>
+                            <a className="nav-link" onClick={closeMenu}>Search</a>
                         </li>
                         <li>
                             <a className='nav-link' onClick={profileButtonClicked}>
@@ -110,7 +105,7 @@ const Header = () => {
                             </a>
                         </li>
                     </ul>
-                    <div className="hamburger" id='hamburger'>
+                    <div className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu} id='hamburger'>
                         <span className="bar"></span>
                         <span className="bar"></span>
                         <span className="bar"></span>
