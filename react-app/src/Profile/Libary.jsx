@@ -27,7 +27,6 @@ const Library = () => {
 
         if (res.ok) {
           const response = await res.json();
-          // Assuming your response.data contains the array of books
           setBooks(response.data);
         } else {
           console.log("error");
@@ -37,7 +36,7 @@ const Library = () => {
       }
     };
 
-    userLibrary(1); // Replace 1 with the actual userId
+    userLibrary();
   }, []);
 
   return (

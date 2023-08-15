@@ -7,6 +7,10 @@ const Header = () => {
     const navigate = useNavigate();
     const [loggedIn, setLoggedIn] = useState(false);
 
+    if (window.scrollY > 20){
+        console.log("TESt222")
+    }
+
     useEffect(() =>{
         if (localStorage.getItem("logIn_status") === "true"){
             setLoggedIn(true)
@@ -16,7 +20,7 @@ const Header = () => {
         }
     })
 
-
+    
     const profileButtonClicked = () => {
         navigate("/Profile");
     }
