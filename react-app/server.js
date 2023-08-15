@@ -47,7 +47,7 @@ const connection = mysql.createConnection({
 
 
 app.get("/api/profile",function(req,res){
-
+  
 })
   
 app.get("/api/library/", ensureToken, async (req, res) => {
@@ -157,9 +157,10 @@ app.post("/api/logIn",function(req,res){
     if (results.length > 0){
 
       const user = results[0]; // Assuming results contain user data
+      const userName = user.userName;
       const token = jwt.sign({ user: user.userid }, secretkey);
       
-      res.json({ message: "user exist", token: token });
+      res.json({ message: "user exist",userName:userName, token: token });
     }
     else{
       res.json({message:"no user exist"})

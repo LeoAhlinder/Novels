@@ -119,6 +119,8 @@ const LogIn = () =>{
                 const response = await res.json()
                 if (response.message === "user exist"){
                     localStorage.setItem("authToken", response.token);    
+                    const userName = response.userName;
+                    localStorage.setItem("userName",userName)
                     localStorage.setItem("logIn_status","true")
                     //setLoggedIn(true);
                     navigate("/Profile");
@@ -147,4 +149,5 @@ const LogIn = () =>{
         </div>
     );
 }
+
 export default LogIn;

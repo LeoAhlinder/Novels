@@ -17,7 +17,6 @@ const Profile = () => {
                     method: "GET",
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`
                     }
                 });
                 const response = await res.json();
@@ -44,15 +43,19 @@ const Profile = () => {
     function logOut(){
         localStorage.removeItem("authToken")
         localStorage.setItem("logIn_status","false")
+        localStorage.removeItem("userName")
         navigate("/")
-
     }
+
+    const userName = localStorage.getItem("userName")
+    console.log(userName)
 
     return (
         <div>
             <div className='profileHeader'>
                 <h1 className='profileHeader'>Profile Page</h1>
                 <button onClick={logOut} className='logout'>Log Out</button>
+                <p className='userName'>Welcome, {userName}</p>
             </div>
             <div>
                 <Library/>
