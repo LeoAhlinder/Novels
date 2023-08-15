@@ -1,4 +1,4 @@
-/* headerStyle.css */.headerDesign {
+.headerDesign {
   background-color: black;
 }
 
@@ -13,7 +13,6 @@
   min-width: 350px;
   position: relative; /* Add position relative to the header container */
 }
-
 .button,
 .profileButton {
   color: #acacac;
@@ -56,26 +55,33 @@
     }
   }
 
-  @media screen and (max-width: 450px) {
-    .header {
-      flex-wrap: wrap;
-      font-size: 75%;
-      margin-left: 0;
-    }
-  }
 
-  @media screen and (max-width: 200px) {
-    .header {
-      flex-wrap: wrap;
-      font-size: 40%;
-      margin-left: 0;
-    }
-  }
+.hamburger{
+  display: none;
+  cursor: pointer;
+}
 
-  @media screen and (max-width: 100px) {
-    .header {
-      flex-wrap: wrap;
-      font-size: 20%;
-      margin-left: 0;
+.bar{
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: white;
+}
+
+@media (max-width:1085px) {
+    .hamburger{
+      display: block;
+      margin: auto;
+      align-items: none;
+      justify-content: none;
     }
-  }
+    .button{
+      display: none;
+    }
+    .profileButton{
+      display: none;
+    }
+}

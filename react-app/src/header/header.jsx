@@ -68,19 +68,26 @@ const Header = () => {
     }
 
     return (
-            <div className="headerDesign">
-                <div className="header">
-                    <button className='button' onClick={() => home()}>Home</button>
-                    <button className='button'>Hits</button>
-                    <button className='button'>Most Popular</button>
-                    <button className='button'>Create</button>
-                    <button className='button'>Search</button>
-                    <button className='profileButton' onClick={profileButtonClicked}>
-                        {loggedIn ? "Profile" : "Log In or create Account"}
-                    </button>
-                </div>
+        <div className="headerDesign">
+          <div className="header">
+            <div className='hamburger'>
+              <span className='bar'></span>
+              <span className='bar'></span>
+              <span className='bar'></span>
             </div>
-    );
+      
+            <button className='button' onClick={() => home()}>Home</button>
+            <button className='button'>Hits</button>
+            <button className='button'>Most Popular</button>
+            <button className='button'>Create</button>
+            <button className='button'>Search</button>
+            <button className='profileButton' onClick={profileButtonClicked}>
+              {loggedIn ? "Profile" : "Log In or create Account"}
+            </button>
+          </div>
+        </div>
+      );
+      
 }
 
 export default Header
