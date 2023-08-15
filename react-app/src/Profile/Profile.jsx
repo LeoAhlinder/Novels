@@ -23,6 +23,10 @@ const Profile = () => {
                 <h1 className='profileHeader'>Profile Page</h1>
                 <button onClick={logOut} className='logout'>Log Out</button>
                 <p className='userName'>Welcome, {userName}</p>
+                <button className="InfoButton">Info</button>
+                <button className="TestButton">test</button>
+                <button className="YesButton">test5</button>
+
             </div>
             <div>
                 <Library/>

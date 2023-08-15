@@ -82,7 +82,7 @@ const Header = () => {
 
 
     return (
-        <header>
+        <header className='layers'>
             <div className="container"> 
                 <nav className="navbar" id='nav-menu'>
                     <a onClick={home} className="nav-branding">Novels</a>
