@@ -5,6 +5,7 @@ import Profile from "./Profile/Profile"
 import BookPage from "./bookpage/bookpage"
 import LogIn from "./logIn/logIn"
 import Home from "./Home/Home"
+import Create from "./Create/create"
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route exact path="/Profile" Component={Profile}/>
             <Route exact path="/book" Component={BookPage}/>
             <Route exact path='/logIn' Component={LogIn}/>
+            <Route exact path='/create' Component={Create}/>
           </Routes>
       </div>
     </Router>  

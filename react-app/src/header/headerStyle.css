@@ -66,6 +66,7 @@ a{
   .hamburger{
     display: block;
   }
+  /*Remove the middle bar and rotate the top and bottom one to make it look like an "x"*/
  .hamburger.active .bar:nth-child(2){
     opacity: 0  ;
   }

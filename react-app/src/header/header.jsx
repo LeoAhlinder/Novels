@@ -7,10 +7,6 @@ const Header = () => {
     const navigate = useNavigate();
     const [loggedIn, setLoggedIn] = useState(false);
 
-    if (window.scrollY > 20){
-        console.log("TESt222")
-    }
-
     useEffect(() => {
         (async () => {
           const tok = await checkToken();
@@ -69,6 +65,11 @@ const Header = () => {
         setIsMenuOpen(false);
     }
 
+    const create = () =>{
+        navigate("/create")
+        setIsMenuOpen(false);
+    }
+
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
@@ -88,13 +89,10 @@ const Header = () => {
                     <a onClick={home} className="nav-branding">Novels</a>
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li className="nav-item">
-                            <a className='nav-link'>Hits</a>
-                        </li>
-                        <li className="nav-item">
                             <a className='nav-link' onClick={closeMenu}>Most Popular</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" onClick={closeMenu}>Create</a>
+                            <a className="nav-link" onClick={create}>Create</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" onClick={closeMenu}>Search</a>
