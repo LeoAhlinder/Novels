@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../Profile/profile.css"
 import Library from "./Libary"
 import { useNavigate } from "react-router-dom"
@@ -18,19 +18,24 @@ const Profile = () => {
 
     const userName = localStorage.getItem("userName")
 
-    const [selected,changeSelected] = useState("0")
-  
+    const [selected,changeSelected] = useState(localStorage.getItem("selectedProfile"))
+
+    localStorage.setItem("selectedProfile",selected)
+
     const info = () =>{
         changeSelected("1")
     }
-    const NovelCreated = () =>{
+    const Comments = () =>{
         changeSelected("2")
     }
-    const Comments = () =>{
+    const NovelCreated = () =>{
         changeSelected("3")
     }
     const LibraryButton = () =>{
         changeSelected("4")
+    }
+    const Reviews = () =>{
+        changeSelected("5")
     }
   
     return (
@@ -40,12 +45,13 @@ const Profile = () => {
                 <button onClick={logOut} className='logout'>Log Out</button>
                 <p className='userName'>Welcome, {userName}</p>
                 <button onClick={info}className={selected === "1" ? "InfobuttonClicked" : "InfoButton"}>Info</button>
-                <button onClick={NovelCreated}className={selected === "2" ? "NovelsCreatedButtonClicked" : "NovelsCreated"}>Novels Created</button>
-                <button onClick={Comments} className={selected === "3" ? "CommentsbuttonClicked" : "Comments"}>Comments</button>
+                <button onClick={Comments} className={selected === "2" ? "CommentsbuttonClicked" : "Comments"}>Comments</button>
+                <button onClick={NovelCreated}className={selected === "3" ? "NovelsCreatedButtonClicked" : "NovelsCreated"}>Novels Created</button>
                 <button onClick={LibraryButton} className={selected === "4" ? "LibraryButtonClicked" : "LibraryButton"}>Library</button>
+                <button onClick={Reviews} className={selected === "5" ? "ReviewsButtonClicked" : "ReviewButton"}>Reviews</button>
             </div>
             <div>
-                <Library/>
+                {selected === "4" ? <Library/>: ""}
             </div>
         </div>
     );

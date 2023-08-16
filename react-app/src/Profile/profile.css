@@ -139,10 +139,22 @@ body {
     display: flex;
     align-items: center;
     margin-left: 3%;
-
+}
+.ReviewButton{
+    border: none;
+    border-bottom: transparent;
+    transition: 0.3s ease-out;
+    font-size: 65%;
+    background-color: transparent;
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    margin-left: 3%;
 }
 
-.NovelsCreated:hover,.Comments:hover,.InfoButton:hover{
+.NovelsCreated:hover,.Comments:hover,.InfoButton:hover,.LibraryButton:hover{
     color: dodgerblue;
     border-bottom: 2% dodgerblue;
 }
@@ -212,9 +224,24 @@ body {
     display: flex;
     align-items: center;
     margin-left: 3%;
-
+}
+.ReviewsButtonClicked{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom:1px solid dodgerblue;
+    transition: 0.3s ease-out;
+    font-size: 65%;
+    background-color: transparent;
+    color: dodgerblue;
+    position: absolute;
+    bottom: 2%;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    margin-left: 3%;
 }
 
-@media screen and (max-width:800px) {
-    
-}
+/*@media screen and (max-width:800px) {
+    .LibraryButtonClicked,.LibraryButton
+}*/
