@@ -1,13 +1,21 @@
 import React from "react";
 import "./createstyle.css"
+import { useNavigate } from "react-router";
 
 const Create = () =>{
+
+    const navigate = useNavigate()
+
+    const CreateNew = () =>{
+        navigate("/create/CreateNew")
+    }
 
     return(
         <div className="sideBar">
             <h1 >Dashboard</h1>
-            <button>WorkSpace</button>
-            <button>Create</button>
+            <button className="button">WorkSpace</button>
+            <br />
+            <button className="button" onClick={CreateNew}>New Novel</button>
 
         </div>
     );

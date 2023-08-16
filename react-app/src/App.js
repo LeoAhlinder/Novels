@@ -6,23 +6,27 @@ import BookPage from "./bookpage/bookpage"
 import LogIn from "./logIn/logIn"
 import Home from "./Home/Home"
 import Create from "./Create/create"
-
+import CreateNew from "./Create/createNew"
 
 function App() {
-    return (
+  return (
     <Router>
       <div>
-      <Header/>
-          <Routes>
-            <Route exact path="/" Component={Home}/>
-            <Route exact path="/Profile" Component={Profile}/>
-            <Route exact path="/book" Component={BookPage}/>
-            <Route exact path='/logIn' Component={LogIn}/>
-            <Route exact path='/create' Component={Create}/>
-          </Routes>
+        <Header />
+        <Create/>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/Profile" element={<Profile />} />
+          <Route path="/book" element={<BookPage />} />
+          <Route path="/logIn" element={<LogIn />} />
+          <Route path="/create" element={<Create />}>
+          <Route path="/create/CreateNew" element={<CreateNew />} />
+          </Route>
+        </Routes>
       </div>
-    </Router>  
-    );
+    </Router>
+  );
 }
+
 
 export default App;

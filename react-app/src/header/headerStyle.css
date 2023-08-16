@@ -49,6 +49,9 @@ a{
   color: dodgerblue;
   cursor: pointer;
 }
+.nav-link:active{
+  color: blue;
+}
 .hamburger{
   display: none;
   cursor: pointer;
