@@ -93,14 +93,10 @@ body {
 }
 
 .InfoButton{
-    border-left: none;
-    border-right: none;
-    border-top: none;
+    border: none;
     border-bottom: transparent;
     transition: 0.3s ease-out;
     font-size: 65%;
-
-
     background-color: transparent;
     position: absolute;
     bottom: 2%;
@@ -108,14 +104,10 @@ body {
     display: flex;
     align-items: center;
 }
-.TestButton{
-    border-left: none;
-    border-right: none;
-    border-top: none;
+.Comments{
+    border: none;
     transition: 0.3s ease-out;
     font-size: 65%;
-
-
     background-color: transparent;
     position: absolute;
     bottom: 2%;
@@ -123,14 +115,10 @@ body {
     display: flex;
     align-items: center;
 }
-.YesButton{
-    border-left: none;
-    border-right: none;
-    border-top: none;
+.NovelsCreated{
+    border: none;
     transition: 0.3s ease-out;
     font-size: 65%;
-
-
     background-color: transparent;
     position: absolute;
     bottom: 2%;
@@ -139,9 +127,57 @@ body {
     align-items: center;
 }
 
-.YesButton:hover,.TestButton:hover,.InfoButton:hover{
+.NovelsCreated:hover,.Comments:hover,.InfoButton:hover{
     color: dodgerblue;
     border-bottom: 2% dodgerblue;
+}
+
+.InfobuttonClicked{
+    background-color: transparent;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom:2px rebeccapurple;
+    transition: 0.3s ease-out;
+    font-size: 65%;
+    position: absolute;
+    bottom: 2%;
+    left: 5%;
+    display: flex;
+    align-items: center;
+    color: dodgerblue;
 
 }
 
+.CommentsbuttonClicked{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom:none;
+    transition: 0.3s ease-out;
+    font-size: 65%;
+    background-color: transparent;
+    position: absolute;
+    bottom: 2%;
+    left: 15%;
+    display: flex;
+    align-items: center;
+    color: dodgerblue;
+
+}
+
+.NovelsCreatedButtonClicked{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom:none;
+    transition: 0.3s ease-out;
+    font-size: 65%;
+    background-color: transparent;
+    color: dodgerblue;
+    position: absolute;
+    bottom: 2%;
+    left: 25%;
+    display: flex;
+    align-items: center;
+}
