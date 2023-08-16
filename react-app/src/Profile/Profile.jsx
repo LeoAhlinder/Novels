@@ -29,6 +29,9 @@ const Profile = () => {
     const Comments = () =>{
         changeSelected("3")
     }
+    const LibraryButton = () =>{
+        changeSelected("4")
+    }
   
     return (
         <div>
@@ -39,6 +42,7 @@ const Profile = () => {
                 <button onClick={info}className={selected === "1" ? "InfobuttonClicked" : "InfoButton"}>Info</button>
                 <button onClick={NovelCreated}className={selected === "2" ? "NovelsCreatedButtonClicked" : "NovelsCreated"}>Novels Created</button>
                 <button onClick={Comments} className={selected === "3" ? "CommentsbuttonClicked" : "Comments"}>Comments</button>
+                <button onClick={LibraryButton} className={selected === "4" ? "LibraryButtonClicked" : "LibraryButton"}>Library</button>
             </div>
             <div>
                 <Library/>

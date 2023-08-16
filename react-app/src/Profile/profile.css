@@ -125,6 +125,21 @@ body {
     left: 25%;
     display: flex;
     align-items: center;
+    margin-left: 3%;
+}
+.LibraryButton{
+    border: none;
+    border-bottom: transparent;
+    transition: 0.3s ease-out;
+    font-size: 65%;
+    background-color: transparent;
+    position: absolute;
+    bottom: 2%;
+    left: 40%;
+    display: flex;
+    align-items: center;
+    margin-left: 3%;
+
 }
 
 .NovelsCreated:hover,.Comments:hover,.InfoButton:hover{
@@ -137,7 +152,7 @@ body {
     border-left: none;
     border-right: none;
     border-top: none;
-    border-bottom:2px rebeccapurple;
+    border-bottom:1px solid dodgerblue;
     transition: 0.3s ease-out;
     font-size: 65%;
     position: absolute;
@@ -153,7 +168,7 @@ body {
     border-left: none;
     border-right: none;
     border-top: none;
-    border-bottom:none;
+    border-bottom:1px solid dodgerblue;
     transition: 0.3s ease-out;
     font-size: 65%;
     background-color: transparent;
@@ -170,7 +185,7 @@ body {
     border-left: none;
     border-right: none;
     border-top: none;
-    border-bottom:none;
+    border-bottom:1px solid dodgerblue;
     transition: 0.3s ease-out;
     font-size: 65%;
     background-color: transparent;
@@ -180,4 +195,26 @@ body {
     left: 25%;
     display: flex;
     align-items: center;
+    margin-left: 3%;
+}
+.LibraryButtonClicked{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-bottom:1px solid dodgerblue;
+    transition: 0.3s ease-out;
+    font-size: 65%;
+    background-color: transparent;
+    color: dodgerblue;
+    position: absolute;
+    bottom: 2%;
+    left: 40%;
+    display: flex;
+    align-items: center;
+    margin-left: 3%;
+
+}
+
+@media screen and (max-width:800px) {
+    
 }
