@@ -18,9 +18,9 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/book" element={<BookPage />} />
           <Route path="/logIn" element={<LogIn />} />
-          <Route path="/create" element={<Create />}>
-          <Route path="/create/CreateNew" element={<CreateNew />} />
-          </Route>
+            <Route path="/create" element={<Create />}>
+              <Route path="/create/createNovel" element={<CreateNew />} />
+            </Route>
         </Routes>
       </div>
     </Router>

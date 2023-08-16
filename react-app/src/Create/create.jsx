@@ -7,7 +7,7 @@ const Create = () =>{
     const navigate = useNavigate()
 
     const CreateNew = () =>{
-        navigate("/create/CreateNew")
+        navigate("./createNovel")
     }
 
     return(
