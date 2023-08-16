@@ -146,8 +146,8 @@ const LogIn = () =>{
             {inputFields.map((field) => (
                 <input className='input' placeholder={field.placeholder} id={field.id} type={field.type} key={field.id}/>
             ))}
-            <button className="Button" onClick={() =>logInF()}>Log In</button>
-            <button className="Button" onClick={addInputFieldAllowed ? addInputField : createAccount}>Create Account</button>
+            <button type='button' className="Button" onClick={() =>logInF()}>Log In</button>
+            <button type="button" className="Button" onClick={addInputFieldAllowed ? addInputField : createAccount}>Create Account</button>
         </div>
     );
 }

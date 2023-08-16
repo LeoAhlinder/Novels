@@ -18,7 +18,11 @@ body {
     @media screen and (max-width: 320px) {
         font-size: 8px; /* Further adjust the font size for even smaller screens */
     }
-    
+    @media screen and (max-width: 50px) {
+        font-size: 3px; /* Further adjust the font size for even smaller screens */
+
+    }
+
 }
 
 .logout:hover{
@@ -40,6 +44,7 @@ body {
     @media screen and (max-width: 320px) {
         font-size: 8px; /* Further adjust the font size for even smaller screens */
     }
+    
 }
 
 
@@ -83,12 +88,23 @@ body {
     }
 
     @media screen and (max-width: 240px) {
-        font-size: 10px; /* Further adjust the font size for even smaller screens */
+        font-size: 11px; /* Further adjust the font size for even smaller screens */
+        margin-top: 40%;
     }
     
-    @media screen and (max-width: 90px) {
+    @media screen and (max-width: 200px) {
+        font-size: 10px; /* Further adjust the font size for even smaller screens */
+        margin-top: 60%;
+
+    }
+    
+    @media screen and (max-width: 130px) {
         font-size: 3px; /* Further adjust the font size for even smaller screens */
         margin-top: 70%;
+    }
+    @media screen and (max-width: 50px) {
+        font-size: 3px; /* Further adjust the font size for even smaller screens */
+        margin-top: 150%;
     }
 }
 
