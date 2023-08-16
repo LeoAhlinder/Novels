@@ -57,21 +57,38 @@ body {
     font-size: 25px;
     margin-top: 9%;
     bottom: 50px;
-    /* Media query for screens with width up to 470 pixels */
-    @media screen and (max-width: 470px) {
+
+    @media screen and (max-width: 900px) {
         margin-left: 0;
         margin-right: 0;
         font-size: 16px; /* Adjust the font size for smaller screens */
         border-radius: 0;
+        margin-top: 25%;
+
+    }
+    /* Media query for screens with width up to 470 pixels */
+    @media screen and (max-width: 700px) {
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 16px; /* Adjust the font size for smaller screens */
+        border-radius: 0;
+        margin-top: 25%;
+
     }
 
     /* Media query for screens with width up to 320 pixels */
     @media screen and (max-width: 320px) {
         font-size: 14px; /* Further adjust the font size for even smaller screens */
+        margin-top: 40%;
     }
 
     @media screen and (max-width: 240px) {
         font-size: 10px; /* Further adjust the font size for even smaller screens */
+    }
+    
+    @media screen and (max-width: 90px) {
+        font-size: 3px; /* Further adjust the font size for even smaller screens */
+        margin-top: 70%;
     }
 }
 

@@ -89,6 +89,7 @@ a{
     width: 100%;
     text-align: center;
     transition: 0.35s;
+    padding-bottom: 2%;
   }
  .nav-item{
     margin: 18px 0px;

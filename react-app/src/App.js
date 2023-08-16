@@ -13,7 +13,6 @@ function App() {
     <Router>
       <div>
         <Header />
-        <Create/>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/Profile" element={<Profile />} />

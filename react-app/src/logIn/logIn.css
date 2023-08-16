@@ -37,13 +37,76 @@
     transform: scale(1.1)
 }
 
-@media screen and (max-width:500px) {
-    .Button{
-       font-size: 70%;
-    }
-    .input{
-        width: 60%;
-        height: 17%;
+.createNew{
+    background-color: grey;
+    border: 2px solid #333;
+    padding: 20px;
+    width: 45vw;
+    height: 30vh;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10%;
+    border: none;
+    border-radius: 5px;
+    height: 50%;
+}
+
+
+@media screen and (max-width:800px) {
+    .loginBox,.createNew{    
+        margin-top: 12%;
     }
 }
+
+@media screen and (max-width:640px) {
+    .loginBox,.createNew{    
+        margin-top: 20%;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .loginBox,.createNew{    
+        margin-top: 26%;
+    }
+}
+
+@media screen and (max-width:340px) {
+    .loginBox,.createNew{    
+        margin-top: 30%;
+    }
+}
+
+@media screen and (max-width:240px) {
+    .loginBox,.createNew{    
+        margin-top: 40%;
+    }
+}
+
+@media screen and (max-width:170px) {
+    .loginBox,.createNew{    
+        margin-top: 52%;
+    }
+    .Button{
+        font-size: 100%;
+    }
+}
+
+@media screen and (max-width:170px) {
+    .loginBox,.createNew{    
+        margin-top: 70%;
+    }
+    .Button{
+        font-size: 80%;
+    }
+}
+
+@media screen and (max-width:70px) {
+    .loginBox,.createNew{    
+        margin-top: 80%;
+    }
+    .Button{
+        font-size: 60%;
+    }
+}
+
 

@@ -19,6 +19,7 @@ const LogIn = () =>{
 
     //Add a input field
     const addInputField = () =>{
+        ChangeClass("createNew")
         setInputFields([
             ...inputFields,
             {placeholder:"User Name",id:"userName"}
@@ -137,9 +138,11 @@ const LogIn = () =>{
         }
     }
 
+    const [boxClass,ChangeClass] = useState("loginBox")
+
 
     return (
-        <div className="loginBox">
+        <div className={boxClass}>
             {inputFields.map((field) => (
                 <input className='input' placeholder={field.placeholder} id={field.id} type={field.type} key={field.id}/>
             ))}
