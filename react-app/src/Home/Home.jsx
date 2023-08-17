@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useState,useEffect } from "react";
 import "./Homestyle.css"
 import LibraryPicBig from "../Pictures/librarypic_3_1280x300.jpg"
 
 const Home = () =>{
+
+    const [latestBooks, setLatestBooks] = useState([]);
 
 
     useEffect(()=>{
@@ -19,6 +21,7 @@ const Home = () =>{
                 if (res.ok){
                     const response = await res.json()
                     console.log(response)
+                    setLatestBooks(response)
                 }
 
             }catch(err){
@@ -27,9 +30,13 @@ const Home = () =>{
         }
 
         latestReleases();
-    })
+        setTimeout(()=>{
+            console.log(latestBooks)
+
+        },"3000")    
 
 
+    },[])
 
 
     return(
@@ -39,6 +46,7 @@ const Home = () =>{
             </div>
             <ul className="homeWrapper">
             <ul className="grid-container">
+                {}
                 <li className="grid-item">1</li>
                 <li className="grid-item">2</li>
                 <li className="grid-item">3</li>  
