@@ -40,6 +40,8 @@ const Home = () => {
               {book.title} 
               <br />
               {book.totalpages}
+              <br />
+              {book.release_date}
 
             </li>
           ))}
