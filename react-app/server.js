@@ -190,3 +190,12 @@ function ensureToken(req,res,next){
     res.sendStatus(403)
   }
 }
+
+app.get("/api/latest",function(req,res){
+  
+  const query = "SELECT * FROM lightnovelonline.books ORDER BY STR_TO_DATE(`release`, '%Y/%m/%d') DESC;"
+
+  connection.query(query,function(err,results){
+    res.json({books:results})
+  })
+})
