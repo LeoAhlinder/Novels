@@ -1,68 +1,52 @@
-import React, { useState,useEffect } from "react";
-import "./Homestyle.css"
-import LibraryPicBig from "../Pictures/librarypic_3_1280x300.jpg"
+import React, { useEffect, useState } from "react";
+import "./Homestyle.css";
+import LibraryPicBig from "../Pictures/librarypic_3_1280x300.jpg";
 
-const Home = () =>{
+const Home = () => {
+  const [latestBooks, setLatestBooks] = useState([]);
 
-    const [latestBooks, setLatestBooks] = useState([]);
+  useEffect(() => {
+    const fetchLatestReleases = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/api/latest", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        });
 
-
-    useEffect(()=>{
-        const latestReleases = async () =>{
-            try{
-                const res = await fetch("http://localhost:3001/api/latest",{
-                    method:"GET",
-                    headers:{
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                    }
-                });
-
-                if (res.ok){
-                    const response = await res.json()
-                    console.log(response)
-                    setLatestBooks(response)
-                }
-
-            }catch(err){
-                console.log(err)
-            }
+        if (res.ok) {
+          const response = await res.json();
+          setLatestBooks(response.books); // Store fetched data in state
         }
+      } catch (err) {
+        console.log(err);
+      }
+    };
 
-        latestReleases();
-        setTimeout(()=>{
-            console.log(latestBooks)
+    fetchLatestReleases();
+  },[]);
 
-        },"3000")    
+  return (
+    <div>
+      <div className="homeIntro">
+        <img src={LibraryPicBig} alt="" />
+      </div>
+      <ul className="homeWrapper">
+        <ul className="grid-container">
+          {latestBooks.map((book, index) => (
+            <li key={index} className="grid-item">
+              {book.title} 
+              <br />
+              {book.totalpages}
 
-
-    },[])
-
-
-    return(
-        <div>
-            <div className="homeIntro">
-                <img src={LibraryPicBig} alt="" />
-            </div>
-            <ul className="homeWrapper">
-            <ul className="grid-container">
-                {}
-                <li className="grid-item">1</li>
-                <li className="grid-item">2</li>
-                <li className="grid-item">3</li>  
-                <li className="grid-item">4</li>
-                <li className="grid-item">5</li>
-                <li className="grid-item">6</li>  
-                <li className="grid-item">7</li>
-                <li className="grid-item">8</li>
-                <li className="grid-item">9</li>  
-                <li className="grid-item">10</li>  
-                <li className="grid-item">11</li>  
-                <li className="grid-item">12</li>  
-            </ul>
-            </ul>
-        </div>
-    )
-}
+            </li>
+          ))}
+        </ul>
+      </ul>
+    </div>
+  );
+};
 
 export default Home;
