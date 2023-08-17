@@ -9,6 +9,14 @@
     margin-left: 10%;
     margin-right: 10%;
     height: 100vh;
+
+    @media screen and (max-width:700px) {
+        margin-top: 30%;
+    }
+    @media screen and (max-width:370px) {
+        margin-top: 40%;
+
+    }
 }
 
 .homeIntro{
@@ -29,3 +37,34 @@
     height: auto;
 
 }
+
+img{
+    height: auto;
+    width: 100%;
+    margin-top: 27%;
+
+    @media screen and (max-width:1450px) {
+        margin-top: 33%;
+    }
+    @media screen and (max-width:700px) {
+        margin-top: 37%;
+        height: 300%;
+        width: 75%;
+    }
+    @media screen and (max-width:550px) {
+        margin-top: 44%;
+        width: 85%;
+    }
+    @media screen and (max-width:370px) {
+        margin-top: 51%;
+        width:80%
+    }
+    @media screen and (max-width:370px) {
+        margin-top: 60%;
+        width:80%;
+        height:275%;
+    }
+}
+
+
+
