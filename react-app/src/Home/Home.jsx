@@ -37,6 +37,7 @@ const Home = () => {
         <ul className="grid-container">
           {latestBooks.map((book, index) => (
             <li key={index} className="grid-item">
+              <img src={book.bookcover} alt="bookCover" className="grid-picture"/>
               {book.title} 
               <br />
               {book.totalpages}

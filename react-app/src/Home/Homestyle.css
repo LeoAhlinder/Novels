@@ -33,7 +33,13 @@
     border: 1px solid rgba(0, 0, 0, 0.8);
     padding: 20px;
     font-size: 20px;
-    text-align: center;
+    align-items: center;
+  }
+  .grid-picture{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    left: 0;
   }
 
 
