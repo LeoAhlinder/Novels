@@ -1,0 +1,25 @@
+.Library{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-color: gray;
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 5px;
+    height: 70vh;
+    margin-bottom: 4%;
+}
+
+
+.BookList {
+    background-color: beige;
+    margin-top: 0.25%;
+    border-radius: 5px;
+    width: 80vw;
+    height: 5vh;
+    margin-right: 3%;
+    justify-content: initial;
+    align-items: initial;
+    display:flex;
+    border: none;
+  }

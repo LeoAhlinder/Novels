@@ -206,7 +206,6 @@ app.get("/api/novelsCreated",ensureToken,function(req,res){
       res.sendStatus(403)
     }
     else{
-      console.log("workes")
       const userID = decodedToken.user;
       const data = await usersNovels(userID)
       res.json({data:data})
