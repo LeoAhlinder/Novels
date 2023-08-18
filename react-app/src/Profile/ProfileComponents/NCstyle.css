@@ -1,4 +1,4 @@
-.Library{
+.Novels{
     justify-content: center;
     align-items: center;
     display: flex;
@@ -6,7 +6,7 @@
     margin-left: 5%;
     margin-right: 5%;
     border-radius: 5px;
-    height: 70vh;
+    height: 160%;
     margin-bottom: 4%;
 }
 

@@ -23,11 +23,11 @@ const NovelCreated = () =>{
             }
         }
         fetchNovelsCreated();
-    })
+    },[])
 
 
     return(
-        <div className="Library">
+        <div className="Novels">
         {books.length > 0 ? (
             <ul>
                 {books.map((book) => (
