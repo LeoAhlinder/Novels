@@ -199,3 +199,32 @@ app.get("/api/latest",function(req,res){
     res.json({books:results})
   })
 })
+
+app.get("/api/novelsCreated",ensureToken,function(req,res){
+  jwt.verify(req.token,secretkey,async function(err,decodedToken){
+    if (err){
+      res.sendStatus(403)
+    }
+    else{
+      console.log("workes")
+      const userID = decodedToken.user;
+      const data = await usersNovels(userID)
+      res.json({data:data})
+    }
+  })
+})
+
+
+function usersNovels(id){
+  const query = "SELECT b.* FROM books AS b JOIN users AS u ON b.author = u.userid WHERE u.userid = ?"
+  return new Promise((resolve,reject) =>{
+    connection.query(query,[id],function(err,results){
+      if (err){
+        reject(err)
+      }
+      else{
+        resolve(results)
+      }
+    })
+  })
+}

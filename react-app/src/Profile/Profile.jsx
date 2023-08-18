@@ -2,6 +2,7 @@ import { useState } from "react";
 import "../Profile/profile.css"
 import Library from "./Libary"
 import { useNavigate } from "react-router-dom"
+import NovelCreated from "./ProfileComponents/NovelsCreated";
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Profile = () => {
     const Comments = () =>{
         changeSelected("2")
     }
-    const NovelCreated = () =>{
+    const NovelCreatedButton = () =>{
         changeSelected("3")
     }
     const LibraryButton = () =>{
@@ -46,12 +47,13 @@ const Profile = () => {
                 <p className='userName'>Welcome, {userName}</p>
                 <button onClick={info}className={selected === "1" ? "InfobuttonClicked" : "InfoButton"}>Info</button>
                 <button onClick={Comments} className={selected === "2" ? "CommentsbuttonClicked" : "Comments"}>Comments</button>
-                <button onClick={NovelCreated}className={selected === "3" ? "NovelsCreatedButtonClicked" : "NovelsCreated"}>Novels Created</button>
+                <button onClick={NovelCreatedButton}className={selected === "3" ? "NovelsCreatedButtonClicked" : "NovelsCreated"}>Novels Created</button>
                 <button onClick={LibraryButton} className={selected === "4" ? "LibraryButtonClicked" : "LibraryButton"}>Library</button>
                 <button onClick={Reviews} className={selected === "5" ? "ReviewsButtonClicked" : "ReviewButton"}>Reviews</button>
             </div>
             <div>
                 {selected === "4" ? <Library/>: ""}
+                {selected === "3" ? <NovelCreated/>:""}
             </div>
         </div>
     );
