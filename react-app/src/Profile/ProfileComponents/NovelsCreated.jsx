@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import "./NCstyle.css"
+import { Navigate, useNavigate } from "react-router";
 
 const NovelCreated = () =>{
+
+    const navigate = useNavigate()
 
     const [books,setBooks] = useState([])
 
@@ -25,13 +28,16 @@ const NovelCreated = () =>{
         fetchNovelsCreated();
     },[])
 
+    function OpenBook(book){
+        navigate({pathname:"/book",search:`?id=${book.bookid}`})
+    }
 
     return(
         <div className="Novels">
         {books.length > 0 ? (
             <ul>
                 {books.map((book) => (
-                    <button className="BookList" key={book.bookid}>
+                    <button className="BookList" key={book.bookid} onClick={() => OpenBook(book)}>
                         {book.title} - Page: {book.currentPage}
                     </button>
                 ))}
