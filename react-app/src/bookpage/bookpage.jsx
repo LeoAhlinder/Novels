@@ -2,6 +2,7 @@ import React,{useEffect} from "react";
 import "./bookpageStyle.css"
 import { useLocation } from "react-router-dom";
 import cat from "../Pictures/coolcat.jpg"
+import { useState } from "react";
 
 
 const BookPage = () =>{
@@ -9,6 +10,7 @@ const BookPage = () =>{
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
     const bookId = queryParams.get("id");
+    const [bookInfo, setBookInfo] = useState([])
 
         useEffect(() =>{
             const bookInfo = async (bookId) =>{
@@ -24,19 +26,8 @@ const BookPage = () =>{
                 });
                 if (res.ok){
                     const response = await res.json();
-                    console.log(response)
-                if (response.message === "both exist"){
-                    console.log("username and email in use already")
-                }
-                else if (response.message === "email exist"){
-                    console.log("email in use")
-                }
-                else if (response.message ==="userName exist"){
-                    console.log("username in use")
-                }  
-                else if (response.message === "user created"){
-                    
-                }
+                    setBookInfo(response.data)
+
                 
                 }else{
                 console.log("error")
@@ -48,20 +39,21 @@ const BookPage = () =>{
 
         }
         bookInfo(bookId)
-        });
+        },[]);
 
 
     return(
-    <div>  
-        <div className="wrapper">
-            <img src={cat} alt="cat" className="logo"/>
-        </div>       
+        <div className="Wrapper">
+            {console.log(bookInfo)}
+
+            <picture>
+                <img src={cat} alt="cutecat" className="NovelCover"/>
+            </picture>
+            <div className="BookInfo">
+                <h1 className="Title">Title</h1>
+            </div>
+        </div>    
             
-        <div className="bookInfo">
-            TeST
-        </div>
-    </div>   
-        
     );
 }
 

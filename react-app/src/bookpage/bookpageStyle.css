@@ -1,21 +1,26 @@
-.bookHeader{
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    margin-top: 3%;
-}
-.wrapper{
-    position: relative;
+.NovelCover{
+    width: 40%;
+    position: absolute;
+    margin-top: 10%;
+    height: auto;
 }
 
-.logo{
-    height: 50vh;
-    width: 25vw;
-    margin-left: 15%;
-    margin-top: 3%;
-    border-radius: 4px;
+.Wrapper{
+    position: relative;
+    margin-top: 6%;
+    margin-left: 9%;
+    margin-right: 9%;
 }
 
-.bookInfo{
-    position: relative;
+.BookInfo{
+    margin-top: 8.2%;
+    height: 37.5%;
+    position: fixed;
+    background-color: red;
+    margin-left: 35%;
+    width: 45%;
+}
+
+.Title{
+    margin-left: 2%;
 }
