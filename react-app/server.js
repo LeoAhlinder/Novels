@@ -6,6 +6,7 @@ const mysql = require("mysql");
 const { error } = require("console");
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
+const { rejects } = require("assert");
 
 const secretkey = "leo"
 
@@ -80,11 +81,27 @@ app.get(`/api/book`, async (req,res) =>{
   const id = req.query.id;
   try{
     const bookInfo = await bookData(id)
-    res.json({data:bookInfo})
+    const authorInfo = await authorData(id)
+    res.json({data:bookInfo,author:authorInfo})
   }catch(err){
     console.log(err)
   }
 })
+
+function authorData(id){
+  const query = "SELECT userName FROM users WHERE userid = ?"
+
+  return new Promise((resolve,reject) =>{
+    connection.query(query,[id],function(error,results){
+      if (error){
+        reject(error)
+      }
+      else{
+        resolve(results)
+      }
+    })
+  }) 
+}
 
 function bookData(id) {
   const query = "SELECT * FROM lightnovelonline.books WHERE bookid = ?";

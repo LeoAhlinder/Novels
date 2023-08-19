@@ -11,6 +11,7 @@ const BookPage = () =>{
     const queryParams = new URLSearchParams(location.search);
     const bookId = queryParams.get("id");
     const [bookInfo, setBookInfo] = useState([])
+    const [authorName,setauthor] = useState("")
 
         useEffect(() =>{
             const bookInfo = async (bookId) =>{
@@ -27,8 +28,7 @@ const BookPage = () =>{
                 if (res.ok){
                     const response = await res.json();
                     setBookInfo(response.data)
-
-                
+                    setauthor(response.author[0].userName)
                 }else{
                 console.log("error")
                 }
@@ -44,13 +44,14 @@ const BookPage = () =>{
 
     return(
         <div className="Wrapper">
-            {console.log(bookInfo)}
+            {console.log(bookInfo[0].title)}
 
             <picture>
                 <img src={cat} alt="cutecat" className="NovelCover"/>
             </picture>
             <div className="BookInfo">
-                <h1 className="Title">Title</h1>
+                <h1 className="Title">{console.log(bookInfo[0])}</h1>
+                <h5 className="Author">Author: {authorName}</h5>
             </div>
         </div>    
             
