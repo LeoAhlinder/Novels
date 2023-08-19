@@ -44,17 +44,18 @@ const BookPage = () =>{
 
     return(
         <div className="Wrapper">
-            {console.log(bookInfo[0].title)}
-
-            <picture>
-                <img src={cat} alt="cutecat" className="NovelCover"/>
-            </picture>
-            <div className="BookInfo">
-                <h1 className="Title">{console.log(bookInfo[0])}</h1>
-                <h5 className="Author">Author: {authorName}</h5>
-            </div>
-        </div>    
-            
+        {bookInfo.length > 0 ? (
+            <>
+                <picture>
+                    <img src={cat} alt="cutecat" className="NovelCover" />
+                </picture>
+                <div className="BookInfo">
+                    <h1 className="Title">{bookInfo[0].title}</h1>
+                    <h5 className="Author">Author: {authorName}</h5>
+                </div>
+            </>
+        ) : <h1>Error, No book found with this id. </h1>}
+    </div>       
     );
 }
 
