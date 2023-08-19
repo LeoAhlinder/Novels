@@ -52,6 +52,9 @@ const BookPage = () =>{
                 <div className="BookInfo">
                     <h1 className="Title">{bookInfo[0].title}</h1>
                     <h5 className="Author">Author: {authorName}</h5>
+                    <h5 className="Chapters">Chapters: {bookInfo[0].totalpages}</h5>
+                    <button className="ReadButton">Read</button>
+                    <button className="AddButton">Add to Library</button>
                 </div>
             </>
         ) : <h1>Error, No book found with this id. </h1>}

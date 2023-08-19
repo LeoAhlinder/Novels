@@ -83,6 +83,7 @@ app.get(`/api/book`, async (req,res) =>{
     const bookInfo = await bookData(id)
     const authorInfo = await authorData(id)
     res.json({data:bookInfo,author:authorInfo})
+    console.log(bookInfo)
   }catch(err){
     console.log(err)
   }

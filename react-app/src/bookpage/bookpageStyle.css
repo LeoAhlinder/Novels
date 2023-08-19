@@ -16,16 +16,47 @@
     margin-top: 8.2%;
     height: 37.5%;
     position: fixed;
-    background-color: red;
     margin-left: 35%;
     width: 45%;
 }
 
 .Title{
     margin-left: 2%;
+    color: white;
+
 }
 
 .Author{
-    margin-top: 1%;
+    margin-top: 2%;
     margin-left:2%;
+    color: white;
+
+}
+
+.Chapters{
+    margin-left: 2%;
+    margin-top: 1%;
+    color: white;
+}
+
+.AddButton{
+    margin-top: 8%;
+    border: none;
+    background-color: blue;
+    margin-left: 5%;
+    height: 13%;
+    width: 20%;
+    border-radius: 5px;
+    color: white;
+}
+
+.ReadButton{
+    background-color: blue;
+    border: none;
+    margin-left: 4%;
+    height: 13%;
+    width: 20%;
+    border-radius: 5px;
+    color: white;
+
 }
