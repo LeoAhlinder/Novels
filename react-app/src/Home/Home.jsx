@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./Homestyle.css";
 import LibraryPicBig from "../Pictures/librarypic_3_1280x300.jpg";
+import { useNavigate } from "react-router";
 
 const Home = () => {
   const [latestBooks, setLatestBooks] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchLatestReleases = async () => {
@@ -28,6 +30,11 @@ const Home = () => {
     fetchLatestReleases();
   },[]);
 
+  const goToBook = (book) =>{
+    console.log(book)
+    navigate({pathname:"/book",search:`?id=${book.bookid}`})
+  }
+
   return (
     <div>
       {latestBooks.length > 0 ? ( <>
@@ -39,12 +46,8 @@ const Home = () => {
                 {latestBooks.map((book, index) => (
                   <li key={index} className="grid-item">
                     <img src={book.bookcover} alt="bookCover" className=""/>
-                    {book.title} 
                     <br />
-                    {book.totalpages}
-                    <br />
-                    {book.release_date}
-
+                    <button className="Title" onClick={() =>goToBook(book)}>{book.title} </button>
                   </li>
                 ))}
               </ul>
