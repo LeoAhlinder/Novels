@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Homestyle.css";
 import LibraryPicBig from "../Pictures/librarypic_3_1280x300.jpg";
 import { useNavigate } from "react-router";
+import catPic from "../Pictures/coolcat.jpg"
 
 const Home = () => {
   const [latestBooks, setLatestBooks] = useState([]);
@@ -38,13 +39,13 @@ const Home = () => {
     <div>
       {latestBooks.length > 0 ? ( <>
             <div className="homeIntro">
-              <img src={LibraryPicBig} alt="" />
+              <img src={LibraryPicBig} alt="" className="startPic"/>
             </div>
             <ul className="homeWrapper">
               <ul className="grid-container">
                 {latestBooks.map((book, index) => (
                   <li key={index} className="grid-item">
-                    <img src={book.bookcover} alt="bookCover" type="button"/>
+                    <img src={catPic} alt="bookCover" type="button" className="bookCover"/>
                     <br />
                     <button className="Title" onClick={() =>goToBook(book)}>{book.title} </button>
                   </li>

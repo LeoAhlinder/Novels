@@ -22,7 +22,7 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto auto auto auto auto;
     background-color: transparent;
     padding: 10px;
     height: 80vh;
@@ -30,8 +30,7 @@
   }
   .grid-item {
     background-color: transparent;
-    border: none;
-    padding: 20px;
+    padding: 5px;
     font-size: 20px;
     align-items: center;
 
@@ -63,7 +62,7 @@
 
 }
 
-img{
+.startPic{
     height: auto;
     width: 100%;
     margin-top: 27%;
@@ -96,6 +95,7 @@ img{
     border: none;
     color: white;
     cursor: pointer;
+    position: relative;
 }
 
 .Title:hover{
@@ -104,4 +104,10 @@ img{
 
 .Title:focus{
     color:blue;
+}
+
+.bookCover{
+    width: 60%;
+    height: 80%;
+    border: 1px solid black;
 }
