@@ -7,6 +7,7 @@ import LogIn from "./logIn/logIn"
 import Home from "./Home/Home"
 import Create from "./Create/create"
 import CreateNew from "./Create/createNew"
+import SearchBar from './Search/search';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="/Profile" element={<Profile />} />
           <Route path="/book" element={<BookPage />} />
           <Route path="/logIn" element={<LogIn />} />
+          <Route path='/Search' element={<SearchBar />}/>
             <Route path="/create" element={<Create />}>
               <Route path="/create/createNovel" element={<CreateNew />} />
             </Route>

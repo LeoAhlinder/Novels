@@ -69,6 +69,10 @@ const Header = () => {
         navigate("/create")
         setIsMenuOpen(false);
     }
+    const search = () =>{
+        navigate("/Search")
+        setIsMenuOpen(false)
+    }
 
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -95,7 +99,7 @@ const Header = () => {
                             <a className="nav-link" onClick={create}>Create</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" onClick={closeMenu}>Search</a>
+                            <a className="nav-link" onClick={search}>Search</a>
                         </li>
                         <li className="nav-item">
                             <a className='nav-link' onClick={profileButtonClicked}>
