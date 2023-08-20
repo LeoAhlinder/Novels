@@ -1,8 +1,12 @@
 .searchBar{
     position: absolute;
-    margin-top: 15%;
-    margin-left: 40%;
+    margin-top: 8%;
+    margin-left: 35%;
     height:4%;
-    width: 17%;
-    background-color: red;
+    width: 24%;
+    background-color: black;
+    border: none;
+    border-radius: 20px;
+    text-align: center;
+    color: white;
 }
