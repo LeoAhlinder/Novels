@@ -57,7 +57,7 @@ const BookPage = () =>{
                     <button className="AddButton">Add to Library</button>
                 </div>
             </>
-        ) : <h1>Error, No book found with this id. </h1>}
+        ) : null}
     </div>       
     );
 }

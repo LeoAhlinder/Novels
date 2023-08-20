@@ -30,24 +30,26 @@ const Home = () => {
 
   return (
     <div>
-      <div className="homeIntro">
-        <img src={LibraryPicBig} alt="" />
-      </div>
-      <ul className="homeWrapper">
-        <ul className="grid-container">
-          {latestBooks.map((book, index) => (
-            <li key={index} className="grid-item">
-              <img src={book.bookcover} alt="bookCover" className=""/>
-              {book.title} 
-              <br />
-              {book.totalpages}
-              <br />
-              {book.release_date}
+      {latestBooks.length > 0 ? ( <>
+            <div className="homeIntro">
+              <img src={LibraryPicBig} alt="" />
+            </div>
+            <ul className="homeWrapper">
+              <ul className="grid-container">
+                {latestBooks.map((book, index) => (
+                  <li key={index} className="grid-item">
+                    <img src={book.bookcover} alt="bookCover" className=""/>
+                    {book.title} 
+                    <br />
+                    {book.totalpages}
+                    <br />
+                    {book.release_date}
 
-            </li>
-          ))}
-        </ul>
-      </ul>
+                  </li>
+                ))}
+              </ul>
+            </ul>
+            </>): null}
     </div>
   );
 };
