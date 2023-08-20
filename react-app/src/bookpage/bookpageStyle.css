@@ -48,10 +48,12 @@
     width: 20%;
     border-radius: 5px;
     color: white;
+    cursor: pointer;
 }
 
 .ReadButton{
     background-color: blue;
+    cursor: pointer;
     border: none;
     margin-left: 4%;
     height: 13%;
@@ -59,4 +61,8 @@
     border-radius: 5px;
     color: white;
 
+}
+
+.ReadButton:hover,.AddButton:hover{
+    transform: scale(1.1);
 }

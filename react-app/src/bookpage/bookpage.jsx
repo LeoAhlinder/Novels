@@ -41,6 +41,10 @@ const BookPage = () =>{
         bookInfo(bookId)
         },[]);
 
+    const addToLibrary = () =>{
+        
+    }
+
 
     return(
         <div className="Wrapper">
@@ -53,7 +57,7 @@ const BookPage = () =>{
                     <h1 className="Title">{bookInfo[0].title}</h1>
                     <h5 className="Author">Author: {authorName}</h5>
                     <h5 className="Chapters">Chapters: {bookInfo[0].totalpages}</h5>
-                    <button className="ReadButton">Read</button>
+                    <button className="ReadButton" onClick={() => addToLibrary}>Read</button>
                     <button className="AddButton">Add to Library</button>
                 </div>
             </>

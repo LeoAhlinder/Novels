@@ -95,4 +95,13 @@ img{
     background-color: transparent;
     border: none;
     color: white;
+    cursor: pointer;
+}
+
+.Title:hover{
+    color: dodgerblue;
+}
+
+.Title:focus{
+    color:blue;
 }
