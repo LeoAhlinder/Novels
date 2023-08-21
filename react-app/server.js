@@ -260,7 +260,7 @@ app.post("/api/AddToLibrary",ensureToken,function(req,res){
     }else{
       const userId = decodedToken.user;
       
-      const query = "INSERT INTO userlibrary (userid,bookid) VALUES (?,?)"
+      const query = "INSERT INTO userlibrary (userid,bookid,currentpage) VALUES (?,?,0)"
 
       connection.query(query,[userId,req.body.id],function(error,results){
         if (error){
