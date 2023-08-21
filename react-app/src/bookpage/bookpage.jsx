@@ -13,6 +13,7 @@ const BookPage = () =>{
     const [bookInfo, setBookInfo] = useState([])
     const [authorName,setauthor] = useState("")
     const [id,setID] = useState(0)
+    const [bookExistInLibrary,setExistBook] = useState("")
 
 
         //Get bookinfo
@@ -35,7 +36,6 @@ const BookPage = () =>{
                     const response = await res.json();
                     setBookInfo(response.data)
                     setauthor(response.author[0].userName)
-                    console.log(response.data[0].bookid)
                     setID(response.data[0].bookid)
                 }else{
                 console.log("error")
@@ -52,17 +52,24 @@ const BookPage = () =>{
 
         useEffect(() =>{
             const isBookInLibrary = async () =>{
+
+                const token = localStorage.getItem("authToken")
+
                 try
                 {
                     const res = await fetch(`http://localhost:3001/api/checkLibrary`,{
-                        method:"GET",
+                        method:"POST",
                         headers: {  
                             "Content-Type": "application/json",
                             "Accept": "application/json",
-                          }
+                            Authorization: `Bearer ${token}`
+
+                          },
+                          body: JSON.stringify({id:bookId})
                     });
                     if (res.ok){
-                        console.log("OOOKK")
+                        const response = await res.json()
+                        setExistBook(response.message)
                     }else{
                     console.log("error")
                     }
@@ -97,8 +104,10 @@ const BookPage = () =>{
         }catch(err){
             console.log(err)
         }
-        
+    }
 
+    const removeFromLibrary = () =>{
+        console.log("remove")
     }
 
 
@@ -114,7 +123,7 @@ const BookPage = () =>{
                     <h5 className="Author">Author: {authorName}</h5>
                     <h5 className="Chapters">Chapters: {bookInfo[0].totalpages}</h5>
                     <button className="ReadButton" >Read</button>
-                    <button className="AddButton" onClick={() => addToLibrary(id)}>Add to Library</button>
+                    <button className="AddButton" onClick={bookExistInLibrary === "exist" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{bookExistInLibrary === "exist" ? "Remove from Library": "Add to Library"}</button>
                 </div>
             </>
         ) : null}

@@ -88,7 +88,6 @@ app.get(`/api/book`,ensureToken, async (req,res) =>{
         const bookInfo = await bookData(id)
         const authorInfo = await authorData(id)
         res.json({data:bookInfo,author:authorInfo})
-        console.log(bookInfo)
       }catch(err){
         console.log(err)
       }
@@ -259,9 +258,7 @@ app.post("/api/AddToLibrary",ensureToken,function(req,res){
     if (err){
       res.sendStatus(403)
     }else{
-      console.log(decodedToken)
       const userId = decodedToken.user;
-      console.log(req.body.id)
       
       const query = "INSERT INTO userlibrary (userid,bookid) VALUES (?,?)"
 
@@ -274,6 +271,33 @@ app.post("/api/AddToLibrary",ensureToken,function(req,res){
         }
       })
 
+    }
+  })
+})
+
+
+app.post("/api/checkLibrary",ensureToken,function(req,res){
+  jwt.verify(req.token,secretkey,function(err,decodedToken){
+    if (err){
+      res.sendStatus(403)
+    }else{
+
+      const userid = decodedToken.user;
+      const bookid = req.body.id
+
+      const query = "SELECT * FROM userLibrary WHERE userid = ? AND bookid = ?"
+      connection.query(query,[userid,bookid],function(error,results){
+        if (error){
+          console.log(error)
+        }else{
+          if (results.length > 0){
+            res.json({message:"exist"})
+          }
+          else{
+            res.json({message:"does not exist"})
+          }
+        }
+      })
     }
   })
 })
