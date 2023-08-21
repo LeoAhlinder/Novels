@@ -77,16 +77,23 @@ function userLibrary(id) {
 }
 
 
-app.get(`/api/book`, async (req,res) =>{
-  const id = req.query.id;
-  try{
-    const bookInfo = await bookData(id)
-    const authorInfo = await authorData(id)
-    res.json({data:bookInfo,author:authorInfo})
-    console.log(bookInfo)
-  }catch(err){
-    console.log(err)
-  }
+app.get(`/api/book`,ensureToken, async (req,res) =>{
+
+  jwt.verify(req.token,secretkey,async function(err,decodedToken){
+    if (err){
+      res.sendStatus(403)
+    }else{
+      const id = req.query.id;
+      try{
+        const bookInfo = await bookData(id)
+        const authorInfo = await authorData(id)
+        res.json({data:bookInfo,author:authorInfo})
+        console.log(bookInfo)
+      }catch(err){
+        console.log(err)
+      }
+    }
+  })
 })
 
 function authorData(id){
@@ -245,3 +252,28 @@ function usersNovels(id){
     })
   })
 }
+
+app.post("/api/AddToLibrary",ensureToken,function(req,res){
+
+  jwt.verify(req.token,secretkey,async function(err,decodedToken){
+    if (err){
+      res.sendStatus(403)
+    }else{
+      console.log(decodedToken)
+      const userId = decodedToken.user;
+      console.log(req.body.id)
+      
+      const query = "INSERT INTO userlibrary (userid,bookid) VALUES (?,?)"
+
+      connection.query(query,[userId,req.body.id],function(error,results){
+        if (error){
+          console.log(error)
+        }
+        else{
+          res.sendStatus(200)
+        }
+      })
+
+    }
+  })
+})

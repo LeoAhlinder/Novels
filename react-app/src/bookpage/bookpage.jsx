@@ -3,7 +3,6 @@ import "./bookpageStyle.css"
 import { useLocation } from "react-router-dom";
 import cat from "../Pictures/coolcat.jpg"
 import { useState } from "react";
-import { json } from "express";
 
 
 const BookPage = () =>{
@@ -15,8 +14,12 @@ const BookPage = () =>{
     const [authorName,setauthor] = useState("")
     const [id,setID] = useState(0)
 
+
+        //Get bookinfo
         useEffect(() =>{
             const bookInfo = async (bookId) =>{
+
+            const token = localStorage.getItem("authToken")
 
             try
             {
@@ -25,6 +28,7 @@ const BookPage = () =>{
                     headers: {  
                         "Content-Type": "application/json",
                         "Accept": "application/json",
+                        Authorization: `Bearer ${token}`
                       }
                 });
                 if (res.ok){
@@ -45,24 +49,56 @@ const BookPage = () =>{
         bookInfo(bookId)
         },[]);
 
-    const addToLibrary = (id) =>{
+
         useEffect(() =>{
+            const isBookInLibrary = async () =>{
+                try
+                {
+                    const res = await fetch(`http://localhost:3001/api/checkLibrary`,{
+                        method:"GET",
+                        headers: {  
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                          }
+                    });
+                    if (res.ok){
+                        console.log("OOOKK")
+                    }else{
+                    console.log("error")
+                    }
+                }
+                catch(err){
+                    console.log(err)
+                }
+            }
+            isBookInLibrary();
+        },[])
 
-            const token = localStorage.getItem("authToken")
+    const addToLibrary = async (id) =>{
+        const token = localStorage.getItem("authToken")
 
-            const addBookToLibrary = async () =>{
-                const res = await fetch("http://localhost:3001/api/AddToLibrary",{
-                    method:"POST",
-                    headers:{
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        Authorization: `Bearer ${token}`
+        try{
+            const res = await fetch("http://localhost:3001/api/AddToLibrary",{
+                method:"POST",
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${token}`
                     },
-                    body: JSON.stringify(id)
-                });
-            } 
-            addBookToLibrary()
-        })
+                body: JSON.stringify({id:id})
+            });
+
+            if (res.ok){
+                console.log("OK")
+            }
+            else{
+                console.log("NOT OK LOL")
+            }
+        }catch(err){
+            console.log(err)
+        }
+        
+
     }
 
 
