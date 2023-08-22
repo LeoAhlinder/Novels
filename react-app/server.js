@@ -301,3 +301,5 @@ app.post("/api/checkLibrary",ensureToken,function(req,res){
     }
   })
 })
+
+module.exports = app;
