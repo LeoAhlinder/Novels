@@ -1,5 +1,5 @@
 const supertest = require("supertest");
-const chai = require("chai");
+const {expect} = require("chai");
 const app = require("../server")
 
 const jwt = require('jsonwebtoken');
@@ -30,9 +30,11 @@ describe("GET /api/library",function(){
             .get("/api/library")
             .set("Authorization",`Bearer ${mockToken}`)
             .expect(200) 
-            .end((function(err,results){
+            .end((function(err,res){
                 if (err) done(err)
+                expect(res.body.data).to.be.an("array");
                 done();
             }))
     })
 })
+

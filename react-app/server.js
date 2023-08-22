@@ -49,7 +49,6 @@ const connection = mysql.createConnection({
 app.get("/api/library/", ensureToken, async (req, res) => {
   jwt.verify(req.token, secretkey, async function(err, decodedToken) {
       if (err) {
-          console.log("F")
           res.sendStatus(403);
       } else {
           try {
