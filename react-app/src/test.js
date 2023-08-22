@@ -17,7 +17,7 @@ describe("getAuthToken",function(){
         .set('Authorization', `Bearer ${mockToken}`)
         .expect(200)
         .end(function (err, res) {
-            if (err) return done(err);
+            if (err) return done(err)
 
             done();
         });
@@ -28,7 +28,7 @@ describe("GET /api/library",function(){
     it("should retrieve with users book",function(done){
         supertest(app)
             .get("/api/library")
-            .set("Authorization",`${mockToken}`)
+            .set("Authorization",`Bearer ${mockToken}`)
             .expect(200) 
             .end((function(err,results){
                 if (err) done(err)
