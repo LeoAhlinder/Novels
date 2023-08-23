@@ -40,3 +40,19 @@
         font-size: 60%;
     }
 }
+
+.Conatiner{
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+}
+
+.book{
+    color: white;
+}
+
+.containWrapper{
+    position: absolute;
+    margin-top: 30%;
+    margin-left: 50%;
+}

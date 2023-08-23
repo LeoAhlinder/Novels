@@ -5,6 +5,7 @@ const SearchBar = () =>{
 
     const [search,setSearch] = useState("")
     const [searchTimer,setSearchTimer] = useState("");
+    const [books,newBooks] = useState([])
 
 
     useEffect(() =>{
@@ -25,7 +26,7 @@ const SearchBar = () =>{
                     
                         if (res.ok){
                             const response = await res.json();
-                            console.log(response)
+                            newBooks(response.data)
                         }
                         }
                     }catch(err){
@@ -43,9 +44,24 @@ const SearchBar = () =>{
     }
 
     return(
-        <div >
-            <input type="text" className="searchBar" id="searchBar"
-            value={search} onChange={HandleChange} placeholder="Search for Book by Title"/>   
+        <div>
+            <div>
+                <input 
+                    type="text"
+                    className="searchBar"
+                    id="searchBar"
+                    value={search} 
+                    onChange={HandleChange} 
+                    placeholder="Search for Book by Title"
+                />   
+            </div>
+            <div className="containWrapper">
+                <ul className="Container">
+                    {books.map((book)=>(
+                        <li key={book.bookid} className="book">test</li>
+                    ))}
+                </ul>
+            </div>
         </div>
     )
 }
