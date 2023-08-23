@@ -302,4 +302,8 @@ app.post("/api/checkLibrary",ensureToken,function(req,res){
   })
 })
 
+app.post("/api/BooksBasedOnSearch",function(req,res){
+  console.log(req.body.data)
+})
+
 module.exports = app;
