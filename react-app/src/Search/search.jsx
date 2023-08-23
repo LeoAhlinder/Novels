@@ -6,6 +6,7 @@ const SearchBar = () =>{
     const [search,setSearch] = useState("")
     const [searchTimer,setSearchTimer] = useState("");
     const [books,newBooks] = useState([])
+    const [ViewingBooks,SetViewing] = useState(false)
 
 
     useEffect(() =>{
@@ -27,6 +28,7 @@ const SearchBar = () =>{
                         if (res.ok){
                             const response = await res.json();
                             newBooks(response.data)
+                            SetViewing(true)
                         }
                         }
                     }catch(err){
@@ -55,10 +57,10 @@ const SearchBar = () =>{
                     placeholder="Search for Book by Title"
                 />   
             </div>
-            <div className="containWrapper">
+            <div className={ViewingBooks === true ? "containWrapper" : ""}>
                 <ul className="Container">
                     {books.map((book)=>(
-                        <li key={book.bookid} className="book">test</li>
+                        <li key={book.bookid} className="book">{book.title.length > 15 ? book.title.substring(0,10):book.title}</li>
                     ))}
                 </ul>
             </div>
