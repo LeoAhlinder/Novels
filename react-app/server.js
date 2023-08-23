@@ -303,7 +303,18 @@ app.post("/api/checkLibrary",ensureToken,function(req,res){
 })
 
 app.post("/api/BooksBasedOnSearch",function(req,res){
-  console.log(req.body.data)
+  const input = req.body.data;
+
+  const query = `SELECT * FROM books WHERE title LIKE '%${input}%' LIMIT 10`;
+
+  connection.query(query,function(err,results){
+    if (err){
+      console.log(err)
+    }
+    else{
+      res.json({data:results})
+    }
+  })
 })
 
 module.exports = app;

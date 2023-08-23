@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./searchStyle.css"
-import { wait } from "@testing-library/user-event/dist/utils";
 
 const SearchBar = () =>{
 
@@ -10,12 +9,11 @@ const SearchBar = () =>{
 
     useEffect(() =>{
             const waitForInput = setTimeout(()=>{
-                console.log(searchTimer )
-            },2000)
+                fetchBooks();
+            },1600)
                 const fetchBooks = async () =>{
-
                     try{
-                        if (search != ""){
+                        if (search != "" && search.length > 2){
                         const res = await fetch("http://localhost:3001/api/BooksBasedOnSearch",{
                             method:"POST",
                             headers:{
@@ -34,7 +32,6 @@ const SearchBar = () =>{
                         console.log(err)
                     }
                 }
-                    fetchBooks();
                     return () => clearTimeout(waitForInput)
 
                 },[search]);
@@ -42,7 +39,7 @@ const SearchBar = () =>{
     
     function HandleChange(event){
         setSearch(event.target.value)
-        setSearchTimer(2000)
+        setSearchTimer(1600)
     }
 
     return(
