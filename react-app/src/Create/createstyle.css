@@ -1,26 +1,43 @@
-.sideBar{
-    position: fixed;
-    color: white;
-    padding-top: 5%;
-    height: 100vh;
-    font-size: 80%;
-    margin-left: 2%;
+.sideNav{
+    margin-top: 6%;
+    position: sticky;
+    @media screen and (max-width:1000px) {
+        margin-top: 10%;
+    }
+    @media screen and (max-width:550px) {
+        margin-top: 15%;
+    }
+    @media screen and (max-width:400px) {
+        margin-top: 22%;
+        font-size: 70%;
+    }
+    @media screen and (max-width:270px) {
+        margin-top: 30%;
+        font-size: 70%;
+    }
+    @media screen and (max-width:200px) {
+        margin-top: 45%;
+        font-size: 70%;
+    }
 }
 
 .button{
     color: white;
-    margin: 5px;
-    display: flex;
-    margin-top: 10%;
-    font-size: 150%;
-    background-color: transparent;
+    justify-content: space-evenly;
+    position: sticky;
+    display: grid;
+    margin-top: 3%;
+    margin-left: 1%;
+    font-size: 120%;
     border: none;
-    transition: 0.3s ease-in-out;
+    background-color: transparent;
 }
 
 .button:hover{
-    color: dodgerblue;
+    transition: 0.3s ease-in-out;
+    color:dodgerblue;
 }
+
 .button:active{
     color: blue;
 }
