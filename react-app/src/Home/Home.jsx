@@ -37,6 +37,8 @@ const Home = () => {
 
   return (
     <div>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
       {latestBooks.length > 0 ? ( <>
             <div className="homeIntro">
               <img src={LibraryPicBig} alt="" className="startPic"/>

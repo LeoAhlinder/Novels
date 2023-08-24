@@ -143,6 +143,7 @@ const LogIn = () =>{
 
     return (
         <div className={boxClass}>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
             {inputFields.map((field) => (
                 <input className='input' placeholder={field.placeholder} id={field.id} type={field.type} key={field.id}/>
             ))}
