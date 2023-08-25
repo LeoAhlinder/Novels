@@ -27,6 +27,24 @@
     padding: 10px;
     height: 80vh;
     width: 80vw;
+    @media screen and (max-width:1200px){
+        grid-template-columns: auto auto auto auto auto;
+    } 
+    @media screen and (max-width:950px) {
+        grid-template-columns: auto auto auto auto;
+    }
+    @media screen and (max-width:650px) {
+        grid-template-columns:  auto auto auto;
+    }
+    @media screen and (max-width:450px) {
+        grid-template-columns:  auto auto;
+    }
+    @media screen and (max-width:200px) {
+        grid-template-columns:  auto;
+        align-items: center;
+        justify-self: center;
+    }
+        
   }
   .grid-item {
     background-color: transparent;
@@ -96,6 +114,17 @@
     color: white;
     cursor: pointer;
     position: relative;
+    @media screen and (max-width:850px) {
+        font-size: 60%;
+    }
+    @media screen and (max-width:500px) {
+        font-size: 45%;
+        margin-bottom: 50%;
+    }
+    @media screen and (max-width:500px) {
+        font-size: 35%;
+        margin-bottom: 20%;
+    }
 }
 
 .Title:hover{

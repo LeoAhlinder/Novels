@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./NCstyle.css"
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const NovelCreated = () =>{
 

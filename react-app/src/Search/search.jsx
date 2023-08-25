@@ -4,7 +4,6 @@ import "./searchStyle.css"
 const SearchBar = () =>{
 
     const [search,setSearch] = useState("")
-    const [searchTimer,setSearchTimer] = useState("");
     const [books,newBooks] = useState([])
     const [ViewingBooks,SetViewing] = useState(false)
 
@@ -15,7 +14,7 @@ const SearchBar = () =>{
             },1600)
                 const fetchBooks = async () =>{
                     try{
-                        if (search != "" && search.length > 2){
+                        if (search !== "" && search.length > 2){
                         const res = await fetch("http://localhost:3001/api/BooksBasedOnSearch",{
                             method:"POST",
                             headers:{

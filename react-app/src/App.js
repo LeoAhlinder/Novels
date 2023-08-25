@@ -20,9 +20,8 @@ function App() {
           <Route path="/book" element={<BookPage />} />
           <Route path="/logIn" element={<LogIn />} />
           <Route path='/Search' element={<SearchBar />}/>
-            <Route path="/create" element={<Create />}>
-              <Route path="/create/createNovel" element={<CreateNew />} />
-            </Route>
+          <Route path="/create" element={<Create />}/>
+          <Route path="/createNovel" element={<CreateNew />} />
         </Routes>
       </div>
     </Router>

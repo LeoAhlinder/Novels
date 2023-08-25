@@ -37,33 +37,6 @@
     }
 }
 
-.sidebar{
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-    width: 15px;
-    background-color: white;
-    height: 40px;
-    border: none;
-    display: none;
-}
-
-@media screen and (max-width:350px) {
-    .sidebar{
-        background-color: red;
-        display: block;
-    }
-}
-@media screen and (max-width:200px) {
-    .sidebar{
-        height: 30px;
-        width: 10px;
-    }
-}
-
-
 .button{
     color: white;
     justify-content: space-evenly;

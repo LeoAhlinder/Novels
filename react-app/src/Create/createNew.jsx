@@ -7,7 +7,7 @@ const CreateNew = () =>{
     
     return(
         <div className="BookDetails"> 
-            <input>TEST</input>
+            <p>TEST</p>
         </div>
     )
 }
