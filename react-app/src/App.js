@@ -8,11 +8,13 @@ import Home from "./Home/Home"
 import Create from "./Create/create"
 import CreateNew from "./Create/createNew"
 import SearchBar from './Search/search';
+import ServerCheck from './CheckServer';
 
 function App() {
   return (
     <Router>
       <div>
+        <ServerCheck/>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />

@@ -20,12 +20,14 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
-
-
 const port = process.env.PORT || 3001
 
 app.listen(port,()=>{
   console.log(`Server running on ${port}`)
+})
+
+app.get("/api/ping",function(req,res){
+  res.json({status:"Online"})
 })
 
 const connection = mysql.createConnection({
