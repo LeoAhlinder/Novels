@@ -8,19 +8,18 @@ import Home from "./Home/Home"
 import Create from "./Create/create"
 import CreateNew from "./Create/createNew"
 import SearchBar from './Search/search';
-import ServerCheck from './CheckServer';
 
 function App() {
-  const serverStatus = true
+  const serverStatus = false
 
 
   return (
     <Router>
       <div>
-        <ServerCheck />
         {serverStatus ? (
+        <>
+          <Header />
           <Routes>
-            <Header />
             <Route path="/" element={<Home />} />
             <Route path="/Profile" element={<Profile />} />
             <Route path="/book" element={<BookPage />} />
@@ -29,8 +28,9 @@ function App() {
             <Route path="/create" element={<Create />} />
             <Route path="/createNovel" element={<CreateNew />} />
           </Routes>
+        </>
         ) : (
-          <div>Loading...</div>
+          <div className='serverDown'>We apologize for the inconvenience, but the server is currently experiencing downtime. Your patience is greatly appreciated.</div>
         )}
       </div>
     </Router>
