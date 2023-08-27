@@ -8,9 +8,11 @@ import Home from "./Home/Home"
 import Create from "./Create/create"
 import CreateNew from "./Create/createNew"
 import SearchBar from './Search/search';
+import ServerCheck from "./CheckServer"
 
 function App() {
-  const serverStatus = false
+  console.log(ServerCheck)
+  const serverStatus = true
 
 
   return (

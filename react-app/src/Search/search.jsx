@@ -41,7 +41,6 @@ const SearchBar = () =>{
     
     function HandleChange(event){
         setSearch(event.target.value)
-        setSearchTimer(1600)
     }
 
     return(

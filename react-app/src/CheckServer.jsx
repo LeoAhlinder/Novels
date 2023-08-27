@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-
-
 const ServerCheck = () =>{
 
     const [serverStatus,changeServerStatus] = useState("")
@@ -18,7 +16,6 @@ const ServerCheck = () =>{
                 });
 
                 if (res.ok) {
-                    const response = await res.json();
                     changeServerStatus("online");
                 } else {
                     changeServerStatus("offline");
@@ -31,15 +28,8 @@ const ServerCheck = () =>{
 
         pingServer();
     }, []);
-
-    return(
-        <div>
-            <h1>
-
-            </h1>
-        </div>
-    )
 }
 
-const server = {serverStatus}
-export default server
+export default {
+    status: ServerCheck.serverStatus
+}
