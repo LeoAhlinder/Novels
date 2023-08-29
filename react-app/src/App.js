@@ -47,10 +47,14 @@ const App = () => {
                           </Routes>
                       </>
                   ) : (
+                    <div className='wrapper'>
                       <div className='serverDown'>We apologize for the inconvenience, but the server is currently experiencing downtime. Your patience is greatly appreciated.</div>
+                    </div>
                   )
               ) : (
-                  <div>Loading...</div>
+                <div className='wrapper'>
+                  <div className='loader'></div>
+                </div>
               )}
           </div>
       </Router>
