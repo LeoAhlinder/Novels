@@ -52,21 +52,25 @@ const Profile = () => {
                 <button onClick={Reviews} className={selected === "5" ? "ReviewsButtonClicked" : "ReviewButton"}>Reviews</button>
             </div>
             <div className="profileHeaderSmall">
-                <div className="item item-large">
-                    1
-                </div>
-                <div className="item item-large">
-                    2
-                </div>
-                <div className="item">
-                    3
-                </div>
-                <div className="item">
-                    4
-                </div>
-                <div className="item">
-                    5
-                </div>
+
+                <button onClick={info} className="item item-large">
+                    Info
+                </button>
+                <button onClick={Comments}className="item item-large">
+                    Comments
+                </button>
+                <button onClick={LibraryButton} className="item">
+                    Library
+                </button>
+                <button onClick={NovelCreatedButton} className="item">
+                    Novels Created
+                </button>
+                <button onClick={Reviews} className="item">
+                    Reviews
+                </button>
+                <button className="item">
+                    Log Out
+                </button>
             </div>
             <div>
                 {selected === "4" ? <Library/>: ""}

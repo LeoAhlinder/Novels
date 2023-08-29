@@ -71,7 +71,7 @@ body {
     @media screen and (max-width: 900px) {
         margin-left: 0;
         margin-right: 0;
-        font-size: 16px; /* Adjust the font size for smaller screens */
+        font-size: 20px; /* Adjust the font size for smaller screens */
         border-radius: 0;
         margin-top: 20%;
 
@@ -80,7 +80,7 @@ body {
     @media screen and (max-width: 700px) {
         margin-left: 0;
         margin-right: 0;
-        font-size: 16px; /* Adjust the font size for smaller screens */
+        font-size: 18px; /* Adjust the font size for smaller screens */
         border-radius: 0;
         margin-top: 25%;
 
@@ -266,28 +266,52 @@ body {
     margin-left: 3%;
 }
 
-@media screen and (min-width:2000px) {
+@media screen and (max-width:630px) {
+    .profileHeaderSmall{
+        display: grid !important;
+    }
+}
+
+@media screen and (max-width:630px) {
     .profileHeader{
         display: none;
     }
 
 }
 
+
+
 .profileHeaderSmall {
-    background-color: red;
+    margin-top: 20% !important;
+    background-color: transparent;
     margin: 5% 5% 2%;
     height: 11vh !important;
-    display: grid;
+    display: none;
     grid-template-rows: auto auto;
     gap: 10px;
+
+    @media screen and (max-width:400px) {
+        margin-top:30% !important;
+        gap: 1px;
+    }
   }
   
 .item {
-    background-color: blue;
-    border: 2px solid black;
+    background-color: gray;
     padding: 10px;
+    padding: 2px;
     text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    border: none;
+    font-size: 15px;
 }
+
+.item:hover{
+    color: dodgerblue;
+}
+
   
 .item-large {
     grid-row: 1;
@@ -298,10 +322,10 @@ body {
   }
 
   .item:nth-child(1),
-  .item:nth-child(2) {
-    grid-column: span 2;
+  .item:nth-child(2),
+  .item:nth-child(6) {
+    grid-column: span 3;
     width: 100%;
-    margin-left: 120%;
   }
   
   .item:nth-child(3),
