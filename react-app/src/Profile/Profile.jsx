@@ -44,12 +44,29 @@ const Profile = () => {
             <div className='profileHeader'>
                 <h1 className='profileHeader'>Profile Page</h1>
                 <button onClick={logOut} className='logout'>Log Out</button>
-                <p className='userName'>Welcome, {userName}</p>
+                <p className='userName'>Welcome {userName}</p>
                 <button onClick={info}className={selected === "1" ? "InfobuttonClicked" : "InfoButton"}>Info</button>
                 <button onClick={Comments} className={selected === "2" ? "CommentsbuttonClicked" : "Comments"}>Comments</button>
                 <button onClick={NovelCreatedButton}className={selected === "3" ? "NovelsCreatedButtonClicked" : "NovelsCreated"}>Novels Created</button>
                 <button onClick={LibraryButton} className={selected === "4" ? "LibraryButtonClicked" : "LibraryButton"}>Library</button>
                 <button onClick={Reviews} className={selected === "5" ? "ReviewsButtonClicked" : "ReviewButton"}>Reviews</button>
+            </div>
+            <div className="profileHeaderSmall">
+                <div className="item item-large">
+                    1
+                </div>
+                <div className="item item-large">
+                    2
+                </div>
+                <div className="item">
+                    3
+                </div>
+                <div className="item">
+                    4
+                </div>
+                <div className="item">
+                    5
+                </div>
             </div>
             <div>
                 {selected === "4" ? <Library/>: ""}

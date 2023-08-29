@@ -17,7 +17,7 @@ li{
   list-style: none;
 }
 a{
-  color: white;
+  color: white ;
   text-decoration: none;
 }
 .container{
@@ -34,6 +34,7 @@ a{
 .nav-branding{
   font-size: 2rem;
   cursor: pointer;
+  
 }
 .nav-menu{
   display: flex;

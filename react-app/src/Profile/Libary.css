@@ -22,4 +22,8 @@
     align-items: initial;
     display:flex;
     border: none;
+
+    @media screen and (max-width:700px) {
+        font-size: 80%;
+    }
   }

@@ -1,12 +1,13 @@
 body {
-    background-color: #171717;
+    background-color: #171717 !important;
 }
 
 .logout{
-    color: gray;
+    color: white;
     background-color: black;
     border: none;
     border-radius: 3px;
+    font-size: 20px;
     right: 1%;
     bottom: 7%;
     position: absolute;
@@ -72,7 +73,7 @@ body {
         margin-right: 0;
         font-size: 16px; /* Adjust the font size for smaller screens */
         border-radius: 0;
-        margin-top: 25%;
+        margin-top: 20%;
 
     }
     /* Media query for screens with width up to 470 pixels */
@@ -95,12 +96,12 @@ body {
     }
 
     @media screen and (max-width: 300px) {
-        font-size: 11px; /* Further adjust the font size for even smaller screens */
+        font-size: 14px; /* Further adjust the font size for even smaller screens */
         margin-top: 50%;
     }
     
     @media screen and (max-width: 220px) {
-        font-size: 10px; /* Further adjust the font size for even smaller screens */
+        font-size: 12px; /* Further adjust the font size for even smaller screens */
         margin-top: 60%;
 
     }
@@ -265,6 +266,47 @@ body {
     margin-left: 3%;
 }
 
-/*@media screen and (max-width:800px) {
-    .LibraryButtonClicked,.LibraryButton
-}*/
+@media screen and (min-width:2000px) {
+    .profileHeader{
+        display: none;
+    }
+
+}
+
+.profileHeaderSmall {
+    background-color: red;
+    margin: 5% 5% 2%;
+    height: 11vh !important;
+    display: grid;
+    grid-template-rows: auto auto;
+    gap: 10px;
+  }
+  
+.item {
+    background-color: blue;
+    border: 2px solid black;
+    padding: 10px;
+    text-align: center;
+}
+  
+.item-large {
+    grid-row: 1;
+  }
+
+  .item:nth-child(1){
+    margin-right: 30%;
+  }
+
+  .item:nth-child(1),
+  .item:nth-child(2) {
+    grid-column: span 2;
+    width: 100%;
+    margin-left: 120%;
+  }
+  
+  .item:nth-child(3),
+  .item:nth-child(4),
+  .item:nth-child(5) {
+    grid-row: 2;
+    grid-column: span 3;
+  }
