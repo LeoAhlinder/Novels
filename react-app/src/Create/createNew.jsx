@@ -3,7 +3,6 @@ import "./createnewstyle.css"
 
 const CreateNew = () =>{
 
-    console.log("new")
     
     return(
         <div className="BookDetails"> 

@@ -44,27 +44,29 @@ const SearchBar = () =>{
     }
 
     return(
-        <div>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+        <>
             <div>
-                <input 
-                    type="text"
-                    className="searchBar"
-                    id="searchBar"
-                    value={search} 
-                    onChange={HandleChange} 
-                    placeholder="Search for Book by Title"
-                />   
+                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+                <div>
+                    <input 
+                        type="text"
+                        className="searchBar"
+                        id="searchBar"
+                        value={search} 
+                        onChange={HandleChange} 
+                        placeholder="Search for Book by Title"
+                    />   
+                </div>
+                <div className={ViewingBooks === true ? "containWrapper" : ""}>
+                    <ul className="Container">
+                        {books.map((book)=>(
+                            <li key={book.bookid} className="book">{book.title.length > 15 ? book.title.substring(0,10):book.title}</li>
+                        ))}
+                    </ul>
+                </div>
             </div>
-            <div className={ViewingBooks === true ? "containWrapper" : ""}>
-                <ul className="Container">
-                    {books.map((book)=>(
-                        <li key={book.bookid} className="book">{book.title.length > 15 ? book.title.substring(0,10):book.title}</li>
-                    ))}
-                </ul>
-            </div>
-        </div>
+        </>
     )
 }
 
