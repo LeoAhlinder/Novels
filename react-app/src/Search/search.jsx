@@ -34,9 +34,8 @@ const SearchBar = () =>{
                         console.log(err)
                     }
                 }
-                    return () => clearTimeout(waitForInput)
-
-                },[search]);
+            return () => clearTimeout(waitForInput)
+    },[search]);
 
     
     function HandleChange(event){
@@ -58,8 +57,8 @@ const SearchBar = () =>{
                         placeholder="Search for Book by Title"
                     />   
                 </div>
-                <div className={ViewingBooks === true ? "containWrapper" : ""}>
-                    <ul className="Container">
+                <div className="containWrapper">
+                    <ul className={ViewingBooks === true ? "Container" : ""}>
                         {books.map((book)=>(
                             <li key={book.bookid} className="book">{book.title.length > 15 ? book.title.substring(0,10):book.title}</li>
                         ))}

@@ -1,54 +1,54 @@
-.searchBar{
-    margin-left: 35%;
-    height:4vh;
-    width: 30vw;
-    margin-top: 10vw;
+.searchBar {
+    height: 4vh;
+    width: 30rem;
+    margin: 10% auto; /* Center horizontally */
     background-color: black;
     border: none;
     border-radius: 20px;
     text-align: center;
     color: red;
-    font-size: 2vh;
+    font-size: 2rem;
 
-    @media screen and (max-width:1300px) {
+    /* Center vertically */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media screen and (max-width: 1300px) {
         margin-top: 13%;
     }
-    @media screen and (max-width:700px) {
+    @media screen and (max-width: 700px) {
         margin-top: 16%;
-        width: 100%;
-        margin-left: 0%;
+        width: 100% !important;
     }
-    @media screen and (max-width:480px) {
+    @media screen and (max-width: 480px) {
         margin-top: 25%;
         font-size: 70%;
     }
-    
-    @media screen and (max-width:330px) {
+    @media screen and (max-width: 330px) {
         margin-top: 29%;
         font-size: 50%;
     }
-    @media screen and (max-width:250px) {
+    @media screen and (max-width: 250px) {
         margin-top: 40%;
         font-size: 45%;
     }
-    @media screen and (max-width:180px) {
+    @media screen and (max-width: 180px) {
         margin-top: 50%;
         font-size: 60%;
     }
-    @media screen and (max-width:130px) {
+    @media screen and (max-width: 130px) {
         margin-top: 55%;
         font-size: 60%;
     }
 }
 
 .Container {
-    justify-content: center;
-    align-items: center;
     display: grid;
     grid-template-columns: auto auto;
     grid-template-rows: repeat(5, 1fr); 
     gap: 10px; 
-    background-color: blue;
+    background-color: transparent;
     padding: 10px;
     height: 80vh;
     width: 80vw;
@@ -59,20 +59,20 @@
     }
 }
 
-
 .book{
     color: white;
-    font-size: 2vh;
+    font-size: 1rem;
     align-items: center;
     justify-content: center;
     display: flex;
     padding: 5px;
 }
 
-.containWrapper{
-
-    
-    width: 50%;
-    margin-top: 25vh;
-    height: 100%;
+.containWrapper {
+    background-color: blue;
+    width: 70rem;
+    margin: 0 auto; /* This will center the element horizontally */
+    display: flex;
+    justify-content: center; /* This will center the child elements horizontally within the container */
+    align-items: center; /* This will center the child elements vertically within the container */
 }
