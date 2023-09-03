@@ -35,6 +35,7 @@ const CreateNew = () =>{
     }
 
     const checkBookInfo = () =>{
+
         const bookInfo = {
             Title: bookName,
             Synopsis:summary,
@@ -43,7 +44,26 @@ const CreateNew = () =>{
             Tags:tags,
             Warnings:warnings,
         }
-        console.log(bookInfo)
+
+        var allInfoFilled = true
+
+        for (let i = 0;i < Object.keys(bookInfo).length;i++){
+            if (Object.values(bookInfo)[i] === ""){
+                document.getElementById(Object.keys(bookInfo)[i]).style.border = "2px solid red"
+                allInfoFilled = false
+            }
+            else{
+                document.getElementById(Object.keys(bookInfo)[i]).style.border = "1.5px solid black"
+            }
+        }
+
+        if (allInfoFilled === true){
+            console.log("ok")
+        }
+        else{
+            console.log("not ok")
+        }
+
     }
 
     return(
@@ -51,16 +71,16 @@ const CreateNew = () =>{
         <div className="CreateNovelsContainer"> 
             <div className="bookContent" >
 
-                <label htmlFor="title" className="Label">Book Name {bookName.length}/20</label>
-                <input type="text" className="bookNameInput" maxLength="20"placeholder="20 letters max" id="title" onChange={handleInputChangeBookName}/>
-                <label htmlFor="summary" className="Label">Synopsis {summary.length}/750</label>
-                <textarea type="text" id="summary" placeholder="Make a awesome synopsis to attract viewers!" maxLength="750" className="summaryInput" onChange={handleSummaryChange}/>
-                <label htmlFor="genreSelect" className="Label">Genre</label>
+                <label htmlFor="Title" className="Label">Book Name {bookName.length}/20</label>
+                <input type="text" className="bookNameInput" maxLength="20"placeholder="20 letters max" id="Title" onChange={handleInputChangeBookName}/>
+                <label htmlFor="Synopsis" className="Label">Synopsis {summary.length}/750</label>
+                <textarea type="text" id="Synopsis" placeholder="Make a awesome synopsis to attract viewers!" maxLength="750" className="summaryInput" onChange={handleSummaryChange}/>
+                <label htmlFor="Genre" className="Label">Genre</label>
 
                 <select 
                     name="Genre" 
                     className="Selector" 
-                    id="genreSelect" 
+                    id="Genre" 
                     value={genre} 
                     onChange={handleGenreChange}
                 >
@@ -84,18 +104,18 @@ const CreateNew = () =>{
                     <option value="Games">Games</option>
                 </select>
 
-                <label htmlFor="language" className="Label">Language</label>
-                <input type="text" id="language" className="bookNameInput" placeholder="Language" maxLength="25" onChange={handleLanguage}/>
+                <label htmlFor="Language" className="Label">Language</label>
+                <input type="text" id="Language" className="bookNameInput" placeholder="Language" maxLength="25" onChange={handleLanguage}/>
 
-                <label htmlFor="tags" className="Label">Custom Tags 0/10</label>
-                <input type="text" id="tags" onChange={handleCustomTags} className="bookNameInput" placeholder="Tags are seperated by spaces. ex 'tag1 tag2 tag3-tag3'" />
+                <label htmlFor="Tags" className="Label">Custom Tags 0/10</label>
+                <input type="text" id="Tags" onChange={handleCustomTags} className="bookNameInput" placeholder="Tags are seperated by spaces. ex 'tag1 tag2 tag3-tag3'" />
 
-                <label htmlFor="warnings" className="Label">Warnings</label>
+                <label htmlFor="Warnings" className="Label">Warnings</label>
                 <select 
                     name="Warnings" 
                     className="Selector" 
                     value={warnings} 
-                    id="warnings"
+                    id="Warnings"
                     onChange={handleWarnings}
                     >
                     <option value="">Select</option>
