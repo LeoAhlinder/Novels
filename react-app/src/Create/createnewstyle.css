@@ -1,4 +1,65 @@
-.BookDetails{
-    background-color: red;
-    margin-top: 50%;
+.CreateNovelsContainer{
+    align-items: center;
+    justify-self: center;
+    display: flex;
+    height: 90vh;
+    margin: 7rem 2%;
+}
+.Label{
+    color: white;
+}
+.bookNameInput{
+    border: 1.5px solid black;
+    color: white;
+    background-color: #28282B;
+    height: 30px;
+    width: 70%;
+    border-radius:4px;
+}
+
+.bookContent{
+    background-color: transparent !important;
+    height: 100%;
+    width: 60%;
+    margin: 0 auto;
+    gap: 1rem;
+    align-items: top;
+    display: flex;
+    
+    flex-direction: column;
+}
+
+.summaryInput{
+    border: 1.5px solid black;
+    color: white;
+    background-color: #28282B;
+    height: 50px;
+    text-align: top !important;
+    font-size: 1rem;
+    resize: none;
+    border-radius:4px;
+
+}
+
+.Selector{
+    background-color: #28282B;
+    border: 1.5px solid black;
+    color: white;
+    font-size: 0.8rem;
+    width: 70%;
+    height: 3%;
+    border-radius:4px;
+
+}
+
+.publishButton{
+    color: white;
+    background-color: dodgerblue;
+    width: 20%;
+    height: 5%;
+    border: 1px solid blue;
+    border-radius: 5px;
+}
+.publishButton:hover{
+    opacity: 0.9;
 }

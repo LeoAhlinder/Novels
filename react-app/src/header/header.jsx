@@ -66,8 +66,14 @@ const Header = () => {
     }
 
     const create = () =>{
-        navigate("/create")
-        setIsMenuOpen(false);
+        if (loggedIn === true){
+            navigate("/create")
+            setIsMenuOpen(false);
+        }else{
+            navigate("logIn");
+            alert("You need to sign in to start creating novels.")
+            setIsMenuOpen(false);
+        }
     }
     const search = () =>{
         navigate("/Search")
