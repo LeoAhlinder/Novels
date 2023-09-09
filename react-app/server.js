@@ -219,7 +219,7 @@ function ensureToken(req,res,next){
 
 app.get("/api/latest",function(req,res){
   
-  const query = " SELECT * FROM lightnovelonline.books ORDER BY STR_TO_DATE(release_date, '%Y/%m/%d') DESC;"
+  const query = " SELECT * FROM lightnovelonline.books ORDER BY STR_TO_DATE(release_date, '%Y/%m/%d') DESC LIMIT 0,22;"
 
   connection.query(query,function(err,results){
     res.json({books:results})
@@ -318,5 +318,58 @@ app.post("/api/BooksBasedOnSearch",function(req,res){
     }
   })
 })
+
+app.post("/api/createNewBook", ensureToken, function (req, res) {
+  jwt.verify(req.token, secretkey, function (err, decodedToken) {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      const userId = decodedToken.user;
+      const data = req.body;
+
+      // Check if a book with the same title or synopsis exists
+      connection.query(
+        "SELECT * FROM books WHERE title = ? OR bookid IN (SELECT bookid FROM bookinfo WHERE synopsis = ?)",
+        [data.Title, data.Synopsis],
+        function (err, results) {
+          if (err) {
+            console.log(err);
+            res.sendStatus(500); // Handle the error appropriately
+            return;
+          }
+
+          if (results.length > 0) {
+            if (results[0].title === data.Title) {
+              console.log("Title exists");
+              res.json({ message: "Title exists" });
+            } else {
+              console.log("Synopsis exists");
+              res.json({ error: "Synopsis exists" });
+            }
+          } else {
+
+            const date = new Date()
+            
+
+            // Neither title nor synopsis exists, so you can proceed to insert the new book
+            connection.query("INSERT INTO books (title, bookcover,release_date,author) VALUES (?,?,?,?)",
+            [data.Title, "test",data],
+              function (err, insertResult) {
+                if (err) {
+                  console.log(err);
+                  res.sendStatus(500); // Handle the error appropriately
+                } else {
+                  console.log("New book inserted with bookid:", insertResult.insertId);
+                  res.json({ message: "New book inserted" });
+                }
+              }
+            );
+          }
+        }
+      );
+    }
+  });
+});
+
 
 module.exports = app;

@@ -57,7 +57,7 @@
     background-color: dodgerblue;
     width: 35%;
     height: 5%;
-    border: 1px solid blue;
+    border: 0.1px solid blue;
     border-radius: 5px;
 }
 .publishButton:hover{

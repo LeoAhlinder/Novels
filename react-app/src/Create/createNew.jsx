@@ -45,25 +45,48 @@ const CreateNew = () =>{
             Warnings:warnings,
         }
 
-        var allInfoFilled = true
+        createNewBook(bookInfo)
+        return
 
         for (let i = 0;i < Object.keys(bookInfo).length;i++){
             if (Object.values(bookInfo)[i] === ""){
                 document.getElementById(Object.keys(bookInfo)[i]).style.border = "2px solid red"
-                allInfoFilled = false
             }
             else{
                 document.getElementById(Object.keys(bookInfo)[i]).style.border = "1.5px solid black"
+                createNewBook(bookInfo)
             }
         }
+    }
 
-        if (allInfoFilled === true){
-            console.log("ok")
-        }
-        else{
-            console.log("not ok")
-        }
 
+
+    async function createNewBook(bookInfo){
+
+        const token = localStorage.getItem("authToken")
+        console.log(token)
+
+        try{
+
+
+            const res = await fetch("http://localhost:3001/api/createNewBook",{
+                method:"POST",
+                headers:{
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(bookInfo)
+            }); 
+
+            if (res.ok){
+                const response = await res.json()
+                console.log("response")
+            }
+
+        }catch(error){
+            console.log(error)
+        }
     }
 
     return(

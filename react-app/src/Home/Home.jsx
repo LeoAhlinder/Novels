@@ -36,18 +36,17 @@ const Home = () => {
   }
 
   return (
-    <div>
+    <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+      <h3 className="homeIntro">Welcome to the world of books</h3>
+
       {latestBooks.length > 0 ? ( <>
-            <div className="homeIntro">
-              <img src={LibraryPicBig} alt="" className="startPic"/>
-            </div>
             <ul className="homeWrapper">
               <ul className="grid-container">
                 {latestBooks.map((book, index) => (
                   <li key={index} className="grid-item">
-                    <img src={catPic} alt="bookCover" type="button" className="bookCover"/>
+                    <img src={catPic} alt="bookCover" type="button" className="bookCover" onClick={() =>goToBook(book)}/>
                     <br />
                     <button className="Title" onClick={() =>goToBook(book)}>{book.title} </button>
                   </li>
@@ -55,7 +54,7 @@ const Home = () => {
               </ul>
             </ul>
             </>): null}
-    </div>
+    </>
   );
 };
 

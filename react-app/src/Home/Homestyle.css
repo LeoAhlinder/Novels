@@ -5,40 +5,24 @@
     top:0;
     background-color: transparent ;
     position: relative;
-    margin-top: 20%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin-left: auto;
+    margin-right: auto;
     height: 100vh;
 
-    @media screen and (max-width:700px) {
-        margin-top: 30%;
-    }
-    @media screen and (max-width:370px) {
-        margin-top: 40%;
+}
 
-    }
+body{
+    margin-top: 90px;
 }
 
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     background-color: transparent;
-    padding: 10px;
-    height: 80vh;
-    width: 80vw;
-    @media screen and (max-width:1200px){
-        grid-template-columns: auto auto auto auto auto;
-    } 
-    @media screen and (max-width:950px) {
-        grid-template-columns: auto auto auto auto;
-    }
-    @media screen and (max-width:650px) {
-        grid-template-columns:  auto auto auto;
-    }
-    @media screen and (max-width:450px) {
-        grid-template-columns:  auto auto;
-    }
+    height: 800px;
+    width: 1000px; 
+
     @media screen and (max-width:200px) {
         grid-template-columns:  auto;
         align-items: center;
@@ -50,6 +34,8 @@
     background-color: transparent;
     padding: 5px;
     font-size: 20px;
+    width: 200px;
+    height: 275px;
     align-items: center;
 
   }
@@ -65,11 +51,28 @@
     align-items: center;
     justify-content: center;
     display: flex;
-    margin-top: 2%;
-    margin-left: 10%;
-    margin-right: 10%;
-    height: 5vh;
-    
+    font-size: 3rem;
+    color: white;
+    text-decoration: underline;
+}
+
+@media screen and (max-width:800px) {
+    .homeIntro{
+        font-size: 2rem;
+    }
+}
+
+@media screen and (max-width:550px){
+    .homeIntro{
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width:370px) {
+    .homeIntro{
+        font-size: 1rem;
+
+    }
 }
 
 .LibraryPic{
@@ -78,34 +81,6 @@
     max-width: 100%;
     height: auto;
 
-}
-
-.startPic{
-    height: auto;
-    width: 100%;
-    margin-top: 27%;
-
-    @media screen and (max-width:1450px) {
-        margin-top: 33%;
-    }
-    @media screen and (max-width:700px) {
-        margin-top: 37%;
-        height: 300%;
-        width: 75%;
-    }
-    @media screen and (max-width:550px) {
-        margin-top: 44%;
-        width: 85%;
-    }
-    @media screen and (max-width:370px) {
-        margin-top: 51%;
-        width:80%
-    }
-    @media screen and (max-width:370px) {
-        margin-top: 60%;
-        width:80%;
-        height:275%;
-    }
 }
 
 .Title{
@@ -139,4 +114,5 @@
     width: 60%;
     height: 80%;
     border: 1px solid black;
+    cursor: pointer;
 }
