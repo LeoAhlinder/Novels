@@ -45,16 +45,14 @@ const CreateNew = () =>{
             Warnings:warnings,
         }
 
-        createNewBook(bookInfo)
-        return
-
         for (let i = 0;i < Object.keys(bookInfo).length;i++){
             if (Object.values(bookInfo)[i] === ""){
                 document.getElementById(Object.keys(bookInfo)[i]).style.border = "2px solid red"
+
             }
             else{
                 document.getElementById(Object.keys(bookInfo)[i]).style.border = "1.5px solid black"
-                createNewBook(bookInfo)
+
             }
         }
     }
@@ -81,7 +79,7 @@ const CreateNew = () =>{
 
             if (res.ok){
                 const response = await res.json()
-                console.log("response")
+                console.log(response)
             }
 
         }catch(error){
