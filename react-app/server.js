@@ -351,7 +351,7 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
             const date = new Date();
             const month = date.getMonth() + 1;
             const day = date.getDate();
-            const year = date.getYear()
+            const year = date.getFullYear()
             const currentDate = `${year}/${month}/${day}`
 
             // Neither title nor synopsis exists, so you can proceed to insert the new book

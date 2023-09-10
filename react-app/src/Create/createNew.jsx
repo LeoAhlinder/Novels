@@ -9,6 +9,8 @@ const CreateNew = () =>{
     const [language,changeLanguage] = useState("")
     const [tags,changeTags] = useState("")
     const [warnings,changeWarnings] = useState("")
+    const [alert,changeAlert] = useState("")
+    const [alertColor,changeAlertColor] = useState({})
 
     const handleInputChangeBookName = (e) => {
         changeBookName(e.target.value)
@@ -36,6 +38,8 @@ const CreateNew = () =>{
 
     const checkBookInfo = () =>{
 
+        let allInfoFilled = true
+
         const bookInfo = {
             Title: bookName,
             Synopsis:summary,
@@ -48,21 +52,26 @@ const CreateNew = () =>{
         for (let i = 0;i < Object.keys(bookInfo).length;i++){
             if (Object.values(bookInfo)[i] === ""){
                 document.getElementById(Object.keys(bookInfo)[i]).style.border = "2px solid red"
-
+                allInfoFilled = false
             }
             else{
                 document.getElementById(Object.keys(bookInfo)[i]).style.border = "1.5px solid black"
 
             }
         }
+
+        if (allInfoFilled === true){
+            createNewBook(bookInfo)
+        }
+        else{
+            changeAlert("Fill in all the missing input fields")
+            changeAlertColor("red")
+        }
     }
-
-
 
     async function createNewBook(bookInfo){
 
         const token = localStorage.getItem("authToken")
-        console.log(token)
 
         try{
 
@@ -79,7 +88,21 @@ const CreateNew = () =>{
 
             if (res.ok){
                 const response = await res.json()
-                console.log(response)
+                if (response.message === "Title exists"){
+                    changeAlert("The requested title is already in use. Please select a different one.")
+                    changeAlertColor("red")
+                }
+                else if (response.message === "Synopsis exists"){
+                    changeAlert("The requested synopsis is already in use. Please select a different one. ")
+                    changeAlertColor("red")
+                }
+                else if (response.message === "New book inserted"){
+                    changeAlert("Your book is now live")
+                    changeAlertColor("green")
+                }
+            }
+            else{
+                console.log("some error")
             }
 
         }catch(error){
@@ -146,6 +169,7 @@ const CreateNew = () =>{
                     <option value="18+">18+</option>
                 </select>
                 <button className="publishButton" onClick={checkBookInfo}>Publish now</button>
+                <p style={{color:alertColor}}>{alert}</p>
             </div>
         </div>
     </>
