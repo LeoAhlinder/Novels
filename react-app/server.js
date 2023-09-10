@@ -109,7 +109,7 @@ function authorData(id) {
         reject(error);
       } else {
         // Assuming results is an array and you want the first element (if any)
-        const author = results.length > 0 ? results[0].author : null;
+        const author = results.length > 0 ? results[0].author : "No author found";
 
         if (author) {
           connection.query("SELECT userName FROM users WHERE userid = ?", [author], function (err, result) {
