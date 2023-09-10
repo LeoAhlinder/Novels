@@ -87,8 +87,11 @@ app.get(`/api/book`,ensureToken, async (req,res) =>{
     }else{
       const id = req.query.id;
       try{
-        const bookInfo = await bookData(id)
-        const authorInfo = await authorData(id)
+        const [bookInfo, authorInfo] = await Promise.all([
+          bookData(id),
+          authorData(id)
+        ]);
+        console.log(bookInfo,authorInfo)
         res.json({data:bookInfo,author:authorInfo})
       }catch(err){
         console.log(err)
@@ -97,20 +100,34 @@ app.get(`/api/book`,ensureToken, async (req,res) =>{
   })
 })
 
-function authorData(id){
-  const query = "SELECT userName FROM users WHERE userid = ?"
+function authorData(id) {
+  const query = "SELECT author FROM books WHERE bookid = ?";
 
-  return new Promise((resolve,reject) =>{
-    connection.query(query,[id],function(error,results){
-      if (error){
-        reject(error)
+  return new Promise((resolve, reject) => {
+    connection.query(query, [id], function (error, results) {
+      if (error) {
+        reject(error);
+      } else {
+        // Assuming results is an array and you want the first element (if any)
+        const author = results.length > 0 ? results[0].author : null;
+
+        if (author) {
+          connection.query("SELECT userName FROM users WHERE userid = ?", [author], function (err, result) {
+            if (err) {
+              reject(err);
+            } else {
+              resolve(result);
+            }
+          });
+        } else {
+          // Handle the case where no book with the given bookid is found.
+          resolve(null);
+        }
       }
-      else{
-        resolve(results)
-      }
-    })
-  }) 
+    });
+  });
 }
+
 
 function bookData(id) {
   const query = "SELECT * FROM lightnovelonline.books WHERE bookid = ?";
