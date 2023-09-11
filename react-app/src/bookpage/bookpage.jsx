@@ -149,7 +149,7 @@ const BookPage = () =>{
                 <div className="BookInfo">
                     <h1 className="Title">{bookInfo[0].title}</h1>
                     <h5 className="Author">Author: {authorName}</h5>
-                    <h5 className="Chapters">Chapters: {bookInfo[0].totalpages}</h5>
+                    <h5 className="Chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                     <button className="ReadButton" >Read</button>
                     <button className="AddButton" onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
                 </div>

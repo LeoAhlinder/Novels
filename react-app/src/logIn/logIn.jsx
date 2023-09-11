@@ -14,6 +14,8 @@ const LogIn = () =>{
         {placeholder:"Password", id:"password",type:"password"},
     ])
 
+    const [alerts,changeAlerts] = useState("")
+
     const maxInputFields = 3;
     const addInputFieldAllowed = inputFields.length < maxInputFields;
 
@@ -25,54 +27,25 @@ const LogIn = () =>{
             {placeholder:"User Name",id:"userName"}
         ])
     }
-
-    const createAccount = () =>
-    {
-        const logIn = inputFields.map((i) =>{
-            const field = document.getElementById(i.id);
-            return (field.id,field.value)
-        })
-    
-    
-        //Check if any of them are empty
-        logIn[0] = logIn[0].length > 0 ? logIn[0] : "Empty";
-        logIn[1] = logIn[1].length > 0 ? logIn[1] : "Empty";
-        logIn[2] = logIn[2].length > 0 ? logIn[2] : "Empty";
-
-        const requirments = ["Email","Password","Username"]
-        var missingList = [];
-        var missing = 0;
-
-        const logins = []
-
-        for (let i = 0;i < logIn.length;i++){
-            if (logIn[i] === "Empty"){
-                missing++
-                missingList.push(requirments[i])
-            }
-            else{
-                logins.push(logIn[i])
-            }
+    const createAccount = () => {
+        // Get values from input fields
+        const logIns = inputFields.map((i) => document.getElementById(i.id).value);
+      
+        // Check if any input field is empty
+        const missingList = inputFields
+          .map((field, index) => (logIns[index].trim() === '' ? field.placeholder : ''))
+          .filter((placeholder) => placeholder !== '');
+      
+        if (missingList.length > 0) {
+          const message =
+            missingList.length === 1
+              ? `Please fill in the ${missingList[0]} input field`
+              : `Please fill in the following input fields: ${missingList.join(', ')}`;
+          alert(message);
+        } else {
+          createUser(logIns);
         }
-
-        var message = "";
-
-        if (missing === 1){
-            message = "Please fill in the " + missingList[0] + " input field"
-        }
-        else if(missing === 2){
-            message = "Please fill in the " + missingList[0] + " and " + missingList[1] + " input fields"
-        }
-        else if(missing === 3){
-            message = "Please fill the " + missingList[0] + ", " + missingList[1] + " and " + missingList[2] + " input fields"
-        }
-        if (message !== "")
-            alert(message)
-        else{
-            createUser(logins)
-        }
-    }
-
+      };
 
     const createUser = async (logIns) =>{
         const user = {
@@ -92,6 +65,18 @@ const LogIn = () =>{
             if (res.ok){
                 const response = await res.json();
                 console.log(response)
+                if (response.message === "both exist"){
+                    changeAlerts("The email and username is already in use")
+                }
+                else if (response.message === "email exist"){
+                    changeAlerts("Email already in use")
+                }
+                else if (response.message === "userName exist"){
+                    changeAlerts("Username already in use")
+                }
+                else if (response.message === "user created"){
+                    logInF()
+                }
             }else{
                 console.log("ERROR")
             }
@@ -149,6 +134,7 @@ const LogIn = () =>{
             ))}
             <button type='button' className="Button" onClick={() =>logInF()}>Log In</button>
             <button type="button" className="Button" onClick={addInputFieldAllowed ? addInputField : createAccount}>Create Account</button>
+            <p id='alert'>{alerts}</p>
         </div>
     );
 }

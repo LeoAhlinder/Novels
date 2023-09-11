@@ -381,10 +381,8 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
 
           if (results.length > 0) {
             if (results[0].title === data.Title) {
-              console.log("Title exists");
               res.json({ message: "Title exists" });
             } else {
-              console.log("Synopsis exists");
               res.json({ error: "Synopsis exists" });
             }
           } else {
@@ -403,7 +401,6 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
                   console.log(err);
                   res.sendStatus(500); // Handle the error appropriately
                 } else {
-                  console.log("New book inserted with bookid:", insertResult.insertId);
                   connection.query("INSERT INTO bookinfo (bookid,synopsis,genres,language,tags,warnings) VALUES (?,?,?,?,?,?)",
                   [insertResult.insertId,data.Synopsis,data.Genre,data.Language,data.Tags,data.Warnings],function(err,results){
                     if (err){

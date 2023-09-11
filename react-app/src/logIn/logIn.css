@@ -9,6 +9,7 @@
     margin-top: 10%;
     border: none;
     border-radius: 5px;
+    position: relative;
 }
 
 .input{
@@ -110,3 +111,10 @@
 }
 
 
+#alert{
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: 3% auto;
+    color: red;
+}
