@@ -74,8 +74,6 @@ const CreateNew = () =>{
         const token = localStorage.getItem("authToken")
 
         try{
-
-
             const res = await fetch("http://localhost:3001/api/createNewBook",{
                 method:"POST",
                 headers:{

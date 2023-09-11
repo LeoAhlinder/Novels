@@ -71,8 +71,8 @@
 .containWrapper {
     background-color: blue;
     width: 70rem;
-    margin: 0 auto; /* This will center the element horizontally */
+    margin: 0 auto;
     display: flex;
-    justify-content: center; /* This will center the child elements horizontally within the container */
-    align-items: center; /* This will center the child elements vertically within the container */
+    justify-content: center; 
+    align-items: center; 
 }

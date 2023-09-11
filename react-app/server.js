@@ -91,7 +91,6 @@ app.get(`/api/book`,ensureToken, async (req,res) =>{
           bookData(id),
           authorData(id)
         ]);
-        console.log(bookInfo,authorInfo)
         res.json({data:bookInfo,author:authorInfo})
       }catch(err){
         console.log(err)
@@ -286,7 +285,6 @@ app.post("/api/AddToLibrary",ensureToken,function(req,res){
           console.log(error)
         }
         else{
-          console.log(results)
           res.sendStatus(200)
         }
       })
