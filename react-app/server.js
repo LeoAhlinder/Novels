@@ -286,10 +286,34 @@ app.post("/api/AddToLibrary",ensureToken,function(req,res){
           console.log(error)
         }
         else{
+          console.log(results)
           res.sendStatus(200)
         }
       })
 
+    }
+  })
+})
+
+app.delete("/api/RemoveFromLibrary",ensureToken,function(req,res){
+  jwt.verify(req.token,secretkey,async function(err,decodedToken){
+    if (err){
+      res.sendStatus(403)
+    }
+    else{
+      const userId = decodedToken.user
+      const bookId = req.body.id
+
+      const query = "DELETE FROM userlibrary WHERE bookid = ? AND userid = ?"
+
+      connection.query(query,[bookId,userId],function(error,results){
+        if (error){
+          console.log(error)
+        }
+        else{
+          res.json({message:"Book removed from library"})
+        }
+      })
     }
   })
 })

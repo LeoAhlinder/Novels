@@ -101,7 +101,7 @@ const BookPage = () =>{
             });
 
             if (res.ok){
-                LibraryChange("Remove from Library")
+                LibraryChange("Remove from library")
             }
             else{
                 console.log("NOT OK LOL")
@@ -111,8 +111,31 @@ const BookPage = () =>{
         }
     }
 
-    const removeFromLibrary = () =>{
-        console.log("remove")
+    const removeFromLibrary = async (id) =>{
+        const token = localStorage.getItem("authToken")
+
+        try{
+            const res = await fetch("http://localhost:3001/api/RemoveFromLibrary",{
+                method:"DELETE",
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${token}`
+                    },
+                body: JSON.stringify({id:id})
+            });
+
+            if (res.ok){
+                const response = await res.json()
+                console.log(response.message)
+                LibraryChange("Add to library")
+            }
+            else{
+                console.log("NOT OK LOL")
+            }
+        }catch(err){
+            console.log(err)
+        }
     }
 
 
