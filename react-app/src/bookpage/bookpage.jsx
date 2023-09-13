@@ -14,6 +14,7 @@ const BookPage = () =>{
     const [authorName,setauthor] = useState("")
     const [id,setID] = useState(0)
     const [LibraryAddButton,LibraryChange] = useState("")
+    const [buttonState,changeButtonState] = useState(true)
 
 
         //Get bookinfo
@@ -73,7 +74,8 @@ const BookPage = () =>{
                             LibraryChange("Remove from Library")
                         }
                         else if (response.message === "does not exist"){
-                            LibraryChange("Add To Library")
+                            LibraryChange("Add to Library")
+
                         }
                     }else{
                     console.log("error")
@@ -87,54 +89,79 @@ const BookPage = () =>{
         },[])
 
     const addToLibrary = async (id) =>{
-        const token = localStorage.getItem("authToken")
+        if (buttonState === true){
+            const token = localStorage.getItem("authToken")
 
-        try{
-            const res = await fetch("http://localhost:3001/api/AddToLibrary",{
-                method:"POST",
-                headers:{
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    Authorization: `Bearer ${token}`
-                    },
-                body: JSON.stringify({id:id})
-            });
+            try{
+                const res = await fetch("http://localhost:3001/api/AddToLibrary",{
+                    method:"POST",
+                    headers:{
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        Authorization: `Bearer ${token}`
+                        },
+                    body: JSON.stringify({id:id})
+                });
 
-            if (res.ok){
-                LibraryChange("Remove from library")
+                if (res.ok){
+                    LibraryChange("Success!")
+                    buttonColdDown("add")
+                }
+                else{
+                    console.log("NOT OK LOL")
+                }
+            }catch(err){
+                console.log(err)
             }
-            else{
-                console.log("NOT OK LOL")
-            }
-        }catch(err){
-            console.log(err)
+        }
+    }
+
+    const buttonColdDown = (action) =>{
+        if (action === "add"){
+            document.getElementById("AddButton").setAttribute("class","bookCD");
+            changeButtonState(false)
+
+            setTimeout(()=>{
+                document.getElementById("AddButton").classList.remove("bookCD")
+                changeButtonState(true)
+                LibraryChange("Remove from Library")
+            },8000)
+        }else{
+            document.getElementById("AddButton").setAttribute("class","bookCD");
+            changeButtonState(false)
+
+            setTimeout(()=>{
+                document.getElementById("AddButton").classList.remove("bookCD")
+                changeButtonState(true)
+                LibraryChange("Add to library")
+            },8000)
         }
     }
 
     const removeFromLibrary = async (id) =>{
         const token = localStorage.getItem("authToken")
+        if (buttonState === true){
+            try{
+                const res = await fetch("http://localhost:3001/api/RemoveFromLibrary",{
+                    method:"DELETE",
+                    headers:{
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        Authorization: `Bearer ${token}`
+                        },
+                    body: JSON.stringify({id:id})
+                });
 
-        try{
-            const res = await fetch("http://localhost:3001/api/RemoveFromLibrary",{
-                method:"DELETE",
-                headers:{
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    Authorization: `Bearer ${token}`
-                    },
-                body: JSON.stringify({id:id})
-            });
-
-            if (res.ok){
-                const response = await res.json()
-                console.log(response.message)
-                LibraryChange("Add to library")
+                if (res.ok){
+                    LibraryChange("Removed")
+                    buttonColdDown("remove")
+                }
+                else{
+                    console.log("NOT OK LOL")
+                }
+            }catch(err){
+                console.log(err)
             }
-            else{
-                console.log("NOT OK LOL")
-            }
-        }catch(err){
-            console.log(err)
         }
     }
 
@@ -151,7 +178,7 @@ const BookPage = () =>{
                     <h5 className="Author">Author: {authorName}</h5>
                     <h5 className="Chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                     <button className="ReadButton" >Read</button>
-                    <button className="AddButton" onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+                    <button id="AddButton" onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
                 </div>
             </>
         ) : null}

@@ -39,7 +39,7 @@
     color: white;
 }
 
-.AddButton{
+#AddButton{
     margin-top: 8%;
     border: none;
     background-color: blue;
@@ -65,4 +65,9 @@
 
 .ReadButton:hover,.AddButton:hover{
     transform: scale(1.1);
+}
+
+.bookCD{
+    opacity: 0.5;
+    cursor: none;
 }
