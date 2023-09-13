@@ -373,7 +373,7 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
         function (err, results) {
           if (err) {
             console.log(err);
-            res.sendStatus(500); // Handle the error appropriately
+            res.sendStatus(500);
             return;
           }
 
@@ -391,13 +391,13 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
             const year = date.getFullYear()
             const currentDate = `${year}/${month}/${day}`
 
-            // Neither title nor synopsis exists, so you can proceed to insert the new book
+            // Neither title nor synopsis exists, so proceed to insert the new book
             connection.query("INSERT INTO books (title, bookcover,release_date,author) VALUES (?,?,?,?)",
             [data.Title, "test",currentDate,userId],
               function (err, insertResult) {
                 if (err) {
                   console.log(err);
-                  res.sendStatus(500); // Handle the error appropriately
+                  res.sendStatus(500);
                 } else {
                   connection.query("INSERT INTO bookinfo (bookid,synopsis,genres,language,tags,warnings) VALUES (?,?,?,?,?,?)",
                   [insertResult.insertId,data.Synopsis,data.Genre,data.Language,data.Tags,data.Warnings],function(err,results){

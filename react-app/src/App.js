@@ -10,6 +10,7 @@ import Home from "./Home/Home"
 import Create from "./Create/create"
 import CreateNew from "./Create/createNew"
 import SearchBar from './Search/search';
+import MostPopular from './mostPopular/mostPopular';
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null); // Initialize with null
@@ -40,10 +41,11 @@ const App = () => {
                               <Route path="/" element={<Home />} />
                               <Route path="/Profile" element={<Profile />} />
                               <Route path="/book" element={<BookPage />} />
-                              <Route path="/logIn" element={<LogIn />} />
+                              <Route path="/login" element={<LogIn />} />
                               <Route path="/Search" element={<SearchBar />} />
                               <Route path="/create" element={<Create />} />
                               <Route path="/createNovel" element={<CreateNew />} />
+                              <Route path="/popular" element={<MostPopular/>}></Route>
                           </Routes>
                       </>
                   ) : (

@@ -55,7 +55,7 @@ const Header = () => {
             navigate("/Profile")
         }
         else{
-            navigate("logIn")
+            navigate("login")
         }
 
     }
@@ -70,7 +70,7 @@ const Header = () => {
             navigate("/create")
             setIsMenuOpen(false);
         }else{
-            navigate("logIn");
+            navigate("login");
             alert("You need to sign in to start creating novels.")
             setIsMenuOpen(false);
         }
@@ -91,6 +91,11 @@ const Header = () => {
       setIsMenuOpen(false);
     };
 
+    const popular = () =>{
+        navigate("/popular")
+        closeMenu()
+    }
+
 
     return (
         <header className='layers'>
@@ -99,7 +104,7 @@ const Header = () => {
                     <a onClick={home} className="nav-branding">Novels</a>
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li className="nav-item">
-                            <a className='nav-link' onClick={closeMenu}>Most Popular</a>
+                            <a className='nav-link' onClick={popular}>Most Popular</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" onClick={create}>Create</a>
