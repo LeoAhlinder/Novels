@@ -3,7 +3,7 @@
     width: 60rem;
     margin: 0 auto;
     padding: 20px;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     flex-direction: column;
 }
@@ -31,12 +31,22 @@
     outline: none;
     font-size: 16px;
     border-radius: 5px;
+}
 
+.books{
+    background-color: red;
+    height: 80vh;
+}
+
+@media screen and (max-width:1300px) {
+    .containerPopular{
+        width: 90%;
+    }
 }
 
 @media (max-width: 768px) {
     .containerPopular {
-        width: 100%; /* Make the container full-width on smaller screens */
+        width: 80%; /* Make the container full-width on smaller screens */
     }
     
     .categories {
@@ -50,7 +60,7 @@
     
     .category-button {
         flex-grow: 0;
-        width: 50%;
+        width: 100%;
         margin-bottom: 10px;
     }
 }
