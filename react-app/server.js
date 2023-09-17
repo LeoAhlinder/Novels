@@ -280,12 +280,21 @@ app.post("/api/AddToLibrary",ensureToken,function(req,res){
       
       const query = "INSERT INTO userlibrary (userid,bookid,currentpage) VALUES (?,?,0)"
 
-      connection.query(query,[userId,req.body.id],function(error,results){
+      connection.query(query,[userId,req.body.id],function(error,result){
         if (error){
           console.log(error)
         }
         else{
-          res.sendStatus(200)
+          connection.query("UPDATE books SET totalinlibrary = totalinlibrary + 1 WHERE bookid = ?",[req.body.id],function(err,results){
+            if (err){
+              console.log(err)
+            }
+            else{
+              console.log(results)
+              res.sendStatus(200)
+              console.log("added")
+            }
+          })
         }
       })
 
@@ -302,14 +311,24 @@ app.delete("/api/RemoveFromLibrary",ensureToken,function(req,res){
       const userId = decodedToken.user
       const bookId = req.body.id
 
-      const query = "DELETE FROM userlibrary WHERE bookid = ? AND userid = ?"
+      const query = "DELETE FROM userlibrary WHERE bookid = ? AND userid = ? "
 
       connection.query(query,[bookId,userId],function(error,results){
         if (error){
           console.log(error)
         }
         else{
-          res.json({message:"Book removed from library"})
+
+          connection.query("UPDATE books SET totalinlibrary = totalinlibrary - 1 WHERE bookid = ?",[bookId],function(error,results){
+            if (error){
+              console.log(error)
+              res.json({error:error})
+            }
+            else{
+              res.json({message:"Book removed from library"})
+              console.log("removed")
+            }
+          })
         }
       })
     }
@@ -418,5 +437,16 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
   });
 });
 
+
+app.get("/api/ranking",ensureToken,function(req,res){
+  const typeRanking = req.body.type
+
+  const query = ""
+
+  // switch(typeRanking){
+  //     case "overall"
+  // }
+
+})
 
 module.exports = app;

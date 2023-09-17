@@ -33,7 +33,7 @@
     border-radius: 5px;
 }
 
-.books{
+.bookList{
     background-color: red;
     height: 80vh;
 }
@@ -63,4 +63,14 @@
         width: 100%;
         margin-bottom: 10px;
     }
+}
+
+
+.book{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    position: relative;
+}
+.bookText{
 }
