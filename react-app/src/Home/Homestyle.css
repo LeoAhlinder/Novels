@@ -2,21 +2,13 @@
 body{
     margin-top: 90px;
 }
-/* 
-@media (min-width: 600px) {
-    .gridContainer { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  @media (min-width: 900px) {
-    .gridContainer { grid-template-columns: repeat(3, 1fr); }
-  } */
 
 .gridContainer {
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
     gap: 0.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
 
         
   }
@@ -33,7 +25,11 @@ body{
     left: 0;
   }
 
-  .test{
+.book{
+    cursor: pointer;
+}
+
+  .bookCover{
     width: 100%;
     max-height: 100%;
   }
@@ -67,44 +63,6 @@ body{
     }
 }
 
-.LibraryPic{
-    padding-top:20%;
-    display: block;
-    max-width: 100%;
-    height: auto;
-
-}
-
-.Title{
-    background-color: transparent;
-    border: none;
-    color: white;
-    cursor: pointer;
-    position: relative;
-    @media screen and (max-width:850px) {
-        font-size: 60%;
-    }
-    @media screen and (max-width:500px) {
-        font-size: 45%;
-        margin-bottom: 50%;
-    }
-    @media screen and (max-width:500px) {
-        font-size: 35%;
-        margin-bottom: 20%;
-    }
-}
-
-.Title:hover{
-    color: dodgerblue;
-}
-
-.Title:focus{
-    color:blue;
-}
-
-.bookCover{
-    width: 60%;
-    height: 80%;
-    border: 1px solid black;
-    cursor: pointer;
+#bookTitle{
+    margin: 0 auto;
 }

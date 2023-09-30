@@ -22,6 +22,7 @@ const Home = () => {
         if (res.ok) {
           const response = await res.json();
           setLatestBooks(response.books); // Store fetched data in state
+          console.log(response.books)
         }
       } catch (err) {
         console.log(err);
@@ -45,10 +46,10 @@ const Home = () => {
             <ul className="gridContainer">
               {latestBooks.map((book, index) => (
                 <li key={index} className="gridItem">
-                  {/* <img src={catPic} alt="bookCover" type="button" className="bookCover" onClick={() =>goToBook(book)}/> */}
-                  <img src={fantasy} alt="" className="test"/>
-                  <br />
-                  {/* <button className="Title" onClick={() =>goToBook(book)}>{book.title} </button> */}
+                  <div onClick={() => goToBook(book)} className="book">
+                    <img src={fantasy} alt={book.title} className="bookCover"/>
+                    <p id="bookTitle">{book.title}</p>
+                  </div>
                 </li>
               ))}
             </ul>
