@@ -41,7 +41,7 @@ const Home = () => {
       <h3 className="homeIntro">Welcome to the world of books</h3>
 
       {latestBooks.length > 0 ? ( <>
-            <ul className="gridContainer">
+            <ul className="gridContainerHome">
               {latestBooks.map((book, index) => (
                 <li key={index} className="gridItem">
                   <div onClick={() => goToBook(book)} className="book">

@@ -438,13 +438,19 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
 });
 
 
-app.get("/api/ranking",ensureToken,function(req,res){
+app.get("/api/ranking",function(req,res){
 
-  jwt.verify(req.token,secretkey,function(err,decodedToken){
 
-    console.log(req.query.type)
+    const query = "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary LIMIT 0,50"
 
-  })
+    connection.query(query,function(err,results){
+      if (err){
+        console.log(err)
+      }
+      else{
+        res.json({books:results})
+      }
+    })
     
 })
 

@@ -1,17 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./mostPopularStyle.css"
 import fantasy from "../Pictures/fantasy.webp"
 
 const MostPopular  = () =>{
 
 
+
+
+    const [books,setBooks] = useState([])
+
     useEffect(()=>{
+        ranking()
     },[])
 
     const ranking = async (type) =>{
-
-
-        const token = localStorage.getItem("authToken")
 
         try{
 
@@ -20,13 +22,12 @@ const MostPopular  = () =>{
                 headers:{
                     "Content-Type": "application/json",
                     "Accept": "application/json",
-                    Authorization: `Bearer ${token}`
                 }
             });
 
             if (res.ok){
-                const response = await res.json()
-                console.log(response)
+                const response = await res.json();
+                setBooks(response.books)
             }
             else{
                 console.log("something went wrong")
@@ -39,6 +40,9 @@ const MostPopular  = () =>{
 
     return(
         <>
+
+            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
             <div className="containerPopular">
                 <div className="categories">
                     <div className="button-container">
@@ -48,20 +52,19 @@ const MostPopular  = () =>{
                     </div>
                         
                 </div>
-                <ul className="gridContainer">
-                    <li className="gridItem"> 
-                        <div>
-                            <img src={fantasy} style={{height:100}} alt="" />
-                            <p>test</p>
-                        </div>
-                    </li>
-                    <li className="gridItem">
-                        <div> 
-                            <img src={fantasy} style={{height:100}} alt="" />
-                            <p>test</p>
-                        </div>
-                    </li>
-                </ul>
+                {books.length > 0 ? ( <>
+                    <ul className="gridContainerPopular">
+                    {books.slice(0,12).map((book, index) => (
+                            <li key={index} className="gridItem">
+                            <div onClick={() => goToBook(book)} className="book">
+                                <img src={fantasy} alt={book.title} className="bookCover"/>
+                                <p id="bookTitle">{book.title}</p>
+                            </div>
+                            </li>
+                        ))}
+                    </ul>
+                </>): null}
+
             </div>
         </>
     )

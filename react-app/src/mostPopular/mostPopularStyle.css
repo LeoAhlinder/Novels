@@ -3,7 +3,7 @@
     width: 60rem;
     margin: 0 auto;
     padding: 20px;
-    height: 90vh;   
+    height: calc(100% + 100px);   
 }
 
 .categories {
@@ -66,6 +66,10 @@
     }
 }
 
+.bookCover{
+    width: 100%;
+    max-height: auto;
+  }
 
 .book{
     display: flex;
@@ -73,16 +77,23 @@
     align-items: start;
     position: relative;
 }
-.gridItem {
-    color: white;
-    padding: 0.5rem;
-    height: 8rem;
-  
-    }
-    .gridPicture{
-      align-items: center;
-      justify-content: center;
-      display: flex;
-      left: 0;
-    }
-  
+
+.gridContainerPopular {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+  .gridItem {
+  color: white;
+  padding: 0.5rem;
+  height: auto;
+
+  }
+  .gridPicture{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    left: 0;
+  }
