@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./Homestyle.css";
 import LibraryPicBig from "../Pictures/librarypic_3_1280x300.jpg";
 import { useNavigate } from "react-router";
-import catPic from "../Pictures/coolcat.jpg"
+import fantasy from "../Pictures/fantasy.webp"
 
 const Home = () => {
   const [latestBooks, setLatestBooks] = useState([]);
@@ -42,18 +42,17 @@ const Home = () => {
       <h3 className="homeIntro">Welcome to the world of books</h3>
 
       {latestBooks.length > 0 ? ( <>
-            <ul className="homeWrapper">
-              <ul className="grid-container">
-                {latestBooks.map((book, index) => (
-                  <li key={index} className="grid-item">
-                    <img src={catPic} alt="bookCover" type="button" className="bookCover" onClick={() =>goToBook(book)}/>
-                    <br />
-                    <button className="Title" onClick={() =>goToBook(book)}>{book.title} </button>
-                  </li>
-                ))}
-              </ul>
+            <ul className="gridContainer">
+              {latestBooks.map((book, index) => (
+                <li key={index} className="gridItem">
+                  {/* <img src={catPic} alt="bookCover" type="button" className="bookCover" onClick={() =>goToBook(book)}/> */}
+                  <img src={fantasy} alt="" className="test"/>
+                  <br />
+                  {/* <button className="Title" onClick={() =>goToBook(book)}>{book.title} </button> */}
+                </li>
+              ))}
             </ul>
-            </>): null}
+          </>): null}
     </>
   );
 };
