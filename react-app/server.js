@@ -444,11 +444,6 @@ app.get("/api/ranking",ensureToken,function(req,res){
 
     console.log(req.query.type)
 
-
-    
-
-
-
   })
     
 })

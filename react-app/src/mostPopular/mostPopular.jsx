@@ -37,7 +37,6 @@ const MostPopular  = () =>{
         }
     }
 
-
     return(
         <>
             <div className="containerPopular">
