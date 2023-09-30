@@ -439,14 +439,18 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
 
 
 app.get("/api/ranking",ensureToken,function(req,res){
-  const typeRanking = req.body.type
 
-  const query = ""
+  jwt.verify(req.token,secretkey,function(err,decodedToken){
 
-  // switch(typeRanking){
-  //     case "overall"
-  // }
+    console.log(req.query.type)
 
+
+    
+
+
+
+  })
+    
 })
 
 module.exports = app;

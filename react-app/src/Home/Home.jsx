@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./Homestyle.css";
-import LibraryPicBig from "../Pictures/librarypic_3_1280x300.jpg";
 import { useNavigate } from "react-router";
 import fantasy from "../Pictures/fantasy.webp"
 
@@ -22,7 +21,6 @@ const Home = () => {
         if (res.ok) {
           const response = await res.json();
           setLatestBooks(response.books); // Store fetched data in state
-          console.log(response.books)
         }
       } catch (err) {
         console.log(err);

@@ -3,14 +3,13 @@
     width: 60rem;
     margin: 0 auto;
     padding: 20px;
-    height: 90vh;
-    display: flex;
-    flex-direction: column;
+    height: 90vh;   
 }
 
 .categories {
     flex-grow: 1;
     padding: 20px;
+    background-color: red;
 }
 
 .button-container {
@@ -37,6 +36,8 @@
     background-color: red;
     height: 80vh;
 }
+
+
 
 @media screen and (max-width:1300px) {
     .containerPopular{
@@ -72,5 +73,16 @@
     align-items: start;
     position: relative;
 }
-.bookText{
-}
+.gridItem {
+    color: white;
+    padding: 0.5rem;
+    height: 8rem;
+  
+    }
+    .gridPicture{
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      left: 0;
+    }
+  

@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./mostPopularStyle.css"
-import cat from "../Pictures/coolcat.jpg"
+import fantasy from "../Pictures/fantasy.webp"
 
-const MostPopular = () =>{
+const MostPopular  = () =>{
+
+
+    useEffect(()=>{
+    },[])
 
     const ranking = async (type) =>{
-        console.log("test")
+
+
+        const token = localStorage.getItem("authToken")
 
         try{
 
@@ -13,7 +19,8 @@ const MostPopular = () =>{
                 method:"GET",
                 headers:{
                     "Content-Type": "application/json",
-                    "Accept": "application/json"
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${token}`
                 }
             });
 
@@ -40,11 +47,22 @@ const MostPopular = () =>{
                         <button className="category-button" onClick={() => ranking("collections")}>Collections</button>
                         <button className="category-button" onClick={() => ranking("rating")}>Rating</button>
                     </div>
-                    <ul className="bookList">
-                        <li className="book"> <img src={cat} style={{height:100}} alt="" />test</li>
-                        <li className="book"> <img src={cat} style={{height:100}} alt="" /></li>
-                    </ul>
+                        
                 </div>
+                <ul className="gridContainer">
+                    <li className="gridItem"> 
+                        <div>
+                            <img src={fantasy} style={{height:100}} alt="" />
+                            <p>test</p>
+                        </div>
+                    </li>
+                    <li className="gridItem">
+                        <div> 
+                            <img src={fantasy} style={{height:100}} alt="" />
+                            <p>test</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
         </>
     )
