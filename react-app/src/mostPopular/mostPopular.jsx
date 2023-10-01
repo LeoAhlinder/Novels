@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./mostPopularStyle.css"
 import fantasy from "../Pictures/fantasy.webp"
+import Cookies from 'js-cookie';
 
 const MostPopular  = () =>{
-
-
-
 
     const [books,setBooks] = useState([])
 
@@ -15,31 +13,51 @@ const MostPopular  = () =>{
 
     const ranking = async (type) =>{
 
-        try{
 
-            const res = await fetch(`http://localhost:3001/api/ranking?type=${type}`,{
-                method:"GET",
-                headers:{
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                }
-            });
+        if (Cookies.get("books")){
 
-            if (res.ok){
-                const response = await res.json();
-                setBooks(response.books)
-            }
-            else{
-                console.log("something went wrong")
-            }
+            let cookieValue = document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('books='))
+                    .split('=')[1];
+
+            let retrievedArray = JSON.parse(cookieValue);
+            console.log(retrievedArray);
+            setBooks(retrievedArray)
         }
-        catch(err){
-            console.log(err)
+        else{
+            try{
+
+
+                const res = await fetch(`http://localhost:3001/api/ranking?type=${type}`,{
+                    method:"GET",
+                    headers:{
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    }
+                });
+    
+                if (res.ok){
+
+                    console.log("test")
+                    const response = await res.json();
+                    setBooks(response.books)    
+                    document.cookie = "books=" + JSON.stringify(response.books)
+                }
+                else{
+                    console.log("something went wrong")
+                }
+            }
+            catch(err){
+                console.log(err)
+            }
         }
     }
 
     return(
         <>
+
+
 
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
