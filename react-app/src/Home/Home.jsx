@@ -40,13 +40,16 @@ const Home = () => {
 
       <h3 className="homeIntro">Welcome to the world of books</h3>
 
+
       {latestBooks.length > 0 ? ( <>
             <ul className="gridContainerHome">
+ 
+
               {latestBooks.map((book, index) => (
                 <li key={index} className="gridItem">
                   <div onClick={() => goToBook(book)} className="book">
                     <img src={fantasy} alt={book.title} className="bookCover"/>
-                    <p id="bookTitle">{book.title}</p>
+                    <p id="bookTitle">{book.title} <span>Pages: {book.totalpages === null ? "0" : book.totalpages}</span></p>
                   </div>
                 </li>
               ))}

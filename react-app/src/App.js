@@ -2,7 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Header from "./header/header"
+import Header from "./NavBar/header"
 import Profile from "./Profile/Profile"
 import BookPage from "./bookpage/bookpage"
 import LogIn from "./logIn/logIn"

@@ -75,10 +75,6 @@ const Header = () => {
             setIsMenuOpen(false);
         }
     }
-    const search = () =>{
-        navigate("/Search")
-        setIsMenuOpen(false)
-    }
 
 
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -91,26 +87,22 @@ const Header = () => {
       setIsMenuOpen(false);
     };
 
-    const popular = () =>{
-        navigate("/popular")
-        closeMenu()
-    }
 
 
     return (
         <header className='layers'>
             <div className="container"> 
                 <nav className="navbar" id='nav-menu'>
-                    <a onClick={home} className="nav-branding">Novels</a>
+                    <a href="/" className="nav-branding">Novels</a>
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li className="nav-item">
-                            <a className='nav-link' onClick={popular}>Most Popular</a>
+                            <a className='nav-link' href='./popular' onClick={closeMenu}>Most Popular</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" onClick={create}>Create</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" onClick={search}>Search</a>
+                            <a className="nav-link" href='./Search' onClick={closeMenu}>Search</a>
                         </li>
                         <li className="nav-item">
                             <a className='nav-link' onClick={profileButtonClicked}>
