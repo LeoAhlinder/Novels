@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./mostPopularStyle.css"
 import fantasy from "../Pictures/fantasy.webp"
-import Cookies from 'js-cookie';
+import Cookies from 'js-cookie'
+import { useNavigate } from "react-router";
+
 
 const MostPopular  = () =>{
 
     const [books,setBooks] = useState([])
+    const navigate = useNavigate()
+
 
     useEffect(()=>{
         ranking()
@@ -22,7 +26,6 @@ const MostPopular  = () =>{
                     .split('=')[1];
 
             let retrievedArray = JSON.parse(cookieValue);
-            console.log(retrievedArray);
             setBooks(retrievedArray)
         }
         else{
@@ -53,6 +56,11 @@ const MostPopular  = () =>{
             }
         }
     }
+
+    const goToBook = (book) =>{
+        navigate({pathname:"/book",search:`?id=${book.bookid}`})
+      }
+    
 
     return(
         <>

@@ -64,5 +64,11 @@ body{
 }
 
 #bookTitle{
-    margin: 0 auto;
+    text-align: start;
+    font-family: roboto;
+}
+
+@font-face {
+    font-family: roboto;
+    src: url("../fonts/Roboto-Black.ttf");
 }

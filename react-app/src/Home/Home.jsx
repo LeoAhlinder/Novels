@@ -38,18 +38,18 @@ const Home = () => {
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <h3 className="homeIntro">Welcome to the world of books</h3>
+      <h3 className="homeIntro">Welcome to the World of Books</h3>
+
+      <h4></h4>
 
 
       {latestBooks.length > 0 ? ( <>
             <ul className="gridContainerHome">
- 
-
               {latestBooks.map((book, index) => (
                 <li key={index} className="gridItem">
                   <div onClick={() => goToBook(book)} className="book">
                     <img src={fantasy} alt={book.title} className="bookCover"/>
-                    <p id="bookTitle">{book.title} <span>Pages: {book.totalpages === null ? "0" : book.totalpages}</span></p>
+                    <p id="bookTitle">{book.title}  <br /> <span>Chapters: {book.totalpages === null ? "0" : book.totalpages}</span></p>
                   </div>
                 </li>
               ))}
