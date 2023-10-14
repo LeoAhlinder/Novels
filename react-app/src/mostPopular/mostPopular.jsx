@@ -3,6 +3,7 @@ import "./mostPopularStyle.css"
 import fantasy from "../Pictures/fantasy.webp"
 import Cookies from 'js-cookie'
 import { useNavigate } from "react-router";
+import setCookie from "../global/setCookie";
 
 
 const MostPopular  = () =>{
@@ -41,11 +42,9 @@ const MostPopular  = () =>{
                 });
     
                 if (res.ok){
-
-                    console.log("test")
                     const response = await res.json();
                     setBooks(response.books)    
-                    document.cookie = "books=" + JSON.stringify(response.books)
+                    setCookie("books",response.books,3) //Name,data,expire date in hours
                 }
                 else{
                     console.log("something went wrong")
@@ -64,9 +63,6 @@ const MostPopular  = () =>{
 
     return(
         <>
-
-
-
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
             <div className="containerPopular">
