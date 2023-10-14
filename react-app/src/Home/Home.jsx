@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Homestyle.css";
 import { useNavigate } from "react-router";
-import fantasy from "../Pictures/fantasy.webp"
+import fantasy from "../Pictures/forest.webp"
 
 const Home = () => {
   const [latestBooks, setLatestBooks] = useState([]);

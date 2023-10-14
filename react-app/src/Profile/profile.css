@@ -55,12 +55,13 @@ body {
 
 
 .profileHeader {
+    color: white;
     text-align: center;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     position: relative;
-    background-color: #333333;
+    background-color: rgb(83, 73, 73);
     margin-left: 5%;
     margin-right: 5%;
     border-radius: 5px;
@@ -121,6 +122,7 @@ body {
     }
 }
 .profileButton{
+    color: white;
     border: none;
     border-bottom: transparent;
     transition: 0.3s ease-out;
