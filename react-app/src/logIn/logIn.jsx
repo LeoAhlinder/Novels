@@ -21,7 +21,7 @@ const LogIn = () =>{
 
     //Add a input field
     const addInputField = () =>{
-        ChangeClass("createNew")
+        changeClass("createNew")
         setInputFields([
             ...inputFields,
             {placeholder:"User Name",id:"userName"}
@@ -123,7 +123,7 @@ const LogIn = () =>{
         }
     }
 
-    const [boxClass,ChangeClass] = useState("loginBox")
+    const [boxClass,changeClass] = useState("loginBox")
 
 
     return (

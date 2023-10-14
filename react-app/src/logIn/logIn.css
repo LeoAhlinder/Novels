@@ -1,11 +1,11 @@
 .loginBox{
-    border: 2px solid #333;
+    border: 2px solid #272626;
     padding: 20px;
     width: 45vw;
     height: 30vh;
     margin: 0 auto;
     text-align: center;
-    background-color: gray;
+    background-color: rgba(128, 128, 128, 0.096);
     margin-top: 10%;
     border: none;
     border-radius: 5px;
@@ -16,30 +16,33 @@
     margin-bottom: 15px;
     padding: 5px;
     width: 100%;
+    color: white;
     height: 20%;
     box-sizing: border-box;
-    background-color: lightgray;
+    background-color: #111010 ;
     border: none;
-    color: blue;
     border-radius: 3px;
 }
 
 .Button{
-    margin-left: 8%;
     background-color: #333;
-    border-radius: 2px;
+    width: 20%;
+    height: 20%;
+    border-radius: 10px;
     border: none;
-    margin-right: 8%;
-    margin-top: 4%;
-    font-size: 130%
+    color:white;
+    margin: 4% 4%;
+    font-size: 100%;
+    padding:5px;
 }
 
 .Button:hover{
-    transform: scale(1.1)
+    background-color:#363232;
+    color: rgb(27, 24, 24);
 }
 
 .createNew{
-    background-color: grey;
+    background-color: rgba(128, 128, 128, 0.096);
     border: 2px solid #333;
     padding: 20px;
     width: 45vw;
@@ -52,64 +55,22 @@
     height: 50%;
 }
 
+@media screen and (max-width:1300px) {
+    .Button{
+        width: 35%;
+    }
+}
+
 
 @media screen and (max-width:800px) {
     .loginBox,.createNew{    
         margin-top: 12%;
-    }
-}
-
-@media screen and (max-width:640px) {
-    .loginBox,.createNew{    
-        margin-top: 20%;
-    }
-}
-
-@media screen and (max-width:480px) {
-    .loginBox,.createNew{    
-        margin-top: 26%;
-    }
-}
-
-@media screen and (max-width:340px) {
-    .loginBox,.createNew{    
-        margin-top: 30%;
-    }
-}
-
-@media screen and (max-width:240px) {
-    .loginBox,.createNew{    
-        margin-top: 40%;
-    }
-}
-
-@media screen and (max-width:170px) {
-    .loginBox,.createNew{    
-        margin-top: 52%;
+        width: 100%;
     }
     .Button{
-        font-size: 100%;
+        width: 40%;
     }
 }
-
-@media screen and (max-width:170px) {
-    .loginBox,.createNew{    
-        margin-top: 70%;
-    }
-    .Button{
-        font-size: 80%;
-    }
-}
-
-@media screen and (max-width:70px) {
-    .loginBox,.createNew{    
-        margin-top: 80%;
-    }
-    .Button{
-        font-size: 60%;
-    }
-}
-
 
 #alert{
     position: absolute;
