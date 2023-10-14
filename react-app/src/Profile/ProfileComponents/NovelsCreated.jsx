@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./NCstyle.css"
-import { useNavigate } from "react-router";
+import { useNavigate } from "react-router-dom";
+import ErrorHandler from "../../global/errorHandler";
 
 const NovelCreated = () =>{
 
     const navigate = useNavigate()
+
 
     const [books,setBooks] = useState([])
 
@@ -23,11 +25,18 @@ const NovelCreated = () =>{
             if (res.ok){
                 const response = await res.json()
                 setBooks(response.data)
-                console.log(response.data)
+            }
+            else{
+
+                let error = ErrorHandler(res)
+                alert(error.message)
+                if (error.navigate.length > 0){
+                    navigate(error.navigate)
+                }
             }
         }
         fetchNovelsCreated();
-    },[])
+    },[navigate])
 
     function OpenBook(book){
         navigate({pathname:"/book",search:`?id=${book.bookid}`})

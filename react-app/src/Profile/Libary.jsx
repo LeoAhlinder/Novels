@@ -1,7 +1,7 @@
 import React,{useEffect,useState} from "react";
 import "./Libary.css"
 import { useNavigate } from "react-router-dom"
-
+import ErrorHandler from "../global/errorHandler";
 
 const Library = () => {
   const [books, setBooks] = useState([]);
@@ -29,7 +29,11 @@ const Library = () => {
           const response = await res.json();
           setBooks(response.data);
         } else {
-          console.log("error");
+          let error = ErrorHandler(res)
+          alert(error.message)
+          if (error.navigate.length > 0){
+              navigate(error.navigate)
+          }
         }
       } catch (err) {
         console.log(err);
