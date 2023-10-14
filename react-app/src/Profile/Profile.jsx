@@ -23,20 +23,8 @@ const Profile = () => {
 
     localStorage.setItem("selectedProfile",selected)
 
-    const info = () =>{
-        changeSelected("1")
-    }
-    const Comments = () =>{
-        changeSelected("2")
-    }
-    const NovelCreatedButton = () =>{
-        changeSelected("3")
-    }
-    const LibraryButton = () =>{
-        changeSelected("4")
-    }
-    const Reviews = () =>{
-        changeSelected("5")
+    const updatedSelected = (test) =>{
+        changeSelected(test)
     }
   
     return (
@@ -45,27 +33,27 @@ const Profile = () => {
                 <h1 className='profileHeader'>Profile Page</h1>
                 <button onClick={logOut} className='logout'>Log Out</button>
                 <p className='userName'>Welcome {userName}</p>
-                <button onClick={info}className={selected === "1" ? "InfobuttonClicked" : "InfoButton"}>Info</button>
-                <button onClick={Comments} className={selected === "2" ? "CommentsbuttonClicked" : "Comments"}>Comments</button>
-                <button onClick={NovelCreatedButton}className={selected === "3" ? "NovelsCreatedButtonClicked" : "NovelsCreated"}>Novels Created</button>
-                <button onClick={LibraryButton} className={selected === "4" ? "LibraryButtonClicked" : "LibraryButton"}>Library</button>
-                <button onClick={Reviews} className={selected === "5" ? "ReviewsButtonClicked" : "ReviewButton"}>Reviews</button>
+                <button onClick={() => updatedSelected("1")}className={selected === "1" ? "InfobuttonClicked" : "InfoButton"}>Info</button>
+                <button onClick={() => updatedSelected("2")} className={selected === "2" ? "CommentsbuttonClicked" : "Comments"}>Comments</button>
+                <button onClick={() => updatedSelected("3")}className={selected === "3" ? "NovelsCreatedButtonClicked" : "NovelsCreated"}>Novels Created</button>
+                <button onClick={() => updatedSelected("4")} className={selected === "4" ? "LibraryButtonClicked" : "LibraryButton"}>Library</button>
+                <button onClick={() => updatedSelected("5")} className={selected === "5" ? "ReviewsButtonClicked" : "ReviewButton"}>Reviews</button>
             </div>
             <div className="profileHeaderSmall">
 
-                <button onClick={info} className="item item-large">
+                <button onClick={() => updatedSelected("1")} className="item item-large">
                     Info
                 </button>
-                <button onClick={Comments}className="item item-large">
+                <button onClick={() => updatedSelected("2")}className="item item-large">
                     Comments
                 </button>
-                <button onClick={LibraryButton} className="item">
+                <button onClick={() => updatedSelected("3")} className="item">
                     Library
                 </button>
-                <button onClick={NovelCreatedButton} className="item">
+                <button onClick={() => updatedSelected("4")} className="item">
                     Novels Created
                 </button>
-                <button onClick={Reviews} className="item">
+                <button onClick={() => updatedSelected("5")} className="item">
                     Reviews
                 </button>
                 <button className="item">
