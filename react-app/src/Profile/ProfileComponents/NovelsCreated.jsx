@@ -23,6 +23,7 @@ const NovelCreated = () =>{
             if (res.ok){
                 const response = await res.json()
                 setBooks(response.data)
+                console.log(response.data)
             }
         }
         fetchNovelsCreated();

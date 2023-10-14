@@ -63,9 +63,5 @@ const Library = () => {
 
 };
 
-//Logo,Title,TotalPages,CurrentPage
-//Libary()
-
-
 export default Library;
 

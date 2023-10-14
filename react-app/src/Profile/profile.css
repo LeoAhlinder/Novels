@@ -4,10 +4,11 @@ body {
 
 .logout{
     color: white;
-    background-color: black;
+    background-color: #171717;
     border: none;
     border-radius: 3px;
-    font-size: 20px;
+    font-size: 1rem;
+    padding: 5px;
     right: 1%;
     bottom: 7%;
     position: absolute;
@@ -46,6 +47,10 @@ body {
         font-size: 8px; /* Further adjust the font size for even smaller screens */
     }
     
+}
+
+#logOut{
+    background-color: red !important;
 }
 
 
@@ -115,56 +120,7 @@ body {
         margin-top: 150%;
     }
 }
-
-.InfoButton{
-    border: none;
-    border-bottom: transparent;
-    transition: 0.3s ease-out;
-    font-size: 65%;
-    background-color: transparent;
-    position: absolute;
-    bottom: 2%;
-    left: 5%;
-    display: flex;
-    align-items: center;
-}
-.Comments{
-    border: none;
-    transition: 0.3s ease-out;
-    font-size: 65%;
-    background-color: transparent;
-    position: absolute;
-    bottom: 2%;
-    left: 15%;
-    display: flex;
-    align-items: center;
-}
-.NovelsCreated{
-    border: none;
-    transition: 0.3s ease-out;
-    font-size: 65%;
-    background-color: transparent;
-    position: absolute;
-    bottom: 2%;
-    left: 25%;
-    display: flex;
-    align-items: center;
-    margin-left: 3%;
-}
-.LibraryButton{
-    border: none;
-    border-bottom: transparent;
-    transition: 0.3s ease-out;
-    font-size: 65%;
-    background-color: transparent;
-    position: absolute;
-    bottom: 2%;
-    left: 40%;
-    display: flex;
-    align-items: center;
-    margin-left: 3%;
-}
-.ReviewButton{
+.profileButton{
     border: none;
     border-bottom: transparent;
     transition: 0.3s ease-out;
@@ -176,6 +132,22 @@ body {
     display: flex;
     align-items: center;
     margin-left: 3%;
+}
+
+#infoButton{
+    left: 5%;
+}
+
+#commentsButton{
+    left: 15%;
+}
+
+#novelsCreatedButton{
+    left: 25%;
+}
+
+#libraryButton{
+    left: 40%;
 }
 
 .NovelsCreated:hover,.Comments:hover,.InfoButton:hover,.LibraryButton:hover{
@@ -183,41 +155,8 @@ body {
     border-bottom: 2% dodgerblue;
 }
 
-.InfobuttonClicked{
-    background-color: transparent;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-bottom:1px solid dodgerblue;
-    transition: 0.3s ease-out;
-    font-size: 65%;
-    position: absolute;
-    bottom: 2%;
-    left: 5%;
-    display: flex;
-    align-items: center;
-    color: dodgerblue;
 
-}
-
-.CommentsbuttonClicked{
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-bottom:1px solid dodgerblue;
-    transition: 0.3s ease-out;
-    font-size: 65%;
-    background-color: transparent;
-    position: absolute;
-    bottom: 2%;
-    left: 15%;
-    display: flex;
-    align-items: center;
-    color: dodgerblue;
-
-}
-
-.NovelsCreatedButtonClicked{
+.buttonClicked{
     border-left: none;
     border-right: none;
     border-top: none;
@@ -228,39 +167,6 @@ body {
     color: dodgerblue;
     position: absolute;
     bottom: 2%;
-    left: 25%;
-    display: flex;
-    align-items: center;
-    margin-left: 3%;
-}
-.LibraryButtonClicked{
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-bottom:1px solid dodgerblue;
-    transition: 0.3s ease-out;
-    font-size: 65%;
-    background-color: transparent;
-    color: dodgerblue;
-    position: absolute;
-    bottom: 2%;
-    left: 40%;
-    display: flex;
-    align-items: center;
-    margin-left: 3%;
-}
-.ReviewsButtonClicked{
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-bottom:1px solid dodgerblue;
-    transition: 0.3s ease-out;
-    font-size: 65%;
-    background-color: transparent;
-    color: dodgerblue;
-    position: absolute;
-    bottom: 2%;
-    left: 50%;
     display: flex;
     align-items: center;
     margin-left: 3%;
@@ -280,26 +186,20 @@ body {
 }
 
 
-
 .profileHeaderSmall {
     margin-top: 20% !important;
-    background-color: transparent;
     margin: 5% 5% 2%;
     height: 11vh !important;
     display: none;
     grid-template-rows: auto auto;
-    gap: 10px;
 
     @media screen and (max-width:400px) {
         margin-top:30% !important;
-        gap: 1px;
     }
   }
   
 .item {
-    background-color: gray;
     padding: 10px;
-    padding: 2px;
     text-align: center;
     align-items: center;
     display: flex;

@@ -33,31 +33,31 @@ const Profile = () => {
                 <h1 className='profileHeader'>Profile Page</h1>
                 <button onClick={logOut} className='logout'>Log Out</button>
                 <p className='userName'>Welcome {userName}</p>
-                <button onClick={() => updatedSelected("1")}className={selected === "1" ? "InfobuttonClicked" : "InfoButton"}>Info</button>
-                <button onClick={() => updatedSelected("2")} className={selected === "2" ? "CommentsbuttonClicked" : "Comments"}>Comments</button>
-                <button onClick={() => updatedSelected("3")}className={selected === "3" ? "NovelsCreatedButtonClicked" : "NovelsCreated"}>Novels Created</button>
-                <button onClick={() => updatedSelected("4")} className={selected === "4" ? "LibraryButtonClicked" : "LibraryButton"}>Library</button>
-                <button onClick={() => updatedSelected("5")} className={selected === "5" ? "ReviewsButtonClicked" : "ReviewButton"}>Reviews</button>
+                <button onClick={() => updatedSelected("1")}className={selected === "1" ? "buttonClicked" : "profileButton"} id="infoButton">Info</button>
+                <button onClick={() => updatedSelected("2")} className={selected === "2" ? "buttonClicked" : "profileButton"} id="commentsButton">Comments</button>
+                <button onClick={() => updatedSelected("3")}className={selected === "3" ? "buttonClicked" : "profileButton"} id="novelsCreatedButton">Novels Created</button>
+                <button onClick={() => updatedSelected("4")} className={selected === "4" ? "buttonClicked" : "profileButton"} id="libraryButton">Library</button>
+                <button onClick={() => updatedSelected("5")} className={selected === "5" ? "buttonClicked" : "profileButton"}>Reviews</button>
             </div>
             <div className="profileHeaderSmall">
 
-                <button onClick={() => updatedSelected("1")} className="item item-large">
-                    Info
+                <button onClick={() => updatedSelected("1")} className="item">
+                    <p>Info</p>             
                 </button>
-                <button onClick={() => updatedSelected("2")}className="item item-large">
-                    Comments
+                <button onClick={() => updatedSelected("2")}className="item">
+                    <p>Comments</p>
                 </button>
                 <button onClick={() => updatedSelected("3")} className="item">
-                    Library
+                    <p>Library</p>                
                 </button>
                 <button onClick={() => updatedSelected("4")} className="item">
-                    Novels Created
+                   <p> Novels Created</p>
                 </button>
                 <button onClick={() => updatedSelected("5")} className="item">
-                    Reviews
+                    <p>Reviews</p>
                 </button>
                 <button className="item">
-                    Log Out
+                    <p>Log Out</p>
                 </button>
             </div>
             <div>

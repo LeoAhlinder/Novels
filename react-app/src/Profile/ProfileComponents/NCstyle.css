@@ -12,9 +12,7 @@
 
 
 .BookList {
-    background-color: beige;
-    margin-top: 0.25%;
-    border-radius: 5px;
+    background-color: rgba(0, 0, 0, 0.507);
     width: 80vw;
     height: 5vh;
     margin-right: 3%;
