@@ -2,7 +2,7 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    background-color: gray;
+    background-color: #0f0e0e;
     margin-left: 5%;
     margin-right: 5%;
     border-radius: 5px;
@@ -27,3 +27,7 @@
         font-size: 80%;
     }
   }
+
+#noBooksText{
+    color: white;
+}

@@ -2,22 +2,39 @@
     justify-content: center;
     align-items: center;
     display: flex;
-    background-color: gray;
+    background-color: #0f0e0e;
     margin-left: 5%;
     margin-right: 5%;
-    border-radius: 5px;
+    border-radius: 0px 0px 10px 10px;
     height: 160%;
     margin-bottom: 4%;
 }
 
 
 .BookList {
-    background-color: rgba(0, 0, 0, 0.507);
+    background-color: transparent;
     width: 80vw;
+    color: white;
     height: 5vh;
     margin-right: 3%;
     justify-content: initial;
     align-items: initial;
     display:flex;
     border: none;
-  }
+}
+
+#tableHead{
+    background-color: #0f0e0e;
+    height: 30px;
+    margin: 0 5%;
+    color: white;
+}
+
+#tableHeadContainer{
+    margin: 0 5%;
+    background-color: #0f0e0e;
+}
+
+#tableText{
+    font-size: 1.2rem;
+}

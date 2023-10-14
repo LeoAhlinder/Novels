@@ -34,19 +34,26 @@ const NovelCreated = () =>{
     }
 
     return(
-        <div className="Novels">
-        {books.length > 0 ? (
-            <ul>
-                {books.map((book) => (
-                    <button className="BookList" key={book.bookid} onClick={() => OpenBook(book)}>
-                        {book.title} - Page: {book.currentPage}
-                    </button>
-                ))}
-            </ul>
-        ) : (
-            <p>No books</p>
-        )}
-    </div>
+        <>  <div id="tableHeadContainer">
+                <div id="tableHead">
+                    <p id="tableText">Novels Title</p>
+                </div>
+            </div>
+            <div className="Novels">
+                
+                {books.length > 0 ? (
+                    <ul>
+                        {books.map((book) => (
+                            <button className="BookList" key={book.bookid} onClick={() => OpenBook(book)}>
+                                {book.title} - Page: {book.currentPage}
+                            </button>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>No books</p>
+                )}
+            </div>
+        </>
     )
 }
 

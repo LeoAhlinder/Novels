@@ -50,7 +50,7 @@ const Library = () => {
             ))}
         </ul>
     ) : (
-        <p>No books</p>
+        <p id="noBooksText">Add your favorite books to your library so you never forget them!</p>
     )}
 </div>
 
