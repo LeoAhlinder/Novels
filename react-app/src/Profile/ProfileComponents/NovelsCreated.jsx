@@ -2,40 +2,56 @@ import React, { useEffect, useState } from "react";
 import "./NCstyle.css"
 import { useNavigate } from "react-router-dom";
 import ErrorHandler from "../../global/errorHandler";
+import Cookies from 'js-cookie'
+import setCookie from "../../global/setCookie";
+
 
 const NovelCreated = () =>{
 
     const navigate = useNavigate()
 
-
     const [books,setBooks] = useState([])
 
     useEffect(()=>{
-        const fetchNovelsCreated = async () =>{
+        if (Cookies.get("createdBooks")){
 
-            const token = localStorage.getItem("authToken")
+            let cookieValue = document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('createdBooks='))
+                    .split('=')[1];
 
-            const res = await fetch("http://localhost:3001/api/novelsCreated",{
-                method:"GET",
-                headers:{    
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                Authorization: `Bearer ${token}`}
-            });
-            if (res.ok){
-                const response = await res.json()
-                setBooks(response.data)
-            }
-            else{
+            let retrievedArray = JSON.parse(cookieValue);
+            setBooks(retrievedArray)
+        }
+        else{
+            const fetchNovelsCreated = async () =>{
 
-                let error = ErrorHandler(res)
-                alert(error.message)
-                if (error.navigate.length > 0){
-                    navigate(error.navigate)
+                const token = localStorage.getItem("authToken")
+
+                const res = await fetch("http://localhost:3001/api/novelsCreated",{
+                    method:"GET",
+                    headers:{    
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${token}`}
+                });
+                if (res.ok){
+                    const response = await res.json()
+                    setBooks(response.data)
+                    setCookie("createdBooks",response.data,0.1)
+
+                }
+                else{
+
+                    let error = ErrorHandler(res)
+                    alert(error.message)
+                    if (error.navigate.length > 0){
+                        navigate(error.navigate)
+                    }
                 }
             }
+            fetchNovelsCreated();
         }
-        fetchNovelsCreated();
     },[navigate])
 
     function OpenBook(book){
