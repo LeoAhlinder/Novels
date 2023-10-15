@@ -37,7 +37,7 @@ const Profile = () => {
                 <button onClick={() => updatedSelected("2")} className={selected === "2" ? "buttonClicked" : "profileButton"} id="commentsButton">Comments</button>
                 <button onClick={() => updatedSelected("3")}className={selected === "3" ? "buttonClicked" : "profileButton"} id="novelsCreatedButton">Novels Created</button>
                 <button onClick={() => updatedSelected("4")} className={selected === "4" ? "buttonClicked" : "profileButton"} id="libraryButton">Library</button>
-                <button onClick={() => updatedSelected("5")} className={selected === "5" ? "buttonClicked" : "profileButton"}>Reviews</button>
+                <button onClick={() => updatedSelected("5")} className={selected === "5" ? "buttonClicked" : "profileButton"} id="reviewButton">Reviews</button>
             </div>
             <div className="profileHeaderSmall">
 

@@ -130,7 +130,6 @@ body {
     background-color: transparent;
     position: absolute;
     bottom: 2%;
-    left: 50%;
     display: flex;
     align-items: center;
     margin-left: 3%;
@@ -150,6 +149,10 @@ body {
 
 #libraryButton{
     left: 40%;
+}
+
+#reviewButton{
+    left: 50%;
 }
 
 .NovelsCreated:hover,.Comments:hover,.InfoButton:hover,.LibraryButton:hover{
