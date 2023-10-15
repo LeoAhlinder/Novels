@@ -30,7 +30,8 @@ const Profile = () => {
     return (
         <div>
             <div className='profileHeader'>
-                <h1 className='profileHeader'>Profile Page</h1>
+                <h1 id="profilePageText">Profile Page</h1>
+
                 <button onClick={logOut} className='logout'>Log Out</button>
                 <p className='userName'>Welcome {userName}</p>
                 <button onClick={() => updatedSelected("1")}className={selected === "1" ? "buttonClicked" : "profileButton"} id="infoButton">Info</button>

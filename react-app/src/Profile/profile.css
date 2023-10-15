@@ -9,8 +9,8 @@ body {
     border-radius: 3px;
     font-size: 1rem;
     padding: 5px;
-    right: 1%;
-    bottom: 7%;
+    left: 1%;
+    top: 7%;
     position: absolute;
 
     @media screen and (max-width:470px) {
@@ -53,24 +53,31 @@ body {
     background-color: red !important;
 }
 
+#profilePageText{
+    font-size: 25px;
+    position: absolute;
+    top: 40%;
+    bottom: 50%;
+}
 
 .profileHeader {
     color: white;
-    text-align: center;
+    text-align: start;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
+    align-items: start;
     position: relative;
     background-color: rgb(83, 73, 73);
     margin-left: 5%;
     margin-right: 5%;
+    height: 20rem;
     border-radius: 5px;
-    padding-bottom: 3%;
+    /* padding-bottom: 3%; */
     font-size: 25px;
     margin-top: 9%;
     bottom: 50px;
 
-    @media screen and (max-width:1200px) {
+    @media screen and (max-width:1350px) {
         margin-top: 15%;
     }
 
@@ -111,30 +118,27 @@ body {
         margin-top: 60%;
 
     }
+
     
-    @media screen and (max-width: 180px) {
-        font-size: 11px; /* Further adjust the font size for even smaller screens */
-        margin-top: 80%;
-    }
-    @media screen and (max-width: 50px) {
-        font-size: 3px; /* Further adjust the font size for even smaller screens */
-        margin-top: 150%;
-    }
 }
 .profileButton{
     color: white;
     border: none;
     border-bottom: transparent;
     transition: 0.3s ease-out;
-    font-size: 65%;
+    font-size: 1rem;
     background-color: transparent;
-    position: absolute;
+    /* position: absolute; */
     bottom: 2%;
     display: flex;
-    align-items: center;
-    margin-left: 3%;
-}
+    margin-top: auto;
+    margin-bottom: 0.2%;
 
+    @media screen and (max-width:700px) {
+        font-size: 0.9rem !important;
+    }
+
+}
 #infoButton{
     left: 5%;
 }
@@ -153,7 +157,7 @@ body {
 
 #reviewButton{
     left: 50%;
-}
+} 
 
 .NovelsCreated:hover,.Comments:hover,.InfoButton:hover,.LibraryButton:hover{
     color: dodgerblue;
@@ -167,14 +171,13 @@ body {
     border-top: none;
     border-bottom:1px solid dodgerblue;
     transition: 0.3s ease-out;
-    font-size: 65%;
+    font-size: 1rem;
     background-color: transparent;
     color: dodgerblue;
-    position: absolute;
-    bottom: 2%;
     display: flex;
-    align-items: center;
-    margin-left: 3%;
+    margin-top: auto;
+    margin-bottom: 0.25%;
+
 }
 
 @media screen and (max-width:630px) {
@@ -192,10 +195,11 @@ body {
 
 
 .profileHeaderSmall {
-    margin-top: 20% !important;
-    margin: 5% 5% 2%;
+    margin: 3% 3% 5%;
     height: 11vh !important;
     display: none;
+    color: aqua !important;
+    
     grid-template-rows: auto auto;
 
     @media screen and (max-width:400px) {
