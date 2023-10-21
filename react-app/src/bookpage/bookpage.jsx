@@ -22,6 +22,16 @@ const BookPage = () =>{
     const [buttonState,changeButtonState] = useState(true)
 
 
+
+        function errorFunction(err){
+            let error = ErrorHandler(err)
+            alert(error.message)
+            if (error.navigate.length > 0){
+                navigate("/")
+            }
+        }
+
+
         //Get bookinfo
         useEffect(() =>{
             const bookInfo = async (bookId) =>{
@@ -44,11 +54,7 @@ const BookPage = () =>{
                     setauthor(response.author[0].userName)
                     setID(response.data[0].bookid)
                 }else{
-                    let error = ErrorHandler(res)
-                    alert(error.message)
-                    if (error.navigate.length > 0){
-                        navigate("/")
-                    }
+                    errorFunction(res)
                 }
             }
             catch(err){
@@ -87,11 +93,11 @@ const BookPage = () =>{
 
                         }
                     }else{
-                    console.log("error")
+                        errorFunction(res)
                     }
                 }
                 catch(err){
-                    console.log(err)
+                    errorFunction(res)
                 }
             }
             isBookInLibrary();
@@ -117,10 +123,11 @@ const BookPage = () =>{
                     buttonColdDown("add")
                 }
                 else{
-                    console.log("NOT OK LOL")
+                    errorFunction(res)
+
                 }
             }catch(err){
-                console.log(err)
+                errorFunction(res)
             }
         }
     }
@@ -163,10 +170,10 @@ const BookPage = () =>{
                     buttonColdDown("remove")
                 }
                 else{
-                    console.log("NOT OK LOL")
+                    errorFunction(res)
                 }
             }catch(err){
-                console.log(err)
+                errorFunction(res)
             }
         }
     }
