@@ -45,6 +45,8 @@ a{
 
 .nav-link{
   transition: 0.3s ease-out;
+  font-family:'Times New Roman', Times, serif;
+  font-size: 1rem;
 }
 .nav-link:hover{
   color: dodgerblue;

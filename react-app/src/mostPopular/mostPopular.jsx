@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./mostPopularStyle.css"
 import fantasy from "../Pictures/fantasy.webp"
 import Cookies from 'js-cookie'
@@ -12,12 +12,11 @@ const MostPopular  = () =>{
     const [books,setBooks] = useState([])
     const navigate = useNavigate()
 
-
-
-
+    useEffect(()=>{
+        ranking()
+    })
 
     const ranking = async (type) =>{
-
 
         if (Cookies.get("books")){
 
@@ -64,7 +63,6 @@ const MostPopular  = () =>{
         }
     }
 
-    ranking()
 
 
     const goToBook = (book) =>{
