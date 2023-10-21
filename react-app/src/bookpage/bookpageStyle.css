@@ -63,8 +63,9 @@
 
 }
 
-.ReadButton:hover,.AddButton:hover{
-    transform: scale(1.1);
+.ReadButton:hover,#AddButton:hover{
+    opacity: 0.8;
+    color: black;
 }
 
 .bookCD{
