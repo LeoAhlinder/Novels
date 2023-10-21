@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import "./createnewstyle.css"
+import ErrorHandler from "../global/errorHandler";
+import { useNavigate } from "react-router-dom";
 
 const CreateNew = () =>{
+
+    const navigate = useNavigate()
 
     const [bookName,changeBookName] = useState("")
     const [summary,changeSummary] = useState("")
@@ -100,11 +104,19 @@ const CreateNew = () =>{
                 }
             }
             else{
-                console.log("some error")
+                let error = ErrorHandler(res)
+                alert(error.message)
+                if (error.navigate.length > 0){
+                    navigate(error.navigate)
+                }
             }
 
         }catch(error){
-            console.log(error)
+            let errorCatch = ErrorHandler(error)
+            alert(errorCatch.message)
+            if (errorCatch.navigate.length > 0){
+                navigate(errorCatch.navigate)
+            }
         }
     }
 

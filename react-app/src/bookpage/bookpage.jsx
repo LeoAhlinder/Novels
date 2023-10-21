@@ -27,7 +27,7 @@ const BookPage = () =>{
             let error = ErrorHandler(err)
             alert(error.message)
             if (error.navigate.length > 0){
-                navigate("/")
+                navigate(error.navigate)
             }
         }
 
@@ -127,7 +127,7 @@ const BookPage = () =>{
 
                 }
             }catch(err){
-                errorFunction(res)
+                errorFunction(err)
             }
         }
     }
@@ -173,7 +173,7 @@ const BookPage = () =>{
                     errorFunction(res)
                 }
             }catch(err){
-                errorFunction(res)
+                errorFunction(err)
             }
         }
     }
