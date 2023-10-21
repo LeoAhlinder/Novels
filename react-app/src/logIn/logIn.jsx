@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import "./logIn.css"
 import { useNavigate } from "react-router-dom"
+import ErrorHandler from '../global/errorHandler';
 
 
 
 const LogIn = () =>{
 
     const navigate = useNavigate();
-
 
     const [inputFields, setInputFields] = useState([
         {placeholder:"Email", id:"email"},
@@ -78,10 +78,18 @@ const LogIn = () =>{
                     logInF()
                 }
             }else{
-                console.log("ERROR")
+                let error = ErrorHandler(res)
+                alert(error.message)
+                if (error.navigate.length > 0){
+                    navigate(error.navigate)
+                }
             }
         }catch(err){
-            console.log(err)
+            let errorCatch = ErrorHandler(err)
+            alert(errorCatch.message)
+            if (errorCatch.navigate.length > 0){
+                navigate(errorCatch.navigate)
+            }   
         }
     }
 
