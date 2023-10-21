@@ -125,27 +125,22 @@ const BookPage = () =>{
         }
     }
 
-    const buttonColdDown = (action) =>{
-        if (action === "add"){
-            document.getElementById("AddButton").setAttribute("class","bookCD");
-            changeButtonState(false)
-
-            setTimeout(()=>{
-                document.getElementById("AddButton").classList.remove("bookCD")
-                changeButtonState(true)
-                LibraryChange("Remove from Library")
-            },8000)
-        }else{
-            document.getElementById("AddButton").setAttribute("class","bookCD");
-            changeButtonState(false)
-
-            setTimeout(()=>{
-                document.getElementById("AddButton").classList.remove("bookCD")
-                changeButtonState(true)
-                LibraryChange("Add to library")
-            },8000)
-        }
+    const buttonColdDown = (action) => {
+        document.getElementById("AddButton").setAttribute("class", "bookCD");
+        changeButtonState(false);
+    
+        setTimeout(() => {
+            document.getElementById("AddButton").classList.remove("bookCD");
+            changeButtonState(true);
+            
+            if (action === "add") {
+                LibraryChange("Remove from Library");
+            } else {
+                LibraryChange("Add to library");
+            }
+        }, 8000);
     }
+    
 
     const removeFromLibrary = async (id) =>{
         const token = localStorage.getItem("authToken")
