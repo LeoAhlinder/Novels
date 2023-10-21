@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./mostPopularStyle.css"
 import fantasy from "../Pictures/fantasy.webp"
 import Cookies from 'js-cookie'
 import { useNavigate } from "react-router";
 import setCookie from "../global/setCookie";
+import ErrorHandler from "../global/errorHandler";
 
 
 const MostPopular  = () =>{
@@ -12,9 +13,8 @@ const MostPopular  = () =>{
     const navigate = useNavigate()
 
 
-    useEffect(()=>{
-        ranking()
-    },[])
+
+
 
     const ranking = async (type) =>{
 
@@ -47,14 +47,25 @@ const MostPopular  = () =>{
                     setCookie("books",response.books,3) //Name,data,expire date in hours
                 }
                 else{
-                    console.log("something went wrong")
+                    let error = ErrorHandler(res)
+                    alert(error.message)
+                    if (error.navigate.length > 0){
+                        navigate(error.navigate)
+                    }
                 }
             }
             catch(err){
-                console.log(err)
+                let errorCatch = ErrorHandler(err)
+                alert(errorCatch.message)
+                if (errorCatch.navigate.length > 0){
+                    navigate(errorCatch.navigate)
+                }   
             }
         }
     }
+
+    ranking()
+
 
     const goToBook = (book) =>{
         navigate({pathname:"/book",search:`?id=${book.bookid}`})
