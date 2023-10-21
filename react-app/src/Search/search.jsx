@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./searchStyle.css"
+import ErrorHandler from "../global/errorHandler"
+import { useNavigate } from "react-router";
 
 const SearchBar = () =>{
+
+    const navigate = useNavigate()
 
     const [search,setSearch] = useState("")
     const [books,newBooks] = useState([])
@@ -29,13 +33,24 @@ const SearchBar = () =>{
                             newBooks(response.data)
                             SetViewing(true)
                         }
+                        else{
+                            let error = ErrorHandler(res)
+                            alert(error.message)
+                            if (error.navigate.length > 0){
+                                navigate(error.navigate)
+                            }
+                        }
                         }
                     }catch(err){
-                        console.log(err)
+                        let errorCatch = ErrorHandler(err)
+                        alert(errorCatch.message)
+                        if (errorCatch.navigate.length > 0){
+                            navigate(errorCatch.navigate)
+                        }  
                     }
                 }
             return () => clearTimeout(waitForInput)
-    },[search]);
+    },[search,navigate]);
 
     
     function HandleChange(event){
