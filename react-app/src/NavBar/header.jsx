@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./headerStyle.css"
 import { useNavigate } from "react-router-dom"
+import ErrorHandler from '../global/errorHandler';
 
 const Header = () => {
    
@@ -35,14 +36,25 @@ const Header = () => {
                         Authorization: `Bearer ${token}`
                     }
                 });
-
-                const response = await res.json();
-                if (response.message === "this is protected"){
-                    return "valid"
+                if (res.ok){
+                    const response = await res.json();
+                    if (response.message === "this is protected"){
+                        return "valid"
+                    }
+                }else{
+                    let error = ErrorHandler(res)
+                    alert(error.message)
+                    if (error.navigate.length > 0){
+                        navigate(error.navigate)
+                    }
                 }
             }
         } catch (err) {
-            console.log(err);
+            let errorCatch = ErrorHandler(err)
+                alert(errorCatch.message)
+                if (errorCatch.navigate.length > 0){
+                    navigate(errorCatch.navigate)
+                }   
         }
     };
 
@@ -58,11 +70,6 @@ const Header = () => {
             navigate("login")
         }
 
-    }
-
-    const home = () =>{
-        navigate("/")
-        setIsMenuOpen(false);
     }
 
     const create = () =>{
@@ -99,15 +106,15 @@ const Header = () => {
                             <a className='nav-link' href='./popular' onClick={closeMenu}>Most Popular</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" onClick={create}>Create</a>
+                            <button className="nav-link" onClick={create}>Create</button>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href='./Search' onClick={closeMenu}>Search</a>
                         </li>
                         <li className="nav-item">
-                            <a className='nav-link' onClick={profileButtonClicked}>
+                            <button className='nav-link' onClick={profileButtonClicked}>
                                 {loggedIn ? "Profile" : "Log In or create Account"}
-                            </a>
+                            </button>
                         </li>
                     </ul>
                     <div className={`hamburger ${isMenuOpen ? 'active' : ''}`} onClick={toggleMenu} id='hamburger'>

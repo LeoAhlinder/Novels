@@ -57,6 +57,12 @@ a{
   display: none;
   cursor: pointer;
 }
+button
+{
+  background-color: transparent;
+  color: white;
+  border: none;
+}
 .bar{
   display: block;
   width: 25px;
