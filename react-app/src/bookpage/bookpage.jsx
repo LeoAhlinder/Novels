@@ -130,13 +130,15 @@ const BookPage = () =>{
         changeButtonState(false);
     
         setTimeout(() => {
-            document.getElementById("AddButton").classList.remove("bookCD");
-            changeButtonState(true);
-            
-            if (action === "add") {
-                LibraryChange("Remove from Library");
-            } else {
-                LibraryChange("Add to library");
+            if (window.location.pathname.includes("book")){
+                document.getElementById("AddButton").classList.remove("bookCD");
+                changeButtonState(true);
+                
+                if (action === "add") {
+                    LibraryChange("Remove from Library");
+                } else {
+                    LibraryChange("Add to library");
+                }
             }
         }, 8000);
     }
