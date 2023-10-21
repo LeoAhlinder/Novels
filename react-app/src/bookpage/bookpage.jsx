@@ -3,9 +3,14 @@ import "./bookpageStyle.css"
 import { useLocation } from "react-router-dom";
 import cat from "../Pictures/coolcat.jpg"
 import { useState } from "react";
+import ErrorHandler from "../global/errorHandler";
+import { useNavigate } from "react-router-dom";
+
 
 
 const BookPage = () =>{
+
+    const navigate = useNavigate()
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
@@ -39,7 +44,11 @@ const BookPage = () =>{
                     setauthor(response.author[0].userName)
                     setID(response.data[0].bookid)
                 }else{
-                console.log("error")
+                    let error = ErrorHandler(res)
+                    alert(error.message)
+                    if (error.navigate.length > 0){
+                        navigate("/")
+                    }
                 }
             }
             catch(err){
