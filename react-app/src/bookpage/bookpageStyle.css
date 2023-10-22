@@ -1,4 +1,4 @@
-.NovelCover{
+.novelCover{
     width: 40%;
     position: absolute;
     margin-top: 10%;
@@ -12,7 +12,7 @@
     margin-right: 9%;
 }
 
-.BookInfo{
+.bookInfo{
     margin-top: 8.2%;
     height: 37.5%;
     position: fixed;
@@ -20,29 +20,29 @@
     width: 45%;
 }
 
-.Title{
+.title{
     margin-left: 2%;
     color: white;
 
 }
 
-.Author{
+.author{
     margin-top: 2%;
     margin-left:2%;
     color: white;
 
 }
 
-.Chapters{
+.chapters{
     margin-left: 2%;
     margin-top: 1%;
     color: white;
 }
 
-#AddButton{
+#addButton{
     margin-top: 8%;
     border: none;
-    background-color: blue;
+    background-color: dodgerblue;
     margin-left: 5%;
     height: 13%;
     width: 20%;
@@ -51,8 +51,8 @@
     cursor: pointer;
 }
 
-.ReadButton{
-    background-color: blue;
+.readButton{
+    background-color: dodgerblue;
     cursor: pointer;
     border: none;
     margin-left: 4%;
@@ -63,7 +63,7 @@
 
 }
 
-.ReadButton:hover,#AddButton:hover{
+.readButton:hover,#addButton:hover{
     opacity: 0.8;
     color: black;
 }
@@ -71,4 +71,92 @@
 .bookCD{
     opacity: 0.5;
     cursor: none;
+}
+
+
+
+@media screen and (min-width:1000px) {
+    #phone{
+        display: none;
+    }
+    
+    #desktop{
+        display: block;
+    }
+}
+
+@media screen and (max-width:1000px) {
+    #phone{
+        display: block;
+    }
+    #desktop{
+        display: none;
+    }
+    #authorPhone{
+        font-size: 1rem;
+    }
+    #chaptersPhone{
+        font-size: 1rem;
+    }
+    #titlePhone{
+        font-size: 1.8rem;
+    }
+    #readButtonPhone{
+        background-color: dodgerblue;
+        margin-right: 10px;
+        padding: 5px;
+        border-radius: 3px;
+        font-size: 1rem;
+
+    }
+    #addButtonPhone{
+        background-color: dodgerblue;
+        margin-left: 10px;
+        padding: 5px;
+        border-radius: 3px;
+        font-size: 1rem;
+    }
+    #bookInfoPhone{
+        background-color: rgb(37, 35, 35);
+        width: 80%;
+        text-align: center;
+        height: 20rem;
+        color: white;
+        margin: 0 auto;
+
+    }
+    #phoneButtonContainer{
+        margin-top: 20px;
+    }
+    #novelCoverPhone{
+        width: 80%;
+        margin-top: 5%;
+        height: auto;
+    }
+    #phoneItemsWrapper{
+        margin: 0 auto;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width:500px) {
+    #phoneButtonContainer{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    #addButtonPhone{
+        margin: 0 auto;
+        width: 50%;
+
+    }
+    #readButtonPhone{
+        margin: 0 auto;
+        width: 50%;
+    }
+
+
+
 }

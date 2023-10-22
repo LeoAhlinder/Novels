@@ -93,11 +93,12 @@ const BookPage = () =>{
 
                         }
                     }else{
+
                         errorFunction(res)
                     }
                 }
                 catch(err){
-                    errorFunction(res)
+                    errorFunction(err)
                 }
             }
             isBookInLibrary();
@@ -123,22 +124,22 @@ const BookPage = () =>{
                     buttonColdDown("add")
                 }
                 else{
-                    errorFunction(res)
+                    errorFunction("res")
 
                 }
             }catch(err){
-                errorFunction(err)
+                errorFunction("cath")
             }
         }
     }
-
+    
     const buttonColdDown = (action) => {
-        document.getElementById("AddButton").setAttribute("class", "bookCD");
+        document.getElementById("addButton").setAttribute("class", "bookCD");
         changeButtonState(false);
     
         setTimeout(() => {
             if (window.location.pathname.includes("book")){
-                document.getElementById("AddButton").classList.remove("bookCD");
+                document.getElementById("addButton").classList.remove("bookCD");
                 changeButtonState(true);
                 
                 if (action === "add") {
@@ -182,16 +183,33 @@ const BookPage = () =>{
     return(
         <div className="Wrapper">
         {bookInfo.length > 0 ? (
-            <>
-                <picture>
-                    <img src={cat} alt="cutecat" className="NovelCover" />
-                </picture>
-                <div className="BookInfo">
-                    <h1 className="Title">{bookInfo[0].title}</h1>
-                    <h5 className="Author">Author: {authorName}</h5>
-                    <h5 className="Chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
-                    <button className="ReadButton" >Read</button>
-                    <button id="AddButton" onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+            <>  <div id="desktop">
+                    <picture>
+                        <img src={cat} alt="cutecat" className="novelCover"/>
+                    </picture>
+                    <div className="bookInfo">
+                        <h1 className="title">{bookInfo[0].title}</h1>
+                        <h5 className="author">Author: {authorName}</h5>
+                        <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
+                        <button className="readButton" >Read</button>
+                        <button id="addButton" onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+                    </div>
+                </div>
+                <div id="phone">
+                    <div id="phoneItemsWrapper">
+                        <picture>
+                            <img src={cat} alt="cutecat" id="novelCoverPhone" />
+                        </picture>
+                        <div id="bookInfoPhone">
+                            <h1 id="titlePhone">{bookInfo[0].title}</h1>
+                            <h5 id="authorPhone">Author: {authorName}</h5>
+                            <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
+                            <div id="phoneButtonContainer">
+                                <button id="readButtonPhone" >Read</button>
+                                <button id="addButtonPhone" onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </>
         ) : null}
