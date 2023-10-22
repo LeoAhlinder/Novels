@@ -9,12 +9,12 @@
 .categories {
     flex-grow: 1;
     padding: 20px;
-    background-color: red;
+    background-color: rgb(83, 73, 73);
 }
 
 .button-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     padding: 10px 0;
 }
@@ -22,21 +22,13 @@
 .category-button {
     flex-grow: 1;
     padding: 10px;
-    border: none;
-    background-color: rgb(24, 23, 23);
+    max-width: 200px;
     margin: 0 5px;
-    color:white;
+    color:rgb(231, 224, 224);
     cursor: pointer;
     outline: none;
     font-size: 16px;
-    border-radius: 5px;
 }
-
-.bookList{
-    background-color: red;
-    height: 80vh;
-}
-
 
 
 @media screen and (max-width:1300px) {
@@ -97,3 +89,14 @@
     display: flex;
     left: 0;
   }
+
+
+#subTitle{
+    font-size: 1.5rem;
+    margin: 5px;
+}
+#subText{
+    font-size: 1rem;
+    margin: 5px;
+    margin-top: 1px;
+}

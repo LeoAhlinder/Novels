@@ -14,7 +14,7 @@ const MostPopular  = () =>{
 
     useEffect(()=>{
         ranking()
-    })
+    },[])
 
     const ranking = async (type) =>{
 
@@ -83,6 +83,14 @@ const MostPopular  = () =>{
                     </div>
                         
                 </div>
+
+                <div className="popularDescription">
+                    <h3 id="subTitle">Most popular novels</h3>
+                    <h4 id="subText">The overall ranking is based on rating and collections.</h4>
+                </div>
+
+
+
                 {books.length > 0 ? ( <>
                     <ul className="gridContainerPopular">
                     {books.slice(0,12).map((book, index) => (
