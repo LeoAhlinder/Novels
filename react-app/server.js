@@ -332,8 +332,7 @@ app.delete("/api/RemoveFromLibrary",ensureToken,function(req,res){
 
 
 app.post("/api/checkLibrary",ensureToken,function(req,res){
-  if (req.token === null || "null"){
-    console.log("no token")
+  if (req.token === null || req.token === "null"){
     res.json({message:"no token"})
     return
   }

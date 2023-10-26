@@ -91,7 +91,6 @@ const BookPage = () =>{
                         }
                         else if (response.message === "does not exist"){
                             LibraryChange("Add to Library")
-
                         }
                     }else{
 
@@ -190,8 +189,10 @@ const BookPage = () =>{
                         <h1 className="title">{bookInfo[0].title}</h1>
                         <h5 className="author">Author: {authorName}</h5>
                         <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
-                        <button className="readButton" >Read</button>
-                        <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+                        <div id="test">
+                            <button className="readButton" >Read</button>
+                            <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : "n"} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+                        </div>
                     </div>
                 </div>
                 <div id="phone">
