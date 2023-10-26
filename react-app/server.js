@@ -79,24 +79,19 @@ function userLibrary(id) {
 }
 
 
-app.get(`/api/book`,ensureToken, async (req,res) =>{
+app.get(`/api/book`, async (req,res) =>{
 
-  jwt.verify(req.token,secretkey,async function(err,decodedToken){
-    if (err){
-      res.sendStatus(403)
-    }else{
-      const id = req.query.id;
-      try{
-        const [bookInfo, authorInfo] = await Promise.all([
-          bookData(id),
-          authorData(id)
-        ]);
-        res.json({data:bookInfo,author:authorInfo})
-      }catch(err){
-        console.log(err)
-      }
+
+    const id = req.query.id;
+    try{
+      const [bookInfo, authorInfo] = await Promise.all([
+        bookData(id),
+        authorData(id)
+      ]);
+      res.json({data:bookInfo,author:authorInfo})
+    }catch(err){
+      console.log(err)
     }
-  })
 })
 
 function authorData(id) {
@@ -337,6 +332,11 @@ app.delete("/api/RemoveFromLibrary",ensureToken,function(req,res){
 
 
 app.post("/api/checkLibrary",ensureToken,function(req,res){
+  if (req.token === null || "null"){
+    console.log("no token")
+    res.json({message:"no token"})
+    return
+  }
   jwt.verify(req.token,secretkey,function(err,decodedToken){
     if (err){
       res.sendStatus(403)

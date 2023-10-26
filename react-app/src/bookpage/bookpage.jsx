@@ -45,7 +45,6 @@ const BookPage = () =>{
                     headers: {  
                         "Content-Type": "application/json",
                         "Accept": "application/json",
-                        Authorization: `Bearer ${token}`
                       }
                 });
                 if (res.ok){
@@ -79,12 +78,14 @@ const BookPage = () =>{
                             "Content-Type": "application/json",
                             "Accept": "application/json",
                             Authorization: `Bearer ${token}`
-
                           },
                           body: JSON.stringify({id:bookId})
                     });
                     if (res.ok){
                         const response = await res.json()
+                        if (response.message === "no token"){
+                            LibraryChange("Not Login in")
+                        }
                         if (response.message === "exist"){
                             LibraryChange("Remove from Library")
                         }
@@ -150,7 +151,6 @@ const BookPage = () =>{
             }
         }, 8000);
     }
-    
 
     const removeFromLibrary = async (id) =>{
         const token = localStorage.getItem("authToken")
@@ -179,7 +179,6 @@ const BookPage = () =>{
         }
     }
 
-
     return(
         <div className="Wrapper">
         {bookInfo.length > 0 ? (
@@ -192,7 +191,7 @@ const BookPage = () =>{
                         <h5 className="author">Author: {authorName}</h5>
                         <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                         <button className="readButton" >Read</button>
-                        <button id="addButton" onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+                        <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
                     </div>
                 </div>
                 <div id="phone">
@@ -206,7 +205,7 @@ const BookPage = () =>{
                             <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                             <div id="phoneButtonContainer">
                                 <button id="readButtonPhone" >Read</button>
-                                <button id="addButtonPhone" onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+                                <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
                             </div>
                         </div>
                     </div>

@@ -40,7 +40,6 @@
 }
 
 #addButton{
-    margin-top: 8%;
     border: none;
     background-color: dodgerblue;
     margin-left: 5%;
@@ -60,7 +59,7 @@
     width: 20%;
     border-radius: 5px;
     color: white;
-
+    margin-top: 8%;
 }
 
 .readButton:hover,#addButton:hover{
@@ -72,7 +71,6 @@
     opacity: 0.5;
     cursor: none;
 }
-
 
 
 @media screen and (min-width:1000px) {
@@ -159,4 +157,8 @@
 
 
 
+}
+
+.notLoginIn{
+    display: none;
 }
