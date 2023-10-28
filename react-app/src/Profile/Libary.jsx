@@ -44,19 +44,27 @@ const Library = () => {
   }, []);
 
   return (
-    <div className="Library">
-    {books.length > 0 ? (
-        <ul>
-            {books.map((book) => (
-                <button className="BookList" onClick={() => openBook(book)} key={book.bookid}>
-                    {book.title} - Page: {book.currentPage}
-                </button>
-            ))}
-        </ul>
-    ) : (
-        <p id="noBooksText">Add your favorite books to your library so you never forget them!</p>
-    )}
-</div>
+    <>
+      <div id="tableHeadContainer">
+                  <div id="tableHead">
+                      <p id="tableText">Novels Title</p>
+                  </div>
+              </div>
+      
+      <div className="Library">
+      {books.length > 0 ? (
+          <ul>
+              {books.map((book) => (
+                  <button className="BookList" onClick={() => openBook(book)} key={book.bookid}>
+                      {book.title} - Page: {book.currentPage}
+                  </button>
+              ))}
+          </ul>
+      ) : (
+          <p id="noBooksText">Add your favorite books to your library so you never forget them!</p>
+      )}
+      </div>
+      </>
 
   );
 
