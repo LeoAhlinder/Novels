@@ -10,8 +10,9 @@
 }
 
 
-.BookList {
-    background-color: beige;
+.bookItem {
+    width: 100%;
+    background-color: transparent;
     margin-top: 0.25%;
     border-radius: 5px;
     width: 80vw;
@@ -29,4 +30,8 @@
 
 #noBooksText{
     color: white;
+}
+
+#pageInfo{
+    text-align: end;
 }

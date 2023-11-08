@@ -55,8 +55,8 @@ const Library = () => {
       {books.length > 0 ? (
           <ul>
               {books.map((book) => (
-                  <button className="BookList" onClick={() => openBook(book)} key={book.bookid}>
-                      {book.title} - Page: {book.currentPage}
+                  <button className="bookItem" onClick={() => openBook(book)} key={book.bookid}>
+                      {book.title} <span id="pageInfo">Page: {book.currentPage}</span>
                   </button>
               ))}
           </ul>

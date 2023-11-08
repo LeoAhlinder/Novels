@@ -13,7 +13,7 @@ import SearchBar from './Search/search';
 import MostPopular from './mostPopular/mostPopular';
 
 const App = () => {
-  const [serverStatus, setServerStatus] = useState(null); // Initialize with null
+  const [serverStatus, setServerStatus] = useState(null);
 
   useEffect(() => {
       const fetchServerStatus = async () => {

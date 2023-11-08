@@ -9,10 +9,14 @@ const SearchBar = () =>{
 
     const [search,setSearch] = useState("")
     const [books,newBooks] = useState([])
-    const [ViewingBooks,SetViewing] = useState(false)
+    const [viewingBooks,SetViewing] = useState(false)
 
 
     useEffect(() =>{
+            if (search.length === 0){
+                newBooks([])
+                SetViewing(false)
+            }
             const waitForInput = setTimeout(()=>{
                 fetchBooks();
             },1600)
@@ -60,7 +64,6 @@ const SearchBar = () =>{
     return(
         <>
             <div>
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
                 <div>
                     <input 
                         type="text"
@@ -71,10 +74,10 @@ const SearchBar = () =>{
                         placeholder="Search for Book by Title"
                     />   
                 </div>
-                <div className="containWrapper">
-                    <ul className={ViewingBooks === true ? "Container" : ""}>
+                <div className="containerWrapperSearch">
+                    <ul className={viewingBooks === true ? "containerSearch" : ""}>
                         {books.map((book)=>(
-                            <li key={book.bookid} className="book">{book.title.length > 15 ? book.title.substring(0,10):book.title}</li>
+                            <li key={book.bookid} className="bookSearch">{book.title.length > 15 ? book.title.substring(0,10):book.title}</li>
                         ))}
                     </ul>
                 </div>
