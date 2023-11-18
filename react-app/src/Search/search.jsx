@@ -61,6 +61,10 @@ const SearchBar = () =>{
         setSearch(event.target.value)
     }
 
+    const goToBook = (book) =>{
+        navigate({pathname:"/book",search:`?id=${book.bookid}`})
+    }
+
     return(
         <>
             <div>
@@ -76,7 +80,7 @@ const SearchBar = () =>{
                 </div>
                     <ul className={viewingBooks === true ? "containerSearch" : ""}>
                         {books.map((book)=>(
-                            <li key={book.bookid} className="bookSearch">{book.title.length > 15 ? book.title.substring(0,10):book.title}</li>
+                            <li key={book.bookid} className="bookSearch"><button onClick={() => goToBook(book)}>{book.title.length > 15 ? book.title.substring(0,10):book.title}</button></li>
                         ))}
                     </ul>
             </div>
