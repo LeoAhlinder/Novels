@@ -84,7 +84,7 @@ const SearchBar = () =>{
                             <li key={book.bookid} className="bookSearch">
                                 <button onClick={() => goToBook(book)}>
                                     <img src={forestSmall} alt="" />
-                                    {book.title.length > 15 ? book.title.substring(0,10):book.title}
+                                    <span id="bookText">{book.title.length > 15 ? book.title.substring(0,10):book.title}</span>
                                 </button>
                             </li>
                         ))}

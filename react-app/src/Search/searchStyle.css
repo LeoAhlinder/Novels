@@ -60,10 +60,29 @@
     }
 }
   
-  .bookSearch {
+.bookSearch {
     width: 45%; 
     margin: 5px; 
     text-align: left;
-    color: white;
     height: 8vh;
-  }
+}
+
+
+
+
+#bookText{
+    color: white;
+    font-size: 100%;
+}
+
+@media screen and (max-width:530px){
+    #bookText{
+        font-size: 70%;
+    }
+}
+
+@media screen and (max-width:430px){
+    #bookText{
+        font-size: 60%;
+    }
+}
