@@ -51,8 +51,7 @@
     justify-content: center;
     width: 60%;
     margin: 0 auto;
-
-   
+    background-color: red;
   }
 
   @media screen and (max-width:340px) {
@@ -62,7 +61,7 @@
 }
   
   .bookSearch {
-    width: calc(50% - 5%); 
+    width: 45%; 
     margin: 5px; 
     text-align: center;
     color: white;

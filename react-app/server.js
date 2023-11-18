@@ -370,8 +370,10 @@ app.post("/api/BooksBasedOnSearch",function(req,res){
     if (err){
       console.log(err)
     }
-    else{
+    else if (results.length > 0){
       res.json({data:results})
+    }else{
+      res.json({data:"No books"})
     }
   })
 })

@@ -74,13 +74,11 @@ const SearchBar = () =>{
                         placeholder="Search for Book by Title"
                     />   
                 </div>
-                <div className="containerWrapperSearch">
                     <ul className={viewingBooks === true ? "containerSearch" : ""}>
                         {books.map((book)=>(
                             <li key={book.bookid} className="bookSearch">{book.title.length > 15 ? book.title.substring(0,10):book.title}</li>
                         ))}
                     </ul>
-                </div>
             </div>
         </>
     )
