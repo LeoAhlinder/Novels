@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import "./searchStyle.css"
 import ErrorHandler from "../global/errorHandler"
 import { useNavigate } from "react-router";
+import forestSmall from "../Pictures/forestsmall.webp"
 
 const SearchBar = () =>{
 
@@ -80,7 +81,12 @@ const SearchBar = () =>{
                 </div>
                     <ul className={viewingBooks === true ? "containerSearch" : ""}>
                         {books.map((book)=>(
-                            <li key={book.bookid} className="bookSearch"><button onClick={() => goToBook(book)}>{book.title.length > 15 ? book.title.substring(0,10):book.title}</button></li>
+                            <li key={book.bookid} className="bookSearch">
+                                <button onClick={() => goToBook(book)}>
+                                    <img src={forestSmall} alt="" />
+                                    {book.title.length > 15 ? book.title.substring(0,10):book.title}
+                                </button>
+                            </li>
                         ))}
                     </ul>
             </div>
