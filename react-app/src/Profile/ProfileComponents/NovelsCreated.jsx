@@ -26,7 +26,7 @@ const NovelCreated = () =>{
         else{
             const fetchNovelsCreated = async () =>{
 
-                const token = localStorage.getItem("authToken")
+                const token = Cookies.getItem("authToken")
 
                 const res = await fetch("http://localhost:3001/api/novelsCreated",{
                     method:"GET",

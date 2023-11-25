@@ -7,11 +7,14 @@ const { error } = require("console");
 const cors = require('cors');
 const jwt = require('jsonwebtoken');
 const { rejects } = require("assert");
+const cookieParser = require('cookie-parser');
 
 const secretkey = "leo"
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser());
+
 
 // Allow only requests from a specific domain
 const corsOptions = {
@@ -178,6 +181,7 @@ app.post("/api/createaccount",function(req,res){
   })
 })
 
+
 app.post("/api/logIn",function(req,res){
   const data = req.body;
 
@@ -202,10 +206,14 @@ app.post("/api/logIn",function(req,res){
 
 app.get("/api/protected",ensureToken,function(req,res){
 
+  if (!req.token){
+    res.json({message:"no token"})
+  }
+
   jwt.verify(req.token,secretkey,function(err,data){
-    if (err)(
-      res.sendStatus(403)
-    )
+    if (err){
+      res.json({message:"token invalid"})
+    }
     else{
       res.json({
         message: "this is protected",
@@ -214,6 +222,7 @@ app.get("/api/protected",ensureToken,function(req,res){
     }
   })
 })
+
 
 function ensureToken(req,res,next){
   const bearerHeader = req.headers["authorization"];

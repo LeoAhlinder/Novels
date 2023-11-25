@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import "./headerStyle.css"
 import { useNavigate } from "react-router-dom"
 import ErrorHandler from '../global/errorHandler';
+import Cookies from 'js-cookie'
+
 
 const Header = () => {
    
@@ -23,7 +25,7 @@ const Header = () => {
 
     const checkToken = async () => {
         try {
-            const token = localStorage.getItem("authToken");
+            const token = Cookies.get("authToken");
 
             if (!token) {
                 return "unvalid"

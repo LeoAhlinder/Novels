@@ -3,16 +3,18 @@ import "../Profile/profile.css"
 import Library from "./Libary"
 import { useNavigate } from "react-router-dom"
 import NovelCreated from "./ProfileComponents/NovelsCreated";
+import Cookies from 'js-cookie'
+
 
 const Profile = () => {
     const navigate = useNavigate();
 
-    if (!localStorage.getItem("authToken")){
+    if (!Cookies.get("authToken")){
         logOut()
     }
 
     function logOut(){
-        localStorage.removeItem("authToken")
+        Cookies.remove("authToken")
         localStorage.removeItem("userName")
         navigate("/")
     }

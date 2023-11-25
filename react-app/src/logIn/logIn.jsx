@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import "./logIn.css"
 import { useNavigate } from "react-router-dom"
 import ErrorHandler from '../global/errorHandler';
-
-
+import setCookie from "../global/setCookie";
 
 const LogIn = () =>{
 
@@ -112,7 +111,8 @@ const LogIn = () =>{
             if (res.ok){
                 const response = await res.json()
                 if (response.message === "user exist"){
-                    localStorage.setItem("authToken", response.token);    
+                    setCookie("authToken",response.token,720) //Name,data,expire date in hours
+
                     const userName = response.userName;
                     localStorage.setItem("userName",userName)
                     //setLoggedIn(true);

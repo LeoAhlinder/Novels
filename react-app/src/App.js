@@ -1,6 +1,7 @@
 import './App.css';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 import Header from "./NavBar/header"
 import Profile from "./Profile/Profile"
@@ -12,8 +13,9 @@ import CreateNew from "./Create/createNew"
 import SearchBar from './Search/search';
 import MostPopular from './mostPopular/mostPopular';
 
-const App = () => {
+const App =  () => {
   const [serverStatus, setServerStatus] = useState(null);
+  const [validToken,setValidToken] = useState(false);
 
   useEffect(() => {
       const fetchServerStatus = async () => {
@@ -29,6 +31,31 @@ const App = () => {
           .then(response => response.ok)
           .catch(() => false);
   };
+
+
+  const checkToken = async () =>{
+
+    const token = Cookies.get("authToken")
+
+    const res = await fetch("http://localhost:3001/api/protected",{
+      method:"GET",
+      headers: {  
+        "Content-Type": "application/json",
+        "Accept": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+    })
+    const response = await res.json()
+
+    if (response.message === "this is protected"){
+      setValidToken(true)
+    }
+    else{
+      setValidToken(false)
+
+    }
+  }
+
 
   return (
       <Router>

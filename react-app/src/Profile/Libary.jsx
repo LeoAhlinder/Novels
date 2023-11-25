@@ -2,6 +2,8 @@ import React,{useEffect,useState} from "react";
 import "./Libary.css"
 import { useNavigate } from "react-router-dom"
 import ErrorHandler from "../global/errorHandler";
+import Cookies from 'js-cookie';
+
 
 const Library = () => {
   const [books, setBooks] = useState([]);
@@ -12,7 +14,7 @@ const Library = () => {
     const userLibrary = async () => {
       try {
 
-        const token = localStorage.getItem("authToken")
+        const token = Cookies.get("authToken")
 
 
         const res = await fetch(`http://localhost:3001/api/library/`, {
