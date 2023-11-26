@@ -61,7 +61,7 @@ const NovelCreated = () =>{
     return(
         <>  <div id="tableHeadContainer">
                 <div id="tableHead">
-                    <p id="tableText">Novels Title</p>
+                    <p id="tableText">Novel Titles</p>
                 </div>
             </div>
             <div className="Novels">
