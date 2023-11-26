@@ -25,6 +25,8 @@ const App =  () => {
       };
 
       fetchServerStatus();
+
+      checkToken()
   }, []);
 
   const checkServerStatus = async () => {
@@ -56,7 +58,6 @@ const App =  () => {
     }
   }
 
-  checkToken()
 
 
   return (
@@ -75,7 +76,8 @@ const App =  () => {
                               <Route path="/create" element={validToken ? <Create /> : <LogIn />} />
                               <Route path="/createNovel" element={validToken ? <CreateNew /> : <LogIn />} />
                               <Route path="/popular" element={<MostPopular/>}></Route>
-                              <Route path="/author" element={<AuthorSite/>}></Route>
+                              <Route path="/author/:authorName" element={<AuthorSite/>}></Route>
+
                           </Routes>
                       </>
                   ) : (

@@ -449,8 +449,6 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
 
 
 app.get("/api/ranking",function(req,res){
-
-
     const query = "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary LIMIT 0,50"
 
     connection.query(query,function(err,results){
@@ -462,6 +460,36 @@ app.get("/api/ranking",function(req,res){
       }
     })
     
+})
+
+
+app.get("/api/authorInfo",function(req,res){
+  const author = req.query.authorName
+  
+  console.log(author)
+
+  const query = "SELECT userid FROM lightnovelonline.users WHERE userName = ?"
+
+  connection.query(query,[author],function(err,results){
+    if (err){
+      console.log(err)
+    }
+    else{
+      const authorId = results[0].userid
+
+      const query = "SELECT * FROM lightnovelonline.books WHERE author = ?"
+
+      connection.query(query,[authorId],function(err,results){
+        if (err){
+          console.log(err)
+        }
+        else{
+          res.json({books:results})
+        }
+      })
+    }
+  })
+
 })
 
 module.exports = app;

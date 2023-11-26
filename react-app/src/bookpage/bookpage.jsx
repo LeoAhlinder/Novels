@@ -175,6 +175,10 @@ const BookPage = () =>{
         }
     }
 
+    const goToAuthor = () =>{
+        navigate({pathname:`/author/${authorName}`})
+    }
+
     return(
         <div className="Wrapper">
         {bookInfo.length > 0 ? (
@@ -184,7 +188,7 @@ const BookPage = () =>{
                     </picture>
                     <div className="bookInfo">
                         <h1 className="title">{bookInfo[0].title}</h1>
-                        <h5 className="author">Author: {authorName}</h5>
+                        <h5 className="author"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                         <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                         <div id="test">
                             <button className="readButton" >Read</button>
@@ -199,7 +203,7 @@ const BookPage = () =>{
                         </picture>
                         <div id="bookInfoPhone">
                             <h1 id="titlePhone">{bookInfo[0].title}</h1>
-                            <h5 id="authorPhone">Author: {authorName}</h5>
+                            <h5 id="authorPhone"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                             <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                             <div id="phoneButtonContainer">
                                 <button id="readButtonPhone" >Read</button>
