@@ -5,7 +5,7 @@ import cat from "../Pictures/coolcat.jpg"
 import { useState } from "react";
 import ErrorHandler from "../global/errorHandler";
 import { useNavigate } from "react-router-dom";
-
+import Cookies from 'js-cookie';
 
 
 const BookPage = () =>{
@@ -35,9 +35,6 @@ const BookPage = () =>{
         //Get bookinfo
         useEffect(() =>{
             const bookInfo = async (bookId) =>{
-
-            const token = localStorage.getItem("authToken")
-
             try
             {
                 const res = await fetch(`http://localhost:3001/api/book?id=${bookId}`,{
@@ -68,7 +65,7 @@ const BookPage = () =>{
         useEffect(() =>{
             const isBookInLibrary = async () =>{
 
-                const token = localStorage.getItem("authToken")
+                const token = Cookies.get("authToken")
 
                 try
                 {
@@ -106,7 +103,7 @@ const BookPage = () =>{
 
     const addToLibrary = async (id) =>{
         if (buttonState === true){
-            const token = localStorage.getItem("authToken")
+            const token = Cookies.get("authToken")
 
             try{
                 const res = await fetch("http://localhost:3001/api/AddToLibrary",{
@@ -152,7 +149,7 @@ const BookPage = () =>{
     }
 
     const removeFromLibrary = async (id) =>{
-        const token = localStorage.getItem("authToken")
+        const token = Cookies.get("authToken")
         if (buttonState === true){
             try{
                 const res = await fetch("http://localhost:3001/api/RemoveFromLibrary",{
