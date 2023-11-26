@@ -12,6 +12,7 @@ import Create from "./Create/create"
 import CreateNew from "./Create/createNew"
 import SearchBar from './Search/search';
 import MostPopular from './mostPopular/mostPopular';
+import AuthorSite from './authorSite/authorSite';
 
 const App =  () => {
   const [serverStatus, setServerStatus] = useState(null);
@@ -52,9 +53,10 @@ const App =  () => {
     }
     else{
       setValidToken(false)
-
     }
   }
+
+  checkToken()
 
 
   return (
@@ -70,9 +72,10 @@ const App =  () => {
                               <Route path="/book" element={<BookPage />} />
                               <Route path="/login" element={<LogIn />} />
                               <Route path="/Search" element={<SearchBar />} />
-                              <Route path="/create" element={<Create />} />
-                              <Route path="/createNovel" element={<CreateNew />} />
+                              <Route path="/create" element={validToken ? <Create /> : <LogIn />} />
+                              <Route path="/createNovel" element={validToken ? <CreateNew /> : <LogIn />} />
                               <Route path="/popular" element={<MostPopular/>}></Route>
+                              <Route path="/author" element={<AuthorSite/>}></Route>
                           </Routes>
                       </>
                   ) : (
