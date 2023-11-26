@@ -1,0 +1,8 @@
+.authorInfoContainer{
+    display: flex;
+    margin: 0 auto;
+    width: 70%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: red;
+}

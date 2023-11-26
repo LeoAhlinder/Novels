@@ -466,8 +466,6 @@ app.get("/api/ranking",function(req,res){
 app.get("/api/authorInfo",function(req,res){
   const author = req.query.authorName
   
-  console.log(author)
-
   const query = "SELECT userid FROM lightnovelonline.users WHERE userName = ?"
 
   connection.query(query,[author],function(err,results){
@@ -489,7 +487,6 @@ app.get("/api/authorInfo",function(req,res){
       })
     }
   })
-
 })
 
 module.exports = app;

@@ -1,7 +1,7 @@
 import { use } from "chai";
 import React, {useEffect ,useState}from "react";
 import { useParams } from 'react-router-dom';
-
+import "./authorSiteStyle.css"
 
 const AuthorSite = () =>{
 
@@ -34,8 +34,8 @@ const AuthorSite = () =>{
     },[authorName])
 
     return(
-        <div>
-            
+        <div className="authorInfoContainer">
+            <h2>t</h2>
         </div>
     )
 }
