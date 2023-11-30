@@ -22,9 +22,16 @@ const Home = () => {
 
         if (res.ok) {
           const response = await res.json();
-          setLatestBooks(response.books); // Store fetched data in state
+          console.log(response.books)
+          if (response.books == undefined){
+            setLatestBooks([]); // Store fetched data in state
+          }else{
+            setLatestBooks(response.books); // Store fetched data in state
+
+          }
         }
         else{
+          console.log("HERE")
           let error = ErrorHandler(res)
           alert(error.message)
           if (error.navigate.length > 0){
@@ -32,6 +39,7 @@ const Home = () => {
           }
         }
       } catch (err) {
+        console.log(err)
         let errorCatch = ErrorHandler(err)
         alert(errorCatch.message)
         if (errorCatch.navigate.length > 0){
@@ -53,7 +61,7 @@ const Home = () => {
 
       <h3 className="homeIntro">Welcome to the World of Books</h3>
 
-      {latestBooks.length > 0 ? ( <>
+      {latestBooks.length > 0 || latestBooks != null ? ( <>
             <ul className="gridContainerHome">
               {latestBooks.map((book, index) => (
                 <li key={index} className="gridItem">
@@ -64,7 +72,7 @@ const Home = () => {
                 </li>
               ))}
             </ul>
-          </>): null}
+          </>): <div className="loading">Loading...</div>}
     </>
   );
 };

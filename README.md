@@ -1,3 +1,1 @@
-# LightNovelOnline
-
-A online library that is WIP
+A online library thats currently in the making :) 
