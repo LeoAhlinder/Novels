@@ -72,6 +72,15 @@
     }
 }
 
+@media screen and (max-width:400px) {
+    .Button{
+        width: 30%;
+        font-size: 60%;
+    }
+
+}
+
+
 #alert{
     position: absolute;
     left: 0;
