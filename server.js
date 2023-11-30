@@ -491,4 +491,6 @@ app.get("/api/authorInfo", function (req, res) {
   });
 });
 
+app.post("/api/admin/login", ensureToken, function (req, res) {});
+
 module.exports = app;
