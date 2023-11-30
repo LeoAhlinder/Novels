@@ -1,5 +1,5 @@
 import React,{useEffect,useState} from "react";
-import "./Libary.css"
+import "./libraryStyle.css"
 import { useNavigate } from "react-router-dom"
 import ErrorHandler from "../Global/errorHandler";
 import Cookies from 'js-cookie';
