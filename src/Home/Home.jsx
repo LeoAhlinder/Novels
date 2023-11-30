@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import "./Homestyle.css";
+import "./homeStyle.css";
 import { useNavigate } from "react-router";
 
 import fantasy from "../Pictures/forest.webp"
 import landscape from "../Pictures/fantasyLandscape.webp"
 
-import ErrorHandler from "../global/errorHandler";
+import ErrorHandler from "../Global/errorHandler";
 
 
 const Home = () => {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import "./headerStyle.css"
+import "./navbarStyle.css"
 import { useNavigate } from "react-router-dom"
-import ErrorHandler from '../global/errorHandler';
+import ErrorHandler from '../Global/errorHandler';
 import Cookies from 'js-cookie'
 
 

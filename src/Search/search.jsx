@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./searchStyle.css"
-import ErrorHandler from "../global/errorHandler"
+import ErrorHandler from "../Global/errorHandler"
 import { useNavigate } from "react-router";
 import forestSmall from "../Pictures/forestsmall.webp"
 

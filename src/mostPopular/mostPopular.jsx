@@ -3,8 +3,8 @@ import "./mostPopularStyle.css"
 import fantasy from "../Pictures/fantasy.webp"
 import Cookies from 'js-cookie'
 import { useNavigate } from "react-router";
-import setCookie from "../global/setCookie";
-import ErrorHandler from "../global/errorHandler";
+import setCookie from "../Global/setCookie";
+import ErrorHandler from "../Global/errorHandler";
 
 
 const MostPopular  = () =>{

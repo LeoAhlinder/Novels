@@ -3,9 +3,9 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Cookies from "js-cookie";
 
-import Header from "./NavBar/header";
+import Header from "./navbar/navbar";
 import Profile from "./Profile/Profile";
-import BookPage from "./bookpage/bookpage";
+import BookPage from "./bookPage/bookPage";
 import LogIn from "./logIn/logIn";
 import Home from "./Home/Home";
 import Create from "./Create/create";
@@ -13,6 +13,7 @@ import CreateNew from "./Create/createNew";
 import SearchBar from "./Search/search";
 import MostPopular from "./mostPopular/mostPopular";
 import AuthorSite from "./authorSite/authorSite";
+import AdminLogin from "./adminLogin/adminLogin";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
@@ -83,6 +84,8 @@ const App = () => {
                   path="/author/:authorName"
                   element={<AuthorSite />}
                 ></Route>
+                /* Admin Panel */
+                <Route path="/adminlogin" element={<AdminLogin />} />
               </Routes>
             </>
           ) : (

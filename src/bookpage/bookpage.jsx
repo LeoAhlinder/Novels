@@ -3,7 +3,7 @@ import "./bookpageStyle.css"
 import { useLocation } from "react-router-dom";
 import cat from "../Pictures/coolcat.jpg"
 import { useState } from "react";
-import ErrorHandler from "../global/errorHandler";
+import ErrorHandler from "../Global/errorHandler";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 

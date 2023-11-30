@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import "./logIn.css"
 import { useNavigate } from "react-router-dom"
-import ErrorHandler from '../global/errorHandler';
-import setCookie from "../global/setCookie";
+import ErrorHandler from '../Global/errorHandler';
+import setCookie from "../Global/setCookie";
 import validator from "email-validator";
+
+import LoginForm from '../Components/logInComp/logInForm';
 
 const LogIn = () =>{
 
@@ -156,16 +158,17 @@ const LogIn = () =>{
     const [boxClass,changeClass] = useState("loginBox")
 
     return (
-        <div className={boxClass}>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            {inputFields.map((field) => (
-                <input className='input' placeholder={field.placeholder} id={field.id} type={field.type} key={field.id}/>
-            ))}
-            <button type='button' id={boxClass == "createNew" ? "doNotShow" : ""} className="Button" onClick={() =>logIn()}>Log In</button>
-            <button type="button" id='createUser' className="Button" onClick={addInputFieldAllowed ? addInputField : createUser}>Create Account</button>
-            <button type='button' id={boxClass == "createNew" ? "goBackToLogin" : "doNotShow"} onClick={() => {changeClass("loginBox");removeInputField();}}> Back</button>
-            <p id='alert'>{alerts}</p>  
-        </div>
+        <LoginForm
+            boxClass={boxClass}
+            inputFields={inputFields}
+            logIn={logIn}
+            addInputFieldAllowed={addInputFieldAllowed}
+            addInputField={addInputField}
+            createUser={createUser}
+            changeClass={changeClass}
+            removeInputField={removeInputField}
+            alerts={alerts}
+      />
     );
 }
 

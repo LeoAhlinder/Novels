@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import "./NCstyle.css"
+import "./novelsCreatedStyle.css"
 import { useNavigate } from "react-router-dom";
-import ErrorHandler from "../../global/errorHandler";
+import ErrorHandler from "../../Global/errorHandler";
 import Cookies from 'js-cookie'
-import setCookie from "../../global/setCookie";
+import setCookie from "../../Global/setCookie";
 
 
 const NovelCreated = () =>{

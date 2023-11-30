@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./createnewstyle.css"
-import ErrorHandler from "../global/errorHandler";
+import ErrorHandler from "../Global/errorHandler";
 import { useNavigate } from "react-router-dom";
 
 const CreateNew = () =>{
