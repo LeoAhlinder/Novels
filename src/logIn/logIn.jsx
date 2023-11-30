@@ -123,11 +123,19 @@ const LogIn = () =>{
                 }
             }
             else{
-                console.log("error or some")
+                let error = ErrorHandler(err)
+                alert(error.message)
+                if (error.navigate.length > 0){
+                    navigate(error.navigate)
+                }
             }
         }catch(err)
         {
-            console.log(err)
+            let error = ErrorHandler(err)
+            alert(error.message)
+            if (error.navigate.length > 0){
+                navigate(error.navigate)
+            }
         }
     }
 
