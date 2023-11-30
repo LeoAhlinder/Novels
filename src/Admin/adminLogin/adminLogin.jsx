@@ -12,6 +12,7 @@ const AdminLogin = () =>{
         {placeholder:"Password", id:"password",type:"password"}
     ]
 
+    const logIns = inputFields.map((i) => document.getElementById(i.id).value);
 
     const logIn = async () =>{
         try{
@@ -21,7 +22,7 @@ const AdminLogin = () =>{
                     "Content-Type": "application/json",
                     "Accept": "application/json",
                 },
-                body:JSON.stringify(logIn)
+                body:JSON.stringify(logIns)
             })
             if (res.ok){
                 const response = await res.json()

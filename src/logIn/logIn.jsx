@@ -6,6 +6,7 @@ import setCookie from "../Global/setCookie";
 import validator from "email-validator";
 
 import LoginForm from '../Components/logInComp/logInForm';
+import Cookies from 'js-cookie';
 
 const LogIn = () =>{
 
@@ -135,6 +136,7 @@ const LogIn = () =>{
                     const response = await res.json()
                     if (response.message === "user exist"){
                         setCookie("authToken",response.token,720) //Name,data,expire date in hours
+                        console.log(Cookies.get("authToken"))
                         const userName = response.userName;
                         localStorage.setItem("userName",userName)
                         navigate("/Profile");

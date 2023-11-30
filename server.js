@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const { rejects } = require("assert");
 const cookieParser = require("cookie-parser");
 
+
 const secretkey = "leo";
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -17,7 +18,8 @@ app.use(cookieParser());
 
 // Allow only requests from a specific domain
 const corsOptions = {
-  origin: "http://localhost:3000  ",
+  origin: "http://localhost:3000",
+  credentials: true
 };
 
 app.use(cors(corsOptions));
@@ -49,8 +51,11 @@ connection.connect((error) => {
 });
 
 app.get("/api/library/", ensureToken, async (req, res) => {
+  
+  console.log(req.token);
   jwt.verify(req.token, secretkey, async function (err, decodedToken) {
     if (err) {
+      console.log("YOO");
       res.sendStatus(403);
     } else {
       try {
@@ -229,14 +234,13 @@ app.get("/api/protected", ensureToken, function (req, res) {
 });
 
 function ensureToken(req, res, next) {
-  const bearerHeader = req.headers["authorization"];
-  if (typeof bearerHeader !== "undefined") {
-    const bearer = bearerHeader.split(" ");
-    const bearerToken = bearer[1];
-    req.token = bearerToken;
-    next();
+  const token = req.cookies['authToken']; 
+  console.log(token, req.cookies)
+  if (token) {
+      req.token = token;
+      next();
   } else {
-    res.sendStatus(403);
+      res.sendStatus(403);
   }
 }
 
@@ -491,28 +495,8 @@ app.get("/api/authorInfo", function (req, res) {
   });
 });
 
-app.post("/api/admin/login", ensureToken, function (req, res) {
-  jwt.verify(req.token, secretkey, function (err, decodedToken) {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      const userId = decodedToken.user;
-
-      const query = "SELECT auth FROM users WHERE userid = ?";
-
-      connection.query(query, [userId], function (err, results) {
-        if (err) {
-          console.log(err);
-        } else {
-          if (results === 1) {
-            res.json({ message: "admin" });
-          } else {
-            res.json({ message: "not admin" });
-          }
-        }
-      });
-    }
-  });
+app.post("/api/admin/login", function (req, res) {
+  console.log(req.body);
 });
 
 module.exports = app;

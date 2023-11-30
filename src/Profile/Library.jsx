@@ -13,24 +13,23 @@ const Library = () => {
   useEffect(() => {
     const userLibrary = async () => {
       try {
-
         const token = Cookies.get("authToken")
-
 
         const res = await fetch(`http://localhost:3001/api/library/`, {
           method: "GET",
           headers: {  
             "Content-Type": "application/json",
             "Accept": "application/json",
-            Authorization: `Bearer ${token}`
-
+            // Authorization: `Bearer ${token}`,
           },
+          credentials: 'include'
         });
 
         if (res.ok) {
           const response = await res.json();
           setBooks(response.data);
         } else {
+          console.log(res)
           let error = ErrorHandler(res)
           alert(error.message)
           if (error.navigate.length > 0){

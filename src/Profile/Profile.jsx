@@ -59,7 +59,7 @@ const Profile = () => {
                 <button onClick={() => updatedSelected("5")} className="item">
                     <p>Reviews</p>
                 </button>
-                <button className="item">
+                <button className="item" onClick={logOut}>
                     <p>Log Out</p>
                 </button>
             </div>
