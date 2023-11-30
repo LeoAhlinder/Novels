@@ -22,7 +22,6 @@ const Home = () => {
 
         if (res.ok) {
           const response = await res.json();
-          console.log(response.books)
           if (response.books == undefined){
             setLatestBooks([]); // Store fetched data in state
           }else{
@@ -31,7 +30,6 @@ const Home = () => {
           }
         }
         else{
-          console.log("HERE")
           let error = ErrorHandler(res)
           alert(error.message)
           if (error.navigate.length > 0){
@@ -39,7 +37,6 @@ const Home = () => {
           }
         }
       } catch (err) {
-        console.log(err)
         let errorCatch = ErrorHandler(err)
         alert(errorCatch.message)
         if (errorCatch.navigate.length > 0){
