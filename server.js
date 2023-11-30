@@ -491,4 +491,28 @@ app.get("/api/authorInfo", function (req, res) {
   });
 });
 
+app.post("/api/admin/login", ensureToken, function (req, res) {
+  jwt.verify(req.token, secretkey, function (err, decodedToken) {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      const userId = decodedToken.user;
+
+      const query = "SELECT auth FROM users WHERE userid = ?";
+
+      connection.query(query, [userId], function (err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          if (results === 1) {
+            res.json({ message: "admin" });
+          } else {
+            res.json({ message: "not admin" });
+          }
+        }
+      });
+    }
+  });
+});
+
 module.exports = app;
