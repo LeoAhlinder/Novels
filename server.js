@@ -198,6 +198,7 @@ app.post("/api/logIn", function (req, res) {
     }
     if (results == null || results == undefined) {
       res.json({ message: "no user exist" });
+      return;
     }
     if (results.length > 0) {
       const user = results[0]; // Assuming results contain user data
