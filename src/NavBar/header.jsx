@@ -115,7 +115,7 @@ const Header = () => {
                         </li>
                         <li className="nav-item">
                             <button className='nav-link' onClick={profileButtonClicked}>
-                                {loggedIn ? "Profile" : "Log In or create Account"}
+                                {loggedIn ? "Profile" : "Log in / Create account"}
                             </button>
                         </li>
                     </ul>
