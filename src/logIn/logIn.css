@@ -36,23 +36,23 @@
     padding:5px;
 }
 
-.Button:hover{
+.Button:hover,#goBackToLogin{
     background-color:#363232;
     color: rgb(27, 24, 24);
 }
 
 .createNew{
-    background-color: rgba(128, 128, 128, 0.096);
-    border: 2px solid #333;
+    border: 2px solid #272626;
     padding: 20px;
     width: 45vw;
-    height: 30vh;
-    margin: 0 auto;
+    height: 35vh;
+    margin: auto auto;
     text-align: center;
+    background-color: rgba(128, 128, 128, 0.096);
     margin-top: 10%;
     border: none;
     border-radius: 5px;
-    height: 50%;
+    position: relative;
 }
 
 @media screen and (max-width:1300px) {
@@ -80,11 +80,27 @@
 
 }
 
-
 #alert{
     position: absolute;
     left: 0;
     right: 0;
     margin: 3% auto;
     color: red;
+}
+
+#goBackToLogin{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    background-color: #333;
+    width: 50px;
+    height: 50px;
+    color:white;
+    margin: 2% 2%;
+    border-radius: 5px;
+    font-size: 100%;
+}
+
+#doNotShow{
+    display: none;
 }
