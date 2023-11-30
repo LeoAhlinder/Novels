@@ -88,7 +88,7 @@ body{
     text-decoration: underline;
 }
 
-.introImg{
+#introImg{
     max-width: 100%;
     height: auto;
 }
@@ -124,13 +124,10 @@ body{
 
 @media screen and (max-width:450px) {
     .introText:nth-child(2) {
-        margin-top: 100px !important;
-        font-size: 1.6rem !important;
-        width: 100%;
-
+        display: none !important;
     }
     .introText{
-        font-size: 2rem;
+        font-size: 1.3rem !important;
         width: 100%;
     }
 }
