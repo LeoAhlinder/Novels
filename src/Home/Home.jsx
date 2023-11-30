@@ -26,7 +26,7 @@ const Home = () => {
 
         if (res.ok) {
           const response = await res.json();
-          if (response.books == undefined){
+          if (response.books === undefined){
             setLatestBooks([]); // Store fetched data in state
           }else{
             setLatestBooks(response.books); // Store fetched data in state

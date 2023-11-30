@@ -1,14 +1,17 @@
 import React, {useState} from "react";
 
-import LoginForm from "../Components/logInComp/logInForm";
-import ErrorHandler from "../Global/errorHandler";
+import LoginForm from "../../Components/logInComp/logInForm";
+import ErrorHandler from "../../Global/errorHandler";
 
 const AdminLogin = () =>{
 
-    const [inputFields, setInputFields] = useState([
+    const boxClass = "loginBox"
+
+    const inputFields = [
         {placeholder:"Email", id:"email"},
-        {placeholder:"Password", id:"password",type:"password"},
-    ])
+        {placeholder:"Password", id:"password",type:"password"}
+    ]
+
 
     const logIn = async () =>{
         try{
@@ -39,8 +42,6 @@ const AdminLogin = () =>{
             alert(error.message)
         }
     }
-
-    const [boxClass,changeClass] = useState("loginBox")
 
 
     return(

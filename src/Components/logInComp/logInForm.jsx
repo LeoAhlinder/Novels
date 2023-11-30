@@ -15,7 +15,7 @@ const LoginForm = ({ boxClass, inputFields, logIn, addInputFieldAllowed, addInpu
       >
         Log In
       </button>
-      {type == "admin" ? "" :<button
+      {type === "admin" ? "" :<button
         type="button"
         id="createUser"
         className="Button"

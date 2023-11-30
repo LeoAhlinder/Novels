@@ -13,7 +13,7 @@ import CreateNew from "./Create/createNew";
 import SearchBar from "./Search/search";
 import MostPopular from "./mostPopular/mostPopular";
 import AuthorSite from "./authorSite/authorSite";
-import AdminLogin from "./adminLogin/adminLogin";
+import AdminLogin from "./Admin/adminLogin/adminLogin";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
@@ -26,7 +26,7 @@ const App = () => {
     };
 
     fetchServerStatus();
-    if (serverStatus == true) {
+    if (serverStatus === true) {
       checkToken();
     }
   }, []);

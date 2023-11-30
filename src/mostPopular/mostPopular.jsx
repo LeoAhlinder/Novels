@@ -10,11 +10,12 @@ import ErrorHandler from "../Global/errorHandler";
 const MostPopular  = () =>{
 
     const [books,setBooks] = useState([])
+    const [type,setType] = useState("overall")
     const navigate = useNavigate()
 
     useEffect(()=>{
-        ranking()
-    },[])
+        ranking("overall")
+    },[type])
 
     const ranking = async (type) =>{
 
@@ -77,9 +78,9 @@ const MostPopular  = () =>{
             <div className="containerPopular">
                 <div className="categories">
                     <div className="button-container">
-                        <button className="category-button" onClick={() => ranking("overall")}>Overall Ranking</button>
-                        <button className="category-button" onClick={() => ranking("collections")}>Collections</button>
-                        <button className="category-button" onClick={() => ranking("rating")}>Rating</button>
+                        <button className="category-button" onClick={() => setType("overall")}>Overall Ranking</button>
+                        <button className="category-button" onClick={() => setType("collections")}>Collections</button>
+                        <button className="category-button" onClick={() => setType("rating")}>Rating</button>
                     </div>
                         
                 </div>
