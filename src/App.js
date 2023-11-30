@@ -25,8 +25,9 @@ const App = () => {
     };
 
     fetchServerStatus();
-
-    checkToken();
+    if (serverStatus == true) {
+      checkToken();
+    }
   }, []);
 
   const checkServerStatus = async () => {

@@ -1,6 +1,16 @@
+*{
+  overflow-y: hidden;
+}
+
 .serverDown{
     color: white;
-    
+    font-size: 1.2rem;
+    width: 80%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto auto;
 }
 
 .loader {
