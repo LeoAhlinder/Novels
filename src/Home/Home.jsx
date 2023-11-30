@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Homestyle.css";
 import { useNavigate } from "react-router";
+
 import fantasy from "../Pictures/forest.webp"
+import landscape from "../Pictures/fantasyLandscape.webp"
+
 import ErrorHandler from "../global/errorHandler";
+
 
 const Home = () => {
   const [latestBooks, setLatestBooks] = useState([]);
@@ -56,7 +60,11 @@ const Home = () => {
     <>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <h3 className="homeIntro">Welcome to the World of Books</h3>
+      <div id="introHeader">
+        <h2 className="introText">Welcome to your online library!</h2>
+        <h3 className="introText">A place to create and read books online for free.</h3>
+        <img src={landscape} alt="Fantasy Landscape" id="introImg"/>
+      </div>
 
       {latestBooks.length > 0 || latestBooks != null ? ( <>
             <ul className="gridContainerHome">
