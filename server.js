@@ -8,8 +8,11 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const { rejects } = require("assert");
 const cookieParser = require("cookie-parser");
+const { env } = require("process");
+const { dotenv } = require("dotenv").config();
 
-const secretkey = "leo";
+
+const user_secretkey = env.USER_SECRETKEY;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -51,13 +54,11 @@ connection.connect((error) => {
 
 app.get("/api/library/", ensureToken, async (req, res) => {
   console.log(req.token + "HERE");
-  jwt.verify(req.token, secretkey, async function (err, decodedToken) {
+  jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
     if (err) {
-      console.log("YOO");
       res.sendStatus(403);
     } else {
       try {
-        console.log("HERE");
         const userLibData = await userLibrary(decodedToken.user); // Assuming userId is in the token
         res.json({ data: userLibData });
       } catch (error) {
@@ -208,7 +209,7 @@ app.post("/api/logIn", function (req, res) {
     if (results.length > 0) {
       const user = results[0]; // Assuming results contain user data
       const userName = user.userName;
-      const token = jwt.sign({ user: user.userid }, secretkey);
+      const token = jwt.sign({ user: user.userid }, user_secretkey);
       res.json({ message: "user exist", userName: userName, token: token });
     } else {
       res.json({ message: "no user exist" });
@@ -220,7 +221,7 @@ app.get("/api/protected", ensureToken, function (req, res) {
   if (!req.token) {
     res.json({ message: "no token" });
   }
-  jwt.verify(req.token, secretkey, function (err, data) {
+  jwt.verify(req.token, user_secretkey, function (err, data) {
     if (err) {
       res.json({ message: "token invalid" });
     } else {
@@ -263,7 +264,7 @@ app.get("/api/latest", function (req, res) {
 });
 
 app.get("/api/novelsCreated", ensureToken, function (req, res) {
-  jwt.verify(req.token, secretkey, async function (err, decodedToken) {
+  jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
     if (err) {
       res.sendStatus(403);
     } else {
@@ -290,7 +291,7 @@ function usersNovels(id) {
 }
 
 app.post("/api/AddToLibrary", ensureToken, function (req, res) {
-  jwt.verify(req.token, secretkey, async function (err, decodedToken) {
+  jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
     if (err) {
       res.sendStatus(403);
     } else {
@@ -312,7 +313,6 @@ app.post("/api/AddToLibrary", ensureToken, function (req, res) {
               } else {
                 console.log(results);
                 res.sendStatus(200);
-                console.log("added");
               }
             }
           );
@@ -323,7 +323,7 @@ app.post("/api/AddToLibrary", ensureToken, function (req, res) {
 });
 
 app.delete("/api/RemoveFromLibrary", ensureToken, function (req, res) {
-  jwt.verify(req.token, secretkey, async function (err, decodedToken) {
+  jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
     if (err) {
       res.sendStatus(403);
     } else {
@@ -360,7 +360,7 @@ app.post("/api/checkLibrary", ensureToken, function (req, res) {
     res.json({ message: "no token" });
     return;
   }
-  jwt.verify(req.token, secretkey, function (err, decodedToken) {
+  jwt.verify(req.token, user_secretkey, function (err, decodedToken) {
     if (err) {
       res.sendStatus(403);
     } else {
@@ -400,7 +400,7 @@ app.post("/api/BooksBasedOnSearch", function (req, res) {
 });
 
 app.post("/api/createNewBook", ensureToken, function (req, res) {
-  jwt.verify(req.token, secretkey, function (err, decodedToken) {
+  jwt.verify(req.token, user_secretkey, function (err, decodedToken) {
     if (err) {
       res.sendStatus(403);
     } else {
@@ -509,7 +509,24 @@ app.post("/api/admin/login", function (req, res) {
   console.log(req.body);
 
   const query =
-    "SELECT * FROM lightnovelonline.admin WHERE adminName = ? AND adminPassword = ?";
+    "SELECT * FROM lightnovelonline.admins WHERE adminName = ? AND adminPassword = ?";
+
+  connection.query(query, [req.body[0], req.body[1]], function (err,results) {
+      if (err) {
+        console.log(err);
+      } else {
+        if (results.length > 0) {
+          res.json({ message: "success" });
+        } else {
+          res.json({ message: "fail" });
+        }
+      }
+    });
 });
+
+app.get("/api/admin/access", function (req, res) {
+
+});
+
 
 module.exports = app;
