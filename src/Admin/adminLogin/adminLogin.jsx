@@ -1,9 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 import LoginForm from "../../Components/logInComp/logInForm";
 import ErrorHandler from "../../Global/errorHandler";
+import setCookie from "../../Global/setCookie";
 
 const AdminLogin = () => {
+
+  const navigate = useNavigate()
+
   const boxClass = "loginBox";
 
   const inputFields = [
@@ -27,10 +32,11 @@ const AdminLogin = () => {
       });
       if (res.ok) {
         const response = await res.json();
-        if (response.message === "admin exist") {
-          // Handle admin exist case
+        if (response.message === "success") {
+          setCookie("adminToken",response.token,1);
+          navigate("/adminpanel")
         }
-        if (response.message === "no admin exist") {
+        if (response.message === "fail") {
           alert("No admin with those login details exist");
         }
       } else {

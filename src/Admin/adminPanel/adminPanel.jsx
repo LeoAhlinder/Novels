@@ -1,11 +1,19 @@
-import { use } from "chai";
-import React from "react";
+import React, {useEffect} from "react";
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom";
+
+
 
 const AdminPanel = () => {
+
+    const navigate = useNavigate()
 
     useEffect(()=>{
         const checkAuthorization = async () =>{
             try{
+
+                const token = Cookies.get("adminToken")
+
                 const res = await fetch("http://localhost:3001/api/admin/access",{
                     method:"GET",
                     headers:{

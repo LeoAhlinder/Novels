@@ -13,6 +13,7 @@ const { dotenv } = require("dotenv").config();
 
 
 const user_secretkey = env.USER_SECRETKEY;
+const admin_sercretkey = env.ADMIN_SECRETKEY;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -506,8 +507,6 @@ app.get("/api/authorInfo", function (req, res) {
 });
 
 app.post("/api/admin/login", function (req, res) {
-  console.log(req.body);
-
   const query =
     "SELECT * FROM lightnovelonline.admins WHERE adminName = ? AND adminPassword = ?";
 
@@ -515,9 +514,17 @@ app.post("/api/admin/login", function (req, res) {
       if (err) {
         console.log(err);
       } else {
+        if (results === undefined){
+          res.json({message:"error"})
+        }
         if (results.length > 0) {
-          res.json({ message: "success" });
+          const token = jwt.sign(
+            { admin: results[0].adminid },
+            admin_sercretkey
+          );
+          res.json({ message: "success",token:token });
         } else {
+         
           res.json({ message: "fail" });
         }
       }
@@ -525,7 +532,15 @@ app.post("/api/admin/login", function (req, res) {
 });
 
 app.get("/api/admin/access", function (req, res) {
-
+  console.log(req.token)
+  jwt.verify(req.token, admin_sercretkey, function (err, decoded) {
+    if (err) {
+      console.log(err)
+      res.sendStatus(403);
+    } else {
+      res.json({ message: "success" });
+    }
+  });
 });
 
 

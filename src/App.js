@@ -16,6 +16,7 @@ import SearchBar from "./Search/search";
 import MostPopular from "./mostPopular/mostPopular";
 import AuthorSite from "./authorSite/authorSite";
 import AdminLogin from "./Admin/adminLogin/adminLogin";
+import AdminPanel from "./Admin/adminPanel/adminPanel";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
@@ -43,8 +44,6 @@ const App = () => {
 
   const checkToken = async () => {
     const token = Cookies.get("authToken");
-
-    console.log("HERE");
 
     const res = await fetch("http://localhost:3001/api/protected", {
       method: "GET",
@@ -89,6 +88,7 @@ const App = () => {
                 ></Route>
                 /* Admin Panel */
                 <Route path="/adminlogin" element={<AdminLogin />} />
+                <Route path="/adminpanel" element={<AdminPanel />} />
               </Routes>
             </>
           ) : (
