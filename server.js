@@ -507,6 +507,9 @@ app.get("/api/authorInfo", function (req, res) {
 
 app.post("/api/admin/login", function (req, res) {
   console.log(req.body);
+
+  const query =
+    "SELECT * FROM lightnovelonline.admin WHERE adminName = ? AND adminPassword = ?";
 });
 
 module.exports = app;
