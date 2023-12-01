@@ -28,6 +28,8 @@ const NovelCreated = () =>{
 
                 const token = Cookies.get("authToken")
 
+                console.log(token)
+
                 const res = await fetch("http://localhost:3001/api/novelsCreated",{
                     method:"GET",
                     headers:{    
@@ -37,9 +39,9 @@ const NovelCreated = () =>{
                 });
                 if (res.ok){
                     const response = await res.json()
+                    console.log(response.data)
                     setBooks(response.data)
                     setCookie("createdBooks",response.data,0.1)
-
                 }
                 else{
 

@@ -13,7 +13,7 @@ const LogIn = () =>{
     const navigate = useNavigate();
 
     const [inputFields, setInputFields] = useState([
-        {placeholder:"Email", id:"email"},
+        {placeholder:"Username", id:"userName"},
         {placeholder:"Password", id:"password",type:"password"},
     ])
     const [alerts,changeAlerts] = useState("")
@@ -129,14 +129,15 @@ const LogIn = () =>{
                     headers: {  
                         "Content-Type": "application/json",
                         "Accept": "application/json",
+                        "Allow-Credentials": "true"
                     },
+                    credentials: 'include',
                     body:JSON.stringify(logIn)
                 })
                 if (res.ok){
                     const response = await res.json()
                     if (response.message === "user exist"){
                         setCookie("authToken",response.token,720) //Name,data,expire date in hours
-                        console.log(Cookies.get("authToken"))
                         const userName = response.userName;
                         localStorage.setItem("userName",userName)
                         navigate("/Profile");

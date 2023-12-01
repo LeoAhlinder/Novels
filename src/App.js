@@ -1,7 +1,9 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Cookies from "js-cookie";
+import CheckToken from "./Global/checkToken";
 
 import Header from "./navbar/navbar";
 import Profile from "./Profile/Profile";
@@ -24,12 +26,14 @@ const App = () => {
       const status = await checkServerStatus();
       setServerStatus(status);
     };
-
     fetchServerStatus();
+  }, []);
+
+  useEffect(() => {
     if (serverStatus === true) {
       checkToken();
     }
-  }, []);
+  }, [serverStatus]);
 
   const checkServerStatus = async () => {
     return await fetch("http://localhost:3001/api/ping")
@@ -39,6 +43,8 @@ const App = () => {
 
   const checkToken = async () => {
     const token = Cookies.get("authToken");
+
+    console.log("HERE");
 
     const res = await fetch("http://localhost:3001/api/protected", {
       method: "GET",
@@ -71,10 +77,7 @@ const App = () => {
                 <Route path="/book" element={<BookPage />} />
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/Search" element={<SearchBar />} />
-                <Route
-                  path="/create"
-                  element={validToken ? <Create /> : <LogIn />}
-                />
+                <Route path="/create" element={<Create />} />
                 <Route
                   path="/createNovel"
                   element={validToken ? <CreateNew /> : <LogIn />}

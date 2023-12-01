@@ -43,8 +43,16 @@ const MostPopular  = () =>{
     
                 if (res.ok){
                     const response = await res.json();
-                    setBooks(response.books)    
-                    setCookie("books",response.books,3) //Name,data,expire date in hours
+                    if (response.books === undefined){
+                        setBooks([]); // Store fetched data in state
+                        return;
+                    }    
+                        setBooks(response.books)    
+                        setCookie("books",response.books,3) //Name,data,expire date in hours
+                }
+                if (res.error === "error"){
+                    console.log("error")
+                    setBooks([])
                 }
                 else{
                     let error = ErrorHandler(res)

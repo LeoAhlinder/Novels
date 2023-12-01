@@ -9,7 +9,6 @@ const jwt = require("jsonwebtoken");
 const { rejects } = require("assert");
 const cookieParser = require("cookie-parser");
 
-
 const secretkey = "leo";
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,7 +18,7 @@ app.use(cookieParser());
 // Allow only requests from a specific domain
 const corsOptions = {
   origin: "http://localhost:3000",
-  credentials: true
+  credentials: true,
 };
 
 app.use(cors(corsOptions));
@@ -51,14 +50,14 @@ connection.connect((error) => {
 });
 
 app.get("/api/library/", ensureToken, async (req, res) => {
-  
-  console.log(req.token);
+  console.log(req.token + "HERE");
   jwt.verify(req.token, secretkey, async function (err, decodedToken) {
     if (err) {
       console.log("YOO");
       res.sendStatus(403);
     } else {
       try {
+        console.log("HERE");
         const userLibData = await userLibrary(decodedToken.user); // Assuming userId is in the token
         res.json({ data: userLibData });
       } catch (error) {
@@ -196,7 +195,8 @@ app.post("/api/createaccount", function (req, res) {
 app.post("/api/logIn", function (req, res) {
   const data = req.body;
 
-  const query = "SELECT * FROM users WHERE userEmail = ? AND userPassword = ?";
+  console.log(data);
+  const query = "SELECT * FROM users WHERE userName = ? AND userPassword = ?";
   connection.query(query, [data[0], data[1]], function (error, results) {
     if (error) {
       console.log(error);
@@ -220,7 +220,6 @@ app.get("/api/protected", ensureToken, function (req, res) {
   if (!req.token) {
     res.json({ message: "no token" });
   }
-
   jwt.verify(req.token, secretkey, function (err, data) {
     if (err) {
       res.json({ message: "token invalid" });
@@ -234,14 +233,24 @@ app.get("/api/protected", ensureToken, function (req, res) {
 });
 
 function ensureToken(req, res, next) {
-  const token = req.cookies['authToken']; 
-  console.log(token, req.cookies)
-  if (token) {
-      req.token = token;
-      next();
+  const bearerHeader = req.headers["authorization"];
+  if (typeof bearerHeader !== "undefined") {
+    const bearer = bearerHeader.split(" ");
+    const bearerToken = bearer[1];
+    req.token = bearerToken;
+    next();
   } else {
-      res.sendStatus(403);
+    res.sendStatus(403);
   }
+  // console.log(req.token);
+  // const token = req.cookies["authToken"];
+  // console.log(token, req.cookies);
+  // if (token) {
+  //   req.token = token;
+  //   next();
+  // } else {
+  //   res.sendStatus(403);
+  // }
 }
 
 app.get("/api/latest", function (req, res) {
@@ -260,6 +269,7 @@ app.get("/api/novelsCreated", ensureToken, function (req, res) {
     } else {
       const userID = decodedToken.user;
       const data = await usersNovels(userID);
+      console.log(data);
       res.json({ data: data });
     }
   });
@@ -271,7 +281,7 @@ function usersNovels(id) {
   return new Promise((resolve, reject) => {
     connection.query(query, [id], function (err, results) {
       if (err) {
-        reject(err);
+        return "error";
       } else {
         resolve(results);
       }
@@ -380,7 +390,7 @@ app.post("/api/BooksBasedOnSearch", function (req, res) {
 
   connection.query(query, function (err, results) {
     if (err) {
-      console.log(err);
+      res.json({ error: "error" });
     } else if (results.length > 0) {
       res.json({ data: results });
     } else {
@@ -464,7 +474,7 @@ app.get("/api/ranking", function (req, res) {
 
   connection.query(query, function (err, results) {
     if (err) {
-      console.log(err);
+      res.json({ error: "error" });
     } else {
       res.json({ books: results });
     }

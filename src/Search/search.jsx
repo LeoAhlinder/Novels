@@ -35,8 +35,17 @@ const SearchBar = () =>{
                     
                         if (res.ok){
                             const response = await res.json();
-                            newBooks(response.data)
-                            SetViewing(true)
+                            console.log(response.data)
+                            if (response.data === undefined){
+                                newBooks([])
+                                SetViewing(false)
+                                return
+                            }
+                                newBooks(response.data)
+                                SetViewing(true)
+                        }
+                        if (res.error === "error"){
+                            console.log("error")
                         }
                         else{
                             let error = ErrorHandler(res)
