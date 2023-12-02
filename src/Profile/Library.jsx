@@ -13,17 +13,14 @@ const Library = () => {
   useEffect(() => {
     const userLibrary = async () => {
       try {
-
         const token = Cookies.get("authToken")
-
 
         const res = await fetch(`http://localhost:3001/api/library/`, {
           method: "GET",
           headers: {  
             "Content-Type": "application/json",
             "Accept": "application/json",
-            Authorization: `Bearer ${token}`
-
+            Authorization: `Bearer ${token}`,
           },
         });
 
@@ -31,11 +28,7 @@ const Library = () => {
           const response = await res.json();
           setBooks(response.data);
         } else {
-          let error = ErrorHandler(res)
-          alert(error.message)
-          if (error.navigate.length > 0){
-              navigate(error.navigate)
-          }
+          setBooks("error");
         }
       } catch (err) {
         console.log(err);
@@ -54,17 +47,19 @@ const Library = () => {
               </div>
       
       <div className="Library">
-      {books.length > 0 ? (
+      {books === "error" ? <p id="noBooksText">We had error fetching your books</p> :
+        books.length > 0 ? (
           <ul>
-              {books.map((book) => (
-                  <button className="bookItem" onClick={() => openBook(book)} key={book.bookid}>
-                      {book.title} <span id="pageInfo">Page: {book.currentPage}</span>
-                  </button>
-              ))}
+            {books.map((book) => (
+              <button className="bookItem" onClick={() => openBook(book)} key={book.bookid}>
+                {book.title} <span id="pageInfo">Page: {book.currentPage}</span>
+              </button>
+            ))}
           </ul>
-      ) : (
+        ) : (
           <p id="noBooksText">Add your favorite books to your library so you never forget them!</p>
-      )}
+        )
+      }
       </div>
       </>
 

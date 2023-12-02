@@ -1,7 +1,9 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Cookies from "js-cookie";
+import CheckToken from "./Global/checkToken";
 
 import Header from "./navbar/navbar";
 import Profile from "./Profile/Profile";
@@ -14,6 +16,7 @@ import SearchBar from "./Search/search";
 import MostPopular from "./mostPopular/mostPopular";
 import AuthorSite from "./authorSite/authorSite";
 import AdminLogin from "./Admin/adminLogin/adminLogin";
+import AdminPanel from "./Admin/adminPanel/adminPanel";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
@@ -24,12 +27,14 @@ const App = () => {
       const status = await checkServerStatus();
       setServerStatus(status);
     };
-
     fetchServerStatus();
+  }, []);
+
+  useEffect(() => {
     if (serverStatus === true) {
       checkToken();
     }
-  }, []);
+  }, [serverStatus]);
 
   const checkServerStatus = async () => {
     return await fetch("http://localhost:3001/api/ping")
@@ -71,10 +76,7 @@ const App = () => {
                 <Route path="/book" element={<BookPage />} />
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/Search" element={<SearchBar />} />
-                <Route
-                  path="/create"
-                  element={validToken ? <Create /> : <LogIn />}
-                />
+                <Route path="/create" element={<Create />} />
                 <Route
                   path="/createNovel"
                   element={validToken ? <CreateNew /> : <LogIn />}
@@ -86,6 +88,7 @@ const App = () => {
                 ></Route>
                 /* Admin Panel */
                 <Route path="/adminlogin" element={<AdminLogin />} />
+                <Route path="/adminpanel" element={<AdminPanel />} />
               </Routes>
             </>
           ) : (

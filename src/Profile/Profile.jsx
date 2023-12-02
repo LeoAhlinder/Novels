@@ -25,8 +25,8 @@ const Profile = () => {
 
     localStorage.setItem("selectedProfile",selected)
 
-    const updatedSelected = (test) =>{
-        changeSelected(test)
+    const updatedSelected = (selected) =>{
+        changeSelected(selected)
     }
   
     return (
@@ -51,15 +51,15 @@ const Profile = () => {
                     <p>Comments</p>
                 </button>
                 <button onClick={() => updatedSelected("3")} className="item">
-                    <p>Library</p>                
+                   <p> Novels Created</p>
                 </button>
                 <button onClick={() => updatedSelected("4")} className="item">
-                   <p> Novels Created</p>
+                    <p>Library</p>                
                 </button>
                 <button onClick={() => updatedSelected("5")} className="item">
                     <p>Reviews</p>
                 </button>
-                <button className="item">
+                <button className="item" onClick={logOut}>
                     <p>Log Out</p>
                 </button>
             </div>

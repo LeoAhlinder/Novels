@@ -3,7 +3,6 @@ import "./novelsCreatedStyle.css"
 import { useNavigate } from "react-router-dom";
 import ErrorHandler from "../../Global/errorHandler";
 import Cookies from 'js-cookie'
-import setCookie from "../../Global/setCookie";
 
 
 const NovelCreated = () =>{
@@ -13,36 +12,23 @@ const NovelCreated = () =>{
     const [books,setBooks] = useState([])
 
     useEffect(()=>{
-        if (Cookies.get("createdBooks")){
 
-            let cookieValue = document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('createdBooks='))
-                    .split('=')[1];
+        const fetchNovelsCreated = async () =>{
 
-            let retrievedArray = JSON.parse(cookieValue);
-            setBooks(retrievedArray)
-        }
-        else{
-            const fetchNovelsCreated = async () =>{
+            const token = Cookies.get("authToken")
 
-                const token = Cookies.get("authToken")
-
-                const res = await fetch("http://localhost:3001/api/novelsCreated",{
-                    method:"GET",
-                    headers:{    
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    Authorization: `Bearer ${token}`}
-                });
-                if (res.ok){
-                    const response = await res.json()
+            const res = await fetch("http://localhost:3001/api/novelsCreated",{
+                method:"GET",
+                headers:{    
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                Authorization: `Bearer ${token}`}
+            });                
+            if (res.ok){
+                const response = await res.json()
                     setBooks(response.data)
-                    setCookie("createdBooks",response.data,0.1)
-
                 }
                 else{
-
                     let error = ErrorHandler(res)
                     alert(error.message)
                     if (error.navigate.length > 0){
@@ -50,9 +36,8 @@ const NovelCreated = () =>{
                     }
                 }
             }
-            fetchNovelsCreated();
-        }
-    },[navigate])
+        fetchNovelsCreated();
+    },[])
 
     function OpenBook(book){
         navigate({pathname:"/book",search:`?id=${book.bookid}`})

@@ -6,13 +6,14 @@ import setCookie from "../Global/setCookie";
 import validator from "email-validator";
 
 import LoginForm from '../Components/logInComp/logInForm';
+import Cookies from 'js-cookie';
 
 const LogIn = () =>{
 
     const navigate = useNavigate();
 
     const [inputFields, setInputFields] = useState([
-        {placeholder:"Email", id:"email"},
+        {placeholder:"Username", id:"userName"},
         {placeholder:"Password", id:"password",type:"password"},
     ])
     const [alerts,changeAlerts] = useState("")
@@ -128,7 +129,9 @@ const LogIn = () =>{
                     headers: {  
                         "Content-Type": "application/json",
                         "Accept": "application/json",
+                        "Allow-Credentials": "true"
                     },
+                    credentials: 'include',
                     body:JSON.stringify(logIn)
                 })
                 if (res.ok){
