@@ -17,6 +17,7 @@ import MostPopular from "./mostPopular/mostPopular";
 import AuthorSite from "./authorSite/authorSite";
 import AdminLogin from "./Admin/adminLogin/adminLogin";
 import AdminPanel from "./Admin/adminPanel/adminPanel";
+import ErrorSite from "./errorSite/errorSite";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
@@ -89,6 +90,9 @@ const App = () => {
                 /* Admin Panel */
                 <Route path="/adminlogin" element={<AdminLogin />} />
                 <Route path="/adminpanel" element={<AdminPanel />} />
+
+                /* Error Site */
+                <Route path="/error" element={<ErrorSite />} />
               </Routes>
             </>
           ) : (

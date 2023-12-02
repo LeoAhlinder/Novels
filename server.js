@@ -527,7 +527,6 @@ app.post("/api/admin/login", function (req, res) {
 });
 
 app.get("/api/admin/access",ensureToken, function (req, res) {
-  console.log(req.token)
   jwt.verify(req.token, admin_sercretkey, function (err, decoded) {
     if (err) {
       res.json({message:"error"});

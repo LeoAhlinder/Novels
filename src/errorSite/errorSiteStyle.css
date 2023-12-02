@@ -1,0 +1,61 @@
+.errorBox{
+    width: 50%;
+    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.438);
+    box-shadow: 2px;
+    padding: 50px;
+}
+
+#errorText{
+    font-size: 1.5em;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+#errorReason{
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    text-align: start;
+    margin-top: 10%;
+    margin-bottom: 5%;
+}
+
+.reasons{
+    font-size: 1em;
+    font-weight: bold;
+    color: white;
+    text-align: start;
+    margin: 2% 0;
+}
+
+.dot {
+    height: 15px;
+    width: 15px;
+    background-color: rgb(255, 166, 0);
+    border-radius: 50%;
+    display: inline-block;
+}
+
+@media screen and (max-width:800px) {
+    .errorBox{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:550px) {
+    .errorBox{
+        width: 90%;
+    }
+    #errorText{
+        font-size: 1.05em;
+    }
+    .reasons{
+        font-size: 0.8em;
+    }
+    #errorReason{
+        font-size: 0.9em;
+    }
+}
+
