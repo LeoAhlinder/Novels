@@ -24,7 +24,11 @@ const AdminPanel = () => {
                 })
                 if (res.ok){
                     const response = await res.json()
-                    console.log(response)
+                    if (response.message === "success"){
+                    }
+                    else{
+                        navigate("/adminlogin")
+                    }
                 }
             }
             catch(err){

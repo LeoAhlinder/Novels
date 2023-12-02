@@ -54,7 +54,6 @@ connection.connect((error) => {
 });
 
 app.get("/api/library/", ensureToken, async (req, res) => {
-  console.log(req.token + "HERE");
   jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
     if (err) {
       res.sendStatus(403);
@@ -197,7 +196,6 @@ app.post("/api/createaccount", function (req, res) {
 app.post("/api/logIn", function (req, res) {
   const data = req.body;
 
-  console.log(data);
   const query = "SELECT * FROM users WHERE userName = ? AND userPassword = ?";
   connection.query(query, [data[0], data[1]], function (error, results) {
     if (error) {
@@ -271,7 +269,6 @@ app.get("/api/novelsCreated", ensureToken, function (req, res) {
     } else {
       const userID = decodedToken.user;
       const data = await usersNovels(userID);
-      console.log(data);
       res.json({ data: data });
     }
   });
@@ -312,7 +309,6 @@ app.post("/api/AddToLibrary", ensureToken, function (req, res) {
               if (err) {
                 console.log(err);
               } else {
-                console.log(results);
                 res.sendStatus(200);
               }
             }
@@ -342,7 +338,6 @@ app.delete("/api/RemoveFromLibrary", ensureToken, function (req, res) {
             [bookId],
             function (error, results) {
               if (error) {
-                console.log(error);
                 res.json({ error: error });
               } else {
                 res.json({ message: "Book removed from library" });
@@ -531,12 +526,11 @@ app.post("/api/admin/login", function (req, res) {
     });
 });
 
-app.get("/api/admin/access", function (req, res) {
+app.get("/api/admin/access",ensureToken, function (req, res) {
   console.log(req.token)
   jwt.verify(req.token, admin_sercretkey, function (err, decoded) {
     if (err) {
-      console.log(err)
-      res.sendStatus(403);
+      res.json({message:"error"});
     } else {
       res.json({ message: "success" });
     }
