@@ -2,7 +2,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 import LoginForm from "../../Components/logInComp/logInForm";
-import ErrorHandler from "../../Global/errorHandler";
 import setCookie from "../../Global/setCookie";
 
 const AdminLogin = () => {
@@ -40,12 +39,10 @@ const AdminLogin = () => {
           alert("No admin with those login details exist");
         }
       } else {
-        let error = ErrorHandler(res);
-        alert(error.message);
+        navigate("/error")
       }
     } catch (err) {
-      let error = ErrorHandler(err);
-      alert(error.message);
+      navigate("/error")
     }
   };
 

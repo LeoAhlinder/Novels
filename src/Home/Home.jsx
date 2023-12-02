@@ -5,9 +5,6 @@ import { useNavigate } from "react-router";
 import fantasy from "../Pictures/forest.webp"
 import landscape from "../Pictures/fantasyLandscape.webp"
 
-import ErrorHandler from "../Global/errorHandler";
-
-
 const Home = () => {
   const [latestBooks, setLatestBooks] = useState([]);
   const navigate = useNavigate()
@@ -34,18 +31,10 @@ const Home = () => {
           }
         }
         else{
-          let error = ErrorHandler(res)
-          alert(error.message)
-          if (error.navigate.length > 0){
-            navigate(error.navigate)
-          }
+          navigate("/error")
         }
       } catch (err) {
-        let errorCatch = ErrorHandler(err)
-        alert(errorCatch.message)
-        if (errorCatch.navigate.length > 0){
-          navigate(errorCatch.navigate)
-        }
+        navigate("/error")
       }
     };
 

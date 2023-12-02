@@ -1,4 +1,3 @@
-import { use } from "chai";
 import React, {useEffect ,useState}from "react";
 import { useParams } from 'react-router-dom';
 import "./authorSiteStyle.css"
@@ -23,9 +22,12 @@ const AuthorSite = () =>{
                     const response = await res.json()
                     console.log(response)
                 }
+                else{
+                    navigate("/error")
+                }
             }
             catch(err){
-                console.log(err)
+                navigate("/error")
             }
         }
         fetchAuthorInfo()

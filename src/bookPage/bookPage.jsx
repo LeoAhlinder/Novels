@@ -50,11 +50,11 @@ const BookPage = () =>{
                     setauthor(response.author[0].userName)
                     setID(response.data[0].bookid)
                 }else{
-                    errorFunction(res)
+                    navigate("/error")
                 }
             }
             catch(err){
-                console.log(err)
+                navigate("/error")
             }
 
         }

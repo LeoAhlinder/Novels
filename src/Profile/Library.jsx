@@ -31,7 +31,7 @@ const Library = () => {
           setBooks("error");
         }
       } catch (err) {
-        console.log(err);
+        navigate("/error")
       }
     };
 

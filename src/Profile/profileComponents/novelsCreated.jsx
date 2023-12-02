@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./novelsCreatedStyle.css"
 import { useNavigate } from "react-router-dom";
-import ErrorHandler from "../../Global/errorHandler";
 import Cookies from 'js-cookie'
 
 
@@ -12,31 +11,32 @@ const NovelCreated = () =>{
     const [books,setBooks] = useState([])
 
     useEffect(()=>{
+        try{
+            const fetchNovelsCreated = async () =>{
 
-        const fetchNovelsCreated = async () =>{
+                const token = Cookies.get("authToken")
 
-            const token = Cookies.get("authToken")
-
-            const res = await fetch("http://localhost:3001/api/novelsCreated",{
-                method:"GET",
-                headers:{    
-                "Content-Type": "application/json",
-                "Accept": "application/json",
-                Authorization: `Bearer ${token}`}
-            });                
-            if (res.ok){
-                const response = await res.json()
+                const res = await fetch("http://localhost:3001/api/novelsCreated",{
+                    method:"GET",
+                    headers:{    
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${token}`}
+                });                
+                if (res.ok)
+                {
+                    const response = await res.json()
                     setBooks(response.data)
                 }
                 else{
-                    let error = ErrorHandler(res)
-                    alert(error.message)
-                    if (error.navigate.length > 0){
-                        navigate(error.navigate)
-                    }
+                    navigate("/error")
                 }
-            }
-        fetchNovelsCreated();
+                }
+            fetchNovelsCreated();
+        }
+        catch(err){
+            navigate("/error")
+        }  
     },[])
 
     function OpenBook(book){

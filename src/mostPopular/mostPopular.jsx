@@ -4,8 +4,6 @@ import fantasy from "../Pictures/fantasy.webp"
 import Cookies from 'js-cookie'
 import { useNavigate } from "react-router";
 import setCookie from "../Global/setCookie";
-import ErrorHandler from "../Global/errorHandler";
-
 
 const MostPopular  = () =>{
 
@@ -55,19 +53,11 @@ const MostPopular  = () =>{
                     setBooks([])
                 }
                 else{
-                    let error = ErrorHandler(res)
-                    alert(error.message)
-                    if (error.navigate.length > 0){
-                        navigate(error.navigate)
-                    }
+                    navigate("/error")
                 }
             }
             catch(err){
-                let errorCatch = ErrorHandler(err)
-                alert(errorCatch.message)
-                if (errorCatch.navigate.length > 0){
-                    navigate(errorCatch.navigate)
-                }   
+                navigate("/error") 
             }
         }
     }

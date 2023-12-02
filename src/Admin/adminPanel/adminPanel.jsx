@@ -2,8 +2,6 @@ import React, {useEffect} from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 
-
-
 const AdminPanel = () => {
 
     const navigate = useNavigate()
@@ -30,9 +28,12 @@ const AdminPanel = () => {
                         navigate("/adminlogin")
                     }
                 }
+                else{
+                    navigate("/error")
+                }
             }
             catch(err){
-                console.log(err)
+                navigate("/error")
             }
         }
         checkAuthorization()

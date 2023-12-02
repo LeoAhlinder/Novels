@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./createnewstyle.css"
-import ErrorHandler from "../Global/errorHandler";
 import { useNavigate } from "react-router-dom";
 
 const CreateNew = () =>{
@@ -104,19 +103,11 @@ const CreateNew = () =>{
                 }
             }
             else{
-                let error = ErrorHandler(res)
-                alert(error.message)
-                if (error.navigate.length > 0){
-                    navigate(error.navigate)
-                }
+                navigate("/error")
             }
 
         }catch(error){
-            let errorCatch = ErrorHandler(error)
-            alert(errorCatch.message)
-            if (errorCatch.navigate.length > 0){
-                navigate(errorCatch.navigate)
-            }
+            navigate("/error")
         }
     }
 

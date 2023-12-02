@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import "./logIn.css"
 import { useNavigate } from "react-router-dom"
-import ErrorHandler from '../Global/errorHandler';
 import setCookie from "../Global/setCookie";
 import validator from "email-validator";
 
 import LoginForm from '../Components/logInComp/logInForm';
-import Cookies from 'js-cookie';
 
 const LogIn = () =>{
 
@@ -70,18 +68,10 @@ const LogIn = () =>{
                             logIn()
                         }
                     }else{
-                        let error = ErrorHandler(res)
-                        alert(error.message)
-                        if (error.navigate.length > 0){
-                            navigate(error.navigate)
-                        }
+                        navigate("/error")
                     }
                 }catch(err){
-                    let errorCatch = ErrorHandler(err)
-                    alert(errorCatch.message)
-                    if (errorCatch.navigate.length > 0){
-                        navigate(errorCatch.navigate)
-                    }   
+                    navigate("/error") 
                 }
             }else{
                 alert("Please enter a valid email")
@@ -147,13 +137,11 @@ const LogIn = () =>{
                     }
                 }
                 else{
-                    let error = ErrorHandler(res)
-                    alert(error.message)
+                    navigate("/error")
                 }
             }catch(err)
             {
-                let error = ErrorHandler(err)
-                alert(error.message)
+                navigate("/error")
             }
         }
     }
