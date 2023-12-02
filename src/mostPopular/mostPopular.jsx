@@ -8,12 +8,11 @@ import setCookie from "../Global/setCookie";
 const MostPopular  = () =>{
 
     const [books,setBooks] = useState([])
-    const [type,setType] = useState("overall")
     const navigate = useNavigate()
 
     useEffect(()=>{
-        ranking("overall")
-    },[type])
+        ranking()
+    },[])
 
     const ranking = async (type) =>{
 
@@ -30,7 +29,6 @@ const MostPopular  = () =>{
         else{
             try{
 
-
                 const res = await fetch(`http://localhost:3001/api/ranking?type=${type}`,{
                     method:"GET",
                     headers:{
@@ -38,26 +36,23 @@ const MostPopular  = () =>{
                         "Accept": "application/json",
                     }
                 });
-    
                 if (res.ok){
                     const response = await res.json();
-                    if (response.books === undefined){
-                        setBooks([]); // Store fetched data in state
-                        return;
-                    }    
+                    console.log(response)
+                    if (response.books.length === 0){ //No books found
+                        setBooks([])
+                    }
+                    else{
                         setBooks(response.books)    
                         setCookie("books",response.books,3) //Name,data,expire date in hours
-                }
-                if (res.error === "error"){
-                    console.log("error")
-                    setBooks([])
+                    }
                 }
                 else{
                     navigate("/error")
                 }
             }
             catch(err){
-                navigate("/error") 
+                navigate("/error")
             }
         }
     }
@@ -76,9 +71,9 @@ const MostPopular  = () =>{
             <div className="containerPopular">
                 <div className="categories">
                     <div className="button-container">
-                        <button className="category-button" onClick={() => setType("overall")}>Overall Ranking</button>
-                        <button className="category-button" onClick={() => setType("collections")}>Collections</button>
-                        <button className="category-button" onClick={() => setType("rating")}>Rating</button>
+                        <button className="category-button" onClick={() => ranking("overall")}>Overall Ranking</button>
+                        <button className="category-button" onClick={() => ranking("collections")}>Collections</button>
+                        <button className="category-button" onClick={() => ranking("rating")}>Rating</button>
                     </div>
                         
                 </div>
@@ -101,7 +96,7 @@ const MostPopular  = () =>{
                             </li>
                         ))}
                     </ul>
-                </>): null}
+                </>): <h2 id="errorText">We had an error fetching the most popular books. Please try again!</h2>}
 
             </div>
         </>

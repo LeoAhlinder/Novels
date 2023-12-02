@@ -468,6 +468,7 @@ app.get("/api/ranking", function (req, res) {
   const query =
     "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary LIMIT 0,50";
 
+
   connection.query(query, function (err, results) {
     if (err) {
       res.json({ error: "error" });
