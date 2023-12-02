@@ -1,8 +1,37 @@
 .authorInfoContainer{
-    display: flex;
     margin: 0 auto;
-    width: 70%;
+    width:60%;
+    height: 100vh;
     margin-top: 20px;
-    margin-bottom: 20px;
-    background-color: red;
+}
+
+#noAuthorFound{
+    margin-top: 10%;
+    background-color: blue;
+}
+
+.authorBookItem{
+    height: 20%;
+    width: 100%;
+    color: white;
+    margin: 0.6% 0;
+    background-color: black;
+}
+
+#bookPicture{
+    height:172.8px;
+    width:  155.63px;;
+    border-radius: 0px 10px 0px 10px;
+}
+
+#bookContainer{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#Title{
+    
 }

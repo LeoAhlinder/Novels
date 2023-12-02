@@ -1,11 +1,18 @@
 import React, {useEffect ,useState}from "react";
 import { useParams } from 'react-router-dom';
+import { useNavigate } from "react-router";
+
 import "./authorSiteStyle.css"
+import forestpic from "../Pictures/forest.webp"
+
 
 const AuthorSite = () =>{
 
+    const navigate = useNavigate()
 
+    const [authorInfo,setAuthorInfo] = useState([])
     const { authorName } = useParams();
+    const [authorFound,changeAuthorFound] = useState(true)  
 
     useEffect(()=>{
 
@@ -20,7 +27,14 @@ const AuthorSite = () =>{
                 });
                 if (res.ok){
                     const response = await res.json()
-                    console.log(response)
+                    if (response.message === "no author found"){
+                        changeAuthorFound(false)
+                        setAuthorInfo([])
+                    }
+                    else{
+                        setAuthorInfo(response.books)
+                        changeAuthorFound(true)
+                    }
                 }
                 else{
                     navigate("/error")
@@ -29,17 +43,29 @@ const AuthorSite = () =>{
             catch(err){
                 navigate("/error")
             }
-        }
+        } 
         fetchAuthorInfo()
         
 
     },[authorName])
 
+    const goToBook = (book) =>{
+        navigate({pathname:"/book",search:`?id=${book.bookid}`})
+    }
+
     return(
         <div className="authorInfoContainer">
-            <h2>t</h2>
+          {authorFound === false ? <h1 id="noAuthorFound">No author found</h1> : authorInfo.map((book,index) => (
+              <li key={index} className="authorBookItem" onClick={() => goToBook(book)}>
+                <h3 id="Title">{book.title}</h3>
+
+                <div id="bookContainer">
+                    <img id="bookPicture" src={forestpic} alt="Book picture" />
+                </div>
+              </li>
+          ))}
         </div>
-    )
+      )
 }
 
 
