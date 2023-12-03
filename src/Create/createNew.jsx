@@ -116,16 +116,16 @@ const CreateNew = () =>{
         <div className="CreateNovelsContainer"> 
             <div className="bookContent" >
 
-                <label htmlFor="Title" className="Label">Book Name {bookName.length}/20</label>
-                <input type="text" className="bookNameInput" maxLength="20"placeholder="20 letters max" id="Title" onChange={handleInputChangeBookName}/>
+                <label htmlFor="bookTitle" className="Label">Book Name {bookName.length}/20</label>
+                <input type="text" className="bookNameInput" maxLength="20"placeholder="20 letters max" id="bookTitle" onChange={handleInputChangeBookName}/>
                 <label htmlFor="Synopsis" className="Label">Synopsis {summary.length}/300</label>
                 <textarea type="text" id="Synopsis" placeholder="Make a awesome synopsis to attract viewers!" maxLength="300" className="summaryInput" onChange={handleSummaryChange}/>
-                <label htmlFor="Genre" className="Label">Genre</label>
+                <label htmlFor="inputGenre" className="Label">Genre</label>
 
                 <select 
-                    name="Genre" 
+                    name="inputGenre" 
                     className="Selector" 
-                    id="Genre" 
+                    id="inputGenre" 
                     value={genre} 
                     onChange={handleGenreChange}
                 >
@@ -134,7 +134,7 @@ const CreateNew = () =>{
                     <option value="Romance">Romance</option>
                     <option value="Science Fiction">Science Fiction</option>
                     <option value="Fantasy">Fantasy</option>
-                    <option value="Thriller">Thriller</option>
+                    <option value="Thriller">Thriller</option>§
                     <option value="Historical Fiction">Historical Fiction</option>
                     <option value="Non-Fiction">Non-Fiction</option>
                     <option value="Biography">Biography</option>

@@ -2,13 +2,12 @@
     align-items: center;
     justify-self: center;
     display: flex;
-    height: 90vh;
+    height: 90%;
     margin: 7rem 2%;
     background-color: rgb(71, 69, 69);
     width: 50%;
     margin: 0 auto;
     padding: 40px;
-    height: 70vh;
     border-radius: 10px;
 
 }
@@ -32,7 +31,7 @@
 .bookContent{
     background-color: transparent!important;
     height: 100%;
-    width: 50%;
+    width: 80%;
     margin: 0 auto;
     gap: 1rem;
     align-items: top;
@@ -50,7 +49,7 @@
     width: 100%;
     resize: none;
     border-radius:4px;
-
+    min-height: 50px;
 }
 
 .Selector{
@@ -71,7 +70,16 @@
     height: 5%;
     border: 0.1px solid blue;
     border-radius: 5px;
+    padding: 2px;
 }
 .publishButton:hover{
     opacity: 0.9;
+}
+
+@media screen and (max-width:550px) {
+    .CreateNovelsContainer{
+        width: 100%;
+        margin: 0 auto;
+        padding: 5px;
+    }
 }
