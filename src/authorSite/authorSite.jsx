@@ -5,8 +5,20 @@ import { useNavigate } from "react-router";
 import "./authorSiteStyle.css"
 import forestpic from "../Pictures/forest.webp"
 
+import CheckToken from "../Global/checkToken"
+
 
 const AuthorSite = () =>{
+
+
+    useEffect(() => {
+        async function validToken(){
+            const token = await CheckToken()
+            if (token === "invalid"){
+                navigate("/error")
+            }
+        }
+    },[])
 
     const navigate = useNavigate()
 
@@ -60,14 +72,18 @@ const AuthorSite = () =>{
             <h1 id="authorName">{authorName}'s complete collection available online</h1>
 
             {authorFound === false ? <h1 id="noAuthorFound">No author found</h1> : authorInfo.map((book,index) => (
-                <li key={index} className="authorBookItem" onClick={() => goToBook(book)}>
-                    <h3 id="Title">{book.title}</h3>
-                    <h4 id="Chapters">{book.totalpages != null ? book.totalpages : "0"} chapters</h4>
-                    <h4 id="totalInLibrary">{book.totalinlibrary} bookmarks</h4>
+                <li key={index} className="authorBookItem" >
+                    <h3 id="Title" onClick={() => goToBook(book)}>{book.title}</h3>
+                    <h4 className="bookInfo" id="Chapters">{book.totalpages != null ? book.totalpages : "0"} chapters</h4>
+                    <h4 className="bookInfo" id="totalInLibrary">{book.totalinlibrary} bookmarks</h4>
+                    <h4 className="bookInfo" id="Genre">Genre: {book.genres}</h4>
+                    <h4 className="bookInfo" id="PR" >PR: {book.warnings}</h4>
 
-                    <div id="bookContainer">
+                    <div id="bookContainer" onClick={() => goToBook(book)}>
                         <img id="bookPicture" src={forestpic} alt="Book picture" />
                     </div>
+
+                    <p id="synopsis">{book.synopsis}</p>
 
                 </li>
             ))}

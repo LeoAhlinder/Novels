@@ -31,31 +31,45 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 #Title{
     position: absolute;
     color:white;
     margin-left: 160px;
+    cursor: pointer;
+
 }
 
 #Chapters{
     position: absolute;
-    color:white;
     margin-left: 160px;
     margin-top: 30px;
 }
 
 #totalInLibrary{
     position: absolute;
-    color:white;
     margin-left: 160px;
-    margin-top: 60px;
+    margin-top: 55px;
 }
 
 #authorName{
     color: white;
     font-family: Hedvig-serif;
+}
+
+#Genre{
+    position: absolute;
+    margin-left: 160px;
+    margin-top: 80px;
+}
+
+#PR{
+    color: white;
+    position: absolute;
+    margin-left: 160px;
+    margin-top: 105px;
 }
 
 @font-face {
@@ -64,20 +78,76 @@
 }
 
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1400px) {
     .authorInfoContainer{
         width: 100%;
     }
-    #totalInLibrary,#Chapters,#Title{
-        font-size: 0.9rem;
+    .bookInfo{
+        font-size: 0.8em;
     }
+    
     #Chapters{
-        margin-top: 45px;
+        position: absolute;
+        margin-left: 160px;
+        margin-top: 30px;
     }
+
     #totalInLibrary{
-        margin-top: 75px;
+        position: absolute;
+        margin-left: 160px;
+        margin-top: 55px;
+    }
+
+    #authorName{
+        color: white;
+        font-family: Hedvig-serif;
+    }
+
+    #Genre{
+        position: absolute;
+        margin-left: 160px;
+        margin-top: 80px;
+    }
+
+    #PR{
+        color: white;
+        position: absolute;
+        margin-left: 160px;
+        margin-top: 105px;
+    }
+}
+
+@media screen and (max-width:756px) {
+    #synopsis{
+        overflow-y: scroll;
+        margin-left: 320px !important;
     }
     #authorName{
-        font-size: 1.5rem;
+        font-size: 1.5em;
     }
+}
+
+#synopsis{
+    position: absolute;
+    margin-left: 350px;
+    margin-top: 25px;
+    max-width: 800px;
+    overflow-y: scroll;
+    max-height: 150px !important;
+}
+
+.bookInfo{
+    color: white;
+    font-size: 0.9em;
+}
+
+@media screen and (max-width: 420px) {
+    #synopsis{
+        display: none;
+    }
+    #authorName{
+        font-size: 1em !important;
+        text-align: center;
+    }
+    
 }

@@ -78,8 +78,8 @@ const App = () => {
                 <Route path="/search" element={<SearchBar />} />
                 <Route path="/create" element={<Create />} />
                 <Route
-                  path="/createNovel"
-                  element={validToken ? <CreateNew /> : <LogIn />}
+                  path="/createnovel"
+                  element={<CreateNew />}
                 />
                 <Route path="/popular" element={<MostPopular />}></Route>
                 <Route
