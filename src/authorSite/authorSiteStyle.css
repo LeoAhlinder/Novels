@@ -11,17 +11,18 @@
 }
 
 .authorBookItem{
-    height: 20%;
+    height: 172.8px;
     width: 100%;
     color: white;
     margin: 0.6% 0;
-    background-color: black;
+    background-color: rgba(0, 0, 0, 0.425);
+    padding: 5px;
 }
 
 #bookPicture{
     height:172.8px;
-    width:  155.63px;;
-    border-radius: 0px 10px 0px 10px;
+    width:155.63px;;
+    border-radius: 10px 0px 10px 0px;
 }
 
 #bookContainer{
@@ -33,5 +34,50 @@
 }
 
 #Title{
-    
+    position: absolute;
+    color:white;
+    margin-left: 160px;
+}
+
+#Chapters{
+    position: absolute;
+    color:white;
+    margin-left: 160px;
+    margin-top: 30px;
+}
+
+#totalInLibrary{
+    position: absolute;
+    color:white;
+    margin-left: 160px;
+    margin-top: 60px;
+}
+
+#authorName{
+    color: white;
+    font-family: Hedvig-serif;
+}
+
+@font-face {
+    font-family: Hedvig-serif;
+    src: url("../Fonts/HedvigLettersSerif-Regular-VariableFont_opsz.ttf");
+}
+
+
+@media only screen and (max-width: 600px) {
+    .authorInfoContainer{
+        width: 100%;
+    }
+    #totalInLibrary,#Chapters,#Title{
+        font-size: 0.9rem;
+    }
+    #Chapters{
+        margin-top: 45px;
+    }
+    #totalInLibrary{
+        margin-top: 75px;
+    }
+    #authorName{
+        font-size: 1.5rem;
+    }
 }

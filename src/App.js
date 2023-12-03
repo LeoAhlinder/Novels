@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Cookies from "js-cookie";
-import CheckToken from "./Global/checkToken";
 
 import Header from "./navbar/navbar";
 import Profile from "./Profile/Profile";
