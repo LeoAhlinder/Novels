@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import "./createnewstyle.css"
 import { useNavigate } from "react-router-dom";
 
+import Cookies from "js-cookie";
+
 const CreateNew = () =>{
 
     const navigate = useNavigate()
+
+    const [summaryLength,changeSummaryLength] = useState(0)
+    const [titleLength,changeTitleLength] = useState(0)
+    const [tagsLength,changeTagsLength] = useState(0)
 
     const [bookName,changeBookName] = useState("")
     const [summary,changeSummary] = useState("")
@@ -16,10 +22,12 @@ const CreateNew = () =>{
     const [alertColor,changeAlertColor] = useState({})
 
     const handleInputChangeBookName = (e) => {
+        changeTitleLength(e.target.value.length)
         changeBookName(e.target.value)
     }
     
     const handleSummaryChange = (e) =>{
+        changeSummaryLength(e.target.value.length)
         changeSummary(e.target.value)
     }
 
@@ -36,7 +44,14 @@ const CreateNew = () =>{
     }
 
     const handleCustomTags = (e) =>{
+        let tags = e.target.value.split(" ")
+
+        changeTagsLength(tags.length)
+        if (e.target.value === ""){
+            changeTagsLength(0)
+        }
         changeTags(e.target.value)
+    
     }
 
     const checkBookInfo = () =>{
@@ -44,13 +59,16 @@ const CreateNew = () =>{
         let allInfoFilled = true
 
         const bookInfo = {
-            Title: bookName,
+            bookTitle: bookName,
             Synopsis:summary,
-            Genre:genre,
+            inputGenre:genre,
             Language:language,
             Tags:tags,
             Warnings:warnings,
         }
+
+        // Check if any inputs are to long
+        
 
         for (let i = 0;i < Object.keys(bookInfo).length;i++){
             if (Object.values(bookInfo)[i] === ""){
@@ -59,25 +77,51 @@ const CreateNew = () =>{
             }
             else{
                 document.getElementById(Object.keys(bookInfo)[i]).style.border = "1.5px solid black"
-
             }
         }
 
-        if (allInfoFilled === true){
-            createNewBook(bookInfo)
-        }
-        else{
+        if (allInfoFilled === false){
             changeAlert("Fill in all the missing input fields")
             changeAlertColor("red")
+            return
         }
+
+        if (tagsLength > 3){
+            changeAlert("You can only have 3 tags")
+            changeAlertColor("red")
+            return
+        }
+        for (let i = 0;i < tags.length;i++){
+            if (tags[i].length > 10){
+                changeAlert("Your tags are too long")
+                changeAlertColor("red")
+                return
+            }
+        }
+        if (summaryLength > 300){
+            changeAlert("Your summary is too long")
+            changeAlertColor("red")
+            allInfoFilled = false
+            return
+        }
+        if (titleLength > 20){
+            changeAlert("Your title is too long")
+            changeAlertColor("red")
+            allInfoFilled = false
+            return
+        }
+        changeAlert("")
+        changeAlertColor("")
+        createNewBook(bookInfo)
+
     }
 
     async function createNewBook(bookInfo){
 
-        const token = localStorage.getItem("authToken")
+        const token = Cookies.get("authToken")
 
         try{
-            const res = await fetch("http://localhost:3001/api/createNewBook",{
+            const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/createNewBook`,{
                 method:"POST",
                 headers:{
                 "Content-Type": "application/json",
@@ -114,7 +158,8 @@ const CreateNew = () =>{
     return(
     <>
         <div className="CreateNovelsContainer"> 
-            <div className="bookContent" >
+            <div className="bookContent" >          
+                <h2 id="headerTextForCN">Create your own novel</h2>
 
                 <label htmlFor="bookTitle" className="Label">Book Name {bookName.length}/20</label>
                 <input type="text" className="bookNameInput" maxLength="20"placeholder="20 letters max" id="bookTitle" onChange={handleInputChangeBookName}/>
@@ -152,8 +197,8 @@ const CreateNew = () =>{
                 <label htmlFor="Language" className="Label">Language</label>
                 <input type="text" id="Language" className="bookNameInput" placeholder="Language" maxLength="25" onChange={handleLanguage}/>
 
-                <label htmlFor="Tags" className="Label">Custom Tags 0/10</label>
-                <input type="text" id="Tags" onChange={handleCustomTags} className="bookNameInput" placeholder="Tags are seperated by spaces. ex 'tag1 tag2 tag3-tag3'" />
+                <label htmlFor="Tags" className="Label">Custom Tags {tagsLength}/3</label>
+                <input type="text" id="Tags" onChange={handleCustomTags} className="bookNameInput" placeholder="Tags are seperated by spaces. ex 'tag1 tag2'. Tags can be 10 characters long max!" />
 
                 <label htmlFor="Warnings" className="Label">Warnings</label>
                 <select 
@@ -177,4 +222,4 @@ const CreateNew = () =>{
     )
 }
 
-export default CreateNew
+export default CreateNew;

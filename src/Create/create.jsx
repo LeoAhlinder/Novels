@@ -4,7 +4,6 @@ import { useNavigate } from "react-router";
 
 const Create = () =>{
 
-
     const navigate = useNavigate()
 
     const CreateNew = () =>{
