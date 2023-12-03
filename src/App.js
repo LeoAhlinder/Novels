@@ -73,10 +73,10 @@ const App = () => {
               <Header />
               <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="/Profile" element={<Profile />} />
+                <Route path="/profile" element={<Profile />} />
                 <Route path="/book" element={<BookPage />} />
                 <Route path="/login" element={<LogIn />} />
-                <Route path="/Search" element={<SearchBar />} />
+                <Route path="/search" element={<SearchBar />} />
                 <Route path="/create" element={<Create />} />
                 <Route
                   path="/createNovel"

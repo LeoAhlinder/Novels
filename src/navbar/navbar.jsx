@@ -58,7 +58,7 @@ const Header = () => {
         const token = await checkToken()
         closeMenu()
         if (token === "valid"){
-            navigate("/Profile")
+            navigate("/profile")
         }
         else{
             navigate("login")
@@ -103,7 +103,7 @@ const Header = () => {
                             <button className="nav-link" onClick={create}>Create</button>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href='./Search' onClick={closeMenu}>Search</a>
+                            <a className="nav-link" href='./search' onClick={closeMenu}>Search</a>
                         </li>
                         <li className="nav-item">
                             <button className='nav-link' onClick={profileButtonClicked}>

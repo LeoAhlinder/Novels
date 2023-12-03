@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "../Profile/profileStyle.css"
 import Library from "./Library"
 import { useNavigate } from "react-router-dom"
 import NovelCreated from "./profileComponents/novelsCreated";
 import Cookies from 'js-cookie'
+import CheckToken from "../Global/checkToken";
 
 
 const Profile = () => {
@@ -28,6 +29,17 @@ const Profile = () => {
     const updatedSelected = (selected) =>{
         changeSelected(selected)
     }
+
+    useEffect(() => {
+        const checkToken = async () => {
+            const token = await CheckToken();
+            if (token === "invalid") {
+                navigate("/login")
+            }
+        }
+        checkToken()
+    },[])
+ 
   
     return (
         <div>
