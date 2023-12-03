@@ -341,7 +341,6 @@ app.delete("/api/RemoveFromLibrary", ensureToken, function (req, res) {
                 res.json({ error: error });
               } else {
                 res.json({ message: "Book removed from library" });
-                console.log("removed");
               }
             }
           );
@@ -487,6 +486,12 @@ app.get("/api/authorInfo", function (req, res) {
     if (err) {
       console.log(err);
     } else {
+
+      if (results.length === 0){
+        res.json({message:"no author found"})
+        return;
+      }
+
       const authorId = results[0].userid;
 
       const query = "SELECT * FROM lightnovelonline.books WHERE author = ?";
