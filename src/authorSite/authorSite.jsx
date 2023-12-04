@@ -5,20 +5,8 @@ import { useNavigate } from "react-router";
 import "./authorSiteStyle.css"
 import forestpic from "../Pictures/forest.webp"
 
-import CheckToken from "../Global/checkToken"
-
 
 const AuthorSite = () =>{
-
-
-    useEffect(() => {
-        async function validToken(){
-            const token = await CheckToken()
-            if (token === "invalid"){
-                navigate("/error")
-            }
-        }
-    },[])
 
     const navigate = useNavigate()
 
