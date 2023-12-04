@@ -38,7 +38,11 @@ const MostPopular  = () =>{
                 });
                 if (res.ok){
                     const response = await res.json();
-                    console.log(response)
+                    console.log(response.error)
+                    if (response.error === "error"){ 
+                        setBooks([])
+                        return
+                    }
                     if (response.books.length === 0){ //No books found
                         setBooks([])
                     }
