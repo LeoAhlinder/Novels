@@ -1,6 +1,6 @@
 
 body{
-    margin-top: 90px;
+    margin-top: 80px;
 }
 
 .gridContainerHome {
@@ -12,8 +12,8 @@ body{
     background-color: rgb(50, 52, 53);
     padding: 20px;
     border-radius: 10px 10px 0px 0px;
-
   }
+
   .gridItem {
   color: white;
   padding: 0.5rem;
@@ -60,18 +60,18 @@ body{
 @media screen and (max-width:370px) {
     .homeIntro{
         font-size: 1rem;
-
     }
 }
 
 #bookTitle{
     text-align: start;
     font-family: roboto;
+    font-size: 0.9em;
 }
 
 @font-face {
     font-family: roboto;
-    src: url("../Fonts/Roboto-Black.ttf");
+    src: url("../Fonts/Rubik-VariableFont_wght.ttf");
 }
 
 #introHeader{
@@ -84,7 +84,7 @@ body{
     font-size: 2rem;
     text-align: center;
     margin: 0 auto;
-    margin-bottom: 3%;
+    margin-bottom: 1%;
     color: white;
     text-decoration: underline;
 }
@@ -112,16 +112,13 @@ body{
     .introText:nth-child(2) {
         margin-top: 60px !important;
         font-size: 1.4rem !important;
-        width: 100% !important;
-
+        width: 70% !important;
     }
     .introText{
         font-size: 1.8rem !important;
         width: 100% !important;
     }
-    
 }
-
 
 @media screen and (max-width:450px) {
     .introText:nth-child(2) {
@@ -131,13 +128,16 @@ body{
         font-size: 1.3rem !important;
         width: 100%;
     }
+    .gridItem{
+        width: 80%;
+    }
+    .gridContainerHome{
+        width: 80%;
+    }
 }
 
 @media screen and (max-width:408px) {
     .gridItem{
         padding: 0px 20px !important;
-    }
-    .gridContainerHome{
-        width: 80%  !important;
     }
 }
