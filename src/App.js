@@ -31,6 +31,10 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+    document.title = "Loading...";
+  }, []);
+
+  useEffect(() => {
     if (serverStatus === true) {
       checkToken();
     }
