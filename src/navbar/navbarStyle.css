@@ -45,7 +45,7 @@ a{
 
 .nav-link{
   transition: 0.3s ease-out;
-  font-family:'Times New Roman', Times, serif;
+  font-family:nav-font;
   font-size: 1rem;
 }
 .nav-link:hover{
@@ -106,4 +106,10 @@ button
  .nav-menu.active{
     left: 0;
   }
+}
+
+
+@font-face {
+  font-family: nav-font;
+  src: url("../Fonts/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf");
 }
