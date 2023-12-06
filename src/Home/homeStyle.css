@@ -9,14 +9,15 @@ body{
     display: grid;
     gap: 0.5rem;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    background-color: rgb(50, 52, 53);
+    padding: 20px;
+    border-radius: 10px 10px 0px 0px;
 
-        
   }
   .gridItem {
   color: white;
   padding: 0.5rem;
   height: 8rem;
-
   }
   .gridPicture{
     align-items: center;
@@ -129,5 +130,14 @@ body{
     .introText{
         font-size: 1.3rem !important;
         width: 100%;
+    }
+}
+
+@media screen and (max-width:408px) {
+    .gridItem{
+        padding: 0px 20px !important;
+    }
+    .gridContainerHome{
+        width: 80%  !important;
     }
 }
