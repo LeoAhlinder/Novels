@@ -1,7 +1,7 @@
 .errorBox{
     width: 50%;
     margin: 0 auto;
-    background-color: rgba(0, 0, 0, 0.438);
+    background-color: rgb(38, 40, 41);
     box-shadow: 2px;
     padding: 50px;
 }
@@ -18,8 +18,8 @@
     font-weight: bold;
     color: white;
     text-align: start;
-    margin-top: 10%;
-    margin-bottom: 5%;
+    margin-top: 6%;
+    margin-bottom: 4%;
 }
 
 .reasons{
@@ -28,6 +28,7 @@
     color: white;
     text-align: start;
     margin: 2% 0;
+    margin-left: 3%;
 }
 
 .dot {
