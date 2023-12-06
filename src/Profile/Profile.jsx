@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 import CheckToken from "../Global/checkToken";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
-import NovelCreated from "./profileComponents/NovelsCreated"
+import NovelCreated from "../Profile/profileComponents/novelsCreated"
 import Library from "./Library"
 
 const Profile = () => {
@@ -39,8 +39,7 @@ const Profile = () => {
         }
         checkToken()
     },[])
- 
-  
+
     return (
         <div>
             <div className='profileHeader'>
@@ -50,7 +49,7 @@ const Profile = () => {
                 <p className='userName'>Welcome {userName}</p>
                 <button onClick={() => changeSelected("Info")}className={selected === "Info" ? "buttonClicked" : "profileButton"} id="infoButton">Info</button>
                 <button onClick={() => changeSelected("Comments")} className={selected === "Comments" ? "buttonClicked" : "profileButton"} id="commentsButton">Comments</button>
-                <button onClick={() => changeSelected("NovelCreated")}className={selected === "NovelsCreated" ? "buttonClicked" : "profileButton"} id="novelsCreatedButton">Novels Created</button>
+                <button onClick={() => changeSelected("NovelCreated")}className={selected === "NovelCreated" ? "buttonClicked" : "profileButton"} id="novelsCreatedButton">Novels Created</button>
                 <button onClick={() => changeSelected("Library")} className={selected === "Library" ? "buttonClicked" : "profileButton"} id="libraryButton">Library</button>
                 <button onClick={() => changeSelected("Reviews")} className={selected === "Reviews" ? "buttonClicked" : "profileButton"} id="reviewButton">Reviews</button>
             </div>
@@ -75,6 +74,8 @@ const Profile = () => {
                 </button>
             </div>
             <div>
+                {selected === "NovelCreated" && <NovelCreated/>}
+                {selected === "Library" && <Library/>}
             </div>
         </div>
     );
