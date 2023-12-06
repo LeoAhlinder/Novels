@@ -86,12 +86,19 @@
     
     #desktop{
         display: block;
+        height: 50vh;
+        max-height: 700px;
+        background-color: rgb(50, 52, 53);
+        padding: 20px;
+        border-radius: 5px;
     }
 }
 
 @media screen and (max-width:1000px) {
     #phone{
         display: block;
+        background-color: rgb(50, 52, 53);
+        padding-bottom: 15px;
     }
     #desktop{
         display: none;
