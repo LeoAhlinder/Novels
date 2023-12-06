@@ -1,11 +1,14 @@
 import React,{useEffect,useState} from "react";
 import "./libraryStyle.css"
 import { useNavigate } from "react-router-dom"
-import ErrorHandler from "../Global/errorHandler";
 import Cookies from 'js-cookie';
+import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 
 const Library = () => {
+
+  ChangeDocumentTitle("Library")
+
   const [books, setBooks] = useState([]);
 
   const navigate = useNavigate();

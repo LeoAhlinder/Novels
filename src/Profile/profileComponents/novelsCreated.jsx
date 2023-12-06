@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import "./novelsCreatedStyle.css"
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'
+import ChangeDocumentTitle from "../../Global/changeDocumentTitle";
 
 
 const NovelCreated = () =>{
+
+    ChangeDocumentTitle("Novels Created")
 
     const navigate = useNavigate()
 

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 
 import "./authorSiteStyle.css"
 import forestpic from "../Pictures/forest.webp"
+import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 
 const AuthorSite = () =>{
@@ -13,6 +14,8 @@ const AuthorSite = () =>{
     const [authorInfo,setAuthorInfo] = useState([])
     const { authorName } = useParams();
     const [authorFound,changeAuthorFound] = useState(true)  
+
+    ChangeDocumentTitle(authorName)
 
     useEffect(()=>{
 

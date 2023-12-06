@@ -2,7 +2,11 @@ import React from "react";
 import "./createstyle.css"
 import { useNavigate } from "react-router";
 
+import ChangeDocumentTitle from "../Global/changeDocumentTitle";
+
 const Create = () =>{
+
+    ChangeDocumentTitle("Create")
 
     const navigate = useNavigate()
 

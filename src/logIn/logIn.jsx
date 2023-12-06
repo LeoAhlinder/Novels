@@ -5,8 +5,11 @@ import setCookie from "../Global/setCookie";
 import validator from "email-validator";
 
 import LoginForm from '../Components/logInComp/logInForm';
+import ChangeDocumentTitle from '../Global/changeDocumentTitle';
 
 const LogIn = () =>{
+
+    ChangeDocumentTitle("Log In")
 
     const navigate = useNavigate();
 

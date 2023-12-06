@@ -3,8 +3,11 @@ import "./searchStyle.css"
 import ErrorHandler from "../Global/errorHandler"
 import { useNavigate } from "react-router";
 import forestSmall from "../Pictures/forestsmall.webp"
+import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 const SearchBar = () =>{
+
+    ChangeDocumentTitle("Search")
 
     const navigate = useNavigate()
 

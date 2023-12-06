@@ -7,6 +7,8 @@ import ErrorHandler from "../Global/errorHandler";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 
+import ChangeDocumentTitle from "../Global/changeDocumentTitle";
+
 
 const BookPage = () =>{
 
@@ -49,6 +51,7 @@ const BookPage = () =>{
                     setBookInfo(response.data)
                     setauthor(response.author[0].userName)
                     setID(response.data[0].bookid)
+                    ChangeDocumentTitle(response.data[0].title)
                 }else{
                     navigate("/error")
                 }

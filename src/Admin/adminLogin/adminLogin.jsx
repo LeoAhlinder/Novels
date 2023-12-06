@@ -3,8 +3,11 @@ import { useNavigate } from "react-router-dom";
 
 import LoginForm from "../../Components/logInComp/logInForm";
 import setCookie from "../../Global/setCookie";
+import ChangeDocumentTitle from "../../Global/changeDocumentTitle";
 
 const AdminLogin = () => {
+
+  ChangeDocumentTitle("Admin Login")
 
   const navigate = useNavigate()
 

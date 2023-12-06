@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./navbarStyle.css"
 import { useNavigate } from "react-router-dom"
-import ErrorHandler from '../Global/errorHandler';
 import Cookies from 'js-cookie'
-
 
 const Header = () => {
    

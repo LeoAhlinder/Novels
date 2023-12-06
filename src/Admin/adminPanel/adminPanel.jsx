@@ -1,8 +1,11 @@
 import React, {useEffect} from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import ChangeDocumentTitle from "../../Global/changeDocumentTitle";
 
 const AdminPanel = () => {
+
+    ChangeDocumentTitle("Admin Panel")
 
     const navigate = useNavigate()
 

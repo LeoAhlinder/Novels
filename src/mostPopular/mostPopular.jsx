@@ -4,8 +4,11 @@ import fantasy from "../Pictures/fantasy.webp"
 import Cookies from 'js-cookie'
 import { useNavigate } from "react-router";
 import setCookie from "../Global/setCookie";
+import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 const MostPopular  = () =>{
+
+    ChangeDocumentTitle("Most Popular")
 
     const [books,setBooks] = useState([])
     const navigate = useNavigate()

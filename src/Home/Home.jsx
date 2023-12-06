@@ -4,10 +4,13 @@ import { useNavigate } from "react-router";
 
 import fantasy from "../Pictures/forest.webp"
 import landscape from "../Pictures/fantasyLandscape.webp"
+import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 const Home = () => {
   const [latestBooks, setLatestBooks] = useState([]);
   const navigate = useNavigate()
+
+  ChangeDocumentTitle("Light Novels")
 
 
   useEffect(() => {
