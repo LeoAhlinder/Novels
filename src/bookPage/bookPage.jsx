@@ -189,7 +189,7 @@ const BookPage = () =>{
                     <picture>
                         <img src={cat} alt="cutecat" className="novelCover"/>
                     </picture>
-                    <div className="bookInfo">
+                    <div className="bookPagebookInfo">
                         <h1 className="title">{bookInfo[0].title}</h1>
                         <h5 className="author"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                         <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>

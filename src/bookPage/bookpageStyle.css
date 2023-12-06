@@ -1,7 +1,9 @@
 .novelCover{
     width: 40%;
     position: absolute;
-    margin-top: 10%;
+    top: 0;
+    bottom: 0;
+    margin: auto 0;
     height: auto;
 }
 
@@ -12,31 +14,33 @@
     margin-right: 9%;
 }
 
-.bookInfo{
-    margin-top: 8.2%;
-    height: 37.5%;
+.bookPagebookInfo {
+    padding: 15px;
     position: fixed;
-    margin-left: 35%;
     width: 45%;
+    top: 40%;
+    left: 70%;
+    transform: translate(-50%, -50%);
 }
 
 .title{
     margin-left: 2%;
     color: white;
-
+    font-size: 1.7em;
 }
 
 .author{
     margin-top: 2%;
     margin-left:2%;
     color: white;
-
+    font-size: 1.2em;
 }
 
 .chapters{
     margin-left: 2%;
     margin-top: 1%;
     color: white;
+    font-size: 1.2em;
 }
 
 #addButton{
@@ -169,6 +173,7 @@
     }
 
 }
+
 
 .notLoginIn{
     display: none;
