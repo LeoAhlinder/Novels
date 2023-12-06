@@ -49,7 +49,7 @@ a{
   font-size: 1rem;
 }
 .nav-link:hover{
-  color: dodgerblue;
+  color: rgb(113, 156, 200);
   cursor: pointer;
 }
 .nav-link:active{
