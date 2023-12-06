@@ -69,8 +69,6 @@ const MostPopular  = () =>{
 
     return(
         <>
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
             <div className="containerPopular">
                 <div className="categories">
                     <div className="button-container">
@@ -85,8 +83,6 @@ const MostPopular  = () =>{
                     <h3 id="subTitle">Most popular novels</h3>
                     <h4 id="subText">The overall ranking is based on rating and collections.</h4>
                 </div>
-
-
 
                 {books.length > 0 ? ( <>
                     <ul className="gridContainerPopular">

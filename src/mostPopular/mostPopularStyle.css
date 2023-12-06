@@ -1,15 +1,15 @@
 .containerPopular {
-    background-color: rgb(58, 56, 56);
+    background-color: rgb(38, 40, 41);
     width: 60rem;
     margin: 0 auto;
     padding: 20px;
-    height: calc(100% + 100px);   
+    height: calc(100% + 100px);  
+    border-radius: 7px 7px 0px 0px;
 }
 
 .categories {
     flex-grow: 1;
     padding: 20px;
-    background-color: rgb(83, 73, 73);
 }
 
 .button-container {
@@ -20,16 +20,42 @@
 }
 
 .category-button {
-    flex-grow: 1;
-    padding: 10px;
-    max-width: 200px;
-    margin: 0 5px;
-    color:rgb(231, 224, 224);
-    cursor: pointer;
-    outline: none;
-    font-size: 16px;
+  background-color: rgb(65, 69, 71);
+  width: 200px;
+  border: 1px solid;
+  border-radius: 15px;
+  box-shadow: rgb(41, 42, 43) 4px 4px 0 0;
+  color: rgb(201, 196, 196);
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 600;
+  font-size: 18px;
+  padding: 0 18px;
+  line-height: 50px;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  margin: 5px;
 }
 
+.category-button:hover {
+    background-color: rgb(82, 86, 90);
+
+}
+
+.category-button:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: scale(1.02);
+}
+
+@media (min-width: 768px) {
+  .category-button {
+    min-width: 120px;
+    padding: 0 25px;
+  }
+}
 
 @media screen and (max-width:1300px) {
     .containerPopular{
@@ -39,7 +65,7 @@
 
 @media (max-width: 768px) {
     .containerPopular {
-        width: 80%; /* Make the container full-width on smaller screens */
+        width: 80%;
     }
     
     .categories {
@@ -61,7 +87,7 @@
 .bookCover{
     width: 100%;
     max-height: auto;
-  }
+}
 
 .book{
     display: flex;
@@ -81,8 +107,8 @@
   color: white;
   padding: 0.5rem;
   height: auto;
-
   }
+
   .gridPicture{
     align-items: center;
     justify-content: center;
@@ -90,21 +116,23 @@
     left: 0;
   }
 
-
 #subTitle{
     font-size: 1.5rem;
     margin: 5px;
+    color: rgb(201, 196, 196);
 }
+
 #subText{
     font-size: 1rem;
     margin: 5px;
     margin-top: 1px;
+    color: rgb(201, 196, 196);
 }
 
 
 #errorText{
-    color: red;
+    color: rgb(171, 45, 45) !important;
     font-size: 1rem;
     margin: 5px;
-    margin-top: 1px;
+    margin-top: 50px;
 }
