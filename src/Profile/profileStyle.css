@@ -18,10 +18,10 @@ body {
     }
 
     @media screen and (max-width: 320px) {
-        font-size: 8px; /* Further adjust the font size for even smaller screens */
+        font-size: 8px;
     }
     @media screen and (max-width: 50px) {
-        font-size: 3px; /* Further adjust the font size for even smaller screens */
+        font-size: 3px;
 
     }
 
@@ -45,7 +45,7 @@ body {
     }
 
     @media screen and (max-width: 320px) {
-        font-size: 8px; /* Further adjust the font size for even smaller screens */
+        font-size: 8px; 
     }
     
 }
@@ -158,7 +158,6 @@ body {
     border-bottom: 2% dodgerblue;
 }
 
-
 .buttonClicked{
     border-left: none;
     border-right: none;
@@ -171,14 +170,12 @@ body {
     display: flex;
     margin-top: auto;
     margin-bottom: 0.25%;
-
 }
 
 @media screen and (max-width:630px) {
     .profileHeaderSmall{
         display: grid !important;
-        background-color: rgb(38, 40, 41);
-        border-radius: 5px;
+       
     }
 }
 
@@ -189,15 +186,14 @@ body {
 
 }
 
-
 .profileHeaderSmall {
     margin: 3% 3% 5%;
     height: 11vh !important;
     display: none;
     color: aqua !important;
-    
+    border-radius: 5px;
+    background-color: rgb(38, 40, 41);
     grid-template-rows: auto auto;
-
     @media screen and (max-width:400px) {
         margin-top:20% !important;
     }
@@ -215,6 +211,11 @@ body {
     max-width: 160px;
 }
 
+#itemSelected{
+    color: dodgerblue;
+    border-bottom: 2px solid dodgerblue;
+}
+
 @media screen and (max-width:312px) {
     .item{
         font-size: 12px;
@@ -224,11 +225,6 @@ body {
 .item:hover{
     color: dodgerblue;
 }
-
-  
-.item-large {
-    grid-row: 1;
-  }
 
   .item:nth-child(1){
     margin-right: 30%;
@@ -247,3 +243,11 @@ body {
     grid-row: 2;
     grid-column: span 3;
   }
+
+.item:nth-child(3){
+    border-radius: 0 0 0 5px;
+}
+
+.item:nth-child(5){
+    border-radius: 0 0 5px 0;
+}
