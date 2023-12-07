@@ -44,6 +44,10 @@ const Home = () => {
     fetchLatestReleases();
   },[navigate]);
 
+  useEffect(() => {
+    console.log(latestBooks != undefined)
+  }, [latestBooks]);  
+
   const goToBook = (book) =>{
     navigate({pathname:"/book",search:`?id=${book.bookid}`})
   }
@@ -58,7 +62,7 @@ const Home = () => {
         <img src={landscape} alt="Fantasy Landscape" id="introImg"/>
       </div>
 
-      {latestBooks.length > 0 || latestBooks != null ? ( <>
+      {latestBooks.length > 0 ? ( <>
             <ul className="gridContainerHome">
               {latestBooks.map((book, index) => (
                 <li key={index} className="gridItem">
@@ -69,7 +73,10 @@ const Home = () => {
                 </li>
               ))}
             </ul>
-          </>): <div className="loading">Loading...</div>}
+          </>): 
+          <div id="Error">
+           <p id="errorTextHome">We had an error fetching the books; please try again!</p>
+          </div>}
     </>
   );
 };
