@@ -9,7 +9,6 @@
     margin: 0 auto;
     padding: 40px;
     border-radius: 10px;
-
 }
 
 .Label{
@@ -61,7 +60,7 @@
     width: 100%;
     height: 3%;
     border-radius:4px;
-
+    padding: 10px;
 }
 
 .publishButton{
@@ -71,7 +70,7 @@
     height: 5%;
     border: 0.1px solid blue;
     border-radius: 5px;
-    padding: 2px;
+    padding: 15px;
 }
 .publishButton:hover{
     opacity: 0.9;
@@ -89,4 +88,3 @@
     color: white;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-

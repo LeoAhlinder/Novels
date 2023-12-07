@@ -11,7 +11,6 @@ const cookieParser = require("cookie-parser");
 const { env } = require("process");
 const { dotenv } = require("dotenv").config();
 
-
 const user_secretkey = env.USER_SECRETKEY;
 const admin_sercretkey = env.ADMIN_SECRETKEY;
 
@@ -469,7 +468,6 @@ app.get("/api/ranking", function (req, res) {
   const query =
     "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary LIMIT 0,50";
 
-
   connection.query(query, function (err, results) {
     if (err) {
       res.json({ error: "error" });
@@ -488,9 +486,8 @@ app.get("/api/authorInfo", function (req, res) {
     if (err) {
       console.log(err);
     } else {
-
-      if (results.length === 0){
-        res.json({message:"no author found"})
+      if (results.length === 0) {
+        res.json({ message: "no author found" });
         return;
       }
 
@@ -502,7 +499,7 @@ app.get("/api/authorInfo", function (req, res) {
       JOIN lightnovelonline.bookinfo AS bi ON b.author = bi.authorid
       WHERE b.author = ?;
     `;
-      connection.query(query, [authorId,authorId], function (err, results) {
+      connection.query(query, [authorId, authorId], function (err, results) {
         if (err) {
           console.log(err);
         } else {
@@ -517,36 +514,31 @@ app.post("/api/admin/login", function (req, res) {
   const query =
     "SELECT * FROM lightnovelonline.admins WHERE adminName = ? AND adminPassword = ?";
 
-  connection.query(query, [req.body[0], req.body[1]], function (err,results) {
-      if (err) {
-        console.log(err);
-      } else {
-        if (results === undefined){
-          res.json({message:"error"})
-        }
-        if (results.length > 0) {
-          const token = jwt.sign(
-            { admin: results[0].adminid },
-            admin_sercretkey
-          );
-          res.json({ message: "success",token:token });
-        } else {
-         
-          res.json({ message: "fail" });
-        }
+  connection.query(query, [req.body[0], req.body[1]], function (err, results) {
+    if (err) {
+      console.log(err);
+    } else {
+      if (results === undefined) {
+        res.json({ message: "error" });
       }
-    });
+      if (results.length > 0) {
+        const token = jwt.sign({ admin: results[0].adminid }, admin_sercretkey);
+        res.json({ message: "success", token: token });
+      } else {
+        res.json({ message: "fail" });
+      }
+    }
+  });
 });
 
-app.get("/api/admin/access",ensureToken, function (req, res) {
+app.get("/api/admin/access", ensureToken, function (req, res) {
   jwt.verify(req.token, admin_sercretkey, function (err, decoded) {
     if (err) {
-      res.json({message:"error"});
+      res.json({ message: "error" });
     } else {
       res.json({ message: "success" });
     }
   });
 });
-
 
 module.exports = app;
