@@ -34,8 +34,15 @@ a{
 .nav-branding{
   font-size: 2rem;
   cursor: pointer;
-  
+  font-family: nav-branding-font;
 }
+
+
+@font-face {
+  font-family: nav-branding-font;
+  src: url("../Fonts/Geist.Mono/Geist.Mono/GeistMono-Black.otf");
+}
+
 .nav-menu{
   display: flex;
   justify-content: space-between;
