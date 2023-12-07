@@ -5,8 +5,8 @@ import Cookies from 'js-cookie'
 import CheckToken from "../Global/checkToken";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
-import NovelCreated from "../Profile/profileComponents/novelsCreated"
 import Library from "./Library"
+import NovelCreated from "./profileComponents/novelsCreated";
 
 const Profile = () => {
 
@@ -40,6 +40,10 @@ const Profile = () => {
         checkToken()
     },[])
 
+    useEffect(() => {
+        console.log(selected)
+    },[selected])
+
     return (
         <div>
             <div className='profileHeader'>
@@ -54,19 +58,19 @@ const Profile = () => {
                 <button onClick={() => changeSelected("Reviews")} className={selected === "Reviews" ? "buttonClicked" : "profileButton"} id="reviewButton">Reviews</button>
             </div>
             <div className="profileHeaderSmall">
-                <button onClick={() => changeSelected("Info")} className="item">
+                <button onClick={() => changeSelected("Info")} className="item" id={selected === "Info" ? "itemSelected" : ""}>
                     <p>Info</p>             
                 </button>
-                <button onClick={() => changeSelected("Comments")}className="item">
+                <button onClick={() => changeSelected("Comments")}className="item" id={selected === "Comments" ? "itemSelected" : ""}>
                     <p>Comments</p>
                 </button>
-                <button onClick={() => changeSelected("NovelsCreated")} className="item">
-                   <p> Novels Created</p>
+                <button onClick={() => changeSelected("NovelCreated")} className="item" id={selected === "NovelCreated" ? "itemSelected" : ""}>
+                   <p>Novels Created</p>
                 </button>
-                <button onClick={() => changeSelected("Library")} className="item">
+                <button onClick={() => changeSelected("Library")} className="item" id={selected === "Library" ? "itemSelected" : ""}>
                     <p>Library</p>                
                 </button>
-                <button onClick={() => changeSelected("Reviews")} className="item">
+                <button onClick={() => changeSelected("Reviews")} className="item" id={selected === "Reviews" ? "itemSelected" : ""}>
                     <p>Reviews</p>
                 </button>
                 <button className="item" onClick={logOut}>
