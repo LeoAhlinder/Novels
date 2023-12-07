@@ -44,10 +44,6 @@ const Home = () => {
     fetchLatestReleases();
   },[navigate]);
 
-  useEffect(() => {
-    console.log(latestBooks != undefined)
-  }, [latestBooks]);  
-
   const goToBook = (book) =>{
     navigate({pathname:"/book",search:`?id=${book.bookid}`})
   }

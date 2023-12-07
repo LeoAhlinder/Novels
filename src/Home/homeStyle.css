@@ -156,3 +156,9 @@ body{
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color:rgb(234, 65, 65);
 }
+
+@media screen and (max-width:530px) {
+    #errorTextHome{
+        font-size: 1.2rem;
+    }
+}
