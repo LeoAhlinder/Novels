@@ -43,22 +43,6 @@ const connection = mysql.createConnection({
   database: "lightnovelonline",
 });
 
-const bookDataConnection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "bookdata",
-});
-
-bookDataConnection.connect((error) => {
-  if (error) {
-    console.log("error", error);
-    return;
-  } else {
-    console.log("SUCCESS bookdata");
-  }
-});
-
 connection.connect((error) => {
   if (error) {
     console.log("error", error);
@@ -409,19 +393,6 @@ app.post("/api/BooksBasedOnSearch", function (req, res) {
   });
 });
 
-function makeTableForBookData(bookTitle) {
-  return new Promise((resolve, reject) => {
-    const query = "CREATE TABLE ?? (Chapter VARCHAR(255), Content TEXT)";
-    bookDataConnection.query(query, [bookTitle], function (err, results) {
-      if (err) {
-        reject(err);
-      } else {
-        resolve("OK");
-      }
-    });
-  });
-}
-
 app.post("/api/createNewBook", ensureToken, function (req, res) {
   jwt.verify(req.token, user_secretkey, function (err, decodedToken) {
     if (err) {
@@ -458,53 +429,41 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
         const currentDate = new Date().toISOString().split("T")[0];
         const authorid = userId;
 
-        // Creating table for chapter content to be stored
-        makeTableForBookData(data.bookTitle)
-          .then((result) => {
-            if (result !== "OK") {
+        // Neither title nor synopsis exists, so proceed to insert the new book
+        const insertBookQuery =
+        "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
+        connection.query(
+          insertBookQuery,
+          [data.bookTitle, data.picture, currentDate, userId],
+          function (err, insertResult) {
+            if (err) {
+              console.log(err);
               return res.sendStatus(500);
-            }
+              }
 
-            // Neither title nor synopsis exists, so proceed to insert the new book
-            const insertBookQuery =
-              "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
+            const insertBookInfoQuery =
+              "INSERT INTO bookinfo (bookid, synopsis, genres, language, tags, warnings, authorid) VALUES (?, ?, ?, ?, ?, ?, ?)";
             connection.query(
-              insertBookQuery,
-              [data.bookTitle, data.picture, currentDate, userId],
-              function (err, insertResult) {
+              insertBookInfoQuery,
+              [
+                insertResult.insertId,
+                data.Synopsis,
+                data.inputGenre,
+                data.Language,
+                data.Tags,
+                data.Warnings,
+                authorid,
+              ],
+              function (err, results) {
                 if (err) {
                   console.log(err);
-                  return res.sendStatus(500);
+                } else {
+                  res.json({ message: "New book inserted" });
                 }
-
-                const insertBookInfoQuery =
-                  "INSERT INTO bookinfo (bookid, synopsis, genres, language, tags, warnings, authorid) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                connection.query(
-                  insertBookInfoQuery,
-                  [
-                    insertResult.insertId,
-                    data.Synopsis,
-                    data.inputGenre,
-                    data.Language,
-                    data.Tags,
-                    data.Warnings,
-                    authorid,
-                  ],
-                  function (err, results) {
-                    if (err) {
-                      console.log(err);
-                    } else {
-                      res.json({ message: "New book inserted" });
-                    }
-                  }
-                );
               }
             );
-          })
-          .catch((error) => {
-            console.log(error);
-            res.sendStatus(500);
-          });
+          }
+        );
       }
     );
   });
