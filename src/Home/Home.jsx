@@ -17,8 +17,8 @@ const Home = () => {
   const bookCoverImages = {
     Moon,
     Forest: forest,
-    ForestHut: forestHut,
-    PinkForest: pinkForest,
+    hutInForest: forestHut,
+    pinkForest: pinkForest,
   };
 
   const [latestBooks, setLatestBooks] = useState([]);
