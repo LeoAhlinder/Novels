@@ -43,12 +43,28 @@ const connection = mysql.createConnection({
   database: "lightnovelonline",
 });
 
+const bookDataConnection = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "password",
+  database: "bookdata",
+});
+
+bookDataConnection.connect((error) => {
+  if (error) {
+    console.log("error", error);
+    return;
+  } else {
+    console.log("SUCCESS bookdata");
+  }
+});
+
 connection.connect((error) => {
   if (error) {
     console.log("error", error);
     return;
   } else {
-    console.log("SUCUESSS database");
+    console.log("SUCCESS database");
   }
 });
 
@@ -393,76 +409,148 @@ app.post("/api/BooksBasedOnSearch", function (req, res) {
   });
 });
 
+function makeTableForBookData(bookTitle) {
+  return new Promise((resolve, reject) => {
+    const query = "CREATE TABLE ?? (Chapter VARCHAR(255), Content TEXT)";
+    bookDataConnection.query(query, [bookTitle], function (err, results) {
+      if (err) {
+        console.log(err);
+        reject(err);
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
 app.post("/api/createNewBook", ensureToken, function (req, res) {
   jwt.verify(req.token, user_secretkey, function (err, decodedToken) {
     if (err) {
-      res.sendStatus(403);
-    } else {
-      const userId = decodedToken.user;
-      const data = req.body;
+      return res.sendStatus(403);
+    }
 
-      // Check if a book with the same title or synopsis exists
-      connection.query(
-        "SELECT * FROM books WHERE title = ? OR bookid IN (SELECT bookid FROM bookinfo WHERE synopsis = ?)",
-        [data.Title, data.Synopsis],
-        function (err, results) {
-          if (err) {
-            console.log(err);
-            res.sendStatus(500);
-            return;
-          }
+    const userId = decodedToken.user;
+    const data = req.body;
 
-          if (results.length > 0) {
-            if (results[0].title === data.Title) {
-              res.json({ message: "Title exists" });
-            } else {
-              res.json({ error: "Synopsis exists" });
-            }
+    const checkData = checkIfDataCorrect(data);
+    console.log(checkData);
+
+    // Check if a book with the same title or synopsis exists
+    const checkQuery =
+      "SELECT * FROM books WHERE title = ? OR bookid IN (SELECT bookid FROM bookinfo WHERE synopsis = ?)";
+    connection.query(
+      checkQuery,
+      [data.bookTitle, data.Synopsis],
+      function (err, results) {
+        if (err) {
+          console.log(err);
+          return res.sendStatus(500);
+        }
+
+        if (results.length > 0) {
+          if (results[0].title === data.bookTitle) {
+            return res.json({ message: "Title exists" });
           } else {
-            const date = new Date();
-            const month = date.getMonth() + 1;
-            const day = date.getDate();
-            const year = date.getFullYear();
-            const currentDate = `${year}/${month}/${day}`;
-            const authorid = userId;
+            return res.json({ error: "Synopsis exists" });
+          }
+        }
+
+        const currentDate = new Date().toISOString().split("T")[0];
+        const authorid = userId;
+
+        // Creating table for chapter content to be stored
+        makeTableForBookData(data.bookTitle)
+          .then((result) => {
+            if (result !== "OK") {
+              return res.sendStatus(500);
+            }
 
             // Neither title nor synopsis exists, so proceed to insert the new book
+            const insertBookQuery =
+              "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
             connection.query(
-              "INSERT INTO books (title, bookcover,release_date,author) VALUES (?,?,?,?)",
+              insertBookQuery,
               [data.bookTitle, "test", currentDate, userId],
               function (err, insertResult) {
                 if (err) {
                   console.log(err);
-                  res.sendStatus(500);
-                } else {
-                  connection.query(
-                    "INSERT INTO bookinfo (bookid,synopsis,genres,language,tags,warnings,authorid) VALUES (?,?,?,?,?,?,?)",
-                    [
-                      insertResult.insertId,
-                      data.Synopsis,
-                      data.inputGenre,
-                      data.Language,
-                      data.Tags,
-                      data.Warnings,
-                      authorid,
-                    ],
-                    function (err, results) {
-                      if (err) {
-                        console.log(err);
-                      } else {
-                        res.json({ message: "New book inserted" });
-                      }
-                    }
-                  );
+                  return res.sendStatus(500);
                 }
+
+                const insertBookInfoQuery =
+                  "INSERT INTO bookinfo (bookid, synopsis, genres, language, tags, warnings, authorid) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                connection.query(
+                  insertBookInfoQuery,
+                  [
+                    insertResult.insertId,
+                    data.Synopsis,
+                    data.inputGenre,
+                    data.Language,
+                    data.Tags,
+                    data.Warnings,
+                    authorid,
+                  ],
+                  function (err, results) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      res.json({ message: "New book inserted" });
+                    }
+                  }
+                );
               }
             );
-          }
-        }
-      );
-    }
+          })
+          .catch((error) => {
+            console.log(error);
+            res.sendStatus(500);
+          });
+      }
+    );
   });
 });
+
+function checkIfDataCorrect(data) {
+  const requiredFields = [
+    "bookTitle",
+    "Synopsis",
+    "inputGenre",
+    "Language",
+    "Tags",
+    "Warnings",
+  ];
+  const missingFields = requiredFields.filter((field) => !data[field]);
+
+  if (missingFields.length > 0) {
+    return `Missing fields: ${missingFields.join(", ")}`;
+  }
+
+  if (data.Synopsis.length > 300) {
+    return "Synopsis exceeds maximum length of 300 characters";
+  }
+
+  if (data.bookTitle.length > 20) {
+    return "Title exceeds maximum length of 20 characters";
+  }
+
+  if (data.inputGenre.length !== 1) {
+    return "Only one genre is allowed";
+  }
+
+  if (data.Warnings.length !== 1) {
+    return "Only one warning is allowed";
+  }
+
+  if (data.Language.length !== 1) {
+    return "Only one language is allowed";
+  }
+
+  const tagWords = data.Tags.split(" ");
+  if (tagWords.length > 3) {
+    return "Maximum of three words is allowed in tags";
+  }
+  return "OK";
+}
 
 app.get("/api/ranking", function (req, res) {
   const query =

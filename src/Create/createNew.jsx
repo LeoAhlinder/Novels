@@ -125,7 +125,7 @@ const CreateNew = () =>{
         const token = Cookies.get("authToken")
 
         try{
-            const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/createNewBook`,{
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/createNewBook`,{
                 method:"POST",
                 headers:{
                 "Content-Type": "application/json",
@@ -218,6 +218,9 @@ const CreateNew = () =>{
                     <option value="Guardian guidance recommended">Guardian guidance recommended</option>
                     <option value="18+">18+</option>
                 </select>
+                <div id="pictureSelection"> 
+                    
+                </div>
                 <button className="publishButton" onClick={checkBookInfo}>Publish now</button>
                 <p style={{color:alertColor}}>{alert}</p>
             </div>
