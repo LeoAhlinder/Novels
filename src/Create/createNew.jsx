@@ -134,7 +134,7 @@ const CreateNew = () =>{
         const token = Cookies.get("authToken")
 
         try{
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/createNewBook`,{
+            const res = await fetch(`${process.env.REACT_APP_SERVER_URL}/api/createNewBook`,{
                 method:"POST",
                 headers:{
                 "Content-Type": "application/json",
@@ -161,10 +161,12 @@ const CreateNew = () =>{
                 }
             }
             else{
+                console.log(res)
                 navigate("/error")
             }
 
         }catch(error){
+            console.log(error)
             navigate("/error")
         }
     }
