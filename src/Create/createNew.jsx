@@ -3,8 +3,12 @@ import "./createnewstyle.css"
 import { useNavigate } from "react-router-dom";
 
 import Cookies from "js-cookie";
-
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
+
+import pinkForest from "../picturesForBooks/pinkForest.webp"
+import moon from "../picturesForBooks/moon.webp"
+import hutInForest from "../picturesForBooks/hutInForest.webp"
+import forest from "../picturesForBooks/forest.webp"
 
 const CreateNew = () =>{
 
@@ -24,6 +28,7 @@ const CreateNew = () =>{
     const [warnings,changeWarnings] = useState("")
     const [alert,changeAlert] = useState("")
     const [alertColor,changeAlertColor] = useState({})
+    const [selectedPicture,changePicture] = useState("")
 
     const handleInputChangeBookName = (e) => {
         changeTitleLength(e.target.value.length)
@@ -58,6 +63,11 @@ const CreateNew = () =>{
     
     }
 
+    const handlePictureChange = (e) =>{
+        const pictureId = e.target.id;
+        changePicture(pictureId)
+    }
+
     const checkBookInfo = () =>{
 
         let allInfoFilled = true
@@ -69,11 +79,10 @@ const CreateNew = () =>{
             Language:language,
             Tags:tags,
             Warnings:warnings,
+            picture:selectedPicture
         }
 
-        // Check if any inputs are to long
-        
-
+    
         for (let i = 0;i < Object.keys(bookInfo).length;i++){
             if (Object.values(bookInfo)[i] === ""){
                 document.getElementById(Object.keys(bookInfo)[i]).style.border = "2px solid red"
@@ -90,6 +99,7 @@ const CreateNew = () =>{
             return
         }
 
+        // Check if any inputs are to long
         if (tagsLength > 3){
             changeAlert("You can only have 3 tags")
             changeAlertColor("red")
@@ -116,8 +126,7 @@ const CreateNew = () =>{
         }
         changeAlert("")
         changeAlertColor("")
-        createNewBook(bookInfo)
-
+        createNewBook(bookInfo) 
     }
 
     async function createNewBook(bookInfo){
@@ -137,6 +146,7 @@ const CreateNew = () =>{
 
             if (res.ok){
                 const response = await res.json()
+                console.log(response)
                 if (response.message === "Title exists"){
                     changeAlert("The requested title is already in use. Please select a different one.")
                     changeAlertColor("red")
@@ -217,9 +227,13 @@ const CreateNew = () =>{
                     <option value="PG-13">PG-13</option>
                     <option value="Guardian guidance recommended">Guardian guidance recommended</option>
                     <option value="18+">18+</option>
-                </select>
-                <div id="pictureSelection"> 
-                    
+                </select>                    
+                <h4 id="pictureSelectionText" className="Label">Select the picture that best represents your novel!</h4>
+                <div id="picture" className="picturesOption"> 
+                    <img src={forest} alt="Forest" className={selectedPicture === "Forest" ? "pictureToSelect selectedPicture" : "pictureToSelect"} id="Forest" onClick={handlePictureChange}/>
+                    <img src={pinkForest} alt="A pink forest" className={selectedPicture === "pinkForest" ? "pictureToSelect selectedPicture" : "pictureToSelect"} id="pinkForest" onClick={handlePictureChange}/>
+                    <img src={moon} alt="Moon" className={selectedPicture === "Moon" ? "pictureToSelect selectedPicture" : "pictureToSelect"} id="Moon" onClick={handlePictureChange}/>
+                    <img src={hutInForest} alt="A hut in the forest" className={selectedPicture === "hutInForest" ? "pictureToSelect selectedPicture" : "pictureToSelect"} id="hutInForest" onClick={handlePictureChange}/>
                 </div>
                 <button className="publishButton" onClick={checkBookInfo}>Publish now</button>
                 <p style={{color:alertColor}}>{alert}</p>

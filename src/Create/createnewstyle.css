@@ -88,3 +88,23 @@
     color: white;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
+
+.pictureToSelect{
+    margin: 0 5px;
+    border-radius: 5px;
+    border: 2px solid transparent;
+}
+
+.selectedPicture{
+    border: 2px solid dodgerblue;
+}
+
+#pictureSelectionText{
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width:300px) {
+    .picturesOption{
+        width: 100vw;
+    }
+}

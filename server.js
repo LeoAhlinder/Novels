@@ -414,10 +414,9 @@ function makeTableForBookData(bookTitle) {
     const query = "CREATE TABLE ?? (Chapter VARCHAR(255), Content TEXT)";
     bookDataConnection.query(query, [bookTitle], function (err, results) {
       if (err) {
-        console.log(err);
         reject(err);
       } else {
-        resolve();
+        resolve("OK");
       }
     });
   });
@@ -428,12 +427,13 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
     if (err) {
       return res.sendStatus(403);
     }
-
     const userId = decodedToken.user;
     const data = req.body;
 
     const checkData = checkIfDataCorrect(data);
-    console.log(checkData);
+    if (checkData !== "OK") {
+      return res.json({ error: checkData });
+    }
 
     // Check if a book with the same title or synopsis exists
     const checkQuery =
@@ -470,7 +470,7 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
               "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
             connection.query(
               insertBookQuery,
-              [data.bookTitle, "test", currentDate, userId],
+              [data.bookTitle, data.picture, currentDate, userId],
               function (err, insertResult) {
                 if (err) {
                   console.log(err);
@@ -533,15 +533,16 @@ function checkIfDataCorrect(data) {
     return "Title exceeds maximum length of 20 characters";
   }
 
-  if (data.inputGenre.length !== 1) {
+  const genres = data.inputGenre.split(" ");
+  if (genres.length !== 1) {
     return "Only one genre is allowed";
   }
 
-  if (data.Warnings.length !== 1) {
+  if (data.Warnings.split(" ").length > 10) {
     return "Only one warning is allowed";
   }
 
-  if (data.Language.length !== 1) {
+  if (data.Language.split(" ").length > 10) {
     return "Only one language is allowed";
   }
 
@@ -549,6 +550,11 @@ function checkIfDataCorrect(data) {
   if (tagWords.length > 3) {
     return "Maximum of three words is allowed in tags";
   }
+
+  if (data.picture.split(" ").length > 1) {
+    return "Only one picture is allowed";
+  }
+
   return "OK";
 }
 
