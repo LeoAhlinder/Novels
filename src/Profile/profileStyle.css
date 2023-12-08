@@ -188,7 +188,7 @@ body {
 
 .profileHeaderSmall {
     margin: 3% 3% 5%;
-    height: 11vh !important;
+    max-height: 250px !important;
     display: none;
     color: aqua !important;
     border-radius: 5px;
