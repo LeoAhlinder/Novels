@@ -9,17 +9,22 @@ import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 //Different images for the books
 import forest from "../picturesForBooks/forest.webp"
 import forestHut from "../picturesForBooks/hutInForest.webp"
-import moon from "../picturesForBooks/moon.webp"
+import Moon from "../picturesForBooks/moon.webp"
 import pinkForest from "../picturesForBooks/pinkForest.webp"
 
-
-
 const Home = () => {
+
+  const bookCoverImages = {
+    Moon,
+    Forest: forest,
+    ForestHut: forestHut,
+    PinkForest: pinkForest,
+  };
+
   const [latestBooks, setLatestBooks] = useState([]);
   const navigate = useNavigate()
 
   ChangeDocumentTitle("Light Novels")
-
 
   useEffect(() => {
     const fetchLatestReleases = async () => {
@@ -71,7 +76,7 @@ const Home = () => {
               {latestBooks.map((book, index) => (
                 <li key={index} className="gridItem">
                   <div onClick={() => goToBook(book)} className="book">
-                    <img src={pinkForest} alt={book.title} className="bookCover"/>
+                    <img src={bookCoverImages[book.bookcover]} alt={book.bookcover} className="bookCover"/>
                     <p id="bookTitle">{book.title}<br/><span>Chapters: {book.totalpages === null ? "0" : book.totalpages}</span></p>
                   </div>
                 </li>
