@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie';
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
-import forest from "../picturesForBooks/forest.webp"
-import forestHut from "../picturesForBooks/hutInForest.webp"
-import Moon from "../picturesForBooks/moon.webp"
+import forest from "../picturesForBooks/forestSmall.webp"
+import forestHut from "../picturesForBooks/hutInForestSmall.webp"
+import Moon from "../picturesForBooks/moonSmall.webp"
 import pinkForest from "../picturesForBooks/pinkForestSmall.webp"
 
 
