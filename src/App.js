@@ -17,6 +17,7 @@ import AuthorSite from "./authorSite/authorSite";
 import AdminLogin from "./Admin/adminLogin/adminLogin";
 import AdminPanel from "./Admin/adminPanel/adminPanel";
 import ErrorSite from "./errorSite/errorSite";
+import ChapterSelection from "./chapterSelection/chapterSelection";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
@@ -81,19 +82,19 @@ const App = () => {
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/search" element={<SearchBar />} />
                 <Route path="/create" element={<Create />} />
-                <Route
-                  path="/createnovel"
-                  element={<CreateNew />}
-                />
+                <Route path="/createnovel" element={<CreateNew />} />
                 <Route path="/popular" element={<MostPopular />}></Route>
                 <Route
                   path="/author/:authorName"
                   element={<AuthorSite />}
                 ></Route>
+                <Route
+                  path="/:bookName/chapters"
+                  element={<ChapterSelection />}
+                />
                 /* Admin Panel */
                 <Route path="/adminlogin" element={<AdminLogin />} />
                 <Route path="/adminpanel" element={<AdminPanel />} />
-
                 /* Error Site */
                 <Route path="/error" element={<ErrorSite />} />
               </Routes>
