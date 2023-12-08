@@ -27,7 +27,7 @@ const LogIn = () =>{
         changeClass("createNew")
         setInputFields([
             ...inputFields,
-            {placeholder:"User Name",id:"userName"}
+            {placeholder:"Email",id:"userEmail"}
         ])
     }
 
@@ -37,14 +37,15 @@ const LogIn = () =>{
 
 
     const createUser = async () =>{
+
         const logIns = inputFields.map((i) => document.getElementById(i.id).value);
 
         if (checkInputFields() === true)
         {
             const user = {
-                email:logIns[0],
+                username:logIns[0],
                 password:logIns[1],
-                username:logIns[2]
+                email:logIns[2]
             }
             if (checkEmail(user.email) === true){
                 try{
