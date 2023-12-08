@@ -2,9 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./homeStyle.css";
 import { useNavigate } from "react-router";
 
-import fantasy from "../Pictures/forest.webp"
 import landscape from "../Pictures/fantasyLandscape.webp"
+
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
+
+//Different images for the books
+import forest from "../picturesForBooks/forest.webp"
+import forestHut from "../picturesForBooks/hutInForest.webp"
+import moon from "../picturesForBooks/moon.webp"
+import pinkForest from "../picturesForBooks/pinkForest.webp"
+
+
 
 const Home = () => {
   const [latestBooks, setLatestBooks] = useState([]);
@@ -63,8 +71,8 @@ const Home = () => {
               {latestBooks.map((book, index) => (
                 <li key={index} className="gridItem">
                   <div onClick={() => goToBook(book)} className="book">
-                    <img src={fantasy} alt={book.title} className="bookCover"/>
-                    <p id="bookTitle">{book.title}  <br /> <span>Chapters: {book.totalpages === null ? "0" : book.totalpages}</span></p>
+                    <img src={pinkForest} alt={book.title} className="bookCover"/>
+                    <p id="bookTitle">{book.title}<br/><span>Chapters: {book.totalpages === null ? "0" : book.totalpages}</span></p>
                   </div>
                 </li>
               ))}

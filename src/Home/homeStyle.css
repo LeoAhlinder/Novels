@@ -18,6 +18,7 @@ body{
   color: white;
   padding: 0.5rem;
   height: 8rem;
+  max-width: 10rem;
   }
   .gridPicture{
     align-items: center;
