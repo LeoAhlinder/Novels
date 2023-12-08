@@ -1,10 +1,7 @@
 .novelCover{
-    width: 40%;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin: auto 0;
-    height: auto;
+    width: auto;
+    max-height: 100%;
+    border-radius: 5px;
 }
 
 .Wrapper{
@@ -83,6 +80,14 @@
 }
 
 
+#bookPagePictureContainer{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    place-content: end;
+}
+
+
 @media screen and (min-width:1000px) {
     #phone{
         display: none;
@@ -99,6 +104,15 @@
 }
 
 @media screen and (max-width:1000px) {
+    
+    #bookPagePictureContainer{
+        width: 40%;
+        height: 100%;
+        display: flex;
+        place-content: end;
+        margin: 0 auto;
+    }
+    
     #phone{
         display: block;
         background-color: rgb(50, 52, 53);
@@ -147,6 +161,8 @@
         width: 80%;
         margin-top: 5%;
         height: auto;
+        margin: 0 auto;
+        border-radius: 10px;
     }
     #phoneItemsWrapper{
         margin: 0 auto;
@@ -188,3 +204,4 @@
 	cursor: pointer;
 	outline: inherit;
 }
+

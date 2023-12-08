@@ -9,6 +9,8 @@ import Cookies from 'js-cookie';
 
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
+import pinkForest from "../picturesForBooks/pinkForestBig.webp"
+
 
 const BookPage = () =>{
 
@@ -190,9 +192,9 @@ const BookPage = () =>{
         <div className="Wrapper">
         {bookInfo.length > 0 ? (
             <>  <div id="desktop">
-                    <picture>
-                        <img src={cat} alt="cutecat" className="novelCover"/>
-                    </picture>
+                    <div id="bookPagePictureContainer">
+                        <img src={pinkForest} alt="cutecat" className="novelCover"/>
+                    </div>
                     <div className="bookPagebookInfo">
                         <h1 className="title">{bookInfo[0].title}</h1>
                         <h5 className="author"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
@@ -205,9 +207,9 @@ const BookPage = () =>{
                 </div>
                 <div id="phone">
                     <div id="phoneItemsWrapper">
-                        <picture>
-                            <img src={cat} alt="cutecat" id="novelCoverPhone" />
-                        </picture>
+                        <div id="bookPagePictureContainer">
+                            <img src={pinkForest} alt="cutecat" id="novelCoverPhone" />
+                        </div>
                         <div id="bookInfoPhone">
                             <h1 id="titlePhone">{bookInfo[0].title}</h1>
                             <h5 id="authorPhone"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
