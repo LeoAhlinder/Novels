@@ -40,10 +40,6 @@ const Profile = () => {
         checkToken()
     },[])
 
-    useEffect(() => {
-        console.log(selected)
-    },[selected])
-
     return (
         <div>
             <div className='profileHeader'>
