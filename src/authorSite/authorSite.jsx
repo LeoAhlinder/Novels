@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router";
 
 import "./authorSiteStyle.css"
-import forestpic from "../Pictures/forest.webp"
+import forestpic from "../picturesForBooks/forest.webp"
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 
@@ -60,7 +60,7 @@ const AuthorSite = () =>{
         <>
 
             <div className="authorInfoContainer">
-            <h1 id="authorName">{authorName}'s complete collection available online</h1>
+            <h1 id="authorName">{authorFound === true ? `${authorName}'s complete collection available online` : ""}</h1>
 
             {authorFound === false ? <h1 id="noAuthorFound">No author found</h1> : authorInfo.map((book,index) => (
                 <li key={index} className="authorBookItem" >
@@ -74,7 +74,7 @@ const AuthorSite = () =>{
                         <img id="bookPicture" src={forestpic} alt="Book picture" />
                     </div>
 
-                    <p id="synopsis">{book.synopsis}</p>
+                    <p id="bookSynopsis">{book.synopsis}</p>
 
                 </li>
             ))}
