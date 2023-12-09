@@ -19,7 +19,7 @@
     width: 100%;
     color: white;
     margin: 0.6% 0;
-    background-color: rgba(0, 0, 0, 0.425);
+    background-color: rgb(50, 52, 53);
     padding: 5px;
 }
 
@@ -43,7 +43,6 @@
     color:white;
     margin-left: 160px;
     cursor: pointer;
-
 }
 
 #Chapters{
@@ -122,21 +121,9 @@
 }
 
 @media screen and (max-width:756px) {
-    #synopsis{
-        overflow-y: scroll;
-        margin-left: 320px !important;
-    }
     #authorName{
         font-size: 1.5em;
     }
-}
-
-#bookSynopsis{
-    position: absolute;
-    margin-left: 350px;
-    max-width: 800px;
-    overflow-y: scroll;
-    max-height: 150px !important;
 }
 
 .bookInfo{
@@ -145,12 +132,15 @@
 }
 
 @media screen and (max-width: 420px) {
-    #synopsis{
-        display: none;
-    }
     #authorName{
         font-size: 1em !important;
         text-align: center;
+    }
+    .bookInfo{
+        font-size: 0.7em;
+    }
+    #Title{
+        font-size: 0.8em;
     }
     
 }

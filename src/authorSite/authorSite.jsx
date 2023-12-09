@@ -95,9 +95,6 @@ const AuthorSite = () =>{
                     <div id="bookContainer" onClick={() => goToBook(book)}>
                         <img id="bookPicture" src={bookCoverImages[book.bookcover]} alt="Book picture" />
                     </div>
-
-                    {/* <p id="bookSynopsis">{book.synopsis}</p> */}
-
                 </li>
             ))}
             </div>
