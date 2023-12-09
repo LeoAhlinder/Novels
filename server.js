@@ -556,7 +556,6 @@ app.get("/api/authorInfo", function (req, res) {
         if (err) {
           console.log(err);
         } else {
-          console.log(results)
           res.json({ books: results });
         }
       });

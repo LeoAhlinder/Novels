@@ -48,7 +48,6 @@ const AuthorSite = () =>{
                     }
                     else{
                         setAuthorInfo(response.books)
-                        console.log(response.books)
                         changeAuthorFound(true)
                     }
                 }
