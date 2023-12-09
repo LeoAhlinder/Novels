@@ -21,6 +21,17 @@ const Home = () => {
     pinkForest: pinkForest,
   };
 
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+      const timer = setTimeout(() => {
+      setIsLoaded(true);
+      }, 100); // 100 milliseconds = 0.1 seconds
+  
+      return () => clearTimeout(timer); // Clean up the timer
+  }, []);
+
+
   const [latestBooks, setLatestBooks] = useState([]);
   const navigate = useNavigate()
 
@@ -62,30 +73,33 @@ const Home = () => {
   }
 
   return (
-    <>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <>  {isLoaded ? (
+      <>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      <div id="introHeader">
-        <h2 className="introText">Welcome to your online library!</h2>
-        <h3 className="introText">A place to create and read books online for free.</h3>
-        <img src={landscape} alt="Fantasy Landscape" id="introImg"/>
-      </div>
+        <div id="introHeader">
+          <h2 className="introText">Welcome to your online library!</h2>
+          <h3 className="introText">A place to create and read books online for free.</h3>
+          <img src={landscape} alt="Fantasy Landscape" id="introImg"/>
+        </div>
 
-      {latestBooks.length > 0 ? ( <>
-            <ul className="gridContainerHome">
-              {latestBooks.map((book, index) => (
-                <li key={index} className="gridItem">
-                  <div onClick={() => goToBook(book)} className="book">
-                    <img src={bookCoverImages[book.bookcover]} alt={book.bookcover} className="bookCover"/>
-                    <p id="bookTitle">{book.title}<br/><span>Chapters: {book.totalpages === null ? "0" : book.totalpages}</span></p>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          </>): 
-          <div id="Error">
-           <p id="errorTextHome">We had an error fetching the books; please try again!</p>
-          </div>}
+        {latestBooks.length > 0 ? ( <>
+              <ul className="gridContainerHome">
+                {latestBooks.map((book, index) => (
+                  <li key={index} className="gridItem">
+                    <div onClick={() => goToBook(book)} className="book">
+                      <img src={bookCoverImages[book.bookcover]} alt={book.bookcover} className="bookCover"/>
+                      <p id="bookTitle">{book.title}<br/><span>Chapters: {book.totalpages === null ? "0" : book.totalpages}</span></p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            </>): 
+            <div id="Error">
+            <p id="errorTextHome">We had an error fetching the books; please try again!</p>
+            </div>}
+          </>
+        ) : null}
     </>
   );
 };
