@@ -68,13 +68,23 @@ const AuthorSite = () =>{
         navigate({pathname:"/book",search:`?id=${book.bookid}`})
     }
 
+    const goHomePage = () =>{
+        navigate("/")
+    }
+
     return(
         <>
 
             <div className="authorInfoContainer">
             <h1 id="authorName">{authorFound === true ? `${authorName}'s complete collection available online` : ""}</h1>
 
-            {authorFound === false ? <h1 id="noAuthorFound">No author found</h1> : authorInfo.map((book,index) => (
+            {authorFound === false ? 
+            <div id="noAuthorFound">
+                <h1>No author found</h1> 
+                <button id="homePage" onClick={() => goHomePage()}>Home Page</button>
+            </div>
+            : 
+            authorInfo.map((book,index) => (
                 <li key={index} className="authorBookItem" >
                     <h3 id="Title" onClick={() => goToBook(book)}>{book.title}</h3>
                     <h4 className="bookInfo" id="Chapters">{book.totalpages != null ? book.totalpages : "0"} chapters</h4>
@@ -86,7 +96,7 @@ const AuthorSite = () =>{
                         <img id="bookPicture" src={bookCoverImages[book.bookcover]} alt="Book picture" />
                     </div>
 
-                    <p id="bookSynopsis">{book.synopsis}</p>
+                    {/* <p id="bookSynopsis">{book.synopsis}</p> */}
 
                 </li>
             ))}
