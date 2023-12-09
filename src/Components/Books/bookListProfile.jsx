@@ -1,6 +1,6 @@
 import React , {useState,useEffect} from "react";
 
-const BookList = ({books,openBook,bookCoverImages,showPageProgress}) => {
+const BookList = ({books,openBook,bookCoverImages,showPageProgress,showText,textIfEmpty}) => {
 
 
     const [isLoaded, setIsLoaded] = useState(false);
@@ -20,7 +20,7 @@ const BookList = ({books,openBook,bookCoverImages,showPageProgress}) => {
         <>
             <div id="tableHeadContainer">
             <div id="tableHead">
-                <p id="tableText">Novel Title</p>
+                <p id="tableText">{showText === false ? "" : "Novel Title"}</p>
                 <p id="progessText">{showPageProgress === true ? <span> Your Progess </span> : ""}</p>
             </div>
             </div>
@@ -42,7 +42,7 @@ const BookList = ({books,openBook,bookCoverImages,showPageProgress}) => {
                 ))}
                 </ul>
             ) : (
-                <p id="noBooksText">Add your favorite books to your library so you never forget them!</p>
+                <p id="noBooksText">{textIfEmpty}</p>
             )
             }
             </div>

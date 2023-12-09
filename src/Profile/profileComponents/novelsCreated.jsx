@@ -65,6 +65,8 @@ const NovelCreated = () =>{
             books={books}
             openBook={openBook}
             bookCoverImages={bookCoverImages}
+            showPageProgress={false}
+            textIfEmpty="You have not created any novels yet"
         />
     )
 }

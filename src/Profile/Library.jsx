@@ -60,6 +60,7 @@ const Library = () => {
     openBook={openBook}
     bookCoverImages={bookCoverImages}
     showPageProgress={true}
+    textIfEmpty="Add your favorite books to your library so you never forget them!"
    />
   );
 
