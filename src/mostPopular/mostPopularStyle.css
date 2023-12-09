@@ -101,7 +101,7 @@
     margin: 0 auto;
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
   .gridItem {
   color: white;
@@ -135,4 +135,10 @@
     font-size: 1rem;
     margin: 5px;
     margin-top: 50px;
+}
+
+@media screen and (max-width:305px) {
+    #subTitle{
+        font-size: 1.2rem;
+    }
 }

@@ -14,6 +14,16 @@ import pinkForest from "../picturesForBooks/pinkForest.webp"
 
 const MostPopular  = () =>{
 
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+        setIsLoaded(true);
+        }, 100); // 100 milliseconds = 0.1 seconds
+    
+        return () => clearTimeout(timer); // Clean up the timer
+    }, []);
+
     const bookCoverImages = {
         Moon: Moon,
         Forest: forest,
@@ -84,35 +94,36 @@ const MostPopular  = () =>{
     
 
     return(
-        <>
-            <div className="containerPopular">
-                <div className="categories">
-                    <div className="button-container">
-                        <button className="category-button" onClick={() => ranking("overall")}>Overall Ranking</button>
-                        <button className="category-button" onClick={() => ranking("collections")}>Collections</button>
-                        <button className="category-button" onClick={() => ranking("rating")}>Rating</button>
+        <>  {isLoaded ? (
+                <div className="containerPopular">
+                    <div className="categories">
+                        <div className="button-container">
+                            <button className="category-button" onClick={() => ranking("overall")}>Overall Ranking</button>
+                            <button className="category-button" onClick={() => ranking("collections")}>Collections</button>
+                            <button className="category-button" onClick={() => ranking("rating")}>Rating</button>
+                        </div>
+                            
                     </div>
-                        
-                </div>
 
-                <div className="popularDescription">
-                    <h3 id="subTitle">Most popular novels</h3>
-                    <h4 id="subText">The overall ranking is based on rating and collections.</h4>
-                </div>
+                    <div className="popularDescription">
+                        <h3 id="subTitle">Most popular novels</h3>
+                        <h4 id="subText">The overall ranking is based on rating and collections.</h4>
+                    </div>
 
-                {books.length > 0 ? ( <>
-                    <ul className="gridContainerPopular">
-                    {books.slice(0,12).map((book, index) => (
-                            <li key={index} className="gridItem">
-                            <div onClick={() => goToBook(book)} className="book">
-                                <img src={bookCoverImages[book.bookcover]} alt={book.title} className="bookCover"/>
-                                <p id="bookTitle">{book.title}</p>
-                            </div>
-                            </li>
-                        ))}
-                    </ul>
-                </>): <h2 id="errorText">We had an error fetching the most popular books. Please try again!</h2>}
-            </div>
+                    {books.length > 0 ? ( <>
+                        <ul className="gridContainerPopular">
+                        {books.slice(0,12).map((book, index) => (
+                                <li key={index} className="gridItem">
+                                <div onClick={() => goToBook(book)} className="book">
+                                    <img src={bookCoverImages[book.bookcover]} alt={book.title} className="bookCover"/>
+                                    <p id="bookTitle">{book.title}</p>
+                                </div>
+                                </li>
+                            ))}
+                        </ul>
+                    </>): <h2 id="errorText">We had an error fetching the most popular books. Please try again!</h2>}
+                </div>
+        ) : null  }
         </>
     )
 }
