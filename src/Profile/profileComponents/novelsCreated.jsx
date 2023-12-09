@@ -4,8 +4,22 @@ import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie'
 import ChangeDocumentTitle from "../../Global/changeDocumentTitle";
 
+import forest from "../../picturesForBooks/forestSmall.webp"
+import forestHut from "../../picturesForBooks/hutInForestSmall.webp"
+import Moon from "../../picturesForBooks/moonSmall.webp"
+import pinkForest from "../../picturesForBooks/pinkForestSmall.webp"
+
+import BookList from "../../Components/Books/bookList";
 
 const NovelCreated = () =>{
+
+
+    const bookCoverImages = {
+        Moon: Moon,
+        Forest: forest,
+        hutInForest: forestHut,
+        pinkForest: pinkForest,
+      };
 
     ChangeDocumentTitle("Novels Created")
 
@@ -42,31 +56,16 @@ const NovelCreated = () =>{
         }  
     },[])
 
-    function OpenBook(book){
+    function openBook(book){
         navigate({pathname:"/book",search:`?id=${book.bookid}`})
     }
 
     return(
-        <>  <div id="tableHeadContainer">
-                <div id="tableHead">
-                    <p id="tableText">Novel Titles</p>
-                </div>
-            </div>
-            <div className="Novels">
-                
-                {books.length > 0 ? (
-                    <ul>
-                        {books.map((book) => (
-                            <button className="BookList" key={book.bookid} onClick={() => OpenBook(book)}>
-                                {book.title} - Page: {book.currentPage}
-                            </button>
-                        ))}
-                    </ul>
-                ) : (
-                    <p>No books</p>
-                )}
-            </div>
-        </>
+        <BookList
+            books={books}
+            openBook={openBook}
+            bookCoverImages={bookCoverImages}
+        />
     )
 }
 
