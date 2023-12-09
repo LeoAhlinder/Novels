@@ -9,19 +9,9 @@ import forestHut from "../picturesForBooks/hutInForestSmall.webp"
 import Moon from "../picturesForBooks/moonSmall.webp"
 import pinkForest from "../picturesForBooks/pinkForestSmall.webp"
 
+import BookList from "../Components/Books/bookList"
 
 const Library = () => {
-
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoaded(true);
-    }, 100); // 100 milliseconds = 0.1 seconds
-  
-    return () => clearTimeout(timer); // Clean up the timer
-  }, []);
-  
 
   const bookCoverImages = {
     Moon: Moon,
@@ -65,38 +55,12 @@ const Library = () => {
   }, []);
 
   return (
-    <>
-      {isLoaded ? (
-        <>
-          <div id="tableHeadContainer">
-            <div id="tableHead">
-              <p id="tableText">Novel Title</p>
-              <p id="progessText"><span> Your Progess </span></p>
-            </div>
-          </div>
-          
-          <div className="Library">
-          {books === "error" ? <p id="noBooksText">We had error fetching your books</p> :
-            books.length > 0 ? (
-              <ul>
-                {books.map((book) => (
-                  <button className="bookItem" onClick={() => openBook(book)} key={book.bookid}>
-                    <div id="novelTitleAndPicture">
-                      <img src={bookCoverImages[book.bookcover]} alt={book.bookcover} id="libraryBookPicture" />
-                      <p id="libraryBookTitle">{book.title}</p>
-                    </div>
-                    <span id="pageInfo"> Page: {book.currentPage}/{book.totalpages === null ? "0" : book.totalpages}</span>
-                  </button>
-                ))}
-              </ul>
-            ) : (
-              <p id="noBooksText">Add your favorite books to your library so you never forget them!</p>
-            )
-          }
-          </div>
-        </>
-      ) : null}
-    </>
+   <BookList
+    books={books}
+    openBook={openBook}
+    bookCoverImages={bookCoverImages}
+    showPageProgress={true}
+   />
   );
 
 
