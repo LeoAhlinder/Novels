@@ -547,15 +547,16 @@ app.get("/api/authorInfo", function (req, res) {
       const authorId = results[0].userid;
 
       const query = `
-      SELECT *
-      FROM lightnovelonline.books AS b
-      JOIN lightnovelonline.bookinfo AS bi ON b.author = bi.authorid
-      WHERE b.author = ?;
-    `;
-      connection.query(query, [authorId, authorId], function (err, results) {
+        SELECT *
+        FROM lightnovelonline.books AS b
+        JOIN lightnovelonline.bookinfo AS bi ON b.bookid = bi.bookid
+        WHERE b.author = ?;
+      `;  
+      connection.query(query, [authorId], function (err, results) {
         if (err) {
           console.log(err);
         } else {
+          console.log(results)
           res.json({ books: results });
         }
       });

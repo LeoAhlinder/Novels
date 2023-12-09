@@ -6,16 +6,28 @@ import "./authorSiteStyle.css"
 import forestpic from "../picturesForBooks/forest.webp"
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
+import forest from "../picturesForBooks/forest.webp"
+import forestHut from "../picturesForBooks/hutInForest.webp"
+import Moon from "../picturesForBooks/moon.webp"
+import pinkForest from "../picturesForBooks/pinkForest.webp"
+
 
 const AuthorSite = () =>{
 
     const navigate = useNavigate()
 
+    const bookCoverImages = {
+        Moon: Moon,
+        Forest: forest,
+        hutInForest: forestHut,
+        pinkForest: pinkForest,
+    };
+    
     const [authorInfo,setAuthorInfo] = useState([])
     const { authorName } = useParams();
     const [authorFound,changeAuthorFound] = useState(true)  
 
-    ChangeDocumentTitle(authorName)
+    ChangeDocumentTitle(`Author site: ${authorName}`)
 
     useEffect(()=>{
 
@@ -36,6 +48,7 @@ const AuthorSite = () =>{
                     }
                     else{
                         setAuthorInfo(response.books)
+                        console.log(response.books)
                         changeAuthorFound(true)
                     }
                 }
@@ -71,7 +84,7 @@ const AuthorSite = () =>{
                     <h4 className="bookInfo" id="PR" >PR: {book.warnings}</h4>
 
                     <div id="bookContainer" onClick={() => goToBook(book)}>
-                        <img id="bookPicture" src={forestpic} alt="Book picture" />
+                        <img id="bookPicture" src={bookCoverImages[book.bookcover]} alt="Book picture" />
                     </div>
 
                     <p id="bookSynopsis">{book.synopsis}</p>
