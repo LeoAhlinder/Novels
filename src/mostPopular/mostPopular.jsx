@@ -6,7 +6,20 @@ import { useNavigate } from "react-router";
 import setCookie from "../Global/setCookie";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
+import forest from "../picturesForBooks/forest.webp"
+import forestHut from "../picturesForBooks/hutInForest.webp"
+import Moon from "../picturesForBooks/moon.webp"
+import pinkForest from "../picturesForBooks/pinkForest.webp"
+
+
 const MostPopular  = () =>{
+
+    const bookCoverImages = {
+        Moon: Moon,
+        Forest: forest,
+        hutInForest: forestHut,
+        pinkForest: pinkForest,
+    };
 
     ChangeDocumentTitle("Most Popular")
 
@@ -92,14 +105,13 @@ const MostPopular  = () =>{
                     {books.slice(0,12).map((book, index) => (
                             <li key={index} className="gridItem">
                             <div onClick={() => goToBook(book)} className="book">
-                                <img src={fantasy} alt={book.title} className="bookCover"/>
+                                <img src={bookCoverImages[book.bookcover]} alt={book.title} className="bookCover"/>
                                 <p id="bookTitle">{book.title}</p>
                             </div>
                             </li>
                         ))}
                     </ul>
                 </>): <h2 id="errorText">We had an error fetching the most popular books. Please try again!</h2>}
-
             </div>
         </>
     )
