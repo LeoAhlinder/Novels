@@ -10,9 +10,20 @@ import Cookies from 'js-cookie';
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 import pinkForest from "../picturesForBooks/pinkForestBig.webp"
+import Moon from "../picturesForBooks/moonBig.webp"
+import forest from "../picturesForBooks/forestBig.webp"
+import forestHut from "../picturesForBooks/hutInForestBig.webp"
 
 
 const BookPage = () =>{
+
+    const bookCoverImages = {
+        Moon, Moon,
+        Forest: forest,
+        hutInForest: forestHut,
+        pinkForest: pinkForest,
+      };
+    
 
     const navigate = useNavigate()
 
@@ -53,6 +64,7 @@ const BookPage = () =>{
                     setBookInfo(response.data)
                     setauthor(response.author[0].userName)
                     setID(response.data[0].bookid)
+                    console.log(response.data[0].bookcover)
                     ChangeDocumentTitle(response.data[0].title + " - Book Page")
                 }else{
                     navigate("/error")
@@ -193,7 +205,7 @@ const BookPage = () =>{
         {bookInfo.length > 0 ? (
             <>  <div id="desktop">
                     <div id="bookPagePictureContainer">
-                        <img src={pinkForest} alt="cutecat" className="novelCover"/>
+                        <img src={bookCoverImages[bookInfo[0].bookcover]} alt={bookInfo.bookcover} className="novelCover"/>
                     </div>
                     <div className="bookPagebookInfo">
                         <h1 className="title">{bookInfo[0].title}</h1>
@@ -208,7 +220,7 @@ const BookPage = () =>{
                 <div id="phone">
                     <div id="phoneItemsWrapper">
                         <div id="bookPagePictureContainer">
-                            <img src={pinkForest} alt="cutecat" id="novelCoverPhone" />
+                            <img src={bookCoverImages[bookInfo[0].bookcover]} alt="cutecat" id="novelCoverPhone" />
                         </div>
                         <div id="bookInfoPhone">
                             <h1 id="titlePhone">{bookInfo[0].title}</h1>

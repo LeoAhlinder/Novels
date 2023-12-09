@@ -24,7 +24,7 @@ const Library = () => {
   
 
   const bookCoverImages = {
-    Moon,
+    Moon: Moon,
     Forest: forest,
     hutInForest: forestHut,
     pinkForest: pinkForest,
