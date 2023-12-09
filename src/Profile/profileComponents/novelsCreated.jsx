@@ -9,7 +9,7 @@ import forestHut from "../../picturesForBooks/hutInForestSmall.webp"
 import Moon from "../../picturesForBooks/moonSmall.webp"
 import pinkForest from "../../picturesForBooks/pinkForestSmall.webp"
 
-import BookList from "../../Components/Books/bookList";
+import BookList from "../../Components/Books/bookListProfile";
 
 const NovelCreated = () =>{
 

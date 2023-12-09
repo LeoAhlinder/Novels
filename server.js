@@ -493,7 +493,7 @@ function checkIfDataCorrect(data) {
   }
 
   const genres = data.inputGenre.split(" ");
-  if (genres.length !== 1) {
+  if (genres.length > 2) {
     return "Only one genre is allowed";
   }
 
