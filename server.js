@@ -241,15 +241,6 @@ function ensureToken(req, res, next) {
   } else {
     res.sendStatus(403);
   }
-  // console.log(req.token);
-  // const token = req.cookies["authToken"];
-  // console.log(token, req.cookies);
-  // if (token) {
-  //   req.token = token;
-  //   next();
-  // } else {
-  //   res.sendStatus(403);
-  // }
 }
 
 app.get("/api/latest", function (req, res) {
@@ -257,6 +248,9 @@ app.get("/api/latest", function (req, res) {
     " SELECT * FROM lightnovelonline.books ORDER BY STR_TO_DATE(release_date, '%Y/%m/%d') DESC LIMIT 0,22;";
 
   connection.query(query, function (err, results) {
+    if (err){
+      res.json({ error: "error" });
+    }
     res.json({ books: results });
   });
 });
@@ -380,15 +374,16 @@ app.post("/api/checkLibrary", ensureToken, function (req, res) {
 app.post("/api/BooksBasedOnSearch", function (req, res) {
   const input = req.body.data;
 
-  const query = `SELECT * FROM books WHERE title LIKE '%${input}%' LIMIT 10`;
+  const query = 'SELECT * FROM books WHERE title LIKE ? LIMIT 10';
+  const searchTerm = `%${input}%`;
 
-  connection.query(query, function (err, results) {
+  connection.query(query,[searchTerm], function (err, results) {
     if (err) {
       res.json({ error: "error" });
     } else if (results.length > 0) {
-      res.json({ data: results });
+      res.json({ books: results });
     } else {
-      res.json({ data: "No books" });
+      res.json({ empty: "No books" });
     }
   });
 });

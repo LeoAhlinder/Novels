@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from "react";
 import "./searchStyle.css"
-import ErrorHandler from "../Global/errorHandler"
 import { useNavigate } from "react-router";
-import forestSmall from "../Pictures/forestsmall.webp"
+
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
+import BookListGrid from "../Components/Books/bookListGrid";
+
+import forest from "../picturesForBooks/forest.webp"
+import forestHut from "../picturesForBooks/hutInForest.webp"
+import Moon from "../picturesForBooks/moon.webp"
+import pinkForest from "../picturesForBooks/pinkForest.webp"
 
 const SearchBar = () =>{
+
+    const bookCoverImages = {
+        Moon,
+        Forest: forest,
+        hutInForest: forestHut,
+        pinkForest: pinkForest,
+    };
 
     ChangeDocumentTitle("Search")
 
@@ -38,32 +50,26 @@ const SearchBar = () =>{
                     
                         if (res.ok){
                             const response = await res.json();
-                            console.log(response.data)
-                            if (response.data === undefined){
-                                newBooks([])
-                                SetViewing(false)
-                                return
-                            }
-                                newBooks(response.data)
+                            if (response.books){
+                                newBooks(response.books)
                                 SetViewing(true)
+                            }
+                            else if (response.empty){
+                                newBooks([])
+                                SetViewing(true)
+                            }
                         }
                         if (res.error === "error"){
-                            console.log("error")
+                            console.log(res)
+
+                            //navigate("/error")
                         }
-                        else{
-                            let error = ErrorHandler(res)
-                            alert(error.message)
-                            if (error.navigate.length > 0){
-                                navigate(error.navigate)
-                            }
-                        }
+  
                         }
                     }catch(err){
-                        let errorCatch = ErrorHandler(err)
-                        alert(errorCatch.message)
-                        if (errorCatch.navigate.length > 0){
-                            navigate(errorCatch.navigate)
-                        }  
+                        console.log(books)
+                        console.log(err)
+                        //navigate("/error")
                     }
                 }
             return () => clearTimeout(waitForInput)
@@ -81,27 +87,26 @@ const SearchBar = () =>{
     return(
         <>
             <div>
-                <div>
-                    <input 
-                        type="text"
-                        className="searchBar"
-                        id="searchBar"
-                        value={search} 
-                        onChange={HandleChange} 
-                        placeholder="Search for Book by Title"
-                    />   
-                </div>
-                    <ul className={viewingBooks === true ? "containerSearch" : ""}>
-                        {books.map((book)=>(
-                            <li key={book.bookid} className="bookSearch">
-                                <button onClick={() => goToBook(book)}>
-                                    <img src={forestSmall} alt="" />
-                                    <span id="bookText">{book.title.length > 15 ? book.title.substring(0,10):book.title}</span>
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
+                <input 
+                    type="text"
+                    className="searchBar"
+                    id="searchBar"
+                    value={search} 
+                    onChange={HandleChange} 
+                    placeholder="Search for Book by Title"
+                />   
             </div>
+            <ul className={viewingBooks === true ? "containerSearch" : ""}>
+                {viewingBooks === true ? 
+                <BookListGrid
+                    books={books}
+                    goToBook={goToBook}
+                    bookCoverImages={bookCoverImages}
+                    noBooksFoundText="No books with that title were found"
+                    viewingBooks={viewingBooks}
+                /> 
+                : ""}
+            </ul>
         </>
     )
 }

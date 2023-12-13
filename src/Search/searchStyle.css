@@ -1,8 +1,8 @@
 .searchBar {
     height: 4vh;
     width: 30%;
-    margin: 10% auto; /* Center horizontally */
-    background-color: rgb(38, 40, 41);
+    margin: 7% auto 3% auto;
+    background-color: rgb(36, 38, 39);
     border: none;
     border-radius: 20px;
     text-align: center;
@@ -43,15 +43,15 @@
     }
 }
 
-
-
 .containerSearch {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    width: 60%;
+    justify-content: start;
+    width: 70%;
     margin: 0 auto;
-    background-color: gray;
+    background-color: rgb(50, 52, 53);
+    border-radius: 10px;
+    padding: 10px;
   }
 
   @media screen and (max-width:340px) {
@@ -59,16 +59,14 @@
         width: 80%;
     }
 }
-  
-.bookSearch {
+
+.gridItemSearch {
     width: 45%; 
     margin: 5px; 
     text-align: left;
-    height: 8vh;
+    background-color: red;
+    height: auto;
 }
-
-
-
 
 #bookText{
     color: white;
