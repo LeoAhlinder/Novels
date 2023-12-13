@@ -19,10 +19,16 @@ const BookList = ({books,openBook,bookCoverImages,showPageProgress,showText,text
         {isLoaded ? (
         <>
             <div id="tableHeadContainer">
-            <div id="tableHead">
-                <p id="tableText">{showText === false ? "" : "Novel Title"}</p>
-                <p id="progessText">{showPageProgress === true ? <span> Your Progess </span> : ""}</p>
-            </div>
+                <div id="tableHead">
+                    {books.length > 0 ? 
+                        <>
+                            <p id="tableText">{showText === false ? "" : "Novel Title"}</p>
+                            <p id="progessText">{showPageProgress === true ? <span> Your Progess </span> : ""}</p>    
+                        </>    
+                            :
+                        <></>
+                    }     
+                </div>
             </div>
             
             <div className="Library">
