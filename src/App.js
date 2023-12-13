@@ -94,7 +94,7 @@ const App = () => {
                   element={<AuthorSite />}
                 ></Route>
                 <Route
-                  path="/:bookName/chapters"
+                  path="/chapters/:authorName"
                   element={<ChapterSelection />}
                 />
                 /* Admin Panel */
