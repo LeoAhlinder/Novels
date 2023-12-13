@@ -160,6 +160,10 @@ const CreateNew = () =>{
                     changeAlertColor("green")
                 }
                 else if (response.error){
+                    changeAlert(response.error);
+                    changeAlertColor("red")
+                }
+                else {
                     changeAlert("Something went wrong, please try again later")
                     changeAlertColor("red")
                 }

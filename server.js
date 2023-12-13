@@ -3,7 +3,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
 const mysql = require("mysql");
-const { error } = require("console");
+const { error, Console } = require("console");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const { rejects } = require("assert");
@@ -403,7 +403,7 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
 
     const checkData = checkIfDataCorrect(data);
     if (checkData !== "OK") {
-      return res.json({ error: checkData });
+      return res.json({ errorData: checkData });
     }
 
     // Check if a book with the same title or synopsis exists
@@ -422,9 +422,11 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
           if (results[0].title === data.bookTitle) {
             return res.json({ message: "Title exists" });
           } else {
-            return res.json({ error: "Synopsis exists" });
+            return res.json({ message: "Synopsis exists" });
           }
         }
+        console.log("OK")
+        res.json({ message: "OK" });
 
         const currentDate = new Date().toISOString().split("T")[0];
         const authorid = userId;
@@ -469,7 +471,17 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
   });
 });
 
+
 function checkIfDataCorrect(data) {
+
+  const genresList = [
+  "Select","Mystery","Romance","Science Fiction","Fantasy","Thriller",
+  "Historical Fiction","Non-Fiction","Biography","Self-Help","Horror",
+  "Adventure","Dystopian","Young Adult","Memoir","Comedy","Sport","Games"
+  ]
+
+  const warningList = ["For everyone","PG-13","Guardian guidance recommended","For 18+"]
+
   const requiredFields = [
     "bookTitle",
     "Synopsis",
@@ -492,21 +504,20 @@ function checkIfDataCorrect(data) {
     return "Title exceeds maximum length of 20 characters";
   }
 
-  const genres = data.inputGenre.split(" ");
-  if (genres.length > 2) {
+  if (!genresList.some(genre => data.inputGenre.includes(genre))) { 
     return "Only one genre is allowed";
   }
 
-  if (data.Warnings.split(" ").length > 10) {
+  if (!warningList.some(warning => data.Warnings.includes(warning))) {
     return "Only one warning is allowed";
   }
 
-  if (data.Language.split(" ").length > 10) {
+  if (data.Language.split(" ").length > 10 || data.Language.length > 25) {
     return "Only one language is allowed";
   }
 
   const tagWords = data.Tags.split(" ");
-  if (tagWords.length > 3) {
+  if (tagWords.length > 3 || tagWords.length < 1) {
     return "Maximum of three words is allowed in tags";
   }
 
