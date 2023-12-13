@@ -1,7 +1,7 @@
 import React , {useEffect,useState} from "react";
 
-const BookListGrid = ({books,goToBook,bookCoverImages}) => {
 
+const BookListGrid = ({books,goToBook,bookCoverImages,noBooksFoundText}) => {
 
     const [isLoaded, setIsLoaded] = useState(false);
 
@@ -31,10 +31,10 @@ const BookListGrid = ({books,goToBook,bookCoverImages}) => {
                     </ul>
                 </>): 
                 <div id="Error">
-                <p id="errorTextHome">We had an error fetching the books; please try again!</p>
+                <p id="errorTextHome">{noBooksFoundText}</p>
                 </div>}
             </>
-            : null};
+            : null}
         </>
     );
 }

@@ -40,11 +40,10 @@ const Home = () => {
 
         if (res.ok) {
           const response = await res.json();
-          if (response.books === undefined){
+          if (response.books === undefined || response.error === "error"){
             setLatestBooks([]); // Store fetched data in state
           }else{
             setLatestBooks(response.books); // Store fetched data in state
-
           }
         }
         else{
@@ -76,6 +75,7 @@ const Home = () => {
           books={latestBooks} 
           goToBook={goToBook} 
           bookCoverImages={bookCoverImages} 
+          noBooksFoundText="We had an error fetching the books; please try again!"
         />
     </>
   );
