@@ -159,6 +159,10 @@ const CreateNew = () =>{
                     changeAlert("Your book is now live")
                     changeAlertColor("green")
                 }
+                else if (response.error){
+                    changeAlert("Something went wrong, please try again later")
+                    changeAlertColor("red")
+                }
             }
             else{
                 console.log(res)
