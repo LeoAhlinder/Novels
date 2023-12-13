@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 
 import landscape from "../Pictures/fantasyLandscape.webp"
 
+import BookListGrid from "../Components/Books/bookListGrid";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 //Different images for the books
@@ -20,17 +21,6 @@ const Home = () => {
     hutInForest: forestHut,
     pinkForest: pinkForest,
   };
-
-  const [isLoaded, setIsLoaded] = useState(false);
-
-  useEffect(() => {
-      const timer = setTimeout(() => {
-      setIsLoaded(true);
-      }, 100); // 100 milliseconds = 0.1 seconds
-  
-      return () => clearTimeout(timer); // Clean up the timer
-  }, []);
-
 
   const [latestBooks, setLatestBooks] = useState([]);
   const navigate = useNavigate()
@@ -73,8 +63,7 @@ const Home = () => {
   }
 
   return (
-    <>  {isLoaded ? (
-      <>
+    <>  
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <div id="introHeader">
@@ -83,23 +72,11 @@ const Home = () => {
           <img src={landscape} alt="Fantasy Landscape" id="introImg"/>
         </div>
 
-        {latestBooks.length > 0 ? ( <>
-              <ul className="gridContainerHome">
-                {latestBooks.map((book, index) => (
-                  <li key={index} className="gridItem">
-                    <div onClick={() => goToBook(book)} className="book">
-                      <img src={bookCoverImages[book.bookcover]} alt={book.bookcover} className="bookCover"/>
-                      <p id="bookTitle">{book.title}<br/><span>Chapters: {book.totalpages === null ? "0" : book.totalpages}</span></p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </>): 
-            <div id="Error">
-            <p id="errorTextHome">We had an error fetching the books; please try again!</p>
-            </div>}
-          </>
-        ) : null}
+        <BookListGrid 
+          books={latestBooks} 
+          goToBook={goToBook} 
+          bookCoverImages={bookCoverImages} 
+        />
     </>
   );
 };
