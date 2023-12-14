@@ -95,7 +95,7 @@ const Header = () => {
                     <a href="/" className="nav-branding">Novels</a>
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li className="nav-item">
-                            <a className='nav-link' href='./popular' onClick={closeMenu}>Most Popular</a>
+                            <a className='nav-link' href='../popular' onClick={closeMenu}>Most Popular</a>
                         </li>
                         <li className="nav-item">
                             <button className="nav-link" onClick={create}>Create</button>
