@@ -57,7 +57,7 @@ const Workspace = () =>{
 
 
     const openBook = (book) =>{
-        navigate(`/workspace/${book.bookid}`)
+        navigate(`/workspace/${book.title}`)
     }
 
     return(
