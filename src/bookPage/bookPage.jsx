@@ -1,8 +1,6 @@
-import React,{useEffect} from "react";
+import React,{useEffect,useState} from "react";
 import "./bookpageStyle.css"
 import { useLocation } from "react-router-dom";
-import cat from "../Pictures/coolcat.jpg"
-import { useState } from "react";
 import ErrorHandler from "../Global/errorHandler";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
@@ -35,17 +33,6 @@ const BookPage = () =>{
     const [id,setID] = useState(0)
     const [LibraryAddButton,LibraryChange] = useState("")
     const [buttonState,changeButtonState] = useState(true)
-
-
-
-        function errorFunction(err){
-            let error = ErrorHandler(err)
-            alert(error.message)
-            if (error.navigate.length > 0){
-                navigate(error.navigate)
-            }
-        }
-
 
         //Get bookinfo
         useEffect(() =>{
@@ -107,12 +94,11 @@ const BookPage = () =>{
                             LibraryChange("Add to Library")
                         }
                     }else{
-
-                        errorFunction(res)
+                        navigate("/error")
                     }
                 }
                 catch(err){
-                    errorFunction(err)
+                    navigate("/error")
                 }
             }
             isBookInLibrary();
@@ -138,11 +124,11 @@ const BookPage = () =>{
                     buttonColdDown("add")
                 }
                 else{
-                    errorFunction("res")
+                    navigate("/error")
 
                 }
             }catch(err){
-                errorFunction("cath")
+                navigate("/error")
             }
         }
     }
@@ -184,10 +170,10 @@ const BookPage = () =>{
                     buttonColdDown("remove")
                 }
                 else{
-                    errorFunction(res)
+                    navigate("/error")
                 }
             }catch(err){
-                errorFunction(err)
+                navigate("/error")
             }
         }
     }
