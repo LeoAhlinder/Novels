@@ -7,7 +7,6 @@ import landscape from "../Pictures/fantasyLandscape.webp"
 import BookListGrid from "../Components/Books/bookListGrid";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
-//Different images for the books
 import forest from "../picturesForBooks/forest.webp"
 import forestHut from "../picturesForBooks/hutInForest.webp"
 import Moon from "../picturesForBooks/moon.webp"
@@ -41,9 +40,9 @@ const Home = () => {
         if (res.ok) {
           const response = await res.json();
           if (response.books === undefined || response.error === "error"){
-            setLatestBooks([]); // Store fetched data in state
+            setLatestBooks([]);
           }else{
-            setLatestBooks(response.books); // Store fetched data in state
+            setLatestBooks(response.books); 
           }
         }
         else{
