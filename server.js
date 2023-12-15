@@ -616,4 +616,30 @@ app.get("/api/admin/access", ensureToken, function (req, res) {
   });
 });
 
+app.post("/api/checkOwnerOfBook", ensureToken, function (req, res) {
+  jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      const userId = decodedToken.user;
+      const bookId = req.body.bookId;
+
+      const query =
+        "SELECT author FROM lightnovelonline.books WHERE bookid = ?";
+      connection.query(query, [bookId], function (err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(results);
+          // if (results[0].author === userId) {
+          //   res.json({ message: "success" });
+          // } else {
+          //   res.json({ message: "fail" });
+          // }
+        }
+      });
+    }
+  });
+});
+
 module.exports = app;
