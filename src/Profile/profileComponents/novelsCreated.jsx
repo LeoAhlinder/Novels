@@ -33,7 +33,7 @@ const NovelCreated = () =>{
 
                 const token = Cookies.get("authToken")
 
-                const res = await fetch("http://localhost:3001/api/novelsCreated",{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/novelsCreated`,{
                     method:"GET",
                     headers:{    
                     "Content-Type": "application/json",

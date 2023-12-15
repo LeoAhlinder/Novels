@@ -32,7 +32,7 @@ const Workspace = () =>{
 
                 const token = Cookies.get("authToken")
 
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/novelsCreated`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/novelsCreated`,{
                     method:"GET",
                     headers:{    
                     "Content-Type": "application/json",
