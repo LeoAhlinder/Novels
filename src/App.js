@@ -44,7 +44,7 @@ const App = () => {
   }, [serverStatus]);
 
   const checkServerStatus = async () => {
-    return await fetch("http://localhost:3001/api/ping")
+    return await fetch(`${process.env.REACT_APP_API_URL}/api/ping`)
       .then((response) => response.ok)
       .catch(() => false);
   };
@@ -52,7 +52,7 @@ const App = () => {
   const checkToken = async () => {
     const token = Cookies.get("authToken");
 
-    const res = await fetch("http://localhost:3001/api/protected", {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/protected`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
