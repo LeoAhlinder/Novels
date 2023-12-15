@@ -31,7 +31,7 @@ const Library = () => {
       try {
         const token = Cookies.get("authToken")
 
-        const res = await fetch(`http://localhost:3001/api/library/`, {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/library/`, {
           method: "GET",
           headers: {  
             "Content-Type": "application/json",

@@ -248,7 +248,7 @@ app.get("/api/latest", function (req, res) {
     " SELECT * FROM lightnovelonline.books ORDER BY STR_TO_DATE(release_date, '%Y/%m/%d') DESC LIMIT 0,22;";
 
   connection.query(query, function (err, results) {
-    if (err){
+    if (err) {
       res.json({ error: "error" });
     }
     res.json({ books: results });
@@ -374,10 +374,10 @@ app.post("/api/checkLibrary", ensureToken, function (req, res) {
 app.post("/api/BooksBasedOnSearch", function (req, res) {
   const input = req.body.data;
 
-  const query = 'SELECT * FROM books WHERE title LIKE ? LIMIT 10';
+  const query = "SELECT * FROM books WHERE title LIKE ? LIMIT 10";
   const searchTerm = `%${input}%`;
 
-  connection.query(query,[searchTerm], function (err, results) {
+  connection.query(query, [searchTerm], function (err, results) {
     if (err) {
       res.json({ error: "error" });
     } else if (results.length > 0) {
@@ -420,15 +420,13 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
             return res.json({ message: "Synopsis exists" });
           }
         }
-        console.log("OK")
-        res.json({ message: "OK" });
 
         const currentDate = new Date().toISOString().split("T")[0];
         const authorid = userId;
 
         // Neither title nor synopsis exists, so proceed to insert the new book
         const insertBookQuery =
-        "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
+          "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
         connection.query(
           insertBookQuery,
           [data.bookTitle, data.picture, currentDate, userId],
@@ -436,7 +434,7 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
             if (err) {
               console.log(err);
               return res.sendStatus(500);
-              }
+            }
 
             const insertBookInfoQuery =
               "INSERT INTO bookinfo (bookid, synopsis, genres, language, tags, warnings, authorid) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -466,16 +464,34 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
   });
 });
 
-
 function checkIfDataCorrect(data) {
-
   const genresList = [
-  "Select","Mystery","Romance","Science Fiction","Fantasy","Thriller",
-  "Historical Fiction","Non-Fiction","Biography","Self-Help","Horror",
-  "Adventure","Dystopian","Young Adult","Memoir","Comedy","Sport","Games"
-  ]
+    "Select",
+    "Mystery",
+    "Romance",
+    "Science Fiction",
+    "Fantasy",
+    "Thriller",
+    "Historical Fiction",
+    "Non-Fiction",
+    "Biography",
+    "Self-Help",
+    "Horror",
+    "Adventure",
+    "Dystopian",
+    "Young Adult",
+    "Memoir",
+    "Comedy",
+    "Sport",
+    "Games",
+  ];
 
-  const warningList = ["For everyone","PG-13","Guardian guidance recommended","For 18+"]
+  const warningList = [
+    "For everyone",
+    "PG-13",
+    "Guardian guidance recommended",
+    "For 18+",
+  ];
 
   const requiredFields = [
     "bookTitle",
@@ -499,11 +515,11 @@ function checkIfDataCorrect(data) {
     return "Title exceeds maximum length of 20 characters";
   }
 
-  if (!genresList.some(genre => data.inputGenre.includes(genre))) { 
+  if (!genresList.some((genre) => data.inputGenre.includes(genre))) {
     return "Only one genre is allowed";
   }
 
-  if (!warningList.some(warning => data.Warnings.includes(warning))) {
+  if (!warningList.some((warning) => data.Warnings.includes(warning))) {
     return "Only one warning is allowed";
   }
 
@@ -557,7 +573,7 @@ app.get("/api/authorInfo", function (req, res) {
         FROM lightnovelonline.books AS b
         JOIN lightnovelonline.bookinfo AS bi ON b.bookid = bi.bookid
         WHERE b.author = ?;
-      `;  
+      `;
       connection.query(query, [authorId], function (err, results) {
         if (err) {
           console.log(err);

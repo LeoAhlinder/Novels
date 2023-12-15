@@ -118,7 +118,7 @@ const LogIn = () =>{
                 return (field.value)
             })
             try{
-                const res = await fetch("http://localhost:3001/api/logIn",{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/logIn`,{
                     method:"POST",
                     headers: {  
                         "Content-Type": "application/json",

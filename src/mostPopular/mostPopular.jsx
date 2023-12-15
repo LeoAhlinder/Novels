@@ -55,7 +55,7 @@ const MostPopular  = () =>{
         else{
             try{
 
-                const res = await fetch(`http://localhost:3001/api/ranking?type=${type}`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/ranking?type=${type}`,{
                     method:"GET",
                     headers:{
                         "Content-Type": "application/json",

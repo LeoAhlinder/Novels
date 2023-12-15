@@ -29,7 +29,7 @@ const Home = () => {
   useEffect(() => {
     const fetchLatestReleases = async () => {
       try {
-        const res = await fetch("http://localhost:3001/api/latest", {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/latest`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

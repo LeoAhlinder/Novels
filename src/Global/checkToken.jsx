@@ -8,7 +8,7 @@ const CheckToken = async () => {
     if (!token) {
       return "invalid";
     } else {
-      const res = await fetch(`http://localhost:3001/api/protected/`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/protected/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
