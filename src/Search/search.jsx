@@ -60,16 +60,12 @@ const SearchBar = () =>{
                             }
                         }
                         if (res.error === "error"){
-                            console.log(res)
-
-                            //navigate("/error")
+                            navigate("/error")
                         }
   
                         }
                     }catch(err){
-                        console.log(books)
-                        console.log(err)
-                        //navigate("/error")
+                        navigate("/error")
                     }
                 }
             return () => clearTimeout(waitForInput)
