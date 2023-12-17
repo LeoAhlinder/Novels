@@ -57,7 +57,8 @@ const Workspace = () =>{
 
 
     const openBook = (book) =>{
-        navigate(`/workspace/${book.title}`)
+        const title = book.title.replaceAll(" ", '-');    
+        navigate(`/workspace/${title}`);
     }
 
     return(

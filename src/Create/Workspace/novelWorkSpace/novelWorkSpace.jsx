@@ -48,7 +48,7 @@ export default function NovelWorkSpace() {
 
     return (
         <>
-            {validUser === true ?  <h2>Novel WorkSpace</h2> : <h2>Invalid Token</h2>}
+            {validUser === true ? <h2>Novel WorkSpace</h2> : <h2>Invalid Token</h2>}
         </>
     );
 }

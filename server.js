@@ -622,20 +622,19 @@ app.post("/api/checkOwnerOfBook", ensureToken, function (req, res) {
       res.sendStatus(403);
     } else {
       const userId = decodedToken.user;
-      const bookId = req.body.bookId;
+      const bookTitle = req.body.bookName.replaceAll("-", " ");
 
       const query =
-        "SELECT author FROM lightnovelonline.books WHERE bookid = ?";
-      connection.query(query, [bookId], function (err, results) {
+        "SELECT author FROM lightnovelonline.books WHERE title = ?";
+      connection.query(query, [bookTitle], function (err, results) {
         if (err) {
           console.log(err);
         } else {
-          console.log(results);
-          // if (results[0].author === userId) {
-          //   res.json({ message: "success" });
-          // } else {
-          //   res.json({ message: "fail" });
-          // }
+          if (results[0].author === userId) {
+            res.json({ message: "valid" });
+          } else {
+            res.json({ message: "invalid" });
+          }
         }
       });
     }
