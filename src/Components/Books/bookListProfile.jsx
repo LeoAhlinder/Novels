@@ -8,9 +8,9 @@ const BookList = ({books,openBook,bookCoverImages,showPageProgress,showText,text
     useEffect(() => {
         const timer = setTimeout(() => {
         setIsLoaded(true);
-        }, 100); // 100 milliseconds = 0.1 seconds
+        }, 200);
     
-        return () => clearTimeout(timer); // Clean up the timer
+        return () => clearTimeout(timer);
     }, []);
 
 
