@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import "./novelWorkSpaceStyle.css";
 
 import Cookies from "js-cookie";
 import ChangeDocumentTitle from "../../../Global/changeDocumentTitle";
@@ -9,7 +10,7 @@ export default function NovelWorkSpace() {
 
     const navigate = useNavigate();
 
-    const bookName = window.location.pathname.split("/").pop(0);
+    const bookName = window.location.pathname.split("/")[2];
 
     ChangeDocumentTitle(`Novel Workspace | ${bookName}`)
 
@@ -48,7 +49,14 @@ export default function NovelWorkSpace() {
 
     return (
         <>
-            {validUser === true ? <h2>Novel WorkSpace</h2> : <h2>Invalid Token</h2>}
+            {validUser === true ? 
+            <>
+                <h2 id="novelWorkShopTitle">{bookName}</h2>
+                
+
+            </>
+            
+            : <h2>Invalid Token</h2>}
         </>
     );
 }
