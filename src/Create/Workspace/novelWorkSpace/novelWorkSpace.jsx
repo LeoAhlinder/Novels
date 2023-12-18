@@ -10,9 +10,11 @@ export default function NovelWorkSpace() {
 
     const navigate = useNavigate();
 
-    const bookName = window.location.pathname.split("/")[2];
+    const bookNameEdited = window.location.pathname.split("/")[2];
 
-    ChangeDocumentTitle(`Novel Workspace | ${bookName}`)
+    const bookTitle = window.location.pathname.split("/")[2].replaceAll("-", " ");
+
+    ChangeDocumentTitle(`Novel Workspace | ${bookNameEdited}`)
 
     const [validUser, setValidUser] = useState(false);
 
@@ -39,7 +41,7 @@ export default function NovelWorkSpace() {
                     "Accept": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body:JSON.stringify({bookName:bookName})
+                body:JSON.stringify({bookName:bookNameEdited})
             });
             if (res.ok) {
                 const response = await res.json();
@@ -65,14 +67,10 @@ export default function NovelWorkSpace() {
             <>
             {validUser === true ? 
                 <>
-                    <h2 id="novelWorkShopTitle">{bookName}</h2>
-                    
-
+                    <h2 id="novelWorkShopTitle">{bookTitle}</h2>
                 </>
-                
                 : <h2>Invalid Token</h2>}
-            
-            </> 
+            </>
         : null}       
         </>
     );
