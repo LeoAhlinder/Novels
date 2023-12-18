@@ -14,7 +14,19 @@ export default function NovelWorkSpace() {
 
     ChangeDocumentTitle(`Novel Workspace | ${bookName}`)
 
-    const [validUser, setValidUser] = useState(false)
+    const [validUser, setValidUser] = useState(false);
+
+    
+    const [isLoaded, setIsLoaded] = useState(false);
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+        setIsLoaded(true);
+        }, 100); 
+    
+        return () => clearTimeout(timer); 
+    }, []);
+
 
     useEffect(()=>{
         async function checkIfUserValid() {
@@ -48,15 +60,20 @@ export default function NovelWorkSpace() {
 
 
     return (
-        <>
-            {validUser === true ? 
+        <>  
+        {isLoaded ? 
             <>
-                <h2 id="novelWorkShopTitle">{bookName}</h2>
-                
+            {validUser === true ? 
+                <>
+                    <h2 id="novelWorkShopTitle">{bookName}</h2>
+                    
 
-            </>
+                </>
+                
+                : <h2>Invalid Token</h2>}
             
-            : <h2>Invalid Token</h2>}
+            </> 
+        : null}       
         </>
     );
 }
