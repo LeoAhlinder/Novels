@@ -10,3 +10,11 @@
     src: url("../../../Fonts/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf");
 }
 
+#novelWorkShopContainer{
+    width: 60%;
+    height: 90vh;
+    margin: 0 auto;
+    background-color: rgb(50, 52, 53);
+    border-radius: 10px;
+    margin-top: 10px;
+}
