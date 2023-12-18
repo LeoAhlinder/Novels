@@ -68,6 +68,10 @@ export default function NovelWorkSpace() {
             {validUser === true ? 
                 <>
                     <h2 id="novelWorkShopTitle">{bookTitle}</h2>
+
+                    <div id="novelWorkShopContainer">
+
+                    </div>
                 </>
                 : <h2>Invalid Token</h2>}
             </>
