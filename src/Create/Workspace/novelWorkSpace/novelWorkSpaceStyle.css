@@ -2,4 +2,11 @@
     text-align: center;
     font-size: 1,5em;
     color: rgb(224, 220, 220);
+    font-family: NunitoSans;
 }
+
+@font-face {
+    font-family: NunitoSans;
+    src: url("../../../Fonts/NunitoSans-VariableFont_YTLC\,opsz\,wdth\,wght.ttf");
+}
+
