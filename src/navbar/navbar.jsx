@@ -75,7 +75,6 @@ const Header = () => {
         }
     }
 
-
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     const toggleMenu = () => {
@@ -86,8 +85,6 @@ const Header = () => {
       setIsMenuOpen(false);
     };
 
-
-
     return (
         <header className='layers'>
             <div className="container"> 
@@ -95,13 +92,13 @@ const Header = () => {
                     <a href="/" className="nav-branding">Novels</a>
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li className="nav-item">
-                            <a className='nav-link' href='../popular' onClick={closeMenu}>Most Popular</a>
+                            <a className='nav-link' href='/popular' onClick={closeMenu}>Most Popular</a>
                         </li>
                         <li className="nav-item">
                             <button className="nav-link" onClick={create}>Create</button>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href='./search' onClick={closeMenu}>Search</a>
+                            <a className="nav-link" href='/search' onClick={closeMenu}>Search</a>
                         </li>
                         <li className="nav-item">
                             <button className='nav-link' onClick={profileButtonClicked}>
