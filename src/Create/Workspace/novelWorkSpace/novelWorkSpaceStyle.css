@@ -12,7 +12,7 @@
 
 #novelWorkShopContainer{
     width: 50%;
-    height: 90vh;
+    height: 100%;
     margin: 2% auto;
     background-color: rgb(50, 52, 53);
     border-radius: 10px;
@@ -50,4 +50,50 @@
 
 #novelWorkspaceNewChapterButton:hover{
     background-color: rgb(79, 81, 82);
+}
+
+#novelWorkspaceViewingContainer{
+    background-color: rgb(65, 67, 68);
+    width: 80%;
+    margin: 1% auto;
+    height: auto;
+    padding:10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+#novelWorkspaceChapterInputText{
+    width: 90%;
+    margin-top: 1%;
+    height: 70vh;
+    background-color: rgb(31, 31, 32);
+    text-align: left; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding:5px;
+    resize: none;
+    font-size: 1.2em;
+    overflow-y: auto;
+}
+
+#maxChaptersText{
+    color: white;
+}
+
+.novelWorkshopPublishChapterButton{
+    width: auto;
+    background-color: rgb(58, 58, 60);
+    font-size: 1.2em;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#confirmButton{
+    color: rgb(33, 133, 71);
+}
+
+#rejectButton{
+    color: rgb(243, 64, 64);
+    margin-left: 5px;
 }

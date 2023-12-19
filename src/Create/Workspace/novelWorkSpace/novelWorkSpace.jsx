@@ -6,6 +6,8 @@ import "./novelWorkSpaceStyle.css";
 import Cookies from "js-cookie";
 import ChangeDocumentTitle from "../../../Global/changeDocumentTitle";
 
+import CreateChapter from "../../../Components/novelWorkspace/createNewChapter"
+
 export default function NovelWorkSpace() {
 
     const navigate = useNavigate();
@@ -19,6 +21,10 @@ export default function NovelWorkSpace() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [bookId, setBookId] = useState(""); 
     const [bookInfo	, setBookInfo] = useState([]);
+    const [viewingMode, setViewingMode] = useState("viewChapters");
+    const [chapterContentLength, setChapterContentLength] = useState(0);
+    const [chapterContent, setChapterContent] = useState("");
+    const [confirmation , setConfirmation] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -79,7 +85,6 @@ export default function NovelWorkSpace() {
               const response = await res.json();
               if (response.data) {
                 setBookInfo(response.data);
-                console.log(response.data);
               } else {
                 setBookInfo([]);
                 navigate("/error");
@@ -92,6 +97,35 @@ export default function NovelWorkSpace() {
         }
     }, [validUser]);
 
+    const publishChapter = async () => {
+      console.log("publishing chapter")
+      const token = Cookies.get("authToken");
+      try {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/publishChapter`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ bookId: bookId, chapterContent: document.getElementById("novelWorkspaceChapterInputText").value }),
+        });
+        const response = await res.json();
+        if (response.message === "success") {
+          navigate(`/novel/${bookNameEdited}`);
+        } else {
+          navigate("/error");
+        }
+      } catch (error) {
+          navigate("/error");
+      }
+    }
+
+    const handleTextAreaLength = (e) => {
+      setChapterContentLength(e.target.value.length);
+      setChapterContent(e.target.value);
+    }
+
     return (
         <>  
             {isLoaded ?
@@ -99,12 +133,25 @@ export default function NovelWorkSpace() {
                 {validUser === true && bookInfo.length > 0 ?
                     <>
                         <h2 id="novelWorkShopTitle">{bookTitle}</h2>
-
                         <div id="novelWorkShopContainer">
                             <p id="novelWorkSpaceTotalChapters">Chapters: {bookInfo[0].totalpages === null ? 0 : bookInfo[0].totalpages}</p>
-                            <button id="novelWorkspaceNewChapterButton">Make New Chapter</button>
-                            <div id="novelWorkshopChapters">
-
+                            <button id="novelWorkspaceNewChapterButton" onClick={() => setViewingMode(viewingMode === "viewChapters" ? "newChapter" : "viewChapters")}>
+                              {viewingMode === "viewChapters" ? "Make New Chapter" : "View All Chapters"}
+                            </button>
+                            <div id="novelWorkspaceViewingContainer">
+                              {
+                                viewingMode === "viewChapters" ? 
+                                <h2>View Chapters</h2>
+                               : viewingMode === "newChapter" ? 
+                               <CreateChapter
+                                  chapterContentLength={chapterContentLength}
+                                  handleTextAreaLength={handleTextAreaLength}
+                                  publishChapter={publishChapter}
+                                  setConfirmation={setConfirmation}
+                                  confirmation={confirmation}
+                               />
+                               : null
+                              }
                             </div>
                         </div>
                     </>
