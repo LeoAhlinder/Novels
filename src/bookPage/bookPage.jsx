@@ -39,7 +39,7 @@ const BookPage = () =>{
             const bookInfo = async (bookId) =>{
             try
             {
-                const res = await fetch(`http://localhost:3001/api/book?id=${bookId}`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/book?id=${bookId}`,{
                     method:"GET",
                     headers: {  
                         "Content-Type": "application/json",
@@ -73,7 +73,7 @@ const BookPage = () =>{
 
                 try
                 {
-                    const res = await fetch(`http://localhost:3001/api/checkLibrary`,{
+                    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkLibrary`,{
                         method:"POST",
                         headers: {  
                             "Content-Type": "application/json",
@@ -109,7 +109,7 @@ const BookPage = () =>{
             const token = Cookies.get("authToken")
 
             try{
-                const res = await fetch("http://localhost:3001/api/AddToLibrary",{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/AddToLibrary`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
@@ -155,7 +155,7 @@ const BookPage = () =>{
         const token = Cookies.get("authToken")
         if (buttonState === true){
             try{
-                const res = await fetch("http://localhost:3001/api/RemoveFromLibrary",{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/RemoveFromLibrary`,{
                     method:"DELETE",
                     headers:{
                         "Content-Type": "application/json",
