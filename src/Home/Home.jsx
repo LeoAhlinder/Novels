@@ -66,7 +66,7 @@ const Home = () => {
 
         <div id="introHeader">
           <h2 className="introText">Welcome to your online library!</h2>
-          <h3 className="introText">A place to create and read books online for free.</h3>
+          <h3 className="introText">A place to create and read novels online for free.</h3>
           <img src={landscape} alt="Fantasy Landscape" id="introImg"/>
         </div>
 
