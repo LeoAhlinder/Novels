@@ -1,6 +1,6 @@
 #novelWorkShopTitle{
     text-align: center;
-    font-size: 1,5em;
+    font-size: 2em;
     color: rgb(224, 220, 220);
     font-family: NunitoSans;
 }
@@ -11,10 +11,21 @@
 }
 
 #novelWorkShopContainer{
-    width: 60%;
+    width: 50%;
     height: 90vh;
-    margin: 0 auto;
+    margin: 2% auto;
     background-color: rgb(50, 52, 53);
     border-radius: 10px;
-    margin-top: 10px;
+}
+
+@media screen and (max-width:1400px) {
+    #novelWorkShopContainer{
+        width: 90%;
+    }
+}
+
+@media screen and (max-width:600px) {
+    #novelWorkShopTitle{
+        font-size: 1em;
+    }
 }
