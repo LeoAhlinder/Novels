@@ -625,19 +625,27 @@ app.post("/api/checkOwnerOfBook", ensureToken, function (req, res) {
       const bookTitle = req.body.bookName.replaceAll("-", " ");
 
       const query =
-        "SELECT author FROM lightnovelonline.books WHERE title = ?";
+        "SELECT author, bookid FROM lightnovelonline.books WHERE title = ?";
       connection.query(query, [bookTitle], function (err, results) {
         if (err) {
           console.log(err);
         } else {
           if (results[0].author === userId) {
-            res.json({ message: "valid" });
+            res.json({ message: "valid", bookId: results[0].bookid });
           } else {
             res.json({ message: "invalid" });
           }
         }
       });
     }
+  });
+});
+
+app.get("/api/getBookInfo", ensureToken, function (req, res) {
+  const bookId = req.query.id;
+
+  bookData(bookId).then((results) => {
+    res.json({ data: results });
   });
 });
 
