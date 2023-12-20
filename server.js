@@ -642,10 +642,41 @@ app.post("/api/checkOwnerOfBook", ensureToken, function (req, res) {
 });
 
 app.get("/api/getBookInfo", ensureToken, function (req, res) {
-  const bookId = req.query.id;
+  jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
+    if (err) {
+      res.sendStatus(403);
+    }
+    const bookId = req.query.id;
 
-  bookData(bookId).then((results) => {
-    res.json({ data: results });
+    bookData(bookId).then((results) => {
+      res.json({ data: results });
+    });
+  });
+});
+
+app.post("/api/publishChapter", ensureToken, function (req, res) {
+  jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
+    if (err) {
+      res.sendStatus(403);
+    }
+    const bookId = req.body.bookId;
+    const chapterContent = req.body.chapterContent;
+    const currentChapter = req.body.currentChapter;
+    const chapterTitle = req.body.chapterTitle;
+
+    const query =
+      "INSERT INTO chapters VALUES (bookid,chapterNumber,chapterText,chapterTitle) VALUES (?,?,?,?)";
+
+    connection.query(
+      query,
+      [bookId, currentChapter, chapterContent, chapterTitle],
+      function (err, results) {
+        if (err) {
+          res.json({ message: "error" });
+        } else {
+        }
+      }
+    );
   });
 });
 
