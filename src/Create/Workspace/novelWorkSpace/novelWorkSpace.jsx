@@ -25,6 +25,7 @@ export default function NovelWorkSpace() {
     const [chapterContentLength, setChapterContentLength] = useState(0);
     const [chapterContent, setChapterContent] = useState("");
     const [confirmation , setConfirmation] = useState(false);
+    const [chapterTitle, setChapterTitle] = useState("");
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -108,7 +109,7 @@ export default function NovelWorkSpace() {
             "Accept": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ bookId: bookId, chapterContent: document.getElementById("novelWorkspaceChapterInputText").value }),
+          body: JSON.stringify({ bookId: bookId, chapterContent: chapterContent, chapterTitle: chapterTitle, chapterNumber: bookInfo[0].totalpages + 1 }),
         });
         const response = await res.json();
         if (response.message === "success") {
@@ -127,37 +128,40 @@ export default function NovelWorkSpace() {
     }
 
     return (
-        <>  
-            {isLoaded ?
-                <>
-                {validUser === true && bookInfo.length > 0 ?
-                    <>
-                        <h2 id="novelWorkShopTitle">{bookTitle}</h2>
-                        <div id="novelWorkShopContainer">
-                            <p id="novelWorkSpaceTotalChapters">{viewingMode === "viewChapters" ? `Chapters: ${bookInfo[0].totalpages === null ? 0 : bookInfo[0].totalpages}` : null}</p>
-                            <button id="novelWorkspaceNewChapterButton" onClick={() => setViewingMode(viewingMode === "viewChapters" ? "newChapter" : "viewChapters")}>
-                              {viewingMode === "viewChapters" ? "Make New Chapter" : "View All Chapters"}
-                            </button>
-                            <div id="novelWorkspaceViewingContainer">
-                              {
-                                viewingMode === "viewChapters" ? 
-                                <h2>View Chapters</h2>
-                               : viewingMode === "newChapter" ? 
-                               <CreateChapter
-                                  chapterContentLength={chapterContentLength}
-                                  handleTextAreaLength={handleTextAreaLength}
-                                  publishChapter={publishChapter}
-                                  setConfirmation={setConfirmation}
-                                  confirmation={confirmation}
-                               />
-                               : null
-                              }
-                            </div>
-                        </div>
-                    </>
-                    : <h2>Invalid Token</h2>}
-                </>
-            : null}       
-        </>
+      <>  
+        {isLoaded ?
+          <>
+            {validUser === true && bookInfo.length > 0 ?
+              <>
+                <h2 id="novelWorkShopTitle">{bookTitle}</h2>
+                  <div id="novelWorkShopContainer">
+                    <p id="novelWorkSpaceTotalChapters">{viewingMode === "viewChapters" ? `Chapters: ${bookInfo[0].totalpages === null ? 0 : bookInfo[0].totalpages}` : null}</p>
+                      <button id="novelWorkspaceNewChapterButton" onClick={() => setViewingMode(viewingMode === "viewChapters" ? "newChapter" : "viewChapters")}>
+                        {viewingMode === "viewChapters" ? "Make New Chapter" : "View All Chapters"}
+                      </button>
+                      <div id="novelWorkspaceViewingContainer">
+                      {
+                      viewingMode === "viewChapters" ? 
+                      <div id="novelWorkspaceViewChapters">
+                                  
+                      </div>
+                      : viewingMode === "newChapter" ? 
+                      <CreateChapter
+                        chapterContentLength={chapterContentLength}
+                        handleTextAreaLength={handleTextAreaLength}
+                        publishChapter={publishChapter}
+                        setConfirmation={setConfirmation}
+                        confirmation={confirmation}
+                        handleTitleChange={(e) => setChapterTitle(e.target.value)}
+                      />
+                      : null
+                      }
+                    </div>
+                </div>
+               </>
+            : <h2>Invalid Token</h2>}
+           </>
+      : null}       
+    </>
     );
 }
