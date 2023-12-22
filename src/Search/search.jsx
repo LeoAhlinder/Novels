@@ -27,7 +27,6 @@ const SearchBar = () =>{
     const [books,newBooks] = useState([])
     const [viewingBooks,SetViewing] = useState(false)
 
-
     useEffect(() =>{
             if (search.length === 0){
                 newBooks([])
@@ -47,22 +46,20 @@ const SearchBar = () =>{
                             },
                             body:JSON.stringify({data:search})
                         });
-                    
-                        if (res.ok){
-                            const response = await res.json();
-                            if (response.books){
-                                newBooks(response.books)
+                            if (res.ok){
+                                const response = await res.json();
+                                if (response.books){
+                                    newBooks(response.books)
+                                }
+                                else if (response.empty){
+                                    newBooks([])
+                                }
                                 SetViewing(true)
+
                             }
-                            else if (response.empty){
-                                newBooks([])
-                                SetViewing(true)
+                            if (res.error === "error"){
+                                navigate("/error")
                             }
-                        }
-                        if (res.error === "error"){
-                            navigate("/error")
-                        }
-  
                         }
                     }catch(err){
                         navigate("/error")
@@ -99,7 +96,6 @@ const SearchBar = () =>{
                     goToBook={goToBook}
                     bookCoverImages={bookCoverImages}
                     noBooksFoundText="No books with that title were found"
-                    viewingBooks={viewingBooks}
                 /> 
                 : ""}
             </ul>
