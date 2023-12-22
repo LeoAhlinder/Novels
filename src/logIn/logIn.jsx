@@ -83,7 +83,7 @@ const LogIn = () =>{
         }
     }
 
-    function checkEmail(email){
+    const checkEmail = (email) => {
         if (validator.validate(email) === true){
             return true
         }
@@ -92,7 +92,7 @@ const LogIn = () =>{
         }
     }
 
-    function checkInputFields(){
+    const checkInputFields = () =>{
         const logIns = inputFields.map((i) => document.getElementById(i.id).value);
         const missingList = inputFields
         .map((field, index) => (logIns[index].trim() === '' ? field.placeholder : ''))
