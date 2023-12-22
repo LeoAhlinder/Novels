@@ -62,8 +62,6 @@ const Home = () => {
 
   return (
     <>  
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
         <div id="introHeader">
           <h2 className="introText">Welcome to your online library!</h2>
           <h3 className="introText">A place to create and read novels online for free.</h3>
