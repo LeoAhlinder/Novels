@@ -28,14 +28,6 @@ export default function NovelWorkSpace() {
     const [chapterTitle, setChapterTitle] = useState("");
 
     useEffect(() => {
-        const timer = setTimeout(() => {
-        setIsLoaded(true);
-        }, 100); 
-    
-        return () => clearTimeout(timer); 
-    }, []);
-
-    useEffect(() => {
         async function checkIfUserValid() {
           try {
             const token = Cookies.get("authToken");
@@ -90,6 +82,7 @@ export default function NovelWorkSpace() {
                 setBookInfo([]);
                 navigate("/error");
               }
+              setIsLoaded(true)
             } catch (error) {
                 navigate("/error");
             }
