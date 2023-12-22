@@ -22,6 +22,7 @@ const Home = () => {
   };
 
   const [latestBooks, setLatestBooks] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate()
 
   ChangeDocumentTitle("Light Novels")
@@ -44,6 +45,7 @@ const Home = () => {
           }else{
             setLatestBooks(response.books); 
           }
+          setIsLoaded(true)
         }
         else{
           navigate("/error")
@@ -62,6 +64,8 @@ const Home = () => {
 
   return (
     <>  
+      {isLoaded ?
+      <>
         <div id="introHeader">
           <h2 className="introText">Welcome to your online library!</h2>
           <h3 className="introText">A place to create and read novels online for free.</h3>
@@ -73,7 +77,8 @@ const Home = () => {
           goToBook={goToBook} 
           bookCoverImages={bookCoverImages} 
           noBooksFoundText="We had an error fetching the books; please try again!"
-        />
+        /> 
+      </> : null}
     </>
   );
 };
