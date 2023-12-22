@@ -86,7 +86,7 @@ const Header = () => {
         <header className='layers'>
             <div className="container"> 
                 <nav className="navbar" id='nav-menu'>
-                    <Link href="/" className="nav-branding">Novels</Link>
+                    <Link to="/" className="nav-branding">Novels</Link>
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li className="nav-item">
                             <Link className='nav-link' to='/popular' onClick={closeMenu}>Most Popular</Link>
