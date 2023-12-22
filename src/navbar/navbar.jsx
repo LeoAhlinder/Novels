@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./navbarStyle.css"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Cookies from 'js-cookie'
 
 const Header = () => {
@@ -10,6 +10,7 @@ const Header = () => {
 
     useEffect(() => {
         (async () => {
+            console.log("useEffect")
           const tok = await checkToken();
           if (tok === "valid"){
             setLoggedIn(true)
@@ -18,9 +19,8 @@ const Header = () => {
             setLoggedIn(false)
           }
         })();
-      });
+    });
       
-
     const checkToken = async () => {
         try {
             const token = Cookies.get("authToken");
@@ -50,8 +50,6 @@ const Header = () => {
         }
     };
 
-
-
     const profileButtonClicked = async () =>{
         const token = await checkToken()
         closeMenu()
@@ -61,7 +59,6 @@ const Header = () => {
         else{
             navigate("login")
         }
-
     }
 
     const create = () =>{
@@ -89,16 +86,16 @@ const Header = () => {
         <header className='layers'>
             <div className="container"> 
                 <nav className="navbar" id='nav-menu'>
-                    <a href="/" className="nav-branding">Novels</a>
+                    <Link href="/" className="nav-branding">Novels</Link>
                     <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
                         <li className="nav-item">
-                            <a className='nav-link' href='/popular' onClick={closeMenu}>Most Popular</a>
+                            <Link className='nav-link' to='/popular' onClick={closeMenu}>Most Popular</Link>
                         </li>
                         <li className="nav-item">
                             <button className="nav-link" onClick={create}>Create</button>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href='/search' onClick={closeMenu}>Search</a>
+                            <Link className="nav-link" to='/search' onClick={closeMenu}>Search</Link>
                         </li>
                         <li className="nav-item">
                             <button className='nav-link' onClick={profileButtonClicked}>
