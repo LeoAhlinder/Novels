@@ -20,6 +20,7 @@ import ErrorSite from "./errorSite/errorSite";
 import ChapterSelection from "./chapterSelection/chapterSelection";
 import Workspace from "./Create/Workspace/Workspace";
 import NovelWorkSpace from "./Create/Workspace/novelWorkSpace/novelWorkSpace";
+import UnkownPage from "./404Site/unknown";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
@@ -102,6 +103,8 @@ const App = () => {
                 <Route path="/adminpanel" element={<AdminPanel />} />
                 /* Error Site */
                 <Route path="/error" element={<ErrorSite />} />
+
+                <Route path="*" element={<UnkownPage />} />
               </Routes>
             </>
           ) : (

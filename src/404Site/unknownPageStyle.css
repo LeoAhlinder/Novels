@@ -1,0 +1,17 @@
+.unknownPageContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+}
+
+#unknownPageHomepageButton{
+    width: 10%;
+    background-color: rgb(51, 54, 56);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+#unknownPageHomepageButton:hover{
+    background-color: rgba(51, 54, 56, 0.705);
+}
