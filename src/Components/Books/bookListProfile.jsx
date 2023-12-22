@@ -1,22 +1,8 @@
-import React , {useState,useEffect} from "react";
+import React from "react";
 
 const BookList = ({books,openBook,bookCoverImages,showPageProgress,showText,textIfEmpty}) => {
 
-
-    const [isLoaded, setIsLoaded] = useState(false);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-        setIsLoaded(true);
-        }, 200);
-    
-        return () => clearTimeout(timer);
-    }, []);
-
-
     return(
-        <>
-        {isLoaded ? (
         <>
             <div id="tableHeadContainer">
                 <div id="tableHead">
@@ -52,8 +38,6 @@ const BookList = ({books,openBook,bookCoverImages,showPageProgress,showText,text
             )
             }
             </div>
-        </>
-        ) : null}
     </>
     );
 }

@@ -23,6 +23,7 @@ const Library = () => {
   ChangeDocumentTitle("Library")
 
   const [books, setBooks] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const navigate = useNavigate();
 
@@ -46,6 +47,7 @@ const Library = () => {
         } else {
           setBooks("error");
         }
+        setIsLoaded(true)
       } catch (err) {
         navigate("/error")
       }
@@ -54,21 +56,30 @@ const Library = () => {
     userLibrary();
   }, []);
 
-  return (
-   <BookList
-    books={books}
-    openBook={openBook}
-    bookCoverImages={bookCoverImages}
-    showPageProgress={true}
-    textIfEmpty="Add your favorite books to your library so you never forget them!"
-   />
-  );
-
-
-  function openBook(book){
+  const openBook = (book) => {
     navigate({pathname:"/book",search:`?id=${book.bookid}`})
   }
 
+  return (
+    <>
+      {isLoaded ? 
+        <BookList
+          books={books}
+          openBook={() => openBook}
+          bookCoverImages={bookCoverImages}
+          showPageProgress={true}
+          textIfEmpty="Add your favorite books to your library so you never forget them!"
+          isLoaded={isLoaded}
+        /> 
+        : 
+        null
+    }
+  
+    
+    
+    </>
+  
+  );
 };
 
 export default Library;
