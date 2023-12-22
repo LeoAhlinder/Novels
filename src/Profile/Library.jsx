@@ -56,7 +56,7 @@ const Library = () => {
     userLibrary();
   }, []);
 
-  const openBook = (book) => {
+  function openBook (book){
     navigate({pathname:"/book",search:`?id=${book.bookid}`})
   }
 
@@ -65,7 +65,7 @@ const Library = () => {
       {isLoaded ? 
         <BookList
           books={books}
-          openBook={() => openBook}
+          openBook={openBook}
           bookCoverImages={bookCoverImages}
           showPageProgress={true}
           textIfEmpty="Add your favorite books to your library so you never forget them!"
@@ -74,11 +74,7 @@ const Library = () => {
         : 
         null
     }
-  
-    
-    
     </>
-  
   );
 };
 
