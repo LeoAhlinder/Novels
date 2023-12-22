@@ -30,6 +30,12 @@ const CreateNew = () =>{
     const [alertColor,changeAlertColor] = useState({})
     const [selectedPicture,changePicture] = useState("")
 
+    const genres = [
+        'Select', 'Mystery', 'Romance', 'Science Fiction', 'Fantasy', 'Thriller',
+        'Historical Fiction', 'Non-Fiction', 'Biography', 'Self-Help', 'Horror',
+        'Adventure', 'Dystopian', 'Young Adult', 'Memoir', 'Comedy', 'Sport', 'Games'
+    ];
+
     const handleInputChangeBookName = (e) => {
         changeTitleLength(e.target.value.length)
         changeBookName(e.target.value)
@@ -198,24 +204,7 @@ const CreateNew = () =>{
                     value={genre} 
                     onChange={handleGenreChange}
                 >
-                    <option value="Select">Select</option>
-                    <option value="Mystery">Mystery</option>
-                    <option value="Romance">Romance</option>
-                    <option value="Science Fiction">Science Fiction</option>
-                    <option value="Fantasy">Fantasy</option>
-                    <option value="Thriller">Thriller</option>§
-                    <option value="Historical Fiction">Historical Fiction</option>
-                    <option value="Non-Fiction">Non-Fiction</option>
-                    <option value="Biography">Biography</option>
-                    <option value="Self-Help">Self-Help</option>
-                    <option value="Horror">Horror</option>
-                    <option value="Adventure">Adventure</option>
-                    <option value="Dystopian">Dystopian</option>
-                    <option value="Young Adult">Young Adult</option>
-                    <option value="Memoir">Memoir</option>
-                    <option value="Comedy">Comedy</option>
-                    <option value="Sport">Sport</option>
-                    <option value="Games">Games</option>
+                    {genres.map((genre, index) => <option key={index} value={genre}>{genre}</option>)}
                 </select>
 
                 <label htmlFor="Language" className="Label">Language</label>
