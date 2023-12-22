@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./mostPopularStyle.css"
-import fantasy from "../Pictures/fantasy.webp"
 import Cookies from 'js-cookie'
 import { useNavigate } from "react-router";
 import setCookie from "../Global/setCookie";
@@ -16,14 +15,6 @@ const MostPopular  = () =>{
 
     const [isLoaded, setIsLoaded] = useState(false);
 
-    useEffect(() => {
-        const timer = setTimeout(() => {
-        setIsLoaded(true);
-        }, 100); // 100 milliseconds = 0.1 seconds
-    
-        return () => clearTimeout(timer); // Clean up the timer
-    }, []);
-
     const bookCoverImages = {
         Moon: Moon,
         Forest: forest,
@@ -34,73 +25,72 @@ const MostPopular  = () =>{
     ChangeDocumentTitle("Most Popular")
 
     const [books,setBooks] = useState([])
+    const [type,setType] = useState("overall") 
+
     const navigate = useNavigate()
 
     useEffect(()=>{
-        ranking()
-    },[])
 
-    const ranking = async (type) =>{
+        const ranking = async () =>{
 
-        if (Cookies.get("books")){
-
-            let cookieValue = document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('books='))
-                    .split('=')[1];
-
-            let retrievedArray = JSON.parse(cookieValue);
-            setBooks(retrievedArray)
-        }
-        else{
-            try{
-
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/ranking?type=${type}`,{
-                    method:"GET",
-                    headers:{
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                    }
-                });
-                if (res.ok){
-                    const response = await res.json();
-                    if (response.error === "error"){ 
-                        setBooks([])
-                        return
-                    }
-                    if (response.books.length === 0){ //No books found
-                        setBooks([])
+            if (Cookies.get("books")){
+    
+                let cookieValue = document.cookie
+                        .split('; ')
+                        .find(row => row.startsWith('books='))
+                        .split('=')[1];
+    
+                let retrievedArray = JSON.parse(cookieValue);
+                setBooks(retrievedArray)
+                setIsLoaded(true)
+            }
+            else{
+                try{
+                    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/ranking?type=${type}`,{
+                        method:"GET",
+                        headers:{
+                            "Content-Type": "application/json",
+                            "Accept": "application/json",
+                        }
+                    });
+                    if (res.ok){
+                        const response = await res.json();
+                        if (response.error === "error"){ 
+                            setBooks([])
+                        }
+                        else if (response.books.length === 0){
+                            setBooks([])
+                        }
+                        else{
+                            setBooks(response.books)    
+                            setCookie("books",response.books,3) //Name,data,expire date in hours
+                        }
+                        setIsLoaded(true)
                     }
                     else{
-                        setBooks(response.books)    
-                        setCookie("books",response.books,3) //Name,data,expire date in hours
+                        navigate("/error")
                     }
                 }
-                else{
+                catch(err){
                     navigate("/error")
                 }
             }
-            catch(err){
-                navigate("/error")
-            }
         }
-    }
-
-
+        ranking()
+    },[type])
 
     const goToBook = (book) =>{
         navigate({pathname:"/book",search:`?id=${book.bookid}`})
-      }
-    
+    }
 
     return(
         <>  {isLoaded ? (
                 <div className="containerPopular">
                     <div className="categories">
                         <div className="button-container">
-                            <button className="category-button" onClick={() => ranking("overall")}>Overall Ranking</button>
-                            <button className="category-button" onClick={() => ranking("collections")}>Collections</button>
-                            <button className="category-button" onClick={() => ranking("rating")}>Rating</button>
+                            <button className="category-button" onClick={() => setType("overall")}>Overall Ranking</button>
+                            <button className="category-button" onClick={() => setType("collections")}>Collections</button>
+                            <button className="category-button" onClick={() => setType("rating")}>Rating</button>
                         </div>
                             
                     </div>
