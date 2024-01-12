@@ -10,7 +10,7 @@ const BookListGrid = ({books,goToBook,bookCoverImages,noBooksFoundText}) => {
                     {books.map((book, index) => (
                         <li key={index} className="gridItem">
                         <div onClick={() => goToBook(book)} className="book">
-                            <img src={bookCoverImages[book.bookcover]} alt={book.bookcover} className="bookCover"/>
+                            <img src={bookCoverImages[book.bookcover]} alt={bookCoverImages[book.bookcover]} className="bookCover"/>
                             <p id="bookTitle">{book.title}<br/><span>Chapters: {book.totalpages === null ? "0" : book.totalpages}</span></p>
                         </div>
                         </li>
