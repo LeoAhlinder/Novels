@@ -152,7 +152,7 @@ export default function NovelWorkSpace() {
                     </div>
                 </div>
                </>
-            : <h2>Invalid Token</h2>}
+            : <h2>Invalid User</h2>}
            </>
       : null}       
     </>

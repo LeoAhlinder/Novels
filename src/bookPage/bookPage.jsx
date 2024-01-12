@@ -51,7 +51,6 @@ const BookPage = () =>{
                     setBookInfo(response.data)
                     setauthor(response.author[0].userName)
                     setID(response.data[0].bookid)
-                    console.log(response.data[0].bookcover)
                     ChangeDocumentTitle(response.data[0].title + " - Book Page")
                 }else{
                     navigate("/error")
