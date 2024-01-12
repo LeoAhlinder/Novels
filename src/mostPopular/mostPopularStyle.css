@@ -4,7 +4,7 @@
     margin: 0 auto;
     padding: 20px;
     height: calc(100% + 100px);  
-    border-radius: 7px 7px 0px 0px;
+    border-radius: 7px;
 }
 
 .categories {
