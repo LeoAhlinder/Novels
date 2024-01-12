@@ -10,7 +10,6 @@ const Header = () => {
 
     useEffect(() => {
         (async () => {
-            console.log("useEffect")
           const tok = await checkToken();
           if (tok === "valid"){
             setLoggedIn(true)
