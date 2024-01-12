@@ -13,7 +13,6 @@ import BookList from "../../Components/Books/bookListProfile";
 
 const NovelCreated = () =>{
 
-
     const bookCoverImages = {
         Moon: Moon,
         Forest: forest,

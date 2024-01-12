@@ -661,23 +661,66 @@ app.post("/api/publishChapter", ensureToken, function (req, res) {
     }
     const bookId = req.body.bookId;
     const chapterContent = req.body.chapterContent;
-    const currentChapter = req.body.currentChapter;
+    const currentChapter = req.body.chapterNumber;
     const chapterTitle = req.body.chapterTitle;
 
     const query =
-      "INSERT INTO chapters VALUES (bookid,chapterNumber,chapterText,chapterTitle) VALUES (?,?,?,?)";
+      "INSERT INTO chapters (bookid,chapterNumber,chapterText,chapterTitle) VALUES (?,?,?,?)";
 
     connection.query(
       query,
       [bookId, currentChapter, chapterContent, chapterTitle],
       function (err, results) {
+        console.log(err);
         if (err) {
           res.json({ message: "error" });
         } else {
+          res.json({ message: "success" });
         }
       }
     );
   });
 });
+
+app.get("/api/chapters/:bookName", ensureToken, async (req, res) => {
+  const { bookName } = req.params;
+
+  try {
+    const chapters = await fetchChaptersFromDataSource(bookName);
+
+    if (chapters === "Error") {
+      res.status(500).json({ message: "Internal server error" });
+      return;
+    }
+
+    res.json({ data: chapters });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+function fetchChaptersFromDataSource(bookName) {
+  connection.query(
+    "SELECT bookid FROM books WHERE title = ?",
+    [bookName],
+    function (err, results) {
+      if (err) {
+        return "Error";
+      } else {
+        const bookId = results[0].bookid;
+        const query =
+          "SELECT chapterNumber, chapterTitle FROM chapters WHERE bookid = ?";
+        connection.query(query, [bookId], function (err, results) {
+          if (err) {
+            return "Error";
+          } else {
+            return { data: results };
+          }
+        });
+      }
+    }
+  );
+}
 
 module.exports = app;
