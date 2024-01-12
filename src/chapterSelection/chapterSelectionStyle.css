@@ -1,7 +1,31 @@
 #chaptersContainer{
-    width: 60vw;
-    height: 90vh;
-    background-color: red;
-    margin: 0 auto;
-    margin-top: 3%;
+    width: 80em;
+    height: 75em;
+    background-color: rgb(38, 40, 41);
+    margin: 3% auto;
+    border-radius: 10px;
+    display:grid;
+    grid-template-columns: auto auto;
+    align-content: start;
+    padding: 2%;
+}
+
+#chapterItem{
+    height: auto;
+    padding: 10px;
+    margin: 3px;
+    background-color: transparent;
+    color: white;
+    border-top: 1px solid rgb(201, 196, 196);
+}
+
+#chapterItem:last-child,
+#chapterItem:nth-last-child(2) {
+    border-bottom: 1px solid rgb(201, 196, 196);
+}
+
+#chapterItem:hover{
+    background-color: rgb(201, 196, 196);
+    color: black;
+    cursor: pointer;
 }

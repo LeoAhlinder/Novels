@@ -5,12 +5,15 @@ import "./novelWorkSpaceStyle.css";
 
 import Cookies from "js-cookie";
 import ChangeDocumentTitle from "../../../Global/changeDocumentTitle";
+import { rgb } from "polished";
 
 import CreateChapter from "../../../Components/novelWorkspace/createNewChapter"
 
 export default function NovelWorkSpace() {
 
     const navigate = useNavigate();
+
+    const alertMessageColor = "red"
 
     const bookNameEdited = window.location.pathname.split("/")[2];
     const bookTitle = window.location.pathname.split("/")[2].replaceAll("-", " ");
@@ -26,6 +29,8 @@ export default function NovelWorkSpace() {
     const [chapterContent, setChapterContent] = useState("");
     const [confirmation , setConfirmation] = useState(false);
     const [chapterTitle, setChapterTitle] = useState("");
+
+    const [alertMessage, setAlertMessage] = useState("");
 
     useEffect(() => {
         async function checkIfUserValid() {
@@ -105,8 +110,13 @@ export default function NovelWorkSpace() {
           body: JSON.stringify({ bookId: bookId, chapterContent: chapterContent, chapterTitle: chapterTitle, chapterNumber: bookInfo[0].totalpages + 1 }),
         });
         const response = await res.json();
-        if (response.message === "success") {
-          navigate(`/novel/${bookNameEdited}`);
+        if (response.error){
+          setAlertMessage(`${response.error}`)
+          setAlertMessageColor("rgb(202, 82, 82)")
+        }
+        else if (response.message === "success") {
+          setAlertMessage("Chapter Published")
+          setAlertMessageColor("Green")
         } else {
           navigate("/error");
         }
@@ -128,6 +138,7 @@ export default function NovelWorkSpace() {
               <>
                 <h2 id="novelWorkShopTitle">{bookTitle}</h2>
                   <div id="novelWorkShopContainer">
+                    <p id="novelWorkShopAlertMessage" style={{color:alertMessageColor}}>{alertMessage}</p>
                     <p id="novelWorkSpaceTotalChapters">{viewingMode === "viewChapters" ? `Chapters: ${bookInfo[0].totalpages === null ? 0 : bookInfo[0].totalpages}` : null}</p>
                       <button id="novelWorkspaceNewChapterButton" onClick={() => setViewingMode(viewingMode === "viewChapters" ? "newChapter" : "viewChapters")}>
                         {viewingMode === "viewChapters" ? "Make New Chapter" : "View All Chapters"}

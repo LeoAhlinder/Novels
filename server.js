@@ -659,6 +659,22 @@ app.post("/api/publishChapter", ensureToken, function (req, res) {
     if (err) {
       res.sendStatus(403);
     }
+
+    if (req.body.chapterContent.length > 50000) {
+      res.json({ error: "To long chapter" });
+      return;
+    } else if (req.body.chapterContent.length < 2500) {
+      res.json({ error: "To short chapter" });
+      return;
+    }
+    if (req.body.chapterTitle.length > 25) {
+      res.json({ error: "To long title" });
+      return;
+    } else if (req.body.chapterTitle.length < 5) {
+      res.json({ error: "To short title" });
+      return;
+    }
+
     const bookId = req.body.bookId;
     const chapterContent = req.body.chapterContent;
     const currentChapter = req.body.chapterNumber;
@@ -671,7 +687,6 @@ app.post("/api/publishChapter", ensureToken, function (req, res) {
       query,
       [bookId, currentChapter, chapterContent, chapterTitle],
       function (err, results) {
-        console.log(err);
         if (err) {
           res.json({ message: "error" });
         } else {
@@ -692,6 +707,7 @@ app.get("/api/chapters/:bookName", ensureToken, async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
       return;
     }
+    console.log(chapters);
 
     res.json({ data: chapters });
   } catch (error) {
@@ -710,12 +726,13 @@ function fetchChaptersFromDataSource(bookName) {
       } else {
         const bookId = results[0].bookid;
         const query =
-          "SELECT chapterNumber, chapterTitle FROM chapters WHERE bookid = ?";
+          "SELECT chapterNumber, chapterTitle,chapterText FROM chapters WHERE bookid = ?";
         connection.query(query, [bookId], function (err, results) {
           if (err) {
             return "Error";
           } else {
-            return { data: results };
+            console.log(results);
+            return results;
           }
         });
       }
