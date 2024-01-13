@@ -116,8 +116,9 @@ export default function NovelWorkSpace() {
         else if (response.message === "success") {
           setAlertMessage("Chapter Published")
           setAlertMessageColor("Green")
-          // setChapterContent("");
-          // setChapterTitle("");
+          setChapterContent("");
+          setChapterTitle("");
+          setChapterContentLength(0);
           setConfirmation(false);
           setCurrentSessionChapter(Number(currentSessionChapter) + 1);
         }else if (response.message === "error"){
@@ -164,6 +165,8 @@ export default function NovelWorkSpace() {
                         setConfirmation={setConfirmation}
                         confirmation={confirmation}
                         handleTitleChange={(e) => setChapterTitle(e.target.value)}
+                        chapterContent={chapterContent}
+                        titleContent={chapterTitle}
                       />
                       : null
                       }
