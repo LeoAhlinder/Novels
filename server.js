@@ -148,20 +148,16 @@ function bookData(id) {
 app.post("/api/createaccount", function (req, res) {
   const data = req.body;
 
-  //Check if user exist already
-
   connection.query(
     "SELECT * FROM users WHERE userEmail = ? OR userName = ?",
     [data.email, data.username],
     function (error, results) {
       if (error) {
-        // Handle the error
         console.error("Error executing query:", error);
         res.status(500).json({ error: "An error occurred." });
         return;
       }
       if (results.length > 0) {
-        // User with the provided email or username already exists
         const existingUser = results[0];
         if (
           existingUser.userEmail === data.email &&
@@ -625,13 +621,13 @@ app.post("/api/checkOwnerOfBook", ensureToken, function (req, res) {
       const bookTitle = req.body.bookName.replaceAll("-", " ");
 
       const query =
-        "SELECT author, bookid FROM lightnovelonline.books WHERE title = ?";
+        "SELECT author, bookid,totalpages FROM lightnovelonline.books WHERE title = ?";
       connection.query(query, [bookTitle], function (err, results) {
         if (err) {
           console.log(err);
         } else {
           if (results[0].author === userId) {
-            res.json({ message: "valid", bookId: results[0].bookid });
+            res.json({ message: "valid", bookId: results[0].bookid, totalpages: results[0].totalpages});
           } else {
             res.json({ message: "invalid" });
           }
@@ -670,7 +666,7 @@ app.post("/api/publishChapter", ensureToken, function (req, res) {
     if (req.body.chapterTitle.length > 25) {
       res.json({ error: "To long title" });
       return;
-    } else if (req.body.chapterTitle.length < 5) {
+    } else if (req.body.chapterTitle.length < 1) {
       res.json({ error: "To short title" });
       return;
     }
@@ -690,12 +686,29 @@ app.post("/api/publishChapter", ensureToken, function (req, res) {
         if (err) {
           res.json({ message: "error" });
         } else {
-          res.json({ message: "success" });
+          if (addChapterNumber(bookId, currentChapter) === "Error") {
+            res.json({ message: "error" });
+          }else{
+            res.json({ message: "success" });
+          }
         }
       }
     );
   });
 });
+
+function addChapterNumber(bookId, chapterNumber) {
+  const query =
+    "UPDATE books SET totalpages = ? WHERE bookid = ?";
+
+  connection.query(query, [chapterNumber,bookId], function (err, results) {
+    if (err) {
+      return "Error"
+    } else {
+      return "Success"
+    }
+  });
+}
 
 app.get("/api/chapters/:bookName", ensureToken, async (req, res) => {
   const { bookName } = req.params;

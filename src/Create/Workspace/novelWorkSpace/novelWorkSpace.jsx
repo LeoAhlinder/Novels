@@ -12,12 +12,12 @@ export default function NovelWorkSpace() {
 
     const navigate = useNavigate();
 
-    const alertMessageColor = "red"
-
     const bookNameEdited = window.location.pathname.split("/")[2];
     const bookTitle = window.location.pathname.split("/")[2].replaceAll("-", " ");
 
     ChangeDocumentTitle(`Novel Workspace | ${bookNameEdited}`)
+
+    const [currentSessionChapter, setCurrentSessionChapter] = useState(0);
 
     const [validUser, setValidUser] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
@@ -30,6 +30,7 @@ export default function NovelWorkSpace() {
     const [chapterTitle, setChapterTitle] = useState("");
 
     const [alertMessage, setAlertMessage] = useState("");
+    const [alertMessageColor,setAlertMessageColor] = useState("");
 
     useEffect(() => {
         async function checkIfUserValid() {
@@ -51,6 +52,7 @@ export default function NovelWorkSpace() {
               if (response.message === "valid") {
                 setValidUser(true);
                 setBookId(response.bookId)
+                setCurrentSessionChapter(response.totalpages);
               } else {
                 setValidUser(false);
               }
@@ -58,7 +60,6 @@ export default function NovelWorkSpace() {
               navigate("/error");
             }
           } catch (error) {
-            console.error(error);
             navigate("/error");
           }
         }
@@ -96,7 +97,6 @@ export default function NovelWorkSpace() {
     }, [validUser]);
 
     const publishChapter = async () => {
-      console.log("publishing chapter")
       const token = Cookies.get("authToken");
       try {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/publishChapter`, {
@@ -106,7 +106,7 @@ export default function NovelWorkSpace() {
             "Accept": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ bookId: bookId, chapterContent: chapterContent, chapterTitle: chapterTitle, chapterNumber: bookInfo[0].totalpages + 1 }),
+          body: JSON.stringify({ bookId: bookId, chapterContent: chapterContent, chapterTitle: chapterTitle, chapterNumber: currentSessionChapter + 1 }),
         });
         const response = await res.json();
         if (response.error){
@@ -116,11 +116,19 @@ export default function NovelWorkSpace() {
         else if (response.message === "success") {
           setAlertMessage("Chapter Published")
           setAlertMessageColor("Green")
-        } else {
+          // setChapterContent("");
+          // setChapterTitle("");
+          setConfirmation(false);
+          setCurrentSessionChapter(Number(currentSessionChapter) + 1);
+        }else if (response.message === "error"){
+          setAlertMessage("Something went wrong, please try again later")
+          setAlertMessageColor("rgb(202, 82, 82)")
+        }
+        else {
           navigate("/error");
         }
       } catch (error) {
-          navigate("/error");
+        navigate("/error");
       }
     }
 
