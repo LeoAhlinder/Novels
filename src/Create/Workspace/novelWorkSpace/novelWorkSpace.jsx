@@ -5,7 +5,6 @@ import "./novelWorkSpaceStyle.css";
 
 import Cookies from "js-cookie";
 import ChangeDocumentTitle from "../../../Global/changeDocumentTitle";
-import { rgb } from "polished";
 
 import CreateChapter from "../../../Components/novelWorkspace/createNewChapter"
 

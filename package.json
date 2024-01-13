@@ -25,7 +25,6 @@
     "package-lock.json": "^1.0.0",
     "parser": "^0.1.4",
     "path": "^0.12.7",
-    "polished": "^4.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-responsive": "^9.0.2",
