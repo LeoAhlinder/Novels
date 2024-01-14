@@ -729,26 +729,28 @@ app.get("/api/chapters/:bookName", ensureToken, async (req, res) => {
 });
 
 function fetchChaptersFromDataSource(bookName) {
-  connection.query(
-    "SELECT bookid FROM books WHERE title = ?",
-    [bookName],
-    function (err, results) {
-      if (err) {
-        return "Error";
-      } else {
-        const bookId = results[0].bookid;
-        const query =
-          "SELECT chapterNumber, chapterTitle,chapterText FROM chapters WHERE bookid = ?";
-        connection.query(query, [bookId], function (err, results) {
-          if (err) {
-            return "Error";
-          } else {
-            return results;
-          }
-        });
+  return new Promise((resolve, reject) => {
+    connection.query(
+      "SELECT bookid FROM books WHERE title = ?",
+      [bookName],
+      function (err, results) {
+        if (err) {
+          reject("Error");
+        } else {
+          const bookId = results[0].bookid;
+          const query =
+            "SELECT chapterNumber, chapterTitle,chapterText FROM chapters WHERE bookid = ?";
+          connection.query(query, [bookId], function (err, results) {
+            if (err) {
+              reject("Error");
+            } else {
+              resolve(results);
+            }
+          });
+        }
       }
-    }
-  );
+    );
+  });
 }
 
 module.exports = app;
