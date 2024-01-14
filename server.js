@@ -720,7 +720,6 @@ app.get("/api/chapters/:bookName", ensureToken, async (req, res) => {
       res.status(500).json({ message: "Internal server error" });
       return;
     }
-    console.log(chapters);
 
     res.json({ data: chapters });
   } catch (error) {
@@ -744,7 +743,6 @@ function fetchChaptersFromDataSource(bookName) {
           if (err) {
             return "Error";
           } else {
-            console.log(results);
             return results;
           }
         });
