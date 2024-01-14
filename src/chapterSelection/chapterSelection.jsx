@@ -10,13 +10,14 @@ const ChapterSelection = () => {
     ChangeDocumentTitle("Chapter Selection" + " | " + `${bookName}`);
 
     const [chapters,setChapters] = useState([]);
+    const [loading,setLoading] = useState(true);
 
     useEffect(() => {
 
         const token = Cookies.get("authToken");
 
         const fetchChapters = async () => {
-          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/Chapters/${bookName}
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapters/${bookName}
           `, {
             method: "GET",
             headers: {
@@ -28,31 +29,29 @@ const ChapterSelection = () => {
           const response = await res.json();
           if (res.ok) {
             setChapters(response.data);
+            setLoading(false);
           } else {
             console.log(response.message);
+            setLoading(false);
           }
         };
-      
         fetchChapters(); 
     }, []);
 
-    useEffect(() => {
-        console.log(chapters)
-    }, [chapters]);
-
-
-
     return (
-        <>
-            <div id="chaptersContainer">
-                <li id="chapterItem">Yo</li>
-                <li id="chapterItem">Yo</li>
-                <li id="chapterItem">Yo</li>
-                <li id="chapterItem">Yo</li>
-
-                
-            </div>
-        </>
+<>
+  <div id="chaptersContainer">
+    {loading ? (
+      <p>Loading...</p>
+    ) : (
+      chapters.map((chapter, index) => (
+        <li key={index} id="chapterItem">
+          Chapter {chapter.chapterNumber}: {chapter.chapterTitle}
+        </li>
+      ))
+    )}
+  </div>
+</>
     );
 }
 
