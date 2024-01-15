@@ -50,8 +50,9 @@ const ChapterSelection = () => {
                 <p>Loading...</p>
             ) : (
                 chapters.map((chapter, index) => (
-                    <li key={index} id="chapterItem" style={chapters.length <= 2 ? { }:index === chapters.length - 1 ? {borderTop:chapterStylings.transparent} : {} ? chapters.length >= 4 ? index === 0 || index === 1 ? {} : {borderTop:chapterStylings.transparent} : {} : ""}>
-                    Chapter {chapter.chapterNumber}: {chapter.chapterTitle}
+                    <li key={index} id="chapterItem" style={chapters.length <= 2 ? {} :index === chapters.length - 1 ? {borderTop:chapterStylings.transparent} : {} ?
+                                                             chapters.length >= 4 ? index === 0 || index === 1 ? {} : {borderTop:chapterStylings.transparent} : {} : ""}>
+                        Chapter {chapter.chapterNumber}: {chapter.chapterTitle}
                     </li>
                 ))
             )}
