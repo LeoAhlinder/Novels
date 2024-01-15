@@ -18,7 +18,6 @@ const ChapterSelection = () => {
 
     const chapterStylings ={
         transparent: "1px solid transparent",
-        show: "1px solid rgb(201, 196, 196)"
     }
 
     useEffect(() => {
@@ -67,7 +66,7 @@ const ChapterSelection = () => {
                         id="chapterItem"
                         onClick={() => goToChapterPage(chapter.chapterNumber)}
                         style={
-                        chapters.length <= 2
+                        chapters.length <= 2 // Removes the bordertop if its not needed
                             ? {}
                             : index === chapters.length - 1
                             ? { borderTop: chapterStylings.transparent }
