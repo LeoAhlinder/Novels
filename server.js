@@ -459,7 +459,7 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
                   ],
                   function (err, results) {
                     if (err) {
-                      return res.json({ error: "error" });
+                      return res.json({ error: "Something went wrong" });
                     } else {
                       return res.json({ message: "New book inserted" });
                     }
