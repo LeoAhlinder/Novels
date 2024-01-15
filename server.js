@@ -292,7 +292,7 @@ app.post("/api/AddToLibrary", ensureToken, function (req, res) {
           console.log(error);
         } else {
           connection.query(
-            "UPDATE books SET totalinlibrary = totalinlibrary + 1 WHERE bookid = ?",
+            "UPDATE books SET totalinlibrary = COALESCE(totalinlibrary, 0) + 1 WHERE bookid = ?",
             [req.body.id],
             function (err, results) {
               if (err) {
@@ -627,7 +627,11 @@ app.post("/api/checkOwnerOfBook", ensureToken, function (req, res) {
           console.log(err);
         } else {
           if (results[0].author === userId) {
-            res.json({ message: "valid", bookId: results[0].bookid, totalpages: results[0].totalpages});
+            res.json({
+              message: "valid",
+              bookId: results[0].bookid,
+              totalpages: results[0].totalpages,
+            });
           } else {
             res.json({ message: "invalid" });
           }
@@ -688,7 +692,7 @@ app.post("/api/publishChapter", ensureToken, function (req, res) {
         } else {
           if (addChapterNumber(bookId, currentChapter) === "Error") {
             res.json({ message: "error" });
-          }else{
+          } else {
             res.json({ message: "success" });
           }
         }
@@ -698,14 +702,13 @@ app.post("/api/publishChapter", ensureToken, function (req, res) {
 });
 
 function addChapterNumber(bookId, chapterNumber) {
-  const query =
-    "UPDATE books SET totalpages = ? WHERE bookid = ?";
+  const query = "UPDATE books SET totalpages = ? WHERE bookid = ?";
 
-  connection.query(query, [chapterNumber,bookId], function (err, results) {
+  connection.query(query, [chapterNumber, bookId], function (err, results) {
     if (err) {
-      return "Error"
+      return "Error";
     } else {
-      return "Success"
+      return "Success";
     }
   });
 }
