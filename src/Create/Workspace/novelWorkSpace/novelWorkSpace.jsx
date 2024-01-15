@@ -106,7 +106,7 @@ export default function NovelWorkSpace() {
             "Accept": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify({ bookId: bookId, chapterContent: chapterContent, chapterTitle: chapterTitle, chapterNumber: currentSessionChapter + 1 }),
+          body: JSON.stringify({ bookId: bookId, chapterContent: chapterContent, chapterTitle: chapterTitle, chapterNumber: Number(currentSessionChapter + 1)}),
         });
         const response = await res.json();
         if (response.error){
