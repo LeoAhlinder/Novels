@@ -124,6 +124,9 @@ export default function NovelWorkSpace() {
         }else if (response.message === "error"){
           setAlertMessage("Something went wrong, please try again later")
           setAlertMessageColor("rgb(202, 82, 82)")
+        }else if (response.message === "To many chapters"){
+          setAlertMessage("You have reached the maximum amount of chapters for your novel")
+          setAlertMessageColor("rgb(202, 82, 82)")
         }
         else {
           navigate("/error");

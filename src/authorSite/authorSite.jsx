@@ -87,8 +87,8 @@ const AuthorSite = () =>{
             authorInfo.map((book,index) => (
                 <li key={index} className="authorBookItem" >
                     <h3 id="Title" onClick={() => goToBook(book)}>{book.title}</h3>
-                    <h4 className="bookInfo" id="Chapters">{book.totalpages != null ? book.totalpages : "0"} chapters</h4>
-                    <h4 className="bookInfo" id="totalInLibrary">{book.totalinlibrary === null ? 0 : book.totalinlibrary} bookmarks</h4>
+                    <h4 className="bookInfo" id="Chapters">{book.totalpages != null ? book.totalpages : "0"} Chapters</h4>
+                    <h4 className="bookInfo" id="totalInLibrary">{book.totalinlibrary === null ? 0 : book.totalinlibrary} Bookmarks</h4>
                     <h4 className="bookInfo" id="Genre">Genre: {book.genres}</h4>
                     <h4 className="bookInfo" id="PR" >PR: {book.warnings}</h4>
 

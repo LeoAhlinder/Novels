@@ -660,6 +660,25 @@ app.post("/api/publishChapter", ensureToken, function (req, res) {
       res.sendStatus(403);
     }
 
+    const bookId = req.body.bookId;
+    const chapterContent = req.body.chapterContent;
+    const currentChapter = req.body.chapterNumber;
+    const chapterTitle = req.body.chapterTitle;
+
+    connection.query(
+      "SELECT * FROM chapters WHERE bookid = ?",
+      [bookId],
+      function (err, results) {
+        if (err) {
+          console.log(err);
+        } else {
+          if (results.length > 5000) {
+            res.json({ message: "To many chapters" });
+          }
+        }
+      }
+    );
+
     if (req.body.chapterContent.length > 50000) {
       res.json({ error: "To long chapter" });
       return;
@@ -674,11 +693,6 @@ app.post("/api/publishChapter", ensureToken, function (req, res) {
       res.json({ error: "To short title" });
       return;
     }
-
-    const bookId = req.body.bookId;
-    const chapterContent = req.body.chapterContent;
-    const currentChapter = req.body.chapterNumber;
-    const chapterTitle = req.body.chapterTitle;
 
     const query =
       "INSERT INTO chapters (bookid,chapterNumber,chapterText,chapterTitle) VALUES (?,?,?,?)";
