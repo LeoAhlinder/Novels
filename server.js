@@ -397,60 +397,74 @@ app.post("/api/createNewBook", ensureToken, function (req, res) {
       return res.json({ errorData: checkData });
     }
 
-    // Check if a book with the same title or synopsis exists
-    const checkQuery =
-      "SELECT * FROM books WHERE title = ? OR bookid IN (SELECT bookid FROM bookinfo WHERE synopsis = ?)";
     connection.query(
-      checkQuery,
-      [data.bookTitle, data.Synopsis],
+      "SELECT * FROM books WHERE author = ?",
+      [userId],
       function (err, results) {
         if (err) {
           console.log(err);
           return res.sendStatus(500);
         }
 
-        if (results.length > 0) {
-          if (results[0].title === data.bookTitle) {
-            return res.json({ message: "Title exists" });
-          } else {
-            return res.json({ message: "Synopsis exists" });
-          }
+        if (results.length >= 10) {
+          return res.json({ message: "Maximum of 10 books allowed" });
         }
 
-        const currentDate = new Date().toISOString().split("T")[0];
-        const authorid = userId;
-
-        // Neither title nor synopsis exists, so proceed to insert the new book
-        const insertBookQuery =
-          "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
+        // Check if a book with the same title or synopsis exists
+        const checkQuery =
+          "SELECT * FROM books WHERE title = ? OR bookid IN (SELECT bookid FROM bookinfo WHERE synopsis = ?)";
         connection.query(
-          insertBookQuery,
-          [data.bookTitle, data.picture, currentDate, userId],
-          function (err, insertResult) {
+          checkQuery,
+          [data.bookTitle, data.Synopsis],
+          function (err, results) {
             if (err) {
               console.log(err);
               return res.sendStatus(500);
             }
 
-            const insertBookInfoQuery =
-              "INSERT INTO bookinfo (bookid, synopsis, genres, language, tags, warnings, authorid) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            if (results.length > 0) {
+              if (results[0].title === data.bookTitle) {
+                return res.json({ message: "Title exists" });
+              } else {
+                return res.json({ message: "Synopsis exists" });
+              }
+            }
+
+            const currentDate = new Date().toISOString().split("T")[0];
+            const authorid = userId;
+
+            // Neither title nor synopsis exists, so proceed to insert the new book
+            const insertBookQuery =
+              "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
             connection.query(
-              insertBookInfoQuery,
-              [
-                insertResult.insertId,
-                data.Synopsis,
-                data.inputGenre,
-                data.Language,
-                data.Tags,
-                data.Warnings,
-                authorid,
-              ],
-              function (err, results) {
+              insertBookQuery,
+              [data.bookTitle, data.picture, currentDate, userId],
+              function (err, insertResult) {
                 if (err) {
-                  console.log(err);
-                } else {
-                  res.json({ message: "New book inserted" });
+                  return res.sendStatus(500);
                 }
+
+                const insertBookInfoQuery =
+                  "INSERT INTO bookinfo (bookid, synopsis, genres, language, tags, warnings, authorid) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                connection.query(
+                  insertBookInfoQuery,
+                  [
+                    insertResult.insertId,
+                    data.Synopsis,
+                    data.inputGenre,
+                    data.Language,
+                    data.Tags,
+                    data.Warnings,
+                    authorid,
+                  ],
+                  function (err, results) {
+                    if (err) {
+                      return res.json({ error: "error" });
+                    } else {
+                      return res.json({ message: "New book inserted" });
+                    }
+                  }
+                );
               }
             );
           }

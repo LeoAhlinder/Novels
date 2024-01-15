@@ -164,6 +164,11 @@ const CreateNew = () =>{
                 else if (response.message === "New book inserted"){
                     changeAlert("Your book is now live")
                     changeAlertColor("green")
+                    
+                }
+                else if (response.message === "Maximum of 10 books allowed"){
+                    changeAlert("You have reached the maximum amount of books you can create")
+                    changeAlertColor("red")
                 }
                 else if (response.error){
                     changeAlert(response.error);
