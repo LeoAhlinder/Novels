@@ -20,10 +20,6 @@
     border-bottom: 1px solid rgb(201, 196, 196);
 }
 
-/* #chapterItem:last-child{
-    border-top: 1px solid transparent !important;
-} */
-
 #chapterItem:hover{
     background-color: rgb(201, 196, 196);
     color: black;
