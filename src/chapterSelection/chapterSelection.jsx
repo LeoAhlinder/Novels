@@ -4,7 +4,11 @@ import "./chapterSelectionStyle.css"
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 import Cookies from "js-cookie";
 
+import { useNavigate } from "react-router";
+
 const ChapterSelection = () => {
+
+    const navigate = useNavigate()
 
     const bookName = window.location.pathname.split("/")[2].replaceAll("-", " ");
     ChangeDocumentTitle("Chapter Selection" + " | " + `${bookName}`);
@@ -43,6 +47,10 @@ const ChapterSelection = () => {
         fetchChapters(); 
     }, []);
 
+    function goToChapterPage(chapterNumber){
+        navigate(`/${bookName}/chapter/${chapterNumber}`)
+    }
+
     return (
         <>
         <div id="chaptersContainer">
@@ -50,7 +58,7 @@ const ChapterSelection = () => {
                 <p>Loading...</p>
             ) : (
                 chapters.map((chapter, index) => (
-                    <li key={index} id="chapterItem" style={chapters.length <= 2 ? {} :index === chapters.length - 1 ? {borderTop:chapterStylings.transparent} : {} ?
+                    <li key={index} id="chapterItem" onClick={() => goToChapterPage(chapter.chapterNumber)} style={chapters.length <= 2 ? {} :index === chapters.length - 1 ? {borderTop:chapterStylings.transparent} : {} ?
                                                              chapters.length >= 4 ? index === 0 || index === 1 ? {} : {borderTop:chapterStylings.transparent} : {} : ""}>
                         Chapter {chapter.chapterNumber}: {chapter.chapterTitle}
                     </li>

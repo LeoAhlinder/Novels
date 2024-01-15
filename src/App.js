@@ -18,6 +18,7 @@ import AdminLogin from "./Admin/adminLogin/adminLogin";
 import AdminPanel from "./Admin/adminPanel/adminPanel";
 import ErrorSite from "./errorSite/errorSite";
 import ChapterSelection from "./chapterSelection/chapterSelection";
+import ChapterPage from "./chapterPage/chapterPage";
 import Workspace from "./Create/Workspace/Workspace";
 import NovelWorkSpace from "./Create/Workspace/novelWorkSpace/novelWorkSpace";
 import UnkownPage from "./404Site/unknown";
@@ -98,12 +99,15 @@ const App = () => {
                   path="/chapters/:authorName"
                   element={<ChapterSelection />}
                 />
+                <Route
+                  path="/:bookname/chapter/:chapterNumber"
+                  element={<ChapterPage />}
+                />
                 /* Admin Panel */
                 <Route path="/adminlogin" element={<AdminLogin />} />
                 <Route path="/adminpanel" element={<AdminPanel />} />
                 /* Error Site */
                 <Route path="/error" element={<ErrorSite />} />
-
                 <Route path="*" element={<UnkownPage />} />
               </Routes>
             </>
