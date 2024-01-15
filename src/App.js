@@ -100,7 +100,7 @@ const App = () => {
                   element={<ChapterSelection />}
                 />
                 <Route
-                  path="/:bookname/chapter/:chapterNumber"
+                  path="/chapters/:bookname/:chapterNumber"
                   element={<ChapterPage />}
                 />
                 /* Admin Panel */

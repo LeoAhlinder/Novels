@@ -48,7 +48,7 @@ const ChapterSelection = () => {
     }, []);
 
     function goToChapterPage(chapterNumber){
-        navigate(`/${bookName}/chapter/${chapterNumber}`)
+        navigate(`/chapters/${bookName}/${chapterNumber}`)
     }
 
     return (
