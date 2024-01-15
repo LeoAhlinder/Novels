@@ -52,20 +52,40 @@ const ChapterSelection = () => {
     }
 
     return (
-        <>
+    <>
         <div id="chaptersContainer">
             {loading ? (
                 <p>Loading...</p>
             ) : (
-                chapters.map((chapter, index) => (
-                    <li key={index} id="chapterItem" onClick={() => goToChapterPage(chapter.chapterNumber)} style={chapters.length <= 2 ? {} :index === chapters.length - 1 ? {borderTop:chapterStylings.transparent} : {} ?
-                                                             chapters.length >= 4 ? index === 0 || index === 1 ? {} : {borderTop:chapterStylings.transparent} : {} : ""}>
+                <>
+                {chapters.length === 0 ? (
+                    <h1 id="noChaptersTitle">No chapters found</h1>
+                ) : (
+                    chapters.map((chapter, index) => (
+                    <li
+                        key={index}
+                        id="chapterItem"
+                        onClick={() => goToChapterPage(chapter.chapterNumber)}
+                        style={
+                        chapters.length <= 2
+                            ? {}
+                            : index === chapters.length - 1
+                            ? { borderTop: chapterStylings.transparent }
+                            : chapters.length >= 4
+                            ? index === 0 || index === 1
+                            ? {}
+                            : { borderTop: chapterStylings.transparent }
+                            : {}
+                        }
+                    >
                         Chapter {chapter.chapterNumber}: {chapter.chapterTitle}
                     </li>
-                ))
+                    ))
+                )}
+                </>
             )}
         </div>
-        </>
+    </>
     );
 }
 
