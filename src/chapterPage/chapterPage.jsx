@@ -22,7 +22,7 @@ const ChapterPage = () => {
 
     const themeColors = {
         dark:{
-            backgroundColor:"#0e1111",
+            backgroundColor:"#28282B",
             color:"#ffffff"
         },
         light:{
