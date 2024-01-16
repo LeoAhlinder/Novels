@@ -212,7 +212,7 @@ const BookPage = () =>{
                             <h5 id="authorPhone"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                             <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                             <div id="phoneButtonContainer">
-                                <button id="readButtonPhone" >Read</button>
+                                <button id="readButtonPhone" onClick={() => goToChapterPage()}>Read</button>
                                 <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
                             </div>
                         </div>
