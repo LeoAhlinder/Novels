@@ -21,6 +21,7 @@
     height: auto;
     background-color: white;
     text-overflow: ellipsis;
+    word-break: break-all;
     padding: 1%;
     border-radius: 10px;
 }
