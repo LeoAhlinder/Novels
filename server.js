@@ -784,4 +784,43 @@ function fetchChaptersFromDataSource(bookName) {
   });
 }
 
+app.post("/api/chapterInfo", ensureToken, function (req, res) {
+  jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
+    if (err) {
+    }
+
+    const bookName = req.body.bookName;
+    const chapterNumber = req.body.chapterNumber;
+
+    connection.query(
+      "SELECT bookid FROM books WHERE title = ?",
+      [bookName],
+      function (err, results) {
+        if (err) {
+          res.json({ error: "error" });
+        }
+        const bookId = results[0].bookid;
+
+        const query =
+          "SELECT chapterText,chapterTitle FROM chapters WHERE bookid = ? AND chapterNumber = ?";
+        connection.query(
+          query,
+          [bookId, chapterNumber],
+          function (err, results) {
+            if (err) {
+              res.json({ error: "error" });
+            } else {
+              if (results.length > 0) {
+                res.json({ data: results });
+              } else {
+                res.json({ message: "Nothing found" });
+              }
+            }
+          }
+        );
+      }
+    );
+  });
+});
+
 module.exports = app;
