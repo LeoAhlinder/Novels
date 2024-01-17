@@ -5,6 +5,9 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
 import "./chapterPageStyle.css"
 
+import Roboto from "../Fonts/Roboto-Black.ttf";
+import Lora from "../Fonts/Lora/Lora-Italic-VariableFont_wght.ttf";
+
 const ChapterPage = () => {
 
     const navigate = useNavigate()
@@ -15,8 +18,9 @@ const ChapterPage = () => {
     const [chapterText,setChapterText] = useState([]);
     const [loading,setLoading] = useState(true);
     const [chapterTitle,setChapterTitle] = useState("");
-    const [chapterTextSize,setChapterTextSize] = useState(18);
-    const [chapterTheme,setChapterTheme] = useState("light");
+    const [chapterTextSize,setChapterTextSize] = useState();
+    const [chapterTheme,setChapterTheme] = useState();
+    const [chapterFontType,setChapterFontType] = useState();
 
     ChangeDocumentTitle(`${bookName} - Chapter ${chapterNumber}`);
 
@@ -29,8 +33,45 @@ const ChapterPage = () => {
             backgroundColor:"#ffffff",
             color:"#000000"
         }
-    
     }
+
+    useEffect(() => {
+        const setUserPreferences = async () => {
+            const preferredTheme = Cookies.get("theme");
+            const preferredTextSize = Cookies.get("textSize");
+            const preferredFontType = Cookies.get("fontType");
+
+            if (preferredTheme || preferredTextSize || preferredFontType){
+
+                if (preferredTheme === "dark" || preferredTheme === "light"){
+                    setChapterTheme(preferredTheme)
+                }
+                else{
+                    setChapterTheme("light")
+                }
+
+                if (preferredTextSize){
+                    setChapterTextSize(Number(preferredTextSize))
+                }
+                else{
+                    setChapterTextSize(16)
+                }
+
+                if (preferredFontType){
+                    setChapterFontType(preferredFontType)
+                }else{
+                    setChapterFontType("Roboto")
+                }
+            }
+            else{
+                setChapterTheme("light")
+                setChapterTextSize(16)
+                setChapterFontType("Roboto")
+            }
+        }
+
+        setUserPreferences();
+    },[])
 
     useEffect(()=>{
         const getChapterInfo = async () =>{
@@ -76,15 +117,24 @@ const ChapterPage = () => {
     function changeTextSize(Sign){
         if (Sign === "+" && chapterTextSize < 36){
             setChapterTextSize(chapterTextSize + 2)
+            Cookies.set("textSize",Number(chapterTextSize + 2))
         }
         else if (Sign === "-" && chapterTextSize > 10){
             setChapterTextSize(chapterTextSize - 2)
+            Cookies.set("textSize",Number(chapterTextSize - 2))
         }
     }
 
-    function changeTheme(theme){
-        if (chapterTheme !== theme)
-            setChapterTheme(theme)
+    function changeTheme(Theme){
+        if (chapterTheme !== Theme)
+            setChapterTheme(Theme)
+            Cookies.set("theme",Theme);
+    }
+
+    function changeFontType(Font){
+        if (chapterFontType !== Font)
+            setChapterFontType(Font)
+            Cookies.set("fontType",Font);
     }
 
     return(
@@ -102,6 +152,13 @@ const ChapterPage = () => {
                         -
                     </button>
                 </div>
+                <div id="chapterPageFontType">
+                    <button className="changeFontTypeButton" onClick={() => changeFontType("Roboto")}>Roboto</button>
+                    <button className="changeFontTypeButton" onClick={() => changeFontType("Georgia")}>Georgia</button>
+                    <button className="changeFontTypeButton" onClick={() => changeFontType("Arial")}>Arial</button>
+                    <button className="changeFontTypeButton" onClick={() => changeFontType("Lora")}>Lora</button>
+
+                </div>
                 <div id="chapterPageThemeButtons">
                     <button id="chapterThemeButton" onClick={() => changeTheme("dark")}>
                         Dark Mode
@@ -110,7 +167,7 @@ const ChapterPage = () => {
                         Light Mode
                     </button>
                 </div>
-                <p id="chapterText" style={{fontSize:chapterTextSize + "px", backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color}}>
+                <p id="chapterText" style={chapterTextSize !== null ? {fontFamily:chapterFontType,fontSize:chapterTextSize + "px", backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color} : {}}>
                     {chapterText}
                 </p>
             </div>
