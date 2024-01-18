@@ -4,6 +4,7 @@
     height: auto;
     background-color: rgb(50, 52, 53);
     border-radius: 10px;
+    padding: 1%;
 }
 
 #chapterPageTitle{
@@ -15,7 +16,7 @@
 
 #chapterText{
     margin-top: 2em;
-    width: 98%;
+    width: 95%;
     height: auto;
     text-overflow: ellipsis;
     word-break: break-word;
@@ -90,16 +91,14 @@
 
 @media screen and (max-width: 768px) {
     #chapterPageCustomOptions{
-        flex-direction: row;
+        flex-direction: column;
         justify-content: space-evenly;
     }
     #chapterPageFontType{
         height: 60px;
-
-        height: 20%;
         margin-top: 1em;
+        width: auto;
         display: flex;
-        flex-wrap: wrap;
     }
     #chapterPageThemeButtons{
         width: 50%;
@@ -109,8 +108,8 @@
         flex-wrap: wrap;
     }
     .changeFontTypeButton{
-        width: 50px;
-        height: 20px;
+        width: 70px;
+        height: 40px;
         text-align: center;
         padding: 5px;
     }
