@@ -196,6 +196,7 @@ const BookPage = () =>{
                         <h1 className="title">{bookInfo[0].title}</h1>
                         <h5 className="author"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                         <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
+                        <h3 className="rating">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
                         <div id="test">
                             <button className="readButton" onClick={() => goToChapterPage()}>Read</button>
                             <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : "n"} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
@@ -211,6 +212,7 @@ const BookPage = () =>{
                             <h1 id="titlePhone">{bookInfo[0].title}</h1>
                             <h5 id="authorPhone"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                             <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
+                            <h3 className="ratingPhone">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
                             <div id="phoneButtonContainer">
                                 <button id="readButtonPhone" onClick={() => goToChapterPage()}>Read</button>
                                 <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>

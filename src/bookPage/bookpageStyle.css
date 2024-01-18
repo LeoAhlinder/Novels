@@ -79,6 +79,13 @@
     width: 50%;
 }
 
+.rating{
+    margin-top: 1%;
+    margin-left: 2%;
+    color: white;
+    font-size: 1.2em;
+}
+
 
 #bookPagePictureContainer{
     width: 40%;
@@ -106,11 +113,11 @@
 @media screen and (max-width:1000px) {
     
     #bookPagePictureContainer{
-        width: 40%;
+        width: 60%;
         height: 100%;
         display: flex;
         place-content: end;
-        margin: 0 auto;
+        margin: 2% auto;
     }
     
     #phone{
@@ -131,6 +138,9 @@
     }
     #titlePhone{
         font-size: 1.8rem;
+    }
+    .ratingPhone{
+        font-size: 1rem;
     }
     #readButtonPhone{
         background-color: dodgerblue;
