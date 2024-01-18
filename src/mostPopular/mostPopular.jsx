@@ -62,7 +62,7 @@ const MostPopular  = () =>{
                             setBooks([])
                         }
                         else{
-                            setBooks(response.books)    
+                            setBooks(response.books.reverse())    
                             setCookie("books",response.books,3) //Name,data,expire date in hours
                         }
                         setIsLoaded(true)
