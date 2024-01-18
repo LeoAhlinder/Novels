@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from "react-router";
 
 import "./authorSiteStyle.css"
-import forestpic from "../picturesForBooks/forest.webp"
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 import forest from "../picturesForBooks/forest.webp"

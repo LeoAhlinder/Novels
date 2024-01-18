@@ -1,7 +1,6 @@
 import React,{useEffect,useState} from "react";
 import "./bookpageStyle.css"
 import { useLocation } from "react-router-dom";
-import ErrorHandler from "../Global/errorHandler";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 
