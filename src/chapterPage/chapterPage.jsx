@@ -114,24 +114,24 @@ const ChapterPage = () => {
     function changeTextSize(Sign){
         if (Sign === "+" && chapterTextSize < 36){
             setChapterTextSize(chapterTextSize + 2)
-            Cookies.set("textSize",Number(chapterTextSize + 2),{expires: 30})
+            Cookies.set("textSize",Number(chapterTextSize + 2),{expires: 30, secure: true})
         }
         else if (Sign === "-" && chapterTextSize > 10){
             setChapterTextSize(chapterTextSize - 2)
-            Cookies.set("textSize",Number(chapterTextSize - 2),{expires: 30})
+            Cookies.set("textSize",Number(chapterTextSize - 2),{expires: 30, secure: true})
         }
     }
 
     function changeTheme(Theme){
         if (chapterTheme !== Theme)
             setChapterTheme(Theme)
-            Cookies.set("theme",Theme,{expires: 30});
+            Cookies.set("theme",Theme,{expires: 30, secure: true});
     }
 
     function changeFontType(Font){
         if (chapterFontType !== Font)
             setChapterFontType(Font)
-            Cookies.set("fontType",Font,{expires: 30});
+            Cookies.set("fontType",Font,{expires: 30, secure: true});
     }
 
     return(
