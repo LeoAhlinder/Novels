@@ -134,13 +134,19 @@ body{
         width: 80%;
     }
     .gridContainerHome{
-        width: 80%;
+        width: 60%;
     }
 }
 
 @media screen and (max-width:408px) {
     .gridItem{
         padding: 0px 20px !important;
+    }
+}
+
+@media screen and (max-width:350px) {
+    .gridContainerHome{
+        width: 80%;
     }
 }
 
