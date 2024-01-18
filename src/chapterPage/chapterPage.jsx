@@ -15,6 +15,7 @@ const ChapterPage = () => {
     const [chapterText,setChapterText] = useState([]);
     const [loading,setLoading] = useState(true);
     const [chapterTitle,setChapterTitle] = useState("");
+    const [viewCustomOptions,setViewCustomOptions] = useState(false);
     const [chapterTextSize,setChapterTextSize] = useState();
     const [chapterTheme,setChapterTheme] = useState();
     const [chapterFontType,setChapterFontType] = useState();
@@ -138,34 +139,48 @@ const ChapterPage = () => {
         <>
             {loading === false ?
             <div id="chapterPageContainer">
+                <a id="chapterPageBookTitle" href="/book">{bookName}</a>
                 <h1 id="chapterPageTitle">
-                    {chapterTitle}
+                    {chapterNumber}: {chapterTitle}
                 </h1>
-                <div id="chapterTextSizeContainer">
-                    <button id="chapterTextSizeButton" onClick={() => changeTextSize("+")}>
-                        +
+                {viewCustomOptions === false ? 
+                    <button className="chapterPageCustomOptionsButton" onClick={() => setViewCustomOptions(true)}>
+                        Custom Options
                     </button>
-                    <button id="chapterTextSizeButton" onClick={() => changeTextSize("-")}>
-                        -
-                    </button>
-                </div>
-                <div id="chapterPageCustomOptions">
-                    <div id="chapterPageFontType">
-                        <button className="changeFontTypeButton" onClick={() => changeFontType("Roboto")}>Roboto</button>
-                        <button className="changeFontTypeButton" onClick={() => changeFontType("Inter")}>Inter</button>
-                        <button className="changeFontTypeButton" onClick={() => changeFontType("Arial")}>Arial</button>
-                        <button className="changeFontTypeButton" onClick={() => changeFontType("Lora")}>Lora</button>
+                :
+                    <>
+                        <button className="chapterPageCustomOptionsButton" onClick={() => setViewCustomOptions(false)}>
+                            Custom Options
+                        </button>
+                        <div id="chapterPageCustomOptions">
+                            <div id="chapterTextSizeContainer">
+                                <button id="chapterTextSizeButton" onClick={() => changeTextSize("+")}>
+                                    +
+                                </button>
+                                <button id="chapterTextSizeButton" onClick={() => changeTextSize("-")}>
+                                    -
+                                </button>
+                            </div>
+                            <div>
+                                <div id="chapterPageFontType">
+                                    <button className="changeFontTypeButton" onClick={() => changeFontType("Roboto")}>Roboto</button>
+                                    <button className="changeFontTypeButton" onClick={() => changeFontType("Inter")}>Inter</button>
+                                    <button className="changeFontTypeButton" onClick={() => changeFontType("Arial")}>Arial</button>
+                                    <button className="changeFontTypeButton" onClick={() => changeFontType("Lora")}>Lora</button>
 
-                    </div>
-                    <div id="chapterPageThemeButtons">
-                        <button id="chapterThemeButton" onClick={() => changeTheme("dark")}>
-                            Dark Mode
-                        </button>
-                        <button id="chapterThemeButton" onClick={() => changeTheme("light")}>
-                            Light Mode
-                        </button>
-                    </div>
-                </div>
+                                </div>
+                                <div id="chapterPageThemeButtons">
+                                    <button id="chapterThemeButton" onClick={() => changeTheme("dark")}>
+                                        Dark Mode
+                                    </button>
+                                    <button id="chapterThemeButton" onClick={() => changeTheme("light")}>
+                                        Light Mode
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                }
                    
                 <p id="chapterText" style={chapterTextSize !== null ? {fontFamily:chapterFontType,fontSize:chapterTextSize + "px", backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color} : {}}>
                     {chapterText}
