@@ -5,9 +5,6 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
 import "./chapterPageStyle.css"
 
-import Roboto from "../Fonts/Roboto-Black.ttf";
-import Lora from "../Fonts/Lora/Lora-Italic-VariableFont_wght.ttf";
-
 const ChapterPage = () => {
 
     const navigate = useNavigate()
@@ -152,21 +149,24 @@ const ChapterPage = () => {
                         -
                     </button>
                 </div>
-                <div id="chapterPageFontType">
-                    <button className="changeFontTypeButton" onClick={() => changeFontType("Roboto")}>Roboto</button>
-                    <button className="changeFontTypeButton" onClick={() => changeFontType("Georgia")}>Georgia</button>
-                    <button className="changeFontTypeButton" onClick={() => changeFontType("Arial")}>Arial</button>
-                    <button className="changeFontTypeButton" onClick={() => changeFontType("Lora")}>Lora</button>
+                <div id="chapterPageCustomOptions">
+                    <div id="chapterPageFontType">
+                        <button className="changeFontTypeButton" onClick={() => changeFontType("Roboto")}>Roboto</button>
+                        <button className="changeFontTypeButton" onClick={() => changeFontType("Inter")}>Inter</button>
+                        <button className="changeFontTypeButton" onClick={() => changeFontType("Arial")}>Arial</button>
+                        <button className="changeFontTypeButton" onClick={() => changeFontType("Lora")}>Lora</button>
 
+                    </div>
+                    <div id="chapterPageThemeButtons">
+                        <button id="chapterThemeButton" onClick={() => changeTheme("dark")}>
+                            Dark Mode
+                        </button>
+                        <button id="chapterThemeButton" onClick={() => changeTheme("light")}>
+                            Light Mode
+                        </button>
+                    </div>
                 </div>
-                <div id="chapterPageThemeButtons">
-                    <button id="chapterThemeButton" onClick={() => changeTheme("dark")}>
-                        Dark Mode
-                    </button>
-                    <button id="chapterThemeButton" onClick={() => changeTheme("light")}>
-                        Light Mode
-                    </button>
-                </div>
+                   
                 <p id="chapterText" style={chapterTextSize !== null ? {fontFamily:chapterFontType,fontSize:chapterTextSize + "px", backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color} : {}}>
                     {chapterText}
                 </p>

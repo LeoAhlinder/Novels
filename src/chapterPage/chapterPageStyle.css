@@ -14,11 +14,9 @@
 }
 
 #chapterText{
-    margin: 0 auto;
     margin-top: 2em;
-    width: 95%;
+    width: 98%;
     height: auto;
-    background-color: white;
     text-overflow: ellipsis;
     word-break: break-word;
     padding: 1%;
@@ -61,12 +59,9 @@
     border-radius: 10px;
 }
 
-#chapterPageThemeButtons button{
-    margin: 5px;
-    background-color: rgb(83, 84, 85);
-    border: none;
-    color: white;
-    cursor: pointer;
+#chapterPageCustomOptions{
+    display: flex;
+    flex-direction: column;
 }
 
 #chapterPageFontType{
@@ -92,6 +87,43 @@
     padding: 5px;
     border-radius: 5px;
 }
+
+@media screen and (max-width: 768px) {
+    #chapterPageCustomOptions{
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+    #chapterPageFontType{
+        height: 60px;
+
+        height: 20%;
+        margin-top: 1em;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    #chapterPageThemeButtons{
+        width: 50%;
+        height: 60px;
+        margin-top: 1em;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .changeFontTypeButton{
+        width: 50px;
+        height: 20px;
+        text-align: center;
+        padding: 5px;
+    }
+}
+
+#chapterPageThemeButtons button{
+    padding: 5px;
+    background-color: rgb(83, 84, 85);
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
 
 @media screen and (max-width: 1500px) {
     #chapterPageContainer{
