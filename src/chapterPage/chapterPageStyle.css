@@ -78,6 +78,9 @@
     color: white;
     font-size: 1.3em;
     margin: 0 5px;
+    width: 20%;
+    text-align: center;
+    border-radius: 5px;
 }
 #chapterTextSizeButton{
     width: 30%;

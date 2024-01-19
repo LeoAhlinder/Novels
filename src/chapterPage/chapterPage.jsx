@@ -158,7 +158,7 @@ const ChapterPage = () => {
                                 <button id="chapterTextSizeButton" onClick={() => changeTextSize("+")}>
                                     +
                                 </button>
-                                <p id="chapterTextSizeText" style={{fontFamily:chapterFontType}}>{chapterTextSize}</p>
+                                <p id="chapterTextSizeText" style={{fontFamily:chapterFontType,backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color}}>{chapterTextSize}</p>
                                 <button id="chapterTextSizeButton" onClick={() => changeTextSize("-")}>
                                     -
                                 </button>
