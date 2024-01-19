@@ -52,11 +52,11 @@ const BookPage = () =>{
                     ChangeDocumentTitle(response.data[0].title + " - Book Page")
                     changeCheckBookInLibrary(true)
                 }else{
-                    // navigate("/error")
+                    navigate("/error")
                 }
             }
             catch(err){
-                // navigate("/error")
+                navigate("/error")
             }
 
         }
