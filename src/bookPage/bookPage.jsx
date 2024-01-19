@@ -47,7 +47,6 @@ const BookPage = () =>{
                     const response = await res.json();
                     setBookInfo(response.data)
                     setAuthor(response.author[0].userName)
-                    console.log(response.data)
                     setID(response.data[0].bookid)
                     ChangeDocumentTitle(response.data[0].title + " - Book Page")
                     changeCheckBookInLibrary(true)
@@ -69,8 +68,6 @@ const BookPage = () =>{
 
                 const token = Cookies.get("authToken")
 
-                console.log(bookId)
-
                 try
                 {
                     const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkLibrary`,{
@@ -84,7 +81,6 @@ const BookPage = () =>{
                     });
                     if (res.ok){
                         const response = await res.json()
-                        console.log(response.message)
                         if (response.message === "no token"){
                             LibraryChange("Not Login in")
                         }
