@@ -46,14 +46,19 @@
     margin-top: 1em;
 }
 
-.chapterSwitchButton{
-    margin: 0 5px;
-}
+
 
 .chapterSwitchButton{
     background-color: rgb(111, 113, 114);
     padding: 5px;
     border-radius: 5px;
+    margin: 0 5px;
+    font-size: 1.3em;
+}
+
+#backToBookButton{
+    background-color: rgb(96, 118, 138);
+
 }
 
 #chapterTextSizeContainer{

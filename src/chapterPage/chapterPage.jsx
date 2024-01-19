@@ -190,10 +190,10 @@ const ChapterPage = () => {
                         <a className="chapterSwitchButton" href={`/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) - 1}`}>Previous Chapter</a>
                     </button>
                     <button>
-                        <a className="chapterSwitchButton" href="/book">Back to Book</a>
+                        <a className="chapterSwitchButton" id="backToBookButton" href={`/${bookName}`}>Back to Book</a>
                     </button>
                     <button>
-                        <a className="chapterSwitchButton" href={() => navigate(`/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) + 1}`)}>Next Chapter</a> 
+                        <a className="chapterSwitchButton" href={`/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) + 1}`}>Next Chapter</a> 
                     </button>
                 </div>
             </div>
