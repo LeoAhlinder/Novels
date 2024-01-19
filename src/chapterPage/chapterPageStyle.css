@@ -6,6 +6,9 @@
     border-radius: 10px;
     padding: 1%;
     position: relative;
+    display: grid;
+    align-items: center;
+    justify-content: center;
 }
 
 #chapterPageTitle{
@@ -15,6 +18,7 @@
 }
 
 #chapterText{
+    margin: 0 auto;
     margin-top: 2em;
     width: 95%;
     height: auto;
@@ -154,6 +158,14 @@
 }
 
 @media screen and (max-width: 768px) {
+    .chapterPageCustomOptionsButton{
+        margin: 5%;
+    }
+    #chapterText{
+        width: 100%;
+        padding: 0;
+
+    }
     #chapterPageCustomOptions{
         flex-direction: column;
         justify-content: space-evenly;
@@ -188,6 +200,10 @@
     #chapterPageBookTitle{
         font-size: 1.5em;
     }
+    #chapterPageContainer{
+        padding: 0;
+        border-radius: 0;
+    }
 }
 
 @media screen and (max-width:450px) {
@@ -200,12 +216,33 @@
     #chapterTextSizeContainer{
         width: 10em;
     }
+    #switchChapterContainer{
+        margin-bottom: 10%;
+    }
+    .chapterSwitchButton{
+        width: 50px;
+        height: 50px;
+        font-size: 0.9em;
+    }
 }
 
+@media screen and (max-width:350px) {
+    .chapterSwitchButton{
+        width: 40px;
+        height: 40px;
+        font-size: 0.8em;
+    }
+
+}
 
 @media screen and (max-width:250px) {
     #chapterTextSizeContainer{
         width: 7em;
+    }
+    .chapterSwitchButton{
+        width: 35px;
+        height: 35px;
+        font-size: 0.7em;
     }
 
 }
