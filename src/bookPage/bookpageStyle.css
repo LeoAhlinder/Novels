@@ -42,7 +42,7 @@
 
 #addButton{
     border: none;
-    background-color: dodgerblue;
+    background-color: rgb(65, 69, 71);
     height: 40px;
     width: 100%;
     border-radius: 5px;
@@ -52,7 +52,7 @@
 }
 
 .readButton{
-    background-color: dodgerblue;
+    background-color: rgb(65, 69, 71);
     cursor: pointer;
     border: none;
     height: 40px;
@@ -143,7 +143,7 @@
         font-size: 1rem;
     }
     #readButtonPhone{
-        background-color: dodgerblue;
+        background-color: rgb(65, 69, 71);
         margin-right: 10px;
         padding: 10px;
         border-radius: 3px;
@@ -152,7 +152,7 @@
         height: 50px;
     }
     #addButtonPhone{
-        background-color: dodgerblue;
+        background-color: rgb(65, 69, 71);
         margin-left: 10px;
         padding: 10px;
         border-radius: 3px;
