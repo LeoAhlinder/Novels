@@ -789,13 +789,14 @@ app.post("/api/chapterInfo", ensureToken, function (req, res) {
     const chapterNumber = req.body.chapterNumber;
 
     connection.query(
-      "SELECT bookid FROM books WHERE title = ?",
+      "SELECT bookid,totalpages FROM books WHERE title = ?",
       [bookName],
       function (err, results) {
         if (err) {
           res.json({ error: "error" });
         }
         const bookId = results[0].bookid;
+        const totalPages = results[0].totalpages;
 
         const query =
           "SELECT chapterText,chapterTitle FROM chapters WHERE bookid = ? AND chapterNumber = ?";
@@ -807,7 +808,7 @@ app.post("/api/chapterInfo", ensureToken, function (req, res) {
               res.json({ error: "error" });
             } else {
               if (results.length > 0) {
-                res.json({ data: results });
+                res.json({ data: results, totalPages: totalPages });
               } else {
                 res.json({ message: "Nothing found" });
               }

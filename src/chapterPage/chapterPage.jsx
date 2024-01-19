@@ -20,6 +20,7 @@ const ChapterPage = () => {
     const [chapterTextSize,setChapterTextSize] = useState();
     const [chapterTheme,setChapterTheme] = useState();
     const [chapterFontType,setChapterFontType] = useState();
+    const [totalChapters,setTotalChapters] = useState(0);
 
     ChangeDocumentTitle(`${bookName} - Chapter ${chapterNumber}`);
 
@@ -78,7 +79,7 @@ const ChapterPage = () => {
             const token = Cookies.get("authToken")
 
             try{
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapterInfo?`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapterInfo`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
@@ -93,6 +94,7 @@ const ChapterPage = () => {
                     setChapterText(response.data[0].chapterText);
                     setChapterTitle(response.data[0].chapterTitle);
                     setLoading(false);
+                    setTotalChapters(response.totalPages)
                 }
                 else if (response.error){
                     setChapterTitle("A error occured");
@@ -189,13 +191,35 @@ const ChapterPage = () => {
                 </p>
                 <div id="switchChapterContainer">
                     <button>
-                        <a className="chapterSwitchButton" href={`/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) - 1}`}>Previous&nbsp;Chapter</a>
+                            <a
+                                className="chapterSwitchButton"
+                                id={Number(chapterNumber) === 1 ? "inActiveButton" : ""}
+                                href={Number(chapterNumber) === 1 ? "" : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) - 1}`}
+                                onClick={(e) => {
+                                    if (Number(chapterNumber) === 1) {
+                                    e.preventDefault();
+                                    }
+                                }}
+                                >
+                                Previous&nbsp;Chapter
+                            </a>
                     </button>
                     <button>
                         <a className="chapterSwitchButton" id="backToBookButton" href={`/${bookName}`}>Back&nbsp;to&nbsp;Book</a>
                     </button>
                     <button>
-                        <a className="chapterSwitchButton" href={`/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) + 1}`}>Next&nbsp;Chapter</a> 
+                    <a
+                                className="chapterSwitchButton"
+                                id={Number(chapterNumber) === totalChapters ? "inActiveButton" : ""}
+                                href={Number(chapterNumber) === totalChapters ? "" : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) + 1}`}
+                                onClick={(e) => {
+                                    if (Number(chapterNumber) === totalChapters) {
+                                    e.preventDefault();
+                                    }
+                                }}
+                                >
+                                Next&nbsp;Chapter
+                            </a>
                     </button>
                 </div>
             </div>
