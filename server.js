@@ -631,7 +631,7 @@ app.post("/api/checkOwnerOfBook", ensureToken, function (req, res) {
       const bookTitle = req.body.bookName.replaceAll("-", " ");
 
       const query =
-        "SELECT author, bookid,totalpages FROM lightnovelonline.books WHERE title = ?";
+        "SELECT author, title,totalpages FROM lightnovelonline.books WHERE title = ?";
       connection.query(query, [bookTitle], function (err, results) {
         if (err) {
           console.log(err);
@@ -639,7 +639,7 @@ app.post("/api/checkOwnerOfBook", ensureToken, function (req, res) {
           if (results[0].author === userId) {
             res.json({
               message: "valid",
-              bookId: results[0].bookid,
+              bookName: results[0].title,
               totalpages: results[0].totalpages,
             });
           } else {

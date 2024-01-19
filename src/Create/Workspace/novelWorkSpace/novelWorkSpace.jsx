@@ -21,7 +21,7 @@ export default function NovelWorkSpace() {
 
     const [validUser, setValidUser] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [bookId, setBookId] = useState(""); 
+    const [bookId, setBookName] = useState(""); 
     const [bookInfo	, setBookInfo] = useState([]);
     const [viewingMode, setViewingMode] = useState("viewChapters");
     const [chapterContentLength, setChapterContentLength] = useState(0);
@@ -51,7 +51,7 @@ export default function NovelWorkSpace() {
               const response = await res.json();
               if (response.message === "valid") {
                 setValidUser(true);
-                setBookId(response.bookId)
+                setBookName(response.bookName)
                 setCurrentSessionChapter(response.totalpages);
               } else {
                 setValidUser(false);
@@ -176,7 +176,7 @@ export default function NovelWorkSpace() {
                     </div>
                 </div>
                </>
-            : <h2>Invalid User</h2>}
+            : <h2>Invalid User {bookInfo.length}</h2>}
            </>
       : null}       
     </>
