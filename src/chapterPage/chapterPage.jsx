@@ -4,6 +4,7 @@ import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router";
 import "./chapterPageStyle.css"
+import gearIcon from "../Icons/gear.svg"
 
 const ChapterPage = () => {
 
@@ -139,24 +140,25 @@ const ChapterPage = () => {
         <>
             {loading === false ?
             <div id="chapterPageContainer">
-                <a id="chapterPageBookTitle" href="/book">{bookName}</a>
+                <a id="chapterPageBookTitle" href={`/${bookName}`}>{bookName}</a>
                 <h1 id="chapterPageTitle">
-                    {chapterNumber}: {chapterTitle}
+                    Chapter {chapterNumber}: {chapterTitle}
                 </h1>
                 {viewCustomOptions === false ? 
                     <button className="chapterPageCustomOptionsButton" onClick={() => setViewCustomOptions(true)}>
-                        Custom Options
+                        <img className="gearIcon" src={gearIcon} alt="custom settings"/>
                     </button>
                 :
                     <>
                         <button className="chapterPageCustomOptionsButton" onClick={() => setViewCustomOptions(false)}>
-                            Custom Options
+                        <img className="gearIcon" src={gearIcon} alt="custom settings"/>
                         </button>
                         <div id="chapterPageCustomOptions">
                             <div id="chapterTextSizeContainer">
                                 <button id="chapterTextSizeButton" onClick={() => changeTextSize("+")}>
                                     +
                                 </button>
+                                <p id="chapterTextSizeText" style={{fontFamily:chapterFontType}}>{chapterTextSize}</p>
                                 <button id="chapterTextSizeButton" onClick={() => changeTextSize("-")}>
                                     -
                                 </button>
