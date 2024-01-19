@@ -204,7 +204,7 @@ const BookPage = () =>{
                         <h3 className="rating">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
                         <div id="test">
                             <button className="readButton" onClick={() => goToChapterPage()}>Read</button>
-                            <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : "n"} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
+                            <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                         </div>
                     </div>
                 </div>
