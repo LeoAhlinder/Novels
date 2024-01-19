@@ -37,6 +37,25 @@
     background-color: rgb(63, 66, 67);
 }
 
+#switchChapterContainer{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1em;
+}
+
+.chapterSwitchButton{
+    margin: 0 5px;
+}
+
+.chapterSwitchButton{
+    background-color: rgb(111, 113, 114);
+    padding: 5px;
+    border-radius: 5px;
+}
+
 #chapterTextSizeContainer{
     max-width: 30px;
     background-color: rgb(83, 84, 85);

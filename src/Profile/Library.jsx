@@ -56,8 +56,8 @@ const Library = () => {
     userLibrary();
   }, []);
 
-  function openBook (book){
-    navigate({pathname:"/book",search:`?id=${book.bookid}`})
+  function openBook(book){
+    navigate({pathname:`/${book.title}`})
   }
 
   return (

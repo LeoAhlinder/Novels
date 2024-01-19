@@ -59,7 +59,7 @@ const Home = () => {
   },[navigate]);
 
   const goToBook = (book) =>{
-    navigate({pathname:"/book",search:`?id=${book.bookid}`})
+    navigate({pathname:`${book.title}`})
   }
 
   return (

@@ -185,6 +185,17 @@ const ChapterPage = () => {
                 <p id="chapterText" style={chapterTextSize !== null ? {fontFamily:chapterFontType,fontSize:chapterTextSize + "px", backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color} : {}}>
                     {chapterText}
                 </p>
+                <div id="switchChapterContainer">
+                    <button>
+                        <a className="chapterSwitchButton" href={`/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) - 1}`}>Previous Chapter</a>
+                    </button>
+                    <button>
+                        <a className="chapterSwitchButton" href="/book">Back to Book</a>
+                    </button>
+                    <button>
+                        <a className="chapterSwitchButton" href={() => navigate(`/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) + 1}`)}>Next Chapter</a> 
+                    </button>
+                </div>
             </div>
             : 
             <div>

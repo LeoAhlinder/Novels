@@ -20,13 +20,13 @@ const BookPage = () =>{
         hutInForest: forestHut,
         pinkForest: pinkForest,
       };
-    
 
     const navigate = useNavigate()
 
     const location = useLocation();
     const queryParams = new URLSearchParams(location.search);
-    const bookId = queryParams.get("id");
+    const bookName = window.location.pathname.split("/")[1].replaceAll("-", " ");
+ 
     const [bookInfo, setBookInfo] = useState([])
     const [authorName,setauthor] = useState("")
     const [id,setID] = useState(0)
@@ -35,10 +35,10 @@ const BookPage = () =>{
 
         //Get bookinfo
         useEffect(() =>{
-            const bookInfo = async (bookId) =>{
+            const bookInfo = async (bookName) =>{
             try
             {
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/book?id=${bookId}`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/book?title=${bookName}`,{
                     method:"GET",
                     headers: {  
                         "Content-Type": "application/json",
@@ -49,18 +49,21 @@ const BookPage = () =>{
                     const response = await res.json();
                     setBookInfo(response.data)
                     setauthor(response.author[0].userName)
-                    setID(response.data[0].bookid)
+                    setID(0)
                     ChangeDocumentTitle(response.data[0].title + " - Book Page")
                 }else{
-                    navigate("/error")
+                    console.log("error")
+                    //navigate("/error")
                 }
             }
             catch(err){
-                navigate("/error")
+                console.log("error")
+
+                // navigate("/error")
             }
 
         }
-        bookInfo(bookId)
+        bookInfo(bookName)
         },[]);
 
 
@@ -78,7 +81,7 @@ const BookPage = () =>{
                             "Accept": "application/json",
                             Authorization: `Bearer ${token}`
                           },
-                          body: JSON.stringify({id:bookId})
+                          body: JSON.stringify({id:id})
                     });
                     if (res.ok){
                         const response = await res.json()
@@ -177,7 +180,9 @@ const BookPage = () =>{
     }
 
     const goToAuthor = () =>{
-        navigate({pathname:`/author/${authorName}`})
+        if (authorName !== ""){
+            navigate({pathname:`/author/${authorName}`})
+        }    
     }
 
     const goToChapterPage = () => {
