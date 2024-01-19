@@ -1,6 +1,5 @@
 import React,{useEffect,useState} from "react";
 import "./bookpageStyle.css"
-import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Cookies from 'js-cookie';
 
@@ -23,15 +22,14 @@ const BookPage = () =>{
 
     const navigate = useNavigate()
 
-    const location = useLocation();
-    const queryParams = new URLSearchParams(location.search);
     const bookName = window.location.pathname.split("/")[1].replaceAll("-", " ");
  
     const [bookInfo, setBookInfo] = useState([])
-    const [authorName,setauthor] = useState("")
-    const [id,setID] = useState(0)
+    const [authorName,setAuthor] = useState("")
+    const [bookId,setID] = useState(0)
     const [LibraryAddButton,LibraryChange] = useState("")
     const [buttonState,changeButtonState] = useState(true)
+    const [checkBookInLibrary,changeCheckBookInLibrary] = useState(false)
 
         //Get bookinfo
         useEffect(() =>{
@@ -48,17 +46,16 @@ const BookPage = () =>{
                 if (res.ok){
                     const response = await res.json();
                     setBookInfo(response.data)
-                    setauthor(response.author[0].userName)
-                    setID(0)
+                    setAuthor(response.author[0].userName)
+                    console.log(response.data)
+                    setID(response.data[0].bookid)
                     ChangeDocumentTitle(response.data[0].title + " - Book Page")
+                    changeCheckBookInLibrary(true)
                 }else{
-                    console.log("error")
-                    //navigate("/error")
+                    // navigate("/error")
                 }
             }
             catch(err){
-                console.log("error")
-
                 // navigate("/error")
             }
 
@@ -72,6 +69,8 @@ const BookPage = () =>{
 
                 const token = Cookies.get("authToken")
 
+                console.log(bookId)
+
                 try
                 {
                     const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkLibrary`,{
@@ -81,10 +80,11 @@ const BookPage = () =>{
                             "Accept": "application/json",
                             Authorization: `Bearer ${token}`
                           },
-                          body: JSON.stringify({id:id})
+                          body: JSON.stringify({id:bookId})
                     });
                     if (res.ok){
                         const response = await res.json()
+                        console.log(response.message)
                         if (response.message === "no token"){
                             LibraryChange("Not Login in")
                         }
@@ -102,10 +102,11 @@ const BookPage = () =>{
                     navigate("/error")
                 }
             }
-            isBookInLibrary();
-        },[])
+            if (checkBookInLibrary === true)
+                isBookInLibrary();
+        },[checkBookInLibrary])
 
-    const addToLibrary = async (id) =>{
+    const addToLibrary = async () =>{
         if (buttonState === true){
             const token = Cookies.get("authToken")
 
@@ -117,7 +118,7 @@ const BookPage = () =>{
                         "Accept": "application/json",
                         Authorization: `Bearer ${token}`
                         },
-                    body: JSON.stringify({id:id})
+                    body: JSON.stringify({id:bookId})
                 });
 
                 if (res.ok){
@@ -152,7 +153,7 @@ const BookPage = () =>{
         }, 8000);
     }
 
-    const removeFromLibrary = async (id) =>{
+    const removeFromLibrary = async () =>{
         const token = Cookies.get("authToken")
         if (buttonState === true){
             try{
@@ -163,7 +164,7 @@ const BookPage = () =>{
                         "Accept": "application/json",
                         Authorization: `Bearer ${token}`
                         },
-                    body: JSON.stringify({id:id})
+                    body: JSON.stringify({id:bookId})
                 });
 
                 if (res.ok){
@@ -203,7 +204,7 @@ const BookPage = () =>{
                         <h3 className="rating">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
                         <div id="test">
                             <button className="readButton" onClick={() => goToChapterPage()}>Read</button>
-                            <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : "n"} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+                            <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : "n"} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                         </div>
                     </div>
                 </div>
@@ -219,7 +220,7 @@ const BookPage = () =>{
                             <h3 className="ratingPhone">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
                             <div id="phoneButtonContainer">
                                 <button id="readButtonPhone" onClick={() => goToChapterPage()}>Read</button>
-                                <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(id): () => addToLibrary(id)}>{LibraryAddButton}</button>
+                                <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                             </div>
                         </div>
                     </div>
