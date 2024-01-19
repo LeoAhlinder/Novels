@@ -820,4 +820,42 @@ app.post("/api/chapterInfo", ensureToken, function (req, res) {
   });
 });
 
+app.post("/api/setLatestReadChapter", ensureToken, function (req, res) {
+  jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
+    if (err) {
+    }
+
+    const bookName = req.body.bookName;
+    const chapterNumber = req.body.chapterNumber;
+    const totalPages = req.body.totalPages;
+
+    if (totalPages >= chapterNumber) {
+      connection.query(
+        "SELECT bookid FROM books WHERE title = ?",
+        [bookName],
+        function (err, results) {
+          if (err) {
+            res.json({ error: "error" });
+          }
+          const bookId = results[0].bookid;
+
+          const query =
+            "UPDATE userlibrary SET currentPage = ? WHERE bookid = ? AND userid = ?";
+          connection.query(
+            query,
+            [chapterNumber, bookId, decodedToken.user],
+            function (err, results) {
+              if (err) {
+                res.json({ error: "error" });
+              } else {
+                res.json({ message: "success" });
+              }
+            }
+          );
+        }
+      );
+    }
+  });
+});
+
 module.exports = app;

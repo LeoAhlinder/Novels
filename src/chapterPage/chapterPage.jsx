@@ -73,6 +73,37 @@ const ChapterPage = () => {
         setUserPreferences();
     },[])
 
+    useEffect(() => {
+        const setLatestReadChapter = async () => {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/setLatestReadChapter`,{
+                method:"POST",
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    Authorization: `Bearer ${Cookies.get("authToken")}`
+                },
+                body: JSON.stringify({bookName:bookName,chapterNumber:chapterNumber,totalPages:totalChapters})
+            })
+            if (res.ok){
+                const response = await res.json();
+            }
+        }
+        if (loading === false){
+            const timeoutId = setTimeout(() => {
+                if (chapterNumber <= totalChapters && chapterNumber > 0)
+                    {
+                        setLatestReadChapter();
+                    }
+            }, 2000);
+            
+            return () => {
+                clearTimeout(timeoutId);
+            };
+        }
+
+        
+    },[loading])
+
     useEffect(()=>{
         const getChapterInfo = async () =>{
 
