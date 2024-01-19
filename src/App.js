@@ -82,19 +82,16 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/book" element={<BookPage />} />
+                <Route path="/:title" element={<BookPage />} />
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/search" element={<SearchBar />} />
-                <Route path="/popular" element={<MostPopular />}></Route>
+                <Route path="/popular" element={<MostPopular />} />
                 /* Create */
                 <Route path="/create" element={<Create />} />
                 <Route path="/createnovel" element={<CreateNew />} />
                 <Route path="/workspace" element={<Workspace />} />
                 <Route path="/workspace/:book" element={<NovelWorkSpace />} />
-                <Route
-                  path="/author/:authorName"
-                  element={<AuthorSite />}
-                ></Route>
+                <Route path="/author/:authorName" element={<AuthorSite />} />
                 <Route
                   path="/chapters/:authorName"
                   element={<ChapterSelection />}
