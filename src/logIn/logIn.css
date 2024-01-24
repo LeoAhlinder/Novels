@@ -26,7 +26,7 @@
 }
 
 .Button{
-    background-color: #333;
+    background-color: rgb(65, 69, 71);
     width: 20%;
     height: 20%;
     border-radius: 10px;
@@ -38,8 +38,7 @@
 }
 
 .Button:hover,#goBackToLogin{
-    background-color:#363232;
-    color: rgb(27, 24, 24);
+    background-color: rgb(50, 52, 53);
 }
 
 .createNew{
@@ -112,4 +111,4 @@
 
 #doNotShow{
     display: none;
-}
+}   
