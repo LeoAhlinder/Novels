@@ -6,6 +6,7 @@ import landscape from "../Pictures/fantasyLandscape.webp"
 
 import BookListGrid from "../Components/Books/bookListGrid";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
+import CookiesForm from "../Components/CookiesForm/cookiesForm";
 
 import forest from "../picturesForBooks/forest.webp"
 import forestHut from "../picturesForBooks/hutInForest.webp"
@@ -23,6 +24,7 @@ const Home = () => {
 
   const [latestBooks, setLatestBooks] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [collectCookiesFormShow,setCollectCookiesFormState] = useState(true)
   const navigate = useNavigate()
 
   ChangeDocumentTitle("Light Novels")
@@ -78,7 +80,11 @@ const Home = () => {
           bookCoverImages={bookCoverImages} 
           noBooksFoundText="We had an error fetching the books; please try again!"
         /> 
-      </> : null}
+      </> 
+      : null}
+      <CookiesForm
+      collectCookiesFormShow={collectCookiesFormShow}
+      />
     </>
   );
 };
