@@ -52,6 +52,21 @@ connection.connect((error) => {
   }
 });
 
+// app.set("trust proxy", true);
+
+// function test(req, res, next) {
+//   console.log("test");
+
+//   setTimeout(() => {
+//     console.log("hej");
+//     next();
+//   }, 1000);
+// }
+
+// app.get("/ip", test, function (req, res) {
+//   console.log(req.ip.split(":").pop());
+// });
+
 app.get("/api/library/", ensureToken, async (req, res) => {
   jwt.verify(req.token, user_secretkey, async function (err, decodedToken) {
     if (err) {
