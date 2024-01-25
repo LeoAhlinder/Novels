@@ -24,7 +24,6 @@ const Home = () => {
 
   const [latestBooks, setLatestBooks] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [collectCookiesFormShow,setCollectCookiesFormState] = useState(true)
   const navigate = useNavigate()
 
   ChangeDocumentTitle("Light Novels")
@@ -82,9 +81,7 @@ const Home = () => {
         /> 
       </> 
       : null}
-      <CookiesForm
-      collectCookiesFormShow={collectCookiesFormShow}
-      />
+      
     </>
   );
 };

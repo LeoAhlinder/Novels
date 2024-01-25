@@ -23,6 +23,8 @@ import Workspace from "./Create/Workspace/Workspace";
 import NovelWorkSpace from "./Create/Workspace/novelWorkSpace/novelWorkSpace";
 import UnkownPage from "./404Site/unknown";
 
+import CookiesForm from "./Components/CookiesForm/cookiesForm";
+
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
   const [validToken, setValidToken] = useState(false);
@@ -122,6 +124,7 @@ const App = () => {
           </div>
         )}
       </div>
+      <CookiesForm />
     </Router>
   );
 };

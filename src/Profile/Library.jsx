@@ -32,15 +32,17 @@ const Library = () => {
       try {
         const token = Cookies.get("authToken")
 
+        console.log(token)
+
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/library/`, {
           method: "GET",
           headers: {  
             "Content-Type": "application/json",
             "Accept": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Allow-Credentials": "true"
           },
+          credentials: 'include',
         });
-
         if (res.ok) {
           const response = await res.json();
           setBooks(response.data);

@@ -131,9 +131,9 @@ const LogIn = () =>{
                 if (res.ok){
                     const response = await res.json()
                     if (response.message === "user exist"){
-                        setCookie("authToken",response.token,720) //Name,data,expire date in hours
                         const userName = response.userName;
                         localStorage.setItem("userName",userName)
+                        console.log("logged in")
                         navigate("/Profile");
                     }
                     if (response.message === "no user exist"){

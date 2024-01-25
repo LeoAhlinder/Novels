@@ -200,6 +200,11 @@ app.post("/api/logIn", function (req, res) {
       const user = results[0]; // Assuming results contain user data
       const userName = user.userName;
       const token = jwt.sign({ user: user.userid }, user_secretkey);
+      res.cookie("authToken", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "Strict",
+      });
       res.json({ message: "user exist", userName: userName, token: token });
     } else {
       res.json({ message: "no user exist" });
