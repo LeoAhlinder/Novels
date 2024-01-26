@@ -27,7 +27,6 @@ import CookiesForm from "./Components/CookiesForm/cookiesForm";
 
 const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
-  const [validToken, setValidToken] = useState(false);
 
   useEffect(() => {
     const fetchServerStatus = async () => {
@@ -41,36 +40,10 @@ const App = () => {
     document.title = "Loading...";
   }, []);
 
-  useEffect(() => {
-    if (serverStatus === true) {
-      checkToken();
-    }
-  }, [serverStatus]);
-
   const checkServerStatus = async () => {
     return await fetch(`${process.env.REACT_APP_API_URL}/api/ping`)
       .then((response) => response.ok)
       .catch(() => false);
-  };
-
-  const checkToken = async () => {
-    const token = Cookies.get("authToken");
-
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/protected`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const response = await res.json();
-
-    if (response.message === "this is protected") {
-      setValidToken(true);
-    } else {
-      setValidToken(false);
-    }
   };
 
   return (

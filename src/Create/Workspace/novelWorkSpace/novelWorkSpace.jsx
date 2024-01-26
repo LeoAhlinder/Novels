@@ -21,7 +21,7 @@ export default function NovelWorkSpace() {
 
     const [validUser, setValidUser] = useState(false);
     const [isLoaded, setIsLoaded] = useState(false);
-    const [bookId, setBookName] = useState(""); 
+    const [bookId, setBookID] = useState(""); 
     const [bookInfo	, setBookInfo] = useState([]);
     const [viewingMode, setViewingMode] = useState("viewChapters");
     const [chapterContentLength, setChapterContentLength] = useState(0);
@@ -34,24 +34,22 @@ export default function NovelWorkSpace() {
 
     useEffect(() => {
         async function checkIfUserValid() {
-          try {
-            const token = Cookies.get("authToken");
-      
+          try {      
             const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkOwnerOfBook`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                Authorization: `Bearer ${token}`,
+                "Allow-Credentials": "true"
               },
+              credentials:"include",
               body: JSON.stringify({ bookName: bookNameEdited }),
             });
-      
             if (res.ok) {
               const response = await res.json();
               if (response.message === "valid") {
                 setValidUser(true);
-                setBookName(response.bookName)
+                setBookID(response.bookId)
                 setCurrentSessionChapter(response.totalpages);
               } else {
                 setValidUser(false);
@@ -69,16 +67,15 @@ export default function NovelWorkSpace() {
     useEffect(() => {
         if (validUser) {
           async function getBookInfo() {
-            const token = Cookies.get("authToken");
-
             try {
               const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getBookInfo?id=${bookId}`, {
                 method: "GET",
                 headers: {
                   "Content-Type": "application/json",
                   "Accept": "application/json",
-                  Authorization: `Bearer ${token}`,
+                  "Allow-Credentials": "true"
                 },
+                credentials:"include"
               });
               const response = await res.json();
               if (response.data) {
@@ -97,15 +94,15 @@ export default function NovelWorkSpace() {
     }, [validUser]);
 
     const publishChapter = async () => {
-      const token = Cookies.get("authToken");
       try {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/publishChapter`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            Authorization: `Bearer ${token}`,
+            "Allow-Credentials": "true"
           },
+          credentials:"include",
           body: JSON.stringify({ bookId: bookId, chapterContent: chapterContent, chapterTitle: chapterTitle, chapterNumber: Number(currentSessionChapter + 1)}),
         });
         const response = await res.json();

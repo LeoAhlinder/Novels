@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import "./navbarStyle.css"
 import { Link, useNavigate } from "react-router-dom"
-import Cookies from 'js-cookie'
+
+import checkToken from "../Global/checkToken";
 
 const Header = () => {
    
@@ -19,35 +20,6 @@ const Header = () => {
           }
         })();
     });
-      
-    const checkToken = async () => {
-        try {
-            const token = Cookies.get("authToken");
-
-            if (!token) {
-                return "unvalid"
-            } else {
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/protected/`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                if (res.ok){
-                    const response = await res.json();
-                    if (response.message === "this is protected"){
-                        return "valid"
-                    }
-                }else{
-                    navigate("/error")
-                }
-            }
-        } catch (err) {
-            navigate("/error") 
-        }
-    };
 
     const profileButtonClicked = async () =>{
         const token = await checkToken()

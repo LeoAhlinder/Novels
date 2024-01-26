@@ -31,25 +31,61 @@ const BookPage = () =>{
     const [buttonState,changeButtonState] = useState(true)
     const [checkBookInLibrary,changeCheckBookInLibrary] = useState(false)
 
-        //Get bookinfo
-        useEffect(() =>{
-            const bookInfo = async (bookName) =>{
+    useEffect(() =>{
+        const bookInfo = async (bookName) =>{
+        try
+        {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/book?title=${bookName}`,{
+                method:"GET",
+                headers: {  
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                  }
+             });
+            if (res.ok){
+                const response = await res.json();
+                setBookInfo(response.data)
+                setAuthor(response.author[0].userName)
+                setID(response.data[0].bookid)
+                ChangeDocumentTitle(response.data[0].title + " - Book Page")
+                changeCheckBookInLibrary(true)
+            }else{
+                navigate("/error")
+            }
+        }
+        catch(err){
+            navigate("/error")
+        }
+    }
+        bookInfo(bookName)
+    },[]);
+
+
+    useEffect(() =>{
+        const isBookInLibrary = async () =>{
             try
             {
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/book?title=${bookName}`,{
-                    method:"GET",
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkLibrary`,{
+                    method:"POST",
                     headers: {  
                         "Content-Type": "application/json",
                         "Accept": "application/json",
-                      }
+                        "Allow-Credentials": "true"
+                      },
+                      credentials: 'include',
+                        body: JSON.stringify({id:bookId})
                 });
                 if (res.ok){
-                    const response = await res.json();
-                    setBookInfo(response.data)
-                    setAuthor(response.author[0].userName)
-                    setID(response.data[0].bookid)
-                    ChangeDocumentTitle(response.data[0].title + " - Book Page")
-                    changeCheckBookInLibrary(true)
+                    const response = await res.json()
+                    if (response.message === "no token"){
+                        LibraryChange("Not Login in")
+                    }
+                    if (response.message === "exist"){
+                        LibraryChange("Remove from Library")
+                    }
+                    else if (response.message === "does not exist"){
+                        LibraryChange("Add to Library")
+                    }
                 }else{
                     navigate("/error")
                 }
@@ -57,63 +93,22 @@ const BookPage = () =>{
             catch(err){
                 navigate("/error")
             }
-
         }
-        bookInfo(bookName)
-        },[]);
-
-
-        useEffect(() =>{
-            const isBookInLibrary = async () =>{
-
-                const token = Cookies.get("authToken")
-
-                try
-                {
-                    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkLibrary`,{
-                        method:"POST",
-                        headers: {  
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                            Authorization: `Bearer ${token}`
-                          },
-                          body: JSON.stringify({id:bookId})
-                    });
-                    if (res.ok){
-                        const response = await res.json()
-                        if (response.message === "no token"){
-                            LibraryChange("Not Login in")
-                        }
-                        if (response.message === "exist"){
-                            LibraryChange("Remove from Library")
-                        }
-                        else if (response.message === "does not exist"){
-                            LibraryChange("Add to Library")
-                        }
-                    }else{
-                        navigate("/error")
-                    }
-                }
-                catch(err){
-                    navigate("/error")
-                }
-            }
-            if (checkBookInLibrary === true)
-                isBookInLibrary();
-        },[checkBookInLibrary])
+        if (checkBookInLibrary === true)
+            isBookInLibrary();
+    },[checkBookInLibrary])
 
     const addToLibrary = async () =>{
         if (buttonState === true){
-            const token = Cookies.get("authToken")
-
             try{
                 const res = await fetch(`${process.env.REACT_APP_API_URL}/api/AddToLibrary`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
                         "Accept": "application/json",
-                        Authorization: `Bearer ${token}`
-                        },
+                        "Allow-Credentials": "true"
+                    },
+                    credentials: 'include',
                     body: JSON.stringify({id:bookId})
                 });
 
@@ -150,7 +145,6 @@ const BookPage = () =>{
     }
 
     const removeFromLibrary = async () =>{
-        const token = Cookies.get("authToken")
         if (buttonState === true){
             try{
                 const res = await fetch(`${process.env.REACT_APP_API_URL}/api/RemoveFromLibrary`,{
@@ -158,8 +152,9 @@ const BookPage = () =>{
                     headers:{
                         "Content-Type": "application/json",
                         "Accept": "application/json",
-                        Authorization: `Bearer ${token}`
+                        "Allow-Credentials": "true",
                         },
+                    credentials: 'include',
                     body: JSON.stringify({id:bookId})
                 });
 

@@ -1,7 +1,6 @@
 import React,{useEffect,useState} from "react";
 import "./libraryStyle.css"
 import { useNavigate } from "react-router-dom"
-import Cookies from 'js-cookie';
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 import forest from "../picturesForBooks/forestSmall.webp"
@@ -30,10 +29,6 @@ const Library = () => {
   useEffect(() => {
     const userLibrary = async () => {
       try {
-        const token = Cookies.get("authToken")
-
-        console.log(token)
-
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/library/`, {
           method: "GET",
           headers: {  
