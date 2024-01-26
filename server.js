@@ -37,10 +37,12 @@ app.get("/api/ping", function (req, res) {
 });
 
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "password",
-  database: "lightnovelonline",
+  username: env.DB_USERNAME,
+  password: env.DB_PASSWORD,
+  host: env.DB_HOST,
+  port: env.DB_PORT,
+  database: env.DB_DATABASE,
+  sslmode: "REQUIRED",
 });
 
 connection.connect((error) => {
