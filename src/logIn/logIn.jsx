@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import "./logIn.css"
 import { useNavigate } from "react-router-dom"
-import setCookie from "../Global/setCookie";
 import validator from "email-validator";
 
 import LoginForm from '../Components/logInComp/logInForm';
