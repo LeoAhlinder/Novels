@@ -137,16 +137,15 @@ const CreateNew = () =>{
 
     async function createNewBook(bookInfo){
 
-        const token = Cookies.get("authToken")
-
         try{
             const res = await fetch(`${process.env.REACT_APP_API_URL}/api/createNewBook`,{
                 method:"POST",
                 headers:{
                 "Content-Type": "application/json",
                 "Accept": "application/json",
-                Authorization: `Bearer ${token}`
+                "Allow-Credentials": "true"
             },
+            credentials: 'include',
             body: JSON.stringify(bookInfo)
             }); 
 

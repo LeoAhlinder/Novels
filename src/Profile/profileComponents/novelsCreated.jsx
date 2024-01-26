@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./novelsCreatedStyle.css"
 import { useNavigate } from "react-router-dom";
-import Cookies from 'js-cookie'
 import ChangeDocumentTitle from "../../Global/changeDocumentTitle";
 
 import forest from "../../picturesForBooks/forestSmall.webp"
@@ -30,14 +29,14 @@ const NovelCreated = () =>{
         try{
             const fetchNovelsCreated = async () =>{
 
-                const token = Cookies.get("authToken")
-
                 const res = await fetch(`${process.env.REACT_APP_API_URL}/api/novelsCreated`,{
                     method:"GET",
                     headers:{    
                     "Content-Type": "application/json",
                     "Accept": "application/json",
-                    Authorization: `Bearer ${token}`}
+                    "Allow-Credentials": "true"
+                },
+                credentials: 'include',
                 });                
                 if (res.ok)
                 {

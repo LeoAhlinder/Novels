@@ -30,14 +30,14 @@ const Workspace = () =>{
         try{
             const fetchNovelsCreated = async () =>{
 
-                const token = Cookies.get("authToken")
-
                 const res = await fetch(`${process.env.REACT_APP_API_URL}/api/novelsCreated`,{
                     method:"GET",
                     headers:{    
                     "Content-Type": "application/json",
                     "Accept": "application/json",
-                    Authorization: `Bearer ${token}`}
+                    "Allow-Credentials": "true",
+                },
+                credentials: 'include',
                 });                
                 if (res.ok)
                 {
