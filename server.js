@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
-const mysql = require("mysql");
+const mysql = require("mysql2");
 const { error, Console } = require("console");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
@@ -37,7 +37,7 @@ app.get("/api/ping", function (req, res) {
 });
 
 const connection = mysql.createConnection({
-  username: env.DB_USERNAME,
+  user: env.DB_USERNAME,
   password: env.DB_PASSWORD,
   host: env.DB_HOST,
   port: env.DB_PORT,
