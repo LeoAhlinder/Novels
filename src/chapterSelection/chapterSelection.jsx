@@ -2,7 +2,6 @@ import React, {useEffect,useState} from "react";
 import "./chapterSelectionStyle.css"
 
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
-import Cookies from "js-cookie";
 
 import { useNavigate } from "react-router";
 
