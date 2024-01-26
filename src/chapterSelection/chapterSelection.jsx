@@ -22,16 +22,12 @@ const ChapterSelection = () => {
 
     useEffect(() => {
 
-        const token = Cookies.get("authToken");
-
         const fetchChapters = async () => {
-          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapters/${bookName}
-          `, {
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapters/${bookName}`, {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "Accept": "application/json",
-              Authorization: `Bearer ${token}`,
+              "Accept": "application/json"
             },
           });
           const response = await res.json();
