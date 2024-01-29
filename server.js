@@ -205,6 +205,23 @@ app.post("/api/createaccount", function (req, res) {
   );
 });
 
+app.get("/api/protected", function (req, res) {
+  if (!req.cookies.authToken) {
+    res.json({ message: "no token" });
+    return;
+  }
+  jwt.verify(req.cookies.authToken, user_secretkey, function (err, data) {
+    if (err) {
+      res.json({ message: "token invalid" });
+    } else {
+      res.json({
+        message: "this is protected",
+        data: data,
+      });
+    }
+  });
+});
+
 app.post("/api/logIn", function (req, res) {
   const data = req.body;
 
@@ -221,11 +238,13 @@ app.post("/api/logIn", function (req, res) {
       const user = results[0]; // Assuming results contain user data
       const userName = user.userName;
       const token = jwt.sign({ user: user.userid }, user_secretkey);
+      console.log("CREATING COOKIE");
       res.cookie("authToken", token, {
         httpOnly: true,
         secure: true,
         sameSite: "Strict",
       });
+      console.log("Past cookie creation");
       res.json({ message: "user exist", userName: userName, token: token });
     } else {
       res.json({ message: "no user exist" });
@@ -234,25 +253,9 @@ app.post("/api/logIn", function (req, res) {
 });
 
 app.post("/api/removecookie", function (req, res) {
+  res.json({ message: "cookie removed" });
   res.clearCookie("authToken", { httpOnly: true });
   res.json({ success: true });
-});
-
-app.get("/api/protected", function (req, res) {
-  if (!req.cookies.authToken) {
-    res.json({ message: "no token" });
-    return;
-  }
-  jwt.verify(req.cookies.authToken, user_secretkey, function (err, data) {
-    if (err) {
-      res.json({ message: "token invalid" });
-    } else {
-      res.json({
-        message: "this is protected",
-        data: data,
-      });
-    }
-  });
 });
 
 app.get("/api/latest", function (req, res) {

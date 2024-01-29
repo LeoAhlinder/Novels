@@ -39,9 +39,25 @@ const App = () => {
   }, []);
 
   const checkServerStatus = async () => {
-    return await fetch(`${process.env.REACT_APP_API_URL}/api/ping`)
-      .then((response) => response.ok)
-      .catch(() => false);
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/ping`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+        }
+      );
+      const responseJson = await response.json();
+      if (responseJson.status) {
+        return true;
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   };
 
   return (

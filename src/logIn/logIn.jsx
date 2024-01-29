@@ -48,7 +48,7 @@ const LogIn = () =>{
             }
             if (checkEmail(user.email) === true){
                 try{
-                    const res = await fetch("http://localhost:3001/api/createaccount",{
+                    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/createaccount`,{
                         method:"POST",
                         headers: {  
                             "Content-Type": "application/json",
@@ -117,6 +117,7 @@ const LogIn = () =>{
                 return (field.value)
             })
             try{
+                console.log(logIn)
                 const res = await fetch(`${process.env.REACT_APP_API_URL}/api/logIn`,{
                     method:"POST",
                     headers: {  

@@ -1,7 +1,7 @@
 const CheckToken = async () => {
   try {
 
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/protected/`, {
+      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/protected`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -10,8 +10,10 @@ const CheckToken = async () => {
         },
         credentials: 'include',
       });
+      
       if (res.ok) {
         const response = await res.json();
+        console.log(response.message)
         if (response.message === "this is protected") {
           return "valid";
         }
