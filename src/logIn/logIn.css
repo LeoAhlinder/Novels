@@ -61,6 +61,13 @@
     }
 }
 
+@media screen and (max-width:1300px) and (orientation:landscape) {
+    .createNew{
+        height: auto;
+    }
+}
+
+
 
 @media screen and (max-width:800px) {
     .loginBox,.createNew{    

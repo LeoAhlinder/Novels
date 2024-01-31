@@ -16,6 +16,7 @@ const LogIn = () =>{
         {placeholder:"Username", id:"userName"},
         {placeholder:"Password", id:"password",type:"password"},
     ])
+    const [termsOfService,changeTermsOfService] = useState(false)
     const [alerts,changeAlerts] = useState("")
 
     const maxInputFields = 3;
@@ -34,7 +35,6 @@ const LogIn = () =>{
         setInputFields(inputFields.slice(0,-1))
     }
 
-
     const createUser = async () =>{
 
         const logIns = inputFields.map((i) => document.getElementById(i.id).value);
@@ -48,7 +48,11 @@ const LogIn = () =>{
             }
             if (checkEmail(user.email) === true){
                 try{
-                    const res = await fetch("http://localhost:3001/api/createaccount",{
+                    if (termsOfService === false){
+                        alert("Please accept the terms of service")
+                        return
+                    }
+                    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/createaccount`,{
                         method:"POST",
                         headers: {  
                             "Content-Type": "application/json",
@@ -132,7 +136,6 @@ const LogIn = () =>{
                     if (response.message === "user exist"){
                         const userName = response.userName;
                         localStorage.setItem("userName",userName)
-                        console.log("logged in")
                         navigate("/Profile");
                     }
                     if (response.message === "no user exist"){
@@ -151,6 +154,10 @@ const LogIn = () =>{
 
     const [boxClass,changeClass] = useState("loginBox")
 
+    const termsOfServiceClick = (e) =>{
+        changeTermsOfService(e.target.checked)
+    }
+
     return (
         <LoginForm
             boxClass={boxClass}
@@ -162,6 +169,7 @@ const LogIn = () =>{
             changeClass={changeClass}
             removeInputField={removeInputField}
             alerts={alerts}
+            termsOfServiceClick={termsOfServiceClick}
       />
     );
 }

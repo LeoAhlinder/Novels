@@ -1,6 +1,7 @@
 import React from "react";
+import "./logInForm.css"
 
-const LoginForm = ({ boxClass, inputFields, logIn, addInputFieldAllowed, addInputField, createUser, changeClass, removeInputField, alerts,type }) => {
+const LoginForm = ({ boxClass, inputFields, logIn, addInputFieldAllowed, addInputField, createUser, changeClass, removeInputField, alerts,type,termsOfServiceClick }) => {
   return (
     <div className={boxClass}>
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -33,6 +34,14 @@ const LoginForm = ({ boxClass, inputFields, logIn, addInputFieldAllowed, addInpu
       >
         Back
       </button>
+      {boxClass === "createNew" ? 
+      <>
+        <label htmlFor="termsOfService" id="termsOfServiceText">Terms of service</label>
+        <input id="termsOfService" type="checkBox" onChange={e => termsOfServiceClick(e)}></input>
+      </> 
+      : 
+      null
+      }
       <p id="alert">{alerts}</p>
     </div>
   );
