@@ -20,6 +20,7 @@ import ChapterPage from "./chapterPage/chapterPage";
 import Workspace from "./Create/Workspace/Workspace";
 import NovelWorkSpace from "./Create/Workspace/novelWorkSpace/novelWorkSpace";
 import UnkownPage from "./404Site/unknown";
+import TermsOfService from "./termsOfService/termsOfService";
 
 import CookiesForm from "./Components/CookiesForm/cookiesForm";
 
@@ -78,6 +79,7 @@ const App = () => {
                 <Route path="/adminpanel" element={<AdminPanel />} />
                 /* Error Site */
                 <Route path="/error" element={<ErrorSite />} />
+                <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="*" element={<UnkownPage />} />
               </Routes>
             </>

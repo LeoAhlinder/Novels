@@ -36,7 +36,7 @@ const LoginForm = ({ boxClass, inputFields, logIn, addInputFieldAllowed, addInpu
       </button>
       {boxClass === "createNew" ? 
       <>
-        <label htmlFor="termsOfService" id="termsOfServiceText">Terms of service</label>
+        <a href="/terms-of-service" target="_blank" id="termsOfServiceText">Terms of service</a>
         <input id="termsOfService" type="checkBox" onChange={e => termsOfServiceClick(e)}></input>
       </> 
       : 

@@ -16,7 +16,9 @@
     right: 0;
     margin-bottom: 32px;
     margin-right:50px;
-    color: white;
+    font-size: 1.2em;
+    text-decoration: underline;
+    color: rgb(115, 115, 232);
 }
 
 @media screen and (max-width:1080px) {

@@ -1,0 +1,27 @@
+#termsContainer{
+    width: 50%;
+    margin: 0 auto;
+    background-color: rgb(65, 69, 71);
+    border-radius: 5px;
+}
+
+@media screen and (max-width:1080px) {
+    #termsContainer{
+        width: 100%;
+    }
+}
+
+.termsTitle{
+    text-align: center;
+    color:white;
+    margin-bottom: 30px;
+    padding: 10px;
+    font-size: 2em;
+}
+
+.termsText{
+    text-align: center;
+    color:white;
+    padding: 10px;
+    font-size: 1.3em;
+}
