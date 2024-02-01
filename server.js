@@ -3,16 +3,18 @@ const app = express();
 const bodyParser = require("body-parser");
 const path = require("path");
 const mysql = require("mysql2");
-const { error, Console } = require("console");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
-const { rejects } = require("assert");
 const cookieParser = require("cookie-parser");
+
 const { env } = require("process");
-const { dotenv } = require("dotenv").config();
+const { config } = require("dotenv");
+
+// Load environment variables from .env file
+config();
 
 const user_secretkey = env.USER_SECRETKEY;
-const admin_sercretkey = env.ADMIN_SECRETKEY;
+const admin_secretkey = env.ADMIN_SECRETKEY;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -22,6 +24,7 @@ app.use(cookieParser());
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
+  exposedHeaders: ["Set-cookie"],
 };
 
 app.use(cors(corsOptions));
@@ -79,7 +82,7 @@ app.get("/api/library/", async (req, res) => {
 
 function userLibrary(id) {
   const query =
-    "SELECT userLibrary.currentPage, Books.* FROM userLibrary JOIN Books ON userLibrary.bookid = Books.bookid WHERE userLibrary.userid = ?";
+    "SELECT userlibrary.currentPage, books.* FROM userlibrary JOIN books ON userlibrary.bookid = books.bookid WHERE userlibrary.userid = ?";
 
   return new Promise((resolve, reject) => {
     connection.query(query, [id], function (error, results) {
@@ -223,8 +226,10 @@ app.post("/api/logIn", function (req, res) {
       const token = jwt.sign({ user: user.userid }, user_secretkey);
       res.cookie("authToken", token, {
         httpOnly: true,
+        sameSite: "none",
+        path: "/",
+        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
         secure: true,
-        sameSite: "Strict",
       });
       res.json({ message: "user exist", userName: userName, token: token });
     } else {
@@ -393,7 +398,7 @@ app.post("/api/checkLibrary", function (req, res) {
         const bookid = req.body.id;
 
         const query =
-          "SELECT * FROM userLibrary WHERE userid = ? AND bookid = ?";
+          "SELECT * FROM userlibrary WHERE userid = ? AND bookid = ?";
         connection.query(query, [userid, bookid], function (error, results) {
           if (error) {
             console.log(error);
@@ -654,7 +659,7 @@ app.post("/api/admin/login", function (req, res) {
         res.json({ message: "error" });
       }
       if (results.length > 0) {
-        const token = jwt.sign({ admin: results[0].adminid }, admin_sercretkey);
+        const token = jwt.sign({ admin: results[0].adminid }, admin_secretkey);
         res.json({ message: "success", token: token });
       } else {
         res.json({ message: "fail" });
@@ -664,7 +669,7 @@ app.post("/api/admin/login", function (req, res) {
 });
 
 app.get("/api/admin/access", function (req, res) {
-  jwt.verify(req.cookies.authToken, admin_sercretkey, function (err, decoded) {
+  jwt.verify(req.cookies.authToken, admin_secretkey, function (err, decoded) {
     if (err) {
       res.json({ message: "error" });
     } else {
