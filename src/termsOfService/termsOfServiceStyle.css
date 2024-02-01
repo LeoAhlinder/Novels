@@ -20,8 +20,13 @@
 }
 
 .termsText{
-    text-align: center;
+    text-align: start;
     color:white;
     padding: 10px;
     font-size: 1.3em;
+}
+
+#rulesTag{
+    color: rgb(115, 115, 232);
+    text-decoration: underline;
 }
