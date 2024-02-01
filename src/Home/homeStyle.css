@@ -17,7 +17,7 @@ body{
   .gridItem {
   color: white;
   padding: 0.5rem;
-  height: 8rem;
+  height: auto;
   max-width: 10rem;
   margin: 0 auto;
   }

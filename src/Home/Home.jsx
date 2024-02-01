@@ -43,7 +43,8 @@ const Home = () => {
           const response = await res.json();
           if (response.books === undefined || response.error === "error"){
             setLatestBooks([]);
-          }else{
+          }
+          else{
             setLatestBooks(response.books); 
           }
           setIsLoaded(true)
