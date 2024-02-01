@@ -9,7 +9,7 @@ const ChapterSelection = () => {
 
     const navigate = useNavigate()
 
-    const bookName = window.location.pathname.split("/")[2].replaceAll("-", " ");
+    const bookName = window.location.pathname.split("/")[2].replaceAll("-", " ").replaceAll("%20", " ");
     ChangeDocumentTitle("Chapter Selection" + " | " + `${bookName}`);
 
     const [chapters,setChapters] = useState([]);

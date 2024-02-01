@@ -742,6 +742,8 @@ app.post("/api/publishChapter", function (req, res) {
       const currentChapter = req.body.chapterNumber;
       const chapterTitle = req.body.chapterTitle;
 
+      console.log(chapterContent);
+
       connection.query(
         "SELECT * FROM chapters WHERE bookid = ?",
         [bookId],
@@ -857,7 +859,7 @@ app.post("/api/chapterInfo", function (req, res) {
       if (err) {
       }
 
-      const bookName = req.body.bookName;
+      const bookName = req.body.bookName.replaceAll("%20", " ");
       const chapterNumber = req.body.chapterNumber;
 
       connection.query(
@@ -867,6 +869,7 @@ app.post("/api/chapterInfo", function (req, res) {
           if (err) {
             res.json({ error: "error" });
           }
+
           const bookId = results[0].bookid;
           const totalPages = results[0].totalpages;
 

@@ -10,7 +10,7 @@ const ChapterPage = () => {
 
     const navigate = useNavigate()
 
-    const bookName = window.location.pathname.split("/")[2].replaceAll("-", " ");
+    const bookName = window.location.pathname.split("/")[2].replaceAll("-", " ").replaceAll("%20", " ");
     const chapterNumber = window.location.pathname.split("/")[3].replaceAll("-", " ");
 
     const [chapterText,setChapterText] = useState([]);
