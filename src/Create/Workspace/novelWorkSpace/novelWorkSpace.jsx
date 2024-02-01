@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import "./novelWorkSpaceStyle.css";
 
-import Cookies from "js-cookie";
 import ChangeDocumentTitle from "../../../Global/changeDocumentTitle";
 
 import CreateChapter from "../../../Components/novelWorkspace/createNewChapter"
+import ChaterSelectionComponent from "../../../Components/ChapterSelection/chapterSelectionComponent"
 
 export default function NovelWorkSpace() {
 
@@ -28,6 +28,8 @@ export default function NovelWorkSpace() {
     const [chapterContent, setChapterContent] = useState("");
     const [confirmation , setConfirmation] = useState(false);
     const [chapterTitle, setChapterTitle] = useState("");
+    const [loading, setLoading] = useState(false);
+    const [chapters, setChapters] = useState([]);
 
     const [alertMessage, setAlertMessage] = useState("");
     const [alertMessageColor,setAlertMessageColor] = useState("");
@@ -80,6 +82,7 @@ export default function NovelWorkSpace() {
               const response = await res.json();
               if (response.data) {
                 setBookInfo(response.data);
+                setLoading(false)
               } else {
                 setBookInfo([]);
                 navigate("/error");
@@ -133,10 +136,36 @@ export default function NovelWorkSpace() {
       }
     }
 
+    useEffect(() => {
+
+        const fetchChapters = async () => {
+          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapters/${bookTitle}`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+          });
+          const response = await res.json();
+          if (res.ok) {
+            setChapters(response.data);
+            setLoading(false);
+          } else {
+            console.log(response.message);
+            setLoading(false);
+          }
+          };
+          fetchChapters(); 
+      }, []);
+
     const handleTextAreaLength = (e) => {
       setChapterContentLength(e.target.value.length);
       setChapterContent(e.target.value);
     }
+
+    function goToChapterPage(chapterNumber){
+      navigate(`/chapters/${bookNameEdited}/${chapterNumber}`)
+  }
 
     return (
       <>  
@@ -155,7 +184,11 @@ export default function NovelWorkSpace() {
                       {
                       viewingMode === "viewChapters" ? 
                       <div id="novelWorkspaceViewChapters">
-                                  
+                          <ChaterSelectionComponent
+                            chapters={chapters}
+                            goToChapterPage={goToChapterPage}
+                            loading={loading}
+                          />
                       </div>
                       : viewingMode === "newChapter" ? 
                       <CreateChapter
