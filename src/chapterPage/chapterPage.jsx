@@ -6,6 +6,8 @@ import { useNavigate } from "react-router";
 import "./chapterPageStyle.css"
 import gearIcon from "../Icons/gear.svg"
 
+import DOMPurify from 'dompurify';
+
 const ChapterPage = () => {
 
     const navigate = useNavigate()
@@ -214,8 +216,11 @@ const ChapterPage = () => {
                     </>
                 }
                    
-                <p id="chapterText" style={chapterTextSize !== null ? {fontFamily:chapterFontType,fontSize:chapterTextSize + "px", backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color} : {}}>
-                    {chapterText}
+                <p id="chapterText" style={chapterTextSize !== null ? 
+                    {fontFamily:chapterFontType,fontSize:chapterTextSize + "px", backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color} : {}}
+                    dangerouslySetInnerHTML={{
+                        __html: DOMPurify.sanitize(chapterText.replace(/\n/g, '<br>')),
+                      }}>
                 </p>
                 <div id="switchChapterContainer">
                     <button>

@@ -758,17 +758,17 @@ app.post("/api/publishChapter", function (req, res) {
         }
       );
 
-      if (req.body.chapterContent.length > 50000) {
+      if (chapterContent.length > 50000) {
         res.json({ error: "To long chapter" });
         return;
-      } else if (req.body.chapterContent.length < 2500) {
+      } else if (chapterContent.length < 2500) {
         res.json({ error: "To short chapter" });
         return;
       }
-      if (req.body.chapterTitle.length > 25) {
+      if (chapterTitle.length > 25) {
         res.json({ error: "To long title" });
         return;
-      } else if (req.body.chapterTitle.length < 1) {
+      } else if (chapterTitle.length < 1) {
         res.json({ error: "To short title" });
         return;
       }
