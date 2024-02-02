@@ -1,5 +1,5 @@
 #chaptersContainer{
-    width: 75%;
+    width: 75% !important;
     height: 75em;
     background-color: rgb(38, 40, 41);
     margin: 3% auto;
