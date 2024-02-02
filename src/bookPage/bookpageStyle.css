@@ -1,19 +1,49 @@
+
+
 .novelCover{
     width: auto;
     max-height: 100%;
     border-radius: 5px;
 }
 
+#backgroundImage{
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1;
+    display: block;
+    width: 95%;
+    height: 80vh;
+    background-size: cover;
+    -webkit-filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+    filter: blur(50px);
+    transform: scale(1.1);
+}
+
 .Wrapper{
-    position: relative;
-    margin-top: 6%;
-    margin-left: 9%;
-    margin-right: 9%;
+    overflow-x: hidden;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 20%;
+    width: auto;
+    max-width: 80%;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+@media screen and (max-width:1080px) {
+    .Wrapper{
+        max-width: 90%;
+    }
 }
 
 .bookPagebookInfo {
     padding: 15px;
-    position: fixed;
+    position: absolute;
     width: 45%;
     top: 40%;
     left: 70%;
@@ -71,7 +101,7 @@
     cursor: none;
 }
 
-#test{
+#buttonContainer{
     display: flex;
     justify-content: space-between;
     gap:10px;
