@@ -95,6 +95,20 @@ function userLibrary(id) {
   });
 }
 
+function getBookInfo(bookId) {
+  const query = "SELECT * FROM bookinfo WHERE bookid = ?";
+
+  return new Promise((resolve, reject) => {
+    connection.query(query, [bookId], function (error, results) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
+
 app.get(`/api/book`, async (req, res) => {
   const bookName = req.query.title;
   try {
@@ -104,7 +118,12 @@ app.get(`/api/book`, async (req, res) => {
       return;
     }
     const authorInfo = await authorData(bookInfo[0].bookid);
-    res.json({ data: bookInfo, author: authorInfo });
+    const bookInfoData = await getBookInfo(bookInfo[0].bookid);
+    res.json({
+      data: bookInfo,
+      author: authorInfo,
+      bookInfoData: bookInfoData,
+    });
   } catch (err) {
     console.log(err);
   }

@@ -7,24 +7,80 @@
 }
 
 #backgroundImage{
-    position: fixed;
+    position: absolute;
     left: 0;
     right: 0;
     z-index: 1;
     display: block;
     width: 95%;
-    height: 80vh;
+    height: 70vh;
     background-size: cover;
-    -webkit-filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
+    -webkit-filter: blur(50px);
+    -moz-filter: blur(50px);
+    -o-filter: blur(50px);
+    -ms-filter: blur(50px);
     filter: blur(50px);
     transform: scale(1.1);
 }
 
+.bookExtraInfo {
+    width: 100%;
+    height: auto;
+    margin: 7em 0;
+    background-color: rgb(71, 75, 77);
+    border-radius: 5px;
+    display: flex;
+    align-items: flex-start; 
+    flex-direction: column;
+    text-align: start; 
+    justify-content: flex-start;
+}
+
+.bookExtraInfoText{
+    color: white;
+    text-align: start;
+    padding: 4%;
+}
+
+.bookExtraInfoTags{
+    text-align: start;
+    padding: 4%;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.bookExtraRowText{
+    color: white;
+    text-align: start;
+    padding: 4%;
+    height: auto;
+}
+
+.bookExtraInfoTag{
+    background-color: rgb(65, 69, 71);
+    padding: 5px;
+    border-radius: 5px;
+    color: white;
+    height: 1.7em;
+    text-align: center;
+    width: auto;
+    border: 2px solid white;
+}
+
+.extraInfoRow{
+    font-size: 1.2em;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin: 0 auto;
+    width: auto;
+    gap: 10vw;
+    height: auto;
+    justify-content: space-between;
+}
+
 .Wrapper{
-    overflow-x: hidden;
     position: absolute;
     left: 0;
     right: 0;
@@ -35,7 +91,7 @@
     z-index: 1;
 }
 
-@media screen and (max-width:1080px) {
+@media screen and (max-width:1200px) {
     .Wrapper{
         max-width: 90%;
     }
@@ -57,6 +113,13 @@
 }
 
 .author{
+    margin-top: 1%;
+    margin-left:2%;
+    color: white;
+    font-size: 1.2em;
+}
+
+.genre{
     margin-top: 2%;
     margin-left:2%;
     color: white;
@@ -149,6 +212,8 @@
         place-content: end;
         margin: 2% auto;
     }
+
+
     
     #phone{
         display: block;
@@ -163,6 +228,9 @@
     #authorPhone{
         font-size: 1rem;
     }
+    #genrePhone{
+        font-size: 1rem;
+    }
     #chaptersPhone{
         font-size: 1rem;
     }
@@ -171,6 +239,12 @@
     }
     .ratingPhone{
         font-size: 1rem;
+    }
+    .extraInfoRow{
+        flex-direction: column;
+    }
+    .bookExtraInfo{
+        margin-top: 10%;
     }
     #readButtonPhone{
         background-color: rgb(65, 69, 71);
@@ -194,11 +268,18 @@
         background-color: rgb(64, 65, 66);
         width: 80%;
         text-align: center;
-        height: 20rem;
+        height: auto;
+        padding-bottom: 5%;
         color: white;
         margin: 0 auto;
         border-radius: 10px;
-
+    }
+    .bookExtraInfoTags{
+        text-align: start;
+        padding: 4%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
     }
     #phoneButtonContainer{
         margin-top: 20px;
