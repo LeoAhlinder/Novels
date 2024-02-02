@@ -6,7 +6,6 @@ import landscape from "../Pictures/fantasyLandscape.webp"
 
 import BookListGrid from "../Components/Books/bookListGrid";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
-import CookiesForm from "../Components/CookiesForm/cookiesForm";
 
 import forest from "../picturesForBooks/forest.webp"
 import forestHut from "../picturesForBooks/hutInForest.webp"
@@ -61,7 +60,7 @@ const Home = () => {
   },[navigate]);
 
   const goToBook = (book) =>{
-    navigate({pathname:`${book.title}`})
+    navigate({pathname:`novel/${book.title}`})
   }
 
   return (

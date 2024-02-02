@@ -99,6 +99,10 @@ app.get(`/api/book`, async (req, res) => {
   const bookName = req.query.title;
   try {
     const [bookInfo] = await Promise.all([bookData(bookName)]);
+    if (bookInfo.length === 0) {
+      res.json({ message: "No book found" });
+      return;
+    }
     const authorInfo = await authorData(bookInfo[0].bookid);
     res.json({ data: bookInfo, author: authorInfo });
   } catch (err) {
@@ -742,8 +746,6 @@ app.post("/api/publishChapter", function (req, res) {
       const currentChapter = req.body.chapterNumber;
       const chapterTitle = req.body.chapterTitle;
 
-      console.log(chapterContent);
-
       connection.query(
         "SELECT * FROM chapters WHERE bookid = ?",
         [bookId],
@@ -868,6 +870,11 @@ app.post("/api/chapterInfo", function (req, res) {
         function (err, results) {
           if (err) {
             res.json({ error: "error" });
+          }
+
+          if (results.length === 0) {
+            res.json({ message: "No book found" });
+            return;
           }
 
           const bookId = results[0].bookid;

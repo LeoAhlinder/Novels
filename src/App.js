@@ -56,7 +56,7 @@ const App = () => {
               <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path="/:title" element={<BookPage />} />
+                <Route path="/novel/:title" element={<BookPage />} />
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/search" element={<SearchBar />} />
                 <Route path="/popular" element={<MostPopular />} />

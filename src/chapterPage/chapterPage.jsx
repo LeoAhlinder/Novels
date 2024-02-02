@@ -106,15 +106,12 @@ const ChapterPage = () => {
     useEffect(()=>{
         const getChapterInfo = async () =>{
 
-            const token = Cookies.get("authToken")
-
             try{
                 const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapterInfo`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
                         "Accept": "application/json",
-                        Authorization: `Bearer ${token}`
                     },
                     body: JSON.stringify({bookName:bookName,chapterNumber:chapterNumber})
                 });
@@ -172,7 +169,7 @@ const ChapterPage = () => {
         <>
             {loading === false ?
             <div id="chapterPageContainer">
-                <a id="chapterPageBookTitle" href={`/${bookName}`}>{bookName}</a>
+                <a id="chapterPageBookTitle" href={`/novel/${bookName}`}>{bookName}</a>
                 <h1 id="chapterPageTitle">
                     Chapter {chapterNumber}: {chapterTitle}
                 </h1>

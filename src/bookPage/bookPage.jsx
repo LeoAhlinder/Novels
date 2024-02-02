@@ -21,7 +21,7 @@ const BookPage = () =>{
 
     const navigate = useNavigate()
 
-    const bookName = window.location.pathname.split("/")[1].replaceAll("-", " ");
+    const bookName = window.location.pathname.split("/")[2].replaceAll("-", " ");
  
     const [bookInfo, setBookInfo] = useState([])
     const [authorName,setAuthor] = useState("")

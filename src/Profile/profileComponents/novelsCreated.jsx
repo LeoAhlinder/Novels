@@ -55,7 +55,7 @@ const NovelCreated = () =>{
     },[])
 
     function openBook(book){
-        navigate({pathname:`/${book.title}`})
+        navigate({pathname:`/novel/${book.title}`})
     }
 
     return(

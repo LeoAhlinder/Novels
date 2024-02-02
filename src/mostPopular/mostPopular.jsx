@@ -80,7 +80,7 @@ const MostPopular  = () =>{
     },[type])
 
     const goToBook = (book) =>{
-        navigate({pathname:`/${book.title}`})
+        navigate({pathname:`/novel/${book.title}`})
     }
 
     return(

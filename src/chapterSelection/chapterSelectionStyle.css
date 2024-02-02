@@ -1,6 +1,7 @@
 #chaptersContainer{
     width: 75% !important;
-    height: 75em;
+    height: auto;
+    max-height: 100em;
     background-color: rgb(38, 40, 41);
     margin: 3% auto;
     border-radius: 10px;
