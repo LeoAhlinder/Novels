@@ -129,4 +129,5 @@
 
 #chaptersContainer{
     width: 100%;
+    place-content: center;
 }
