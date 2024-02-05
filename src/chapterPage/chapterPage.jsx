@@ -216,15 +216,16 @@ const ChapterPage = () => {
                 <p id="chapterText" style={chapterTextSize !== null ? 
                     {fontFamily:chapterFontType,fontSize:chapterTextSize + "px", backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color} : {}}
                     dangerouslySetInnerHTML={{
-                        __html: DOMPurify.sanitize(chapterText.replace(/\n/g, '<br>')),
-                      }}>
+                        __html: chapterText.length === 0 ? "" : DOMPurify.sanitize(chapterText.replace(/\n/g, '<br>'))
+                      }}
+                      >
                 </p>
                 <div id="switchChapterContainer">
                     <button>
                             <a
                                 className="chapterSwitchButton"
-                                id={Number(chapterNumber) === 1 ? "inActiveButton" : ""}
-                                href={Number(chapterNumber) === 1 ? "" : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) - 1}`}
+                                id={Number(chapterNumber) === 1 || Number(chapterNumber) > totalChapters ? "inActiveButton" : ""}
+                                href={Number(chapterNumber) === 1 || Number(chapterNumber) > totalChapters ? "" : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) - 1}`}
                                 onClick={(e) => {
                                     if (Number(chapterNumber) === 1) {
                                     e.preventDefault();
@@ -235,13 +236,13 @@ const ChapterPage = () => {
                             </a>
                     </button>
                     <button>
-                        <a className="chapterSwitchButton" id="backToBookButton" href={`/${bookName}`}>Back&nbsp;to&nbsp;Book</a>
+                        <a className="chapterSwitchButton" id="backToBookButton" href={`/novel/${bookName}`}>Back&nbsp;to&nbsp;Book</a>
                     </button>
                     <button>
                     <a
                                 className="chapterSwitchButton"
-                                id={Number(chapterNumber) === totalChapters ? "inActiveButton" : ""}
-                                href={Number(chapterNumber) === totalChapters ? "" : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) + 1}`}
+                                id={Number(chapterNumber) === totalChapters || Number(chapterNumber) > totalChapters ? "inActiveButton" : ""}
+                                href={Number(chapterNumber) === totalChapters || Number(chapterNumber) > totalChapters ? "" : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) + 1}`}
                                 onClick={(e) => {
                                     if (Number(chapterNumber) === totalChapters) {
                                     e.preventDefault();

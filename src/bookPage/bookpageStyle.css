@@ -169,7 +169,7 @@
     justify-content: space-between;
     gap:10px;
     margin-top: 5%;
-    width: 50%;
+    width: 70%;
 }
 
 .rating{
@@ -246,7 +246,7 @@
     .bookExtraInfo{
         margin-top: 10%;
     }
-    #readButtonPhone{
+    .readButtonPhone{
         background-color: rgb(65, 69, 71);
         margin-right: 10px;
         padding: 10px;
@@ -311,12 +311,12 @@
     }
     #addButtonPhone{
         margin: 0 auto;
-        width: 50%;
+        width: 70%;
         height: 70px;
     }
-    #readButtonPhone{
+    .readButtonPhone{
         margin: 0 auto;
-        width: 50%;
+        width: 70%;
         height: 60px;
     }
 

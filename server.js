@@ -422,13 +422,16 @@ app.post("/api/checkLibrary", function (req, res) {
         const bookid = req.body.id;
 
         const query =
-          "SELECT * FROM userlibrary WHERE userid = ? AND bookid = ?";
+          "SELECT currentpage FROM userlibrary WHERE userid = ? AND bookid = ?";
         connection.query(query, [userid, bookid], function (error, results) {
           if (error) {
             console.log(error);
           } else {
             if (results.length > 0) {
-              res.json({ message: "exist" });
+              res.json({
+                message: "exist",
+                currentPage: results[0].currentpage,
+              });
             } else {
               res.json({ message: "does not exist" });
             }

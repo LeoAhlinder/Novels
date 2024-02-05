@@ -31,6 +31,7 @@ const BookPage = () =>{
     const [checkBookInLibrary,changeCheckBookInLibrary] = useState(false)
     const [bookExtraInfo,changeBookExtraInfo] = useState([])
     const [tags,changeTags] = useState([])
+    const [currentPage, changeCurrentPage] = useState(0);
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -80,11 +81,14 @@ const BookPage = () =>{
                 });
                 if (res.ok){
                     const response = await res.json()
-                    if (response.message === "no token"){
+                        if (response.message === "no token"){
                         LibraryChange("Not Login in")
                     }
                     if (response.message === "exist"){
                         LibraryChange("Remove from Library")
+                        if (response.currentPage !== 0){
+                            changeCurrentPage(response.currentPage)
+                        }
                     }
                     else if (response.message === "does not exist"){
                         LibraryChange("Add to Library")
@@ -184,6 +188,11 @@ const BookPage = () =>{
         navigate({pathname:`/chapters/${bookInfo[0].title}`})
     }
 
+    const goToChapter = () => {
+        navigate({pathname:`/chapters/${bookInfo[0].title}/${currentPage}`})
+    }
+
+
     return(
         <>
 
@@ -202,7 +211,8 @@ const BookPage = () =>{
                             <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                             <h3 className="rating">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
                             <div id="buttonContainer">
-                                <button className="readButton" onClick={() => goToChapterPage()}>Read</button>
+                                <button className="readButton" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue reading: " + currentPage : "Start reading"}</button>
+                                <button className="readButton" onClick={() => goToChapterPage()}>View chapters</button>
                                 <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                             </div>
                         </div>
@@ -238,7 +248,8 @@ const BookPage = () =>{
                                         <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                                         <h3 className="ratingPhone">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
                                     <div id="phoneButtonContainer">
-                                        <button id="readButtonPhone" onClick={() => goToChapterPage()}>Read</button>
+                                        <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue reading: " + currentPage : "Start reading"}</button>
+                                        <button className="readButtonPhone" onClick={() => goToChapterPage()}>View chapters</button>
                                         <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                                     </div>
                                 </div>
