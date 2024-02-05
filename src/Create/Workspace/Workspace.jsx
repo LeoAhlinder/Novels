@@ -14,6 +14,7 @@ import pinkForest from "../../picturesForBooks/pinkForestSmall.webp"
 const Workspace = () =>{
 
     const [books,setBooks] = useState([])
+    const [loading,setLoading] = useState(true)
 
     const navigate = useNavigate()
 
@@ -43,6 +44,7 @@ const Workspace = () =>{
                 {
                     const response = await res.json()
                     setBooks(response.data)
+                    setLoading(false)
                 }
                 else{
                     navigate("/error")
@@ -71,6 +73,7 @@ const Workspace = () =>{
                 showPageProgress={false}
                 showText={false}
                 textIfEmpty="You have no novels created"
+                loading={loading}
             />
         </div>
     );

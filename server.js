@@ -290,6 +290,7 @@ app.get("/api/latest", function (req, res) {
   connection.query(query, function (err, results) {
     if (err) {
       res.json({ error: "error" });
+      return;
     }
     res.json({ books: results });
   });

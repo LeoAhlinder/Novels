@@ -24,6 +24,7 @@ const NovelCreated = () =>{
     const navigate = useNavigate()
 
     const [books,setBooks] = useState([])
+    const [loading,setLoading] = useState(true)
 
     useEffect(()=>{
         try{
@@ -42,6 +43,7 @@ const NovelCreated = () =>{
                 {
                     const response = await res.json()
                     setBooks(response.data)
+                    setLoading(false)
                 }
                 else{
                     navigate("/error")
@@ -65,6 +67,7 @@ const NovelCreated = () =>{
             bookCoverImages={bookCoverImages}
             showPageProgress={false}
             textIfEmpty="You have not created any novels yet"
+            loading={loading}
         />
     )
 }
