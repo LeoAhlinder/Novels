@@ -681,6 +681,7 @@ app.post("/api/admin/login", function (req, res) {
     } else {
       if (results === undefined) {
         res.json({ message: "error" });
+        return;
       }
       if (results.length > 0) {
         const token = jwt.sign({ admin: results[0].adminid }, admin_secretkey);
@@ -719,6 +720,10 @@ app.post("/api/checkOwnerOfBook", function (req, res) {
           if (err) {
             console.log(err);
           } else {
+            if (results.length === 0) {
+              res.json({ message: "invalid" });
+              return;
+            }
             if (results[0].author === userId) {
               res.json({
                 message: "valid",
@@ -727,6 +732,7 @@ app.post("/api/checkOwnerOfBook", function (req, res) {
               });
             } else {
               res.json({ message: "invalid" });
+              return;
             }
           }
         });
@@ -775,6 +781,7 @@ app.post("/api/publishChapter", function (req, res) {
           } else {
             if (results.length > 5000) {
               res.json({ message: "To many chapters" });
+              return;
             }
           }
         }
