@@ -62,7 +62,10 @@ const LogIn = () =>{
                     });
                     if (res.ok){
                         const response = await res.json();
-                        if (response.message === "both exist"){
+                        if (response.error){
+                            changeAlerts("Please select another username and email")
+                        }
+                        else if (response.message === "both exist"){
                             changeAlerts("The email and username is already in use")
                         }
                         else if (response.message === "email exist"){

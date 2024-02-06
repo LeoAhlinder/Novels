@@ -6,6 +6,7 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const validator = require('validator');
 
 const { env } = require("process");
 const { config } = require("dotenv");
@@ -191,9 +192,16 @@ function bookData(bookName) {
 app.post("/api/createaccount", function (req, res) {
   const data = req.body;
 
+  if (!validator.isEmail(data.email) || !validator.isAlphanumeric(data.username)) {
+    return res.status(400).json({ error: "Invalid" });
+  }
+
+  const email = validator.normalizeEmail(data.email);
+  const username = validator.trim(data.username);
+
   connection.query(
     "SELECT * FROM users WHERE userEmail = ? OR userName = ?",
-    [data.email, data.username],
+    [email, username],
     function (error, results) {
       if (error) {
         console.error("Error executing query:", error);
