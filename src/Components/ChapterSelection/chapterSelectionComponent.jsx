@@ -7,7 +7,7 @@ const SelectChapter = ({ chapters, goToChapterPage,loading }) => {
     }
 
     return(
-        <div id="chaptersContainer">
+        <div id="chaptersContainer" style={chapters.length === 0 ? {placeContent:"center"} : {}}>
             {loading ? (
                 <p>Loading...</p>
             ) : (
