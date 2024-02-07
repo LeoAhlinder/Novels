@@ -6,7 +6,7 @@ const mysql = require("mysql2");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
-const validator = require('validator');
+const validator = require("validator");
 
 const { env } = require("process");
 const { config } = require("dotenv");
@@ -192,8 +192,12 @@ function bookData(bookName) {
 app.post("/api/createaccount", function (req, res) {
   const data = req.body;
 
-  if (!validator.isEmail(data.email) || !validator.isAlphanumeric(data.username)) {
-    return res.status(400).json({ error: "Invalid" });
+  if (
+    !validator.isEmail(data.email) ||
+    !validator.isAlphanumeric(data.username)
+  ) {
+    console.log("Invalid data");
+    return res.json({ error: "Invalid" });
   }
 
   const email = validator.normalizeEmail(data.email);
@@ -604,8 +608,8 @@ function checkIfDataCorrect(data) {
     return `Missing fields: ${missingFields.join(", ")}`;
   }
 
-  if (data.Synopsis.length > 300) {
-    return "Synopsis exceeds maximum length of 300 characters";
+  if (data.Synopsis.length > 700) {
+    return "Synopsis exceeds maximum length of 700 characters";
   }
 
   if (data.bookTitle.length > 20) {

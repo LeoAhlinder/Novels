@@ -84,7 +84,7 @@ const LogIn = () =>{
                     navigate("/error") 
                 }
             }else{
-                alert("Please enter a valid email")
+                changeAlerts("Please enter a valid email")
             }
         }
     }
