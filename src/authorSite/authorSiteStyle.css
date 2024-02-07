@@ -15,7 +15,7 @@
 }
 
 .authorBookItem{
-    height: 172.8px;
+    height: auto;
     width: 100%;
     color: white;
     margin: 0.6% 0;
@@ -25,13 +25,11 @@
 }
 
 #bookPicture{
-    height:172.8px;
-    width:155.63px;;
     border-radius: 10px 0px 10px 0px;
 }
 
 #bookContainer{
-    height: 100%;
+    height: auto;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -142,6 +140,22 @@
     }
     #Title{
         font-size: 0.8em;
+    }
+     
+    #Chapters{
+        margin-left: 120px;
+    }
+
+    #totalInLibrary{
+        margin-left: 120px;
+    }
+
+    #Genre{
+        margin-left: 120px;
+    }
+
+    #PR{
+        margin-left: 120px;
     }
     
 }
