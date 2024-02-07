@@ -211,7 +211,7 @@ const BookPage = () =>{
                             <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                             <h3 className="rating">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
                             <div id="buttonContainer">
-                                <button className="readButton" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue reading: " + currentPage : "Start reading"}</button>
+                                <button className="readButton" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                 <button className="readButton" onClick={() => goToChapterPage()}>View chapters</button>
                                 <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                             </div>
@@ -248,7 +248,7 @@ const BookPage = () =>{
                                         <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                                         <h3 className="ratingPhone">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
                                     <div id="phoneButtonContainer">
-                                        <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue reading: " + currentPage : "Start reading"}</button>
+                                        <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                         <button className="readButtonPhone" onClick={() => goToChapterPage()}>View chapters</button>
                                         <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                                     </div>
