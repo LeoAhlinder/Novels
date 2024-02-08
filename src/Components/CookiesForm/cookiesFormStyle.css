@@ -9,19 +9,28 @@
 }
 
 #cookieForm{
-    position: fixed;
-    top: 85%;
-    left:88%;
-    transform: translate(-50%, -50%);
-    display:block;
-    background-color: rgb(227, 227, 227);
-    border-radius: 10px;
-    width: 20%;
-    height: 20%;
-    text-align: center;
-    padding: 10px;
-    color:rgb(39, 38, 38);
+    margin-top: 70px;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.2);
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#cookieBanner{
+    width: auto;
+    height: auto;
+    text-align: center;
+    background-color: white;
+    padding: 10px;
+    border-radius: 2%;
 }
 
 #cookiesInfoText{
@@ -32,51 +41,40 @@
     font-weight: bold;
 }
 
+#AcceptButton{
+    background-color: rgb(21, 66, 21);
+}
+
+#RejectButton{
+    background-color: rgb(112, 7, 7);
+}
+
 .bannerButton{
-    min-width: 100px;
+    max-width: 350px;
+    min-width: 70px;
     min-height: 50px;
     padding: 20px;
-    background-color: rgb(50, 52, 53);
+    background-color: rgb(65, 69, 71);
+}
+
+.bannerButton:hover{
+    opacity: 0.8;
 }
 
 #cookieBannerButtons{
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-content: space-evenly;
     align-items: center;
-    width: 50%;
-    gap: 20px;
+    width: 70%;
+    gap: 10px;
     margin: 50px auto;
 }
 
-@media screen and (max-width:1400px) {
-    #cookieForm{
-        width: 50%;
-        height: 50%;
+@media screen and (max-width: 500px) {
+    #cookieBannerButtons{
+        grid-template-columns: 1fr;
     }
-}
-
-@media screen and (max-width:1000px) {
-    #cookieForm{
-        width: 60%;
-        height: 40%;
-        top: 50%;
-    }
-}
-
-@media screen and (max-width:500px) {
-    #cookieForm{
-        width: 80%;
-        height: 70%;
-        top:50%;
-    }
-}
-
-@media screen and (max-width:700px) and (max-height: 500px) {
-    #cookieForm{
-        width: 80%;
-        height:70%;
-        top:70%;
-    }
+    
 }
