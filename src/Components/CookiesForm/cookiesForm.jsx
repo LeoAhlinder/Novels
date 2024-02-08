@@ -42,13 +42,33 @@ const CookiesForm = () => {
                         <div id="cookieBannerButtons">
                             <button className="bannerButton" id="AcceptButton" onClick={storeCookies}>Accept All</button>
                             <button className="bannerButton" id="RejectButton" onClick={storeCookies}>Reject</button>
-                            <button className="bannerButton" onClick={() => setCookiesSelectionState(true)}>Adjust</button>
+                            <button className="bannerButton" onClick={() => setCookiesSelectionState(!cookiesSelectionState)}>Adjust</button>
                         </div>
                     </div>    
                 </div>
                 {cookiesSelectionState === true ? 
             <>
-                <p>test</p>
+                <div id="ExtraCookiesOptions">
+                    <div id="CookiesOptions">
+                        <div id="cookiesOptionsTitle">
+                            <p>Cookie Preferences</p>
+                        </div>
+                        <div id="cookiesOptionsContent">
+                            <div id="cookieOption">
+                                <input type="checkbox" id="cookieOption1" />
+                                <label for="cookieOption1">Functional Cookies</label>
+                            </div>
+                            <div id="cookieOption">
+                                <input type="checkbox" id="cookieOption2" />
+                                <label for="cookieOption2">Analytics Cookies</label>
+                            </div>
+                            <div id="cookieOption">
+                                <input type="checkbox" id="cookieOption3" />
+                                <label for="cookieOption3">Marketing Cookies</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </> 
             : ""}
             </div> 

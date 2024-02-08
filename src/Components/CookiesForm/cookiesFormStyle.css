@@ -61,6 +61,20 @@
     opacity: 0.8;
 }
 
+#ExtraCookiesOptions{
+    width: 100%;
+    height: auto;
+    background-color: red;
+    place-content: center;
+    display: grid;
+}
+
+#CookiesOptions{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
 #cookieBannerButtons{
     position: relative;
     display: grid;
