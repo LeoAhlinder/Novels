@@ -19,9 +19,9 @@ const ChapterPage = () => {
     const [loading,setLoading] = useState(true);
     const [chapterTitle,setChapterTitle] = useState("");
     const [viewCustomOptions,setViewCustomOptions] = useState(false);
-    const [chapterTextSize,setChapterTextSize] = useState();
-    const [chapterTheme,setChapterTheme] = useState();
-    const [chapterFontType,setChapterFontType] = useState();
+    const [chapterTextSize,setChapterTextSize] = useState(18);
+    const [chapterTheme,setChapterTheme] = useState("dark");
+    const [chapterFontType,setChapterFontType] = useState("Roboto");
     const [totalChapters,setTotalChapters] = useState(0);
 
     ChangeDocumentTitle(`${bookName} - Chapter ${chapterNumber}`);
@@ -72,7 +72,9 @@ const ChapterPage = () => {
             }
         }
 
-        setUserPreferences();
+        if (Cookies.get("cookiesAccepted") === "true"){
+            setUserPreferences();
+        }
     },[])
 
     useEffect(() => {
@@ -142,27 +144,33 @@ const ChapterPage = () => {
         getChapterInfo();
     },[])
 
+    function setCookiePreferences(name,value){
+        if (Cookies.get("cookiesAccepted") === "true"){
+            Cookies.set(name,value,{expires: 30, secure: true})
+        }
+    }
+
     function changeTextSize(Sign){
         if (Sign === "+" && chapterTextSize < 36){
             setChapterTextSize(chapterTextSize + 2)
-            Cookies.set("textSize",Number(chapterTextSize + 2),{expires: 30, secure: true})
+            setCookiePreferences("textSize",Number(chapterTextSize + 2))
         }
         else if (Sign === "-" && chapterTextSize > 10){
             setChapterTextSize(chapterTextSize - 2)
-            Cookies.set("textSize",Number(chapterTextSize - 2),{expires: 30, secure: true})
+            setCookiePreferences("textSize",Number(chapterTextSize - 2))
         }
     }
 
     function changeTheme(Theme){
         if (chapterTheme !== Theme)
             setChapterTheme(Theme)
-            Cookies.set("theme",Theme,{expires: 30, secure: true});
+            setCookiePreferences("theme",Theme)
     }
 
     function changeFontType(Font){
         if (chapterFontType !== Font)
             setChapterFontType(Font)
-            Cookies.set("fontType",Font,{expires: 30, secure: true});
+            setCookiePreferences("fontType",Font)
     }
 
     return(
@@ -225,7 +233,8 @@ const ChapterPage = () => {
                             <a
                                 className="chapterSwitchButton"
                                 id={Number(chapterNumber) === 1 || Number(chapterNumber) > totalChapters ? "inActiveButton" : ""}
-                                href={Number(chapterNumber) === 1 || Number(chapterNumber) > totalChapters ? "" : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) - 1}`}
+                                href={Number(chapterNumber) === 1 || Number(chapterNumber) > totalChapters ? "" 
+                                : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) - 1}`}
                                 onClick={(e) => {
                                     if (Number(chapterNumber) === 1) {
                                     e.preventDefault();
@@ -242,7 +251,8 @@ const ChapterPage = () => {
                     <a
                                 className="chapterSwitchButton"
                                 id={Number(chapterNumber) === totalChapters || Number(chapterNumber) > totalChapters ? "inActiveButton" : ""}
-                                href={Number(chapterNumber) === totalChapters || Number(chapterNumber) > totalChapters ? "" : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) + 1}`}
+                                href={Number(chapterNumber) === totalChapters || Number(chapterNumber) > totalChapters ? "" 
+                                : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) + 1}`}
                                 onClick={(e) => {
                                     if (Number(chapterNumber) === totalChapters) {
                                     e.preventDefault();
