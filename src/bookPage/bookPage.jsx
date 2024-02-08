@@ -189,7 +189,7 @@ const BookPage = () =>{
     }
 
     const goToChapter = () => {
-        navigate({pathname:`/chapters/${bookInfo[0].title}/${currentPage}`})
+        navigate({pathname:`/chapters/${bookInfo[0].title}/${currentPage === 0 ? 1 : currentPage}`})
     }
 
 
