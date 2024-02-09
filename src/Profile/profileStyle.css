@@ -66,7 +66,7 @@ body {
     text-align: start;
     display: flex;
     justify-content: space-evenly;
-    align-items: start;
+    align-items: flex-start;
     position: relative;
     background-color: rgb(38, 40, 41);
     margin-left: 5%;

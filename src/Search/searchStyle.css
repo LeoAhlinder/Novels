@@ -9,7 +9,6 @@
     color: rgb(198, 197, 197);
     font-size: 1.1rem;
 
-    /* Center vertically */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -46,7 +45,7 @@
 .containerSearch {
     display: flex;
     flex-wrap: wrap;
-    justify-content: start;
+    justify-content: flex-start;
     width: 70%;
     margin: 0 auto;
     background-color: rgb(50, 52, 53);
