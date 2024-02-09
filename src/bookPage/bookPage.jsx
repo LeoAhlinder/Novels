@@ -217,10 +217,10 @@ const BookPage = () =>{
                             <h2 className="genre">Genre: {bookExtraInfo.genres}</h2>
                             <h5 className="author"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                             <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
-                            <h3 className="rating">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
+                            <h3 className="rating">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating}</h3>
                             <div id="buttonContainer">
                                 <button className="readButton" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
-                                <button className="readButton" onClick={() => goToChapterPage()}>View chapters</button>
+                                <button className="readButton" onClick={() => goToChapterPage()}>View Chapters</button>
                                 <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                             </div>
                         </div>
@@ -230,9 +230,9 @@ const BookPage = () =>{
                                 <p>{bookExtraInfo.synopsis}</p>
                             </div>
                             <div className="bookExtraInfoText">
-                                <h2>Overall information</h2>
+                                <h2>Overall Information</h2>
                                 <div className="extraInfoRow">
-                                    <p className="bookExtraRowText">PE:&nbsp;{bookExtraInfo.warnings}</p>
+                                    <p className="bookExtraRowText">Recommended Age:&nbsp;{bookExtraInfo.warnings}</p>
                                     <div className="bookExtraInfoTags">
                                         Tags:
                                         {tags.map((tag,index)=>{
@@ -246,7 +246,7 @@ const BookPage = () =>{
                         <div className="commentContainer">
                             <div className="headerContainer">
                                 <h2>Comments</h2>
-                                <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writting comments"}</button>
+                                <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
                             </div>
                             {writeCommentView === true ? 
                             <>
@@ -274,7 +274,75 @@ const BookPage = () =>{
                                     </div>
                                </div>
                             </div>
+                        </div>
+                        <div id="footer"></div>
+                    </div>
+                        <div id="phone">
+                            <div id="phoneItemsWrapper">
+                                <div id="bookPagePictureContainer">
+                                    <img src={bookCoverImages[bookInfo[0].bookcover]} alt="cutecat" id="novelCoverPhone" />
+                                </div>
+                                <div id="bookInfoPhone">
+                                        <h1 className="titlePhone">{bookInfo[0].title}</h1>
+                                        <h4 className="genrePhone">Genre: {bookExtraInfo.genres}</h4>
+                                        <h5 id="authorPhone"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
+                                        <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
+                                        <h3 className="ratingPhone">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating}</h3>
+                                    <div id="phoneButtonContainer">
+                                        <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
+                                        <button className="readButtonPhone" onClick={() => goToChapterPage()}>View Chapters</button>
+                                        <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
+                                    </div>
+                                </div>
+                                <div className="bookExtraInfo">
+                                    <div className="bookExtraInfoText">
+                                        <h1>Summary</h1>
+                                        <p>{bookExtraInfo.synopsis}</p>
+                                    </div>
+                                    <div className="bookExtraInfoText">
+                                        <h2>Overall Information</h2>
+                                        <div className="extraInfoRow">
+                                            <p className="bookExtraRowText">Recommended Age:&nbsp;{bookExtraInfo.warnings}</p>
+                                            <div className="bookExtraInfoTags">
+                                                Tags:
+                                                {tags.map((tag,index)=>{
+                                                    return <p key={index} className="bookExtraInfoTag" >{tag}</p>
+                                                })}
+                                            </div>
+                                            <p className="bookExtraRowText">Language:&nbsp;{bookExtraInfo.language}</p>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div className="commentContainer">
+                            <div className="headerContainer">
+                                <h2 id="commentsTitle">Comments</h2>
+                                <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
+                            </div>
+                            {writeCommentView === true ? 
+                            <>
+                                <div className="writeCommentContainer">
+                                    <textarea className="writeCommentTextArea" onChange={adjustHeight} placeholder="Write a comment"></textarea>
+                                    <button className="submitCommentButton">Submit</button>
+                                </div>
+                            </> 
+                            : null
+                            }
                             <div className="commentField">
+                               <div className="Comment">
+                                    <h3 className="commentUsername">Username</h3>
+                                    <p className="commentText">CommentText</p>
+                                    <div className="likeDislikeContainer">
+                                        <button className="feedbackButton">
+                                            <span className="feedbackText">1</span>
+                                            <img src={upvote} className="voteButtons" alt="upvote comment image" />
+                                        </button>
+                                        <span>|</span>
+                                        <button className="feedbackButton">
+                                            <span className="feedbackText">1</span>
+                                            <img src={downvote} className="voteButtons" alt="downvote comment image" />
+                                        </button>                                    
+                                    </div>
+                               </div>
                                <div className="Comment">
                                     <h3 className="commentUsername">Username</h3>
                                     <p className="commentText">CommentText</p>
@@ -294,43 +362,6 @@ const BookPage = () =>{
                             </div>
                         </div>
                         <div id="footer"></div>
-                    </div>
-                        <div id="phone">
-                            <div id="phoneItemsWrapper">
-                                <div id="bookPagePictureContainer">
-                                    <img src={bookCoverImages[bookInfo[0].bookcover]} alt="cutecat" id="novelCoverPhone" />
-                                </div>
-                                <div id="bookInfoPhone">
-                                        <h1 className="titlePhone">{bookInfo[0].title}</h1>
-                                        <h4 className="genrePhone">Genre: {bookExtraInfo.genres}</h4>
-                                        <h5 id="authorPhone"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
-                                        <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
-                                        <h3 className="ratingPhone">{bookInfo[0].rating === null ? "No rating" : bookInfo[0].rating}</h3>
-                                    <div id="phoneButtonContainer">
-                                        <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
-                                        <button className="readButtonPhone" onClick={() => goToChapterPage()}>View chapters</button>
-                                        <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
-                                    </div>
-                                </div>
-                                <div className="bookExtraInfo">
-                                    <div className="bookExtraInfoText">
-                                        <h1>Summary</h1>
-                                        <p>{bookExtraInfo.synopsis}</p>
-                                    </div>
-                                    <div className="bookExtraInfoText">
-                                        <h2>Overall information</h2>
-                                        <div className="extraInfoRow">
-                                            <p className="bookExtraRowText">PE:&nbsp;{bookExtraInfo.warnings}</p>
-                                            <div className="bookExtraInfoTags">
-                                                Tags:
-                                                {tags.map((tag,index)=>{
-                                                    return <p key={index} className="bookExtraInfoTag" >{tag}</p>
-                                                })}
-                                            </div>
-                                            <p className="bookExtraRowText">Language:&nbsp;{bookExtraInfo.language}</p>
-                                        </div>
-                                    </div>
-                                </div>  
                             </div>
                         </div>
                 </div> 
