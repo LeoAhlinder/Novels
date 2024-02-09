@@ -951,6 +951,7 @@ app.post("/api/setLatestReadChapter", function (req, res) {
     user_secretkey,
     async function (err, decodedToken) {
       if (err) {
+        return res.sendStatus(403);
       }
 
       const bookName = req.body.bookName;

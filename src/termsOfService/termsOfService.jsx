@@ -16,7 +16,8 @@ const TermsOfService = () => {
 
                 1. Cookie and Data Storage Notice:
                 <br />
-                - We will save cookies on your computer to keep you logged in and store your preferences for text style, theme, and font size. Additionally, your email, username, and encrypted password will be stored in our database for account management purposes.
+                - We will save cookies on your computer to keep you logged in and store your preferences for text style, theme, and font size.
+                 Additionally, your email, username, and encrypted password will be stored in our database for account management purposes.
 
                 <br /><br />
 
@@ -28,7 +29,8 @@ const TermsOfService = () => {
 
                 3. User Responsibility and Conduct:
                 <br />
-                - As a user, you are responsible for your actions. Failure to follow the <a href="/rules" target="_blank" id="rulesTag">rules</a> or posting inappropriate content may result in a ban from the website without warning.
+                - As a user, you are responsible for your actions. Failure to follow the <a href="/rules" target="_blank" id="rulesTag">rules</a> or 
+                posting inappropriate content may result in a ban from the website without warning.
 
                 <br /><br />
 
@@ -45,7 +47,8 @@ const TermsOfService = () => {
                             
                 7. Copyright and DMCA Notice:   
                 <br />
-                - We respect the intellectual property rights of others. If you believe that your work has been used on our website in a way that constitutes copyright infringement, please provide our designated agent with the following information:
+                - We respect the intellectual property rights of others. If you believe that your work has been used on our website in a way that constitutes
+                 copyright infringement, please provide our designated agent with the following information:
                     <br />
                     - A physical or electronic signature of the copyright owner or a person authorized to act on their behalf.
                     <br />
