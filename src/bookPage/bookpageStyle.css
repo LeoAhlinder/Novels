@@ -93,6 +93,7 @@
     height: auto;
     overflow: hidden;
     font-size: 1.3em;
+    border-radius: 5px;
 }
 
 .submitCommentButton{
@@ -284,7 +285,6 @@
     word-break: break-word;
     border: none;
     color: white;
-    border-radius: 5px;
 }
 
 #buttonContainer{
