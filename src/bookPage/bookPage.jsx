@@ -9,6 +9,8 @@ import Moon from "../picturesForBooks/moonBig.webp"
 import forest from "../picturesForBooks/forestBig.webp"
 import forestHut from "../picturesForBooks/hutInForestBig.webp"
 
+import downvote from "../Icons/downvote.svg"
+import upvote from "../Icons/upvote.svg"
 
 const BookPage = () =>{
 
@@ -32,6 +34,7 @@ const BookPage = () =>{
     const [bookExtraInfo,changeBookExtraInfo] = useState([])
     const [tags,changeTags] = useState([])
     const [currentPage, changeCurrentPage] = useState(0);
+    const [writeCommentView,changeWriteCommentView] = useState(false)
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -192,6 +195,11 @@ const BookPage = () =>{
         navigate({pathname:`/chapters/${bookInfo[0].title}/${currentPage === 0 ? 1 : currentPage}`})
     }
 
+    function adjustHeight(e) {
+        e.target.style.height = "1px";
+        e.target.style.height = (25+e.target.scrollHeight)+"px";
+    }
+
 
     return(
         <>
@@ -235,6 +243,57 @@ const BookPage = () =>{
                                 </div>
                             </div>
                         </div>  
+                        <div className="commentContainer">
+                            <div className="headerContainer">
+                                <h2>Comments</h2>
+                                <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writting comments"}</button>
+                            </div>
+                            {writeCommentView === true ? 
+                            <>
+                                <div className="writeCommentContainer">
+                                    <textarea className="writeCommentTextArea" onChange={adjustHeight} placeholder="Write a comment"></textarea>
+                                    <button className="submitCommentButton">Submit</button>
+                                </div>
+                            </> 
+                            : null
+                            }
+                            <div className="commentField">
+                               <div className="Comment">
+                                    <h3 className="commentUsername">Username</h3>
+                                    <p className="commentText">CommentText</p>
+                                    <div className="likeDislikeContainer">
+                                        <button className="feedbackButton">
+                                            <span className="feedbackText">1</span>
+                                            <img src={upvote} className="voteButtons" alt="upvote comment image" />
+                                        </button>
+                                        <span>|</span>
+                                        <button className="feedbackButton">
+                                            <span className="feedbackText">1</span>
+                                            <img src={downvote} className="voteButtons" alt="downvote comment image" />
+                                        </button>                                    
+                                    </div>
+                               </div>
+                            </div>
+                            <div className="commentField">
+                               <div className="Comment">
+                                    <h3 className="commentUsername">Username</h3>
+                                    <p className="commentText">CommentText</p>
+                                    <div className="likeDislikeContainer">
+                                        <button className="feedbackButton">
+                                            <span className="feedbackText">1</span>
+                                            <img src={upvote} className="voteButtons" alt="upvote comment image" />
+                                        </button>
+                                        <span>|</span>
+                                        <button className="feedbackButton">
+                                            <span className="feedbackText">1</span>
+                                            <img src={downvote} className="voteButtons" alt="downvote comment image" />
+                                        </button>                                    
+                                    </div>
+                               </div>
+                               
+                            </div>
+                        </div>
+                        <div id="footer"></div>
                     </div>
                         <div id="phone">
                             <div id="phoneItemsWrapper">

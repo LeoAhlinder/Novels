@@ -43,6 +43,24 @@
     padding: 4%;
 }
 
+.likeDislikeContainer{
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    width: auto;
+    gap: 5px;
+    height: auto;
+    justify-content: end;
+}
+
+.voteButtons{
+    width: 25px;
+}
+
+.feedbackText{
+    font-weight: 600;
+}
+
 .bookExtraInfoTags{
     text-align: start;
     padding: 4%;
@@ -51,11 +69,71 @@
     gap: 10px;
 }
 
+.headerContainer{
+    display: flex;
+    justify-content:space-between;
+}
+
+.writeCommentContainer{
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.writeCommentTextArea{
+    width: 80%;
+    background-color: rgb(50, 52, 53);
+    color: white;
+    padding: 5px;
+    border: none;
+    resize: none;
+    height: auto;
+    overflow: hidden;
+    font-size: 1.3em;
+}
+
+.submitCommentButton{
+    background-color: rgb(96, 114, 122);
+    border: none;
+    height: 40px;
+    width: auto;
+    font-size: 1.2em;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.writeCommentButton{
+    background-color: rgb(96, 114, 122);
+    border: none;
+    height: 40px;
+    width: auto;
+    font-size: 1.2em;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.writeCommentButton:hover{
+    opacity: 0.8;
+    color: black;
+}
+
 .bookExtraRowText{
     color: white;
     text-align: start;
     padding: 4%;
     height: auto;
+}
+
+.feedbackButton{
+    text-align:start;
+    align-items: center;
 }
 
 .bookExtraInfoTag{
@@ -165,6 +243,49 @@
     cursor: none;
 }
 
+.className{
+    margin: 10px;
+}
+
+.commentContainer{
+    position: relative;
+    width: 100%;
+    height: auto;
+    border: none;
+    background-color: rgb(71, 75, 77);
+    color: white;
+    border-radius: 5px;
+    margin-top: 5%;
+    display: grid;
+    align-items: center;
+    padding: 20px;
+    justify-content: center;
+}
+
+.Comment{
+    background-color: rgb(93, 99, 101);
+    padding: 20px;
+    border-radius: 5px ;
+}
+
+.commentField{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 50vw;
+    height: auto;
+    padding: 10px;
+}
+
+.commentText{
+    width: 90%;
+    height: auto;
+    word-break:break-word;
+    border: none;
+    color: white;
+    border-radius: 5px;
+}
+
 #buttonContainer{
     display: flex;
     justify-content: space-between;
@@ -180,12 +301,24 @@
     font-size: 1.2em;
 }
 
+#footer{
+    margin-top: 5%;
+    width: 100%;
+    height: 10%;
+    background-color:transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+
+}
+
 
 #bookPagePictureContainer{
     width: 40%;
     height: 100%;
     display: flex;
-    place-content: end;
+    place-content: flex-end;
 }
 
 
@@ -210,12 +343,10 @@
         width: 60%;
         height: 100%;
         display: flex;
-        place-content: end;
+        place-content: flex-end;
         margin: 2% auto;
     }
 
-
-    
     #phone{
         display: block;
         background-color: rgb(50, 52, 53);
