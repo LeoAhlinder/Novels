@@ -4,6 +4,7 @@
     width: auto;
     max-height: 100%;
     border-radius: 5px;
+    max-width: 100%;
 }
 
 #backgroundImage{
