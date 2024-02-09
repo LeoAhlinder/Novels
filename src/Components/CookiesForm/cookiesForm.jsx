@@ -51,20 +51,24 @@ const CookiesForm = () => {
                 <div id="ExtraCookiesOptions">
                     <div id="CookiesOptions">
                         <div id="cookiesOptionsTitle">
-                            <p>Cookie Preferences</p>
+                            <h2>Cookie Preferences</h2>
                         </div>
                         <div id="cookiesOptionsContent">
                             <div id="cookieOption">
                                 <input type="checkbox" id="cookieOption1" />
-                                <label for="cookieOption1">Functional Cookies</label>
+                                <label htmlFor="cookieOption1">Font size</label>
                             </div>
                             <div id="cookieOption">
                                 <input type="checkbox" id="cookieOption2" />
-                                <label for="cookieOption2">Analytics Cookies</label>
+                                <label htmlFor="cookieOption2">Font type</label>
                             </div>
                             <div id="cookieOption">
                                 <input type="checkbox" id="cookieOption3" />
-                                <label for="cookieOption3">Marketing Cookies</label>
+                                <label for="cookieOption3">Theme</label>
+                            </div>
+                            <div id="cookieOption">
+                                <input type="checkbox" id="cookieOption3" />
+                                <label for="cookieOption3">Store most popular books</label>
                             </div>
                         </div>
                     </div>
