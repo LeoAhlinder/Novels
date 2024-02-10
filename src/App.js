@@ -32,7 +32,6 @@ const App = () => {
     const fetchServerStatus = async () => {
       const status = await checkServerStatus();
       setServerStatus(status);
-      console.log(status)
       if (!status) ChangeDocumentTitle("Novels | Server Down")
     };
     fetchServerStatus();
