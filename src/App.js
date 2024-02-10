@@ -1,6 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ChangeDocumentTitle from "./Global/changeDocumentTitle";
 
 import Header from "./navbar/navbar";
 import Profile from "./Profile/Profile";
@@ -31,6 +32,8 @@ const App = () => {
     const fetchServerStatus = async () => {
       const status = await checkServerStatus();
       setServerStatus(status);
+      console.log(status)
+      if (!status) ChangeDocumentTitle("Novels | Server Down")
     };
     fetchServerStatus();
   }, []);
