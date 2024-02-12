@@ -33,11 +33,11 @@ const MostPopular  = () =>{
 
         const ranking = async () =>{
 
-            if (Cookies.get("books")){
+            if (Cookies.get("Popular")){
     
                 let cookieValue = document.cookie
                         .split('; ')
-                        .find(row => row.startsWith('books='))
+                        .find(row => row.startsWith('Popular='))
                         .split('=')[1];
     
                 let retrievedArray = JSON.parse(cookieValue);
@@ -63,16 +63,18 @@ const MostPopular  = () =>{
                         }
                         else{
                             setBooks(response.books.reverse())    
-                            setCookie("books",response.books,3) //Name,data,expire date in hours
+                            setCookie("Popular",response.books,3) //Name,data,expire date in hours
                         }
                         setIsLoaded(true)
                     }
                     else{
-                        navigate("/error")
+                        console.log(res)
+                        //navigate("/error")
                     }
                 }
                 catch(err){
-                    navigate("/error")
+                    console.log(err)
+                    //navigate("/error")
                 }
             }
         }

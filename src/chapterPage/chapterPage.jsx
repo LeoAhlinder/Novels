@@ -6,6 +6,8 @@ import { useNavigate } from "react-router";
 import "./chapterPageStyle.css"
 import gearIcon from "../Icons/gear.svg"
 
+import setCookie from "../Global/setCookie";
+
 import DOMPurify from 'dompurify';
 
 const ChapterPage = () => {
@@ -144,33 +146,33 @@ const ChapterPage = () => {
         getChapterInfo();
     },[])
 
-    function setCookiePreferences(name,value){
-        if (Cookies.get("cookiesAccepted") === "true"){
-            Cookies.set(name,value,{expires: 30, secure: true})
-        }
-    }
+    // function setCookiePreferences(name,value){
+    //     if (Cookies.get("cookiesAccepted") === "true"){
+    //         Cookies.set(name,value,{expires: 30, secure: true})
+    //     }
+    // }
 
     function changeTextSize(Sign){
         if (Sign === "+" && chapterTextSize < 36){
             setChapterTextSize(chapterTextSize + 2)
-            setCookiePreferences("textSize",Number(chapterTextSize + 2))
+            setCookie("textSize",Number(chapterTextSize + 2),720)
         }
         else if (Sign === "-" && chapterTextSize > 10){
             setChapterTextSize(chapterTextSize - 2)
-            setCookiePreferences("textSize",Number(chapterTextSize - 2))
+            setCookie("textSize",Number(chapterTextSize - 2),720)
         }
     }
 
     function changeTheme(Theme){
         if (chapterTheme !== Theme)
             setChapterTheme(Theme)
-            setCookiePreferences("theme",Theme)
+            setCookie("theme",Theme,720)
     }
 
     function changeFontType(Font){
         if (chapterFontType !== Font)
             setChapterFontType(Font)
-            setCookiePreferences("fontType",Font)
+            setCookie("fontType",Font,720)
     }
 
     return(
