@@ -992,9 +992,9 @@ app.get("/api/comments", function (req, res) {
   const bookId = req.query.bookid;
 
   const query = 
-  `SELECT comments.comment, comments.dislikes, comments.likes, users.userName ,users.userid
+  `SELECT comments.comment, comments.dislikes, comments.likes, users.userName ,users.userid, comments.commentid
   FROM comments 
-  INNER JOIN users ON comments.userid = users.userid order by comments.likes LIMIT 0,8;`;
+  INNER JOIN users ON comments.userid = users.userid ORDER BY (comments.likes - comments.dislikes) LIMIT 0,8;`;
   try {
     connection.query(query, [bookId], function (error, results) {
       if (error) {
@@ -1034,5 +1034,39 @@ app.post("/api/postComment", function (req, res) {
     }
   );
 })
+
+app.post("/api/commentFeedback", function (req, res) {
+  jwt.verify(
+    req.cookies.authToken,
+    user_secretkey,
+    async function (err, decodedToken) {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      const commentId = req.body.commentId;
+      const feedback = req.body.feedback;
+
+      if (feedback === "dislikes") {
+        const query = "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1 WHERE commentid = ?";
+        connection.query(query, [commentId], function (error, results) {
+          if (error) {
+            console.log(error);
+            return res.json({ error: "database error"});
+          }
+          return res.json({ message: "Feedback posted" });
+        });
+      } else {
+        const query = "UPDATE comments SET likes = Coalesce(likes, 0) + 1 WHERE commentid = ?";
+        connection.query(query, [commentId], function (error, results) {
+          if (error) {
+            return res.json({ error: "database error"});
+          }
+          return res.json({ message: "Feedback posted" });
+        });
+      }
+    }
+  );
+});
 
 module.exports = app;

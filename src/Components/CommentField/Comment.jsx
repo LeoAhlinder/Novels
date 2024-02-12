@@ -1,21 +1,25 @@
 import downvotePicture from "../../Icons/downvote.svg"
 import upvotePicture from "../../Icons/upvote.svg"
 
-const Comment = ({dislikes,likes,commentText,Username}) =>{
+const Comment = ({dislikes,likes,commentText,Username,handleCommentFeedback,value}) =>{
     return(
         <div className="Comment">
             <h3 className="commentUsername">{Username}</h3>
             <p className="commentText">{commentText}</p>
             <div className="likeDislikeContainer">
-                <button className="feedbackButton">
+                <div className="feedbackButton">
                     <span className="feedbackText">{likes === null ? 0 : likes}</span>
-                    <img src={upvotePicture} className="voteButtons" alt="upvote comment image" />
-                </button>
+                    <button onClick={() => handleCommentFeedback(value,"likes")}>
+                        <img src={upvotePicture} className="voteButtons" alt="upvote comment image" />
+                    </button>
+                </div>
                 <span>|</span>
-                <button className="feedbackButton">
+                <div className="feedbackButton">
                     <span className="feedbackText">{dislikes === null ? 0 : dislikes}</span>
-                    <img src={downvotePicture} className="voteButtons" alt="downvote comment image" />
-                </button>                                    
+                    <button onClick={() => handleCommentFeedback(value,"dislikes")}>
+                        <img src={downvotePicture} className="voteButtons" alt="downvote comment image" />
+                    </button>
+                </div>                                    
                 </div>
         </div>
     )

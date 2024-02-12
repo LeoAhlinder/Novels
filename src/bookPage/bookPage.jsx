@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 import FetchComments from "../Components/CommentField/fetchCommentAPI";
 import PostComment from "../Components/CommentField/postCommentAPI";
+import CommentFeedback from "../Components/CommentField/commentFeedbackAPI";
 
 import Comment from "../Components/CommentField/Comment"
 
@@ -237,10 +238,12 @@ const BookPage = () =>{
             return comments.map((comment, index) => (
                 <Comment
                     key={index}
+                    value={comment.commentid}
                     likes={comment.likes}
                     dislikes={comment.dislikes}
                     commentText={comment.comment}
                     Username={comment.userId === userId ? "You" : comment.userName}
+                    handleCommentFeedback={handleCommentFeedback}
                 />  
             ));
         } else {
@@ -251,6 +254,10 @@ const BookPage = () =>{
     function onChangeHandler(e){
         changePostCommentText(e.target.value)
         adjustHeight(e)
+    }
+
+    function handleCommentFeedback(commentId,feedback){
+        CommentFeedback({commentId:commentId,feedback:feedback})
     }
     
     return(

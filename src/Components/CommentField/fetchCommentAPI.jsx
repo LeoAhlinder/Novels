@@ -16,7 +16,7 @@ const FetchComments = async ({bookId,changeComments,navigate,changeUserId}) => {
                 changeComments([])
             }
             else if (response.comment.length > 0){
-                changeComments(response.comment)
+                changeComments(response.comment.reverse())
                 changeUserId(response.userId)          
             }
         } else {
