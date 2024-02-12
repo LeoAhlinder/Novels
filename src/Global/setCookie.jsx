@@ -9,6 +9,10 @@ const setCookie = (name,value,milliseconds) =>{
         }
     }
 
+    if (Cookies.get("cookiesAccepted") === false){
+        return
+    }
+
     let expiration = new Date();
     expiration.setTime(expiration.getTime() + (milliseconds * 60 * 60 * 1000)); // Convert milliseconds to hours
     let expires = "expires=" + expiration.toUTCString();
