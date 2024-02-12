@@ -146,12 +146,6 @@ const ChapterPage = () => {
         getChapterInfo();
     },[])
 
-    // function setCookiePreferences(name,value){
-    //     if (Cookies.get("cookiesAccepted") === "true"){
-    //         Cookies.set(name,value,{expires: 30, secure: true})
-    //     }
-    // }
-
     function changeTextSize(Sign){
         if (Sign === "+" && chapterTextSize < 36){
             setChapterTextSize(chapterTextSize + 2)
