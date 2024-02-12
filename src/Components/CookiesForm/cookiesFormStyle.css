@@ -8,9 +8,12 @@
     font-weight: bold;
 }
 
+.cookieInput{
+    background-color: red;
+}
+
 #cookieForm{
     margin-top: 70px;
-    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,22 +22,29 @@
     background-color: rgba(255, 255, 255, 0.2);
     position: absolute;
     text-align: center;
+    z-index: 10;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
 #cookieBanner{
+    margin-top: 150px;
     width: auto;
     height: auto;
     text-align: center;
     background-color: white;
     padding: 10px;
-    border-radius: 2%;
+    border-radius: 10px;
+    overflow: auto;
 }
 
 #cookiesInfoText{
     font-size: 1rem;
+}
+
+#cookiesOptionsContent{
+    width: 100%;
 }
 
 #acceptAllText{
@@ -42,11 +52,11 @@
 }
 
 #AcceptButton{
-    background-color: rgb(21, 66, 21);
+    background-color: rgb(42, 83, 165);
 }
 
 #RejectButton{
-    background-color: rgb(112, 7, 7);
+    background-color: rgb(92, 91, 91);
 }
 
 .bannerButton{
@@ -71,12 +81,25 @@
 
 #CookiesOptions{
     display: flex;
+    text-align: center;
     flex-direction: column;
     gap: 10px;
 }
 
-#cookieOption{
+.cookieOption{
+    width: 130%;
     font-size: 1.2em;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+}
+
+@media screen and (max-width:450px) {
+    .cookieOption{
+        font-size: 0.9em;
+        width: 90%;
+    }
 }
 
 #cookieBannerButtons{
@@ -90,9 +113,13 @@
     margin: 50px auto;
 }
 
+.acceptOptionsButton{
+    padding: 10px;
+    margin: 0 auto;
+}
+
 @media screen and (max-width: 500px) {
     #cookieBannerButtons{
         grid-template-columns: 1fr;
     }
-    
 }
