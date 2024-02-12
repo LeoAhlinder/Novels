@@ -200,7 +200,6 @@ const BookPage = () =>{
         e.target.style.height = (25+e.target.scrollHeight)+"px";
     }
 
-
     return(
         <>
 
@@ -219,7 +218,7 @@ const BookPage = () =>{
                             <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                             <h3 className="rating">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating}</h3>
                             <div id="buttonContainer">
-                                <button className="readButton" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
+                                <button className="readButton" onClick={() => goToChapter()}>{currentPage !== 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                 <button className="readButton" onClick={() => goToChapterPage()}>View Chapters</button>
                                 <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                             </div>
@@ -232,48 +231,50 @@ const BookPage = () =>{
                             <div className="bookExtraInfoText">
                                 <h2>Overall Information</h2>
                                 <div className="extraInfoRow">
-                                    <p className="bookExtraRowText">Recommended Age:&nbsp;{bookExtraInfo.warnings}</p>
+                                    <div id="coloum">
+                                        <p className="bookExtraRowText">Recommended Age:&nbsp;{bookExtraInfo.warnings}</p>
+                                        <p className="bookExtraRowText">Language:&nbsp;{bookExtraInfo.language}</p>
+                                    </div>
                                     <div className="bookExtraInfoTags">
                                         Tags:
                                         {tags.map((tag,index)=>{
                                             return <p key={index} className="bookExtraInfoTag" >{tag}</p>
                                         })}
                                     </div>
-                                    <p className="bookExtraRowText">Language:&nbsp;{bookExtraInfo.language}</p>
                                 </div>
                             </div>
                         </div>  
                         <div className="commentContainer">
-                            <div className="headerContainer">
-                                <h2>Comments</h2>
-                                <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
-                            </div>
-                            {writeCommentView === true ? 
-                            <>
-                                <div className="writeCommentContainer">
-                                    <textarea className="writeCommentTextArea" onChange={adjustHeight} placeholder="Write a comment"></textarea>
-                                    <button className="submitCommentButton">Submit</button>
+                                <div className="headerContainer">
+                                    <h2>Comments</h2>
+                                    <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
                                 </div>
-                            </> 
-                            : null
-                            }
-                            <div className="commentField">
-                               <div className="Comment">
-                                    <h3 className="commentUsername">Username</h3>
-                                    <p className="commentText">CommentText</p>
-                                    <div className="likeDislikeContainer">
-                                        <button className="feedbackButton">
-                                            <span className="feedbackText">1</span>
-                                            <img src={upvote} className="voteButtons" alt="upvote comment image" />
-                                        </button>
-                                        <span>|</span>
-                                        <button className="feedbackButton">
-                                            <span className="feedbackText">1</span>
-                                            <img src={downvote} className="voteButtons" alt="downvote comment image" />
-                                        </button>                                    
+                                {writeCommentView === true ? 
+                                <>
+                                    <div className="writeCommentContainer">
+                                        <textarea className="writeCommentTextArea" onChange={adjustHeight} placeholder="Write a comment"></textarea>
+                                        <button className="submitCommentButton">Submit</button>
                                     </div>
-                               </div>
-                            </div>
+                                </> 
+                                : null
+                                }
+                                <div className="commentField">
+                                <div className="Comment">
+                                        <h3 className="commentUsername">Username</h3>
+                                        <p className="commentText">CommentText</p>
+                                        <div className="likeDislikeContainer">
+                                            <button className="feedbackButton">
+                                                <span className="feedbackText">1</span>
+                                                <img src={upvote} className="voteButtons" alt="upvote comment image" />
+                                            </button>
+                                            <span>|</span>
+                                            <button className="feedbackButton">
+                                                <span className="feedbackText">1</span>
+                                                <img src={downvote} className="voteButtons" alt="downvote comment image" />
+                                            </button>                                    
+                                        </div>
+                                </div>
+                                </div>
                         </div>
                         <div id="footer"></div>
                     </div>
@@ -303,13 +304,13 @@ const BookPage = () =>{
                                         <h2>Overall Information</h2>
                                         <div className="extraInfoRow">
                                             <p className="bookExtraRowText">Recommended Age:&nbsp;{bookExtraInfo.warnings}</p>
+                                            <p className="bookExtraRowText">Language:&nbsp;{bookExtraInfo.language}</p>
                                             <div className="bookExtraInfoTags">
                                                 Tags:
                                                 {tags.map((tag,index)=>{
                                                     return <p key={index} className="bookExtraInfoTag" >{tag}</p>
                                                 })}
                                             </div>
-                                            <p className="bookExtraRowText">Language:&nbsp;{bookExtraInfo.language}</p>
                                         </div>
                                     </div>
                                 </div>  

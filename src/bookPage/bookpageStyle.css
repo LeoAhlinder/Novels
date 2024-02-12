@@ -125,11 +125,17 @@
     color: black;
 }
 
+#coloum{
+    display: flex;
+    flex-direction: column;
+}
+
 .bookExtraRowText{
     color: white;
     text-align: start;
     padding: 4%;
     height: auto;
+    text-overflow: ellipsis;
 }
 
 .feedbackButton{
