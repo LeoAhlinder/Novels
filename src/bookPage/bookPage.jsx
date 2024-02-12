@@ -1,8 +1,10 @@
-import React,{useEffect,useState} from "react";
+import React,{useEffect,useMemo,useState} from "react";
 import "./bookpageStyle.css"
 import { useNavigate } from "react-router-dom";
 
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
+
+import Comment from "../Components/CommentField/Comment"
 
 import pinkForest from "../picturesForBooks/pinkForestBig.webp"
 import Moon from "../picturesForBooks/moonBig.webp"
@@ -35,6 +37,7 @@ const BookPage = () =>{
     const [tags,changeTags] = useState([])
     const [currentPage, changeCurrentPage] = useState(0);
     const [writeCommentView,changeWriteCommentView] = useState(false)
+    const [comments,changeComments] = useState([])
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -67,6 +70,38 @@ const BookPage = () =>{
         bookInfo(bookName)
     },[]);
 
+    useEffect(() => {
+        const fetchComments = async () => {
+            try {
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/comments?bookid=${bookId}`, {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Accept": "application/json"
+                    },
+                });
+                if (res.ok) {
+                    const response = await res.json();
+                    if (response.noComment){
+                        changeComments([])
+                    }
+                    else if (response.error){
+                        changeComments([])
+                    }
+                    else if (response.comment.length > 0){
+                        changeComments([response])
+                    }
+                } else {
+                    navigate("/error");
+                }
+            } catch (err) {
+                navigate("/error");
+            }
+        }
+        if (bookId !== 0) {
+            fetchComments();
+        }
+    },[bookId])
 
     useEffect(() =>{
         const isBookInLibrary = async () =>{
@@ -200,6 +235,25 @@ const BookPage = () =>{
         e.target.style.height = (25+e.target.scrollHeight)+"px";
     }
 
+    const MemoizedComments = useMemo(() => {
+        if (comments.length > 0) {
+            return comments.map((comment, index) => (
+                <Comment
+                    key={index}
+                    upvote={upvote}
+                    downvote={downvote}
+                    likes={comment.likes}
+                    dislikes={comment.dislikes}
+                    commentText={comment.comment}
+                    Username={comment.user}
+                />
+            ));
+        } else {
+            return <p>No comments</p>;
+        }
+    }, [comments]);
+    
+
     return(
         <>
 
@@ -259,21 +313,7 @@ const BookPage = () =>{
                                 : null
                                 }
                                 <div className="commentField">
-                                <div className="Comment">
-                                        <h3 className="commentUsername">Username</h3>
-                                        <p className="commentText">CommentText</p>
-                                        <div className="likeDislikeContainer">
-                                            <button className="feedbackButton">
-                                                <span className="feedbackText">1</span>
-                                                <img src={upvote} className="voteButtons" alt="upvote comment image" />
-                                            </button>
-                                            <span>|</span>
-                                            <button className="feedbackButton">
-                                                <span className="feedbackText">1</span>
-                                                <img src={downvote} className="voteButtons" alt="downvote comment image" />
-                                            </button>                                    
-                                        </div>
-                                </div>
+                                   {MemoizedComments}
                                 </div>
                         </div>
                         <div id="footer"></div>
@@ -329,37 +369,18 @@ const BookPage = () =>{
                             : null
                             }
                             <div className="commentField">
-                               <div className="Comment">
-                                    <h3 className="commentUsername">Username</h3>
-                                    <p className="commentText">CommentText</p>
-                                    <div className="likeDislikeContainer">
-                                        <button className="feedbackButton">
-                                            <span className="feedbackText">1</span>
-                                            <img src={upvote} className="voteButtons" alt="upvote comment image" />
-                                        </button>
-                                        <span>|</span>
-                                        <button className="feedbackButton">
-                                            <span className="feedbackText">1</span>
-                                            <img src={downvote} className="voteButtons" alt="downvote comment image" />
-                                        </button>                                    
-                                    </div>
-                               </div>
-                               <div className="Comment">
-                                    <h3 className="commentUsername">Username</h3>
-                                    <p className="commentText">CommentText</p>
-                                    <div className="likeDislikeContainer">
-                                        <button className="feedbackButton">
-                                            <span className="feedbackText">1</span>
-                                            <img src={upvote} className="voteButtons" alt="upvote comment image" />
-                                        </button>
-                                        <span>|</span>
-                                        <button className="feedbackButton">
-                                            <span className="feedbackText">1</span>
-                                            <img src={downvote} className="voteButtons" alt="downvote comment image" />
-                                        </button>                                    
-                                    </div>
-                               </div>
-                               
+                                    {comments.length > 0 ? 
+                                    <>
+                                        {comments.map((index,comment)=>{
+                                            <Comment
+                                                upvote={upvote}
+                                                downvote={downvote}
+                                            />
+                                        })}
+                                    </>
+                                    : 
+                                    <p>No comments</p>
+                                    }
                             </div>
                         </div>
                         <div id="footer"></div>

@@ -988,4 +988,25 @@ app.post("/api/setLatestReadChapter", function (req, res) {
   );
 });
 
+app.get("/api/comments", function (req, res) {
+  const bookId = req.query.bookid;
+
+  const query = "SELECT comment,likes,dislikes FROM comments WHERE bookid = ?";
+  try {
+    connection.query(query, [bookId], function (error, results) {
+      if (error) {
+        res.json({ error: "database error" });
+      }
+      console.log(results, error);
+      if (results > 0) {
+        res.json({ comment: results });
+      } else {
+        res.json({ noComment: "no comment" });
+      }
+    });
+  } catch (err) {
+    res.json({ error: "Unknown error" });
+  }
+});
+
 module.exports = app;
