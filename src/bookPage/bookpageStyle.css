@@ -490,12 +490,9 @@
         padding: 0;
         margin-top: 5px;
     }
-
-
-
 }
 
-@media screen and (max-width:450px) {
+@media screen and (max-width:400px) {
     #titlePhone{
         font-size: 1.3rem;
     }
@@ -503,12 +500,18 @@
         font-size: 1.1rem;
     }
 
+    .headerContainer{
+        width: auto;
+        margin: 0 auto;
+        margin-bottom: 10px;
+    }
+
     .Comment{
         width: 100%;
         padding: 4px;
     }
     .commentField{
-        width: 90%;
+        width: 12em;
         padding: 0px;
     }
 }
