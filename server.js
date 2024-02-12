@@ -991,22 +991,48 @@ app.post("/api/setLatestReadChapter", function (req, res) {
 app.get("/api/comments", function (req, res) {
   const bookId = req.query.bookid;
 
-  const query = "SELECT comment,likes,dislikes FROM comments WHERE bookid = ?";
+  const query = 
+  `SELECT comments.comment, comments.dislikes, comments.likes, users.userName ,users.userid
+  FROM comments 
+  INNER JOIN users ON comments.userid = users.userid order by comments.likes LIMIT 0,8;`;
   try {
     connection.query(query, [bookId], function (error, results) {
       if (error) {
-        res.json({ error: "database error" });
+        return res.json({ error: "database error" });
       }
-      console.log(results, error);
-      if (results > 0) {
-        res.json({ comment: results });
+      if (results.length > 0) {
+        res.json({ comment: results});
       } else {
-        res.json({ noComment: "no comment" });
+        res.json({ noComment: "no comment"});
       }
     });
   } catch (err) {
-    res.json({ error: "Unknown error" });
+    return res.json({ error: "Unknown error" });
   }
 });
+
+app.post("/api/postComment", function (req, res) {
+  jwt.verify(
+    req.cookies.authToken,
+    user_secretkey,
+    async function (err, decodedToken) {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      const bookId = req.body.bookid;
+      const comment = req.body.comment;
+      const userId = decodedToken.user;
+
+      const query = "INSERT INTO comments (userid, bookid, comment) VALUES (?, ?, ?)";
+      connection.query(query, [userId, bookId, comment], function (error, results) {
+        if (error) {
+          return res.json({ error: "database error"});
+        }
+        return res.json({ message: "Commented posted" });
+      });
+    }
+  );
+})
 
 module.exports = app;

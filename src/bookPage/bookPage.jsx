@@ -3,6 +3,8 @@ import "./bookpageStyle.css"
 import { useNavigate } from "react-router-dom";
 
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
+import FetchComments from "../Components/CommentField/fetchCommentAPI";
+import PostComment from "../Components/CommentField/postCommentAPI";
 
 import Comment from "../Components/CommentField/Comment"
 
@@ -10,9 +12,6 @@ import pinkForest from "../picturesForBooks/pinkForestBig.webp"
 import Moon from "../picturesForBooks/moonBig.webp"
 import forest from "../picturesForBooks/forestBig.webp"
 import forestHut from "../picturesForBooks/hutInForestBig.webp"
-
-import downvote from "../Icons/downvote.svg"
-import upvote from "../Icons/upvote.svg"
 
 const BookPage = () =>{
 
@@ -38,6 +37,9 @@ const BookPage = () =>{
     const [currentPage, changeCurrentPage] = useState(0);
     const [writeCommentView,changeWriteCommentView] = useState(false)
     const [comments,changeComments] = useState([])
+    const [postCommentText,changePostCommentText] = useState("")
+    const [postCommentAlert,changePostCommentAlert] = useState("")
+    const [userId,changeUserId] = useState(0)
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -69,39 +71,6 @@ const BookPage = () =>{
     }
         bookInfo(bookName)
     },[]);
-
-    useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/comments?bookid=${bookId}`, {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "Accept": "application/json"
-                    },
-                });
-                if (res.ok) {
-                    const response = await res.json();
-                    if (response.noComment){
-                        changeComments([])
-                    }
-                    else if (response.error){
-                        changeComments([])
-                    }
-                    else if (response.comment.length > 0){
-                        changeComments([response])
-                    }
-                } else {
-                    navigate("/error");
-                }
-            } catch (err) {
-                navigate("/error");
-            }
-        }
-        if (bookId !== 0) {
-            fetchComments();
-        }
-    },[bookId])
 
     useEffect(() =>{
         const isBookInLibrary = async () =>{
@@ -222,6 +191,34 @@ const BookPage = () =>{
         }    
     }
 
+    const postCommentHandler = () =>{
+        const didCommentPost = PostComment({
+            bookId:bookId,
+            postCommentText:postCommentText,
+            navigate:navigate,
+            changePostCommentAlert:changePostCommentAlert
+        })
+        if (didCommentPost){
+            changePostCommentText("")
+            changeWriteCommentView(false)
+            changeComments(prevState => [
+                ...prevState,
+                {likes:0, dislikes:0, comment:postCommentText, userName:"You"}
+            ]);
+        }
+    }
+
+    useEffect(() => {
+        if (bookId !== 0) {
+            FetchComments({
+                bookId: bookId,
+                changeComments: changeComments,
+                navigate: navigate,
+                changeUserId: changeUserId,
+            });
+        }
+    }, [bookId]);
+
     const goToChapterPage = () => {
         navigate({pathname:`/chapters/${bookInfo[0].title}`})
     }
@@ -235,25 +232,27 @@ const BookPage = () =>{
         e.target.style.height = (25+e.target.scrollHeight)+"px";
     }
 
-    const MemoizedComments = useMemo(() => {
+    const MemorizedComments = useMemo(() => {
         if (comments.length > 0) {
             return comments.map((comment, index) => (
                 <Comment
                     key={index}
-                    upvote={upvote}
-                    downvote={downvote}
                     likes={comment.likes}
                     dislikes={comment.dislikes}
                     commentText={comment.comment}
-                    Username={comment.user}
-                />
+                    Username={comment.userId === userId ? "You" : comment.userName}
+                />  
             ));
         } else {
             return <p>No comments</p>;
         }
     }, [comments]);
-    
 
+    function onChangeHandler(e){
+        changePostCommentText(e.target.value)
+        adjustHeight(e)
+    }
+    
     return(
         <>
 
@@ -306,14 +305,15 @@ const BookPage = () =>{
                                 {writeCommentView === true ? 
                                 <>
                                     <div className="writeCommentContainer">
-                                        <textarea className="writeCommentTextArea" onChange={adjustHeight} placeholder="Write a comment"></textarea>
-                                        <button className="submitCommentButton">Submit</button>
+                                        <textarea className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} value={postCommentText} placeholder="Write a comment"></textarea>
+                                        <button className="submitCommentButton" onClick={() => postCommentHandler()}>Submit</button>
                                     </div>
+                                    <p className="commentAlert" style={postCommentAlert === "Comment posted" ? {color:"green"} : {color:"red"}}>{postCommentAlert}</p>
                                 </> 
                                 : null
                                 }
                                 <div className="commentField">
-                                   {MemoizedComments}
+                                   {MemorizedComments}
                                 </div>
                         </div>
                         <div id="footer"></div>
@@ -362,25 +362,16 @@ const BookPage = () =>{
                             {writeCommentView === true ? 
                             <>
                                 <div className="writeCommentContainer">
-                                    <textarea className="writeCommentTextArea" onChange={adjustHeight} placeholder="Write a comment"></textarea>
-                                    <button className="submitCommentButton">Submit</button>
+                                    <textarea className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} placeholder="Write a comment"></textarea>
+                                    <button className="submitCommentButton" onClick={() => postCommentHandler()}>Submit</button>
                                 </div>
+                                <p className="commentAlert">{postCommentAlert}</p>
+
                             </> 
                             : null
                             }
                             <div className="commentField">
-                                    {comments.length > 0 ? 
-                                    <>
-                                        {comments.map((index,comment)=>{
-                                            <Comment
-                                                upvote={upvote}
-                                                downvote={downvote}
-                                            />
-                                        })}
-                                    </>
-                                    : 
-                                    <p>No comments</p>
-                                    }
+                                   {MemorizedComments}
                             </div>
                         </div>
                         <div id="footer"></div>

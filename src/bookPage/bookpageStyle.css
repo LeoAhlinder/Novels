@@ -24,10 +24,15 @@
     transform: scale(1.1);
 }
 
+.commentAlert{
+    text-align: center;
+    height: 25px;
+}
+
 .bookExtraInfo {
     width: 100%;
     height: auto;
-    margin: 7em 0;
+    margin: 3em 0;
     background-color: rgb(71, 75, 77);
     border-radius: 5px;
     display: flex;
@@ -381,6 +386,11 @@
     }
     #desktop{
         display: none;
+    }
+    .commentAlert{
+        text-align: center;
+        height: 20px;
+        margin: 10px 0;
     }
     #authorPhone{
         font-size: 1rem;
