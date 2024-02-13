@@ -989,26 +989,63 @@ app.post("/api/setLatestReadChapter", function (req, res) {
 });
 
 app.get("/api/comments", function (req, res) {
-  const bookId = req.query.bookid;
+  jwt.verify(
+    req.cookies.authToken,
+    user_secretkey,
+    function (err, decodedToken) {
+      const bookId = req.query.bookid;
+      let userId;
+      if (req.cookies.authToken !== undefined) {
+        userId = decodedToken.user;
+      }
 
-  const query = 
-  `SELECT comments.comment, comments.dislikes, comments.likes, users.userName ,users.userid, comments.commentid
-  FROM comments 
-  INNER JOIN users ON comments.userid = users.userid ORDER BY (comments.likes - comments.dislikes) LIMIT 0,8;`;
-  try {
-    connection.query(query, [bookId], function (error, results) {
-      if (error) {
-        return res.json({ error: "database error" });
+      if (!bookId) {
+        return res.status(400).json({ error: "bookId is required" });
       }
-      if (results.length > 0) {
-        res.json({ comment: results});
-      } else {
-        res.json({ noComment: "no comment"});
+
+      if (typeof bookId !== "string") {
+        return res.status(400).json({ error: "bookId must be a string" });
       }
-    });
-  } catch (err) {
-    return res.json({ error: "Unknown error" });
-  }
+
+      let userName;
+
+      if (userId !== undefined) {
+        const query = "SELECT userName FROM users WHERE userid = ?";
+        connection.query(query, [userId], function (error, results) {
+          if (error) {
+            return res.status(500).json({ error: "Database error" });
+          }
+          userName = results[0].userName;
+        });
+      }
+
+      const query = `
+        SELECT comments.comment, comments.dislikes, comments.likes, users.userName, comments.commentid
+        FROM comments
+        INNER JOIN users ON comments.userid = users.userid
+        WHERE comments.bookid = ?
+        ORDER BY (comments.likes - comments.dislikes) DESC
+        LIMIT 0, 8`;
+
+      try {
+        connection.query(query, [bookId], function (error, results) {
+          if (error) {
+            return res.status(500).json({ error: "Database error" });
+          }
+          if (results.length > 0) {
+            if (userName !== undefined) {
+              return res.json({ comments: results, userName: userName });
+            }
+            return res.json({ comments: results });
+          } else {
+            return res.json({ noComment: "No comments found" });
+          }
+        });
+      } catch (err) {
+        return res.status(500).json({ error: "Unknown error" });
+      }
+    }
+  );
 });
 
 app.post("/api/postComment", function (req, res) {
@@ -1024,16 +1061,21 @@ app.post("/api/postComment", function (req, res) {
       const comment = req.body.comment;
       const userId = decodedToken.user;
 
-      const query = "INSERT INTO comments (userid, bookid, comment) VALUES (?, ?, ?)";
-      connection.query(query, [userId, bookId, comment], function (error, results) {
-        if (error) {
-          return res.json({ error: "database error"});
+      const query =
+        "INSERT INTO comments (userid, bookid, comment) VALUES (?, ?, ?)";
+      connection.query(
+        query,
+        [userId, bookId, comment],
+        function (error, results) {
+          if (error) {
+            return res.json({ error: "database error" });
+          }
+          return res.json({ message: "Commented posted" });
         }
-        return res.json({ message: "Commented posted" });
-      });
+      );
     }
   );
-})
+});
 
 app.post("/api/commentFeedback", function (req, res) {
   jwt.verify(
@@ -1048,19 +1090,21 @@ app.post("/api/commentFeedback", function (req, res) {
       const feedback = req.body.feedback;
 
       if (feedback === "dislikes") {
-        const query = "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1 WHERE commentid = ?";
+        const query =
+          "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1 WHERE commentid = ?";
         connection.query(query, [commentId], function (error, results) {
           if (error) {
             console.log(error);
-            return res.json({ error: "database error"});
+            return res.json({ error: "database error" });
           }
           return res.json({ message: "Feedback posted" });
         });
       } else {
-        const query = "UPDATE comments SET likes = Coalesce(likes, 0) + 1 WHERE commentid = ?";
+        const query =
+          "UPDATE comments SET likes = Coalesce(likes, 0) + 1 WHERE commentid = ?";
         connection.query(query, [commentId], function (error, results) {
           if (error) {
-            return res.json({ error: "database error"});
+            return res.json({ error: "database error" });
           }
           return res.json({ message: "Feedback posted" });
         });

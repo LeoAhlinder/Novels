@@ -40,7 +40,7 @@ const BookPage = () =>{
     const [comments,changeComments] = useState([])
     const [postCommentText,changePostCommentText] = useState("")
     const [postCommentAlert,changePostCommentAlert] = useState("")
-    const [userId,changeUserId] = useState(0)
+    const [Username,changeUsername] = useState("")
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -63,11 +63,11 @@ const BookPage = () =>{
                 changeBookExtraInfo(response.bookInfoData[0])
                 changeTags(response.bookInfoData[0].tags.split(" "))
             }else{
-                navigate("/error")
+                //navigate("/error")
             }
         }
         catch(err){
-            navigate("/error")
+            //navigate("/error")
         }
     }
         bookInfo(bookName)
@@ -102,11 +102,11 @@ const BookPage = () =>{
                         LibraryChange("Add to Library")
                     }
                 }else{
-                    navigate("/error")
+                    //navigate("/error")
                 }
             }
             catch(err){
-                navigate("/error")
+                //navigate("/error")
             }
         }
         if (checkBookInLibrary === true)
@@ -132,11 +132,11 @@ const BookPage = () =>{
                     buttonColdDown("add")
                 }
                 else{
-                    navigate("/error")
+                    //navigate("/error")
 
                 }
             }catch(err){
-                navigate("/error")
+                //navigate("/error")
             }
         }
     }
@@ -178,10 +178,10 @@ const BookPage = () =>{
                     buttonColdDown("remove")
                 }
                 else{
-                    navigate("/error")
+                    //navigate("/error")
                 }
             }catch(err){
-                navigate("/error")
+                //navigate("/error")
             }
         }
     }
@@ -215,7 +215,7 @@ const BookPage = () =>{
                 bookId: bookId,
                 changeComments: changeComments,
                 navigate: navigate,
-                changeUserId: changeUserId,
+                changeUsername: changeUsername,
             });
         }
     }, [bookId]);
@@ -242,7 +242,7 @@ const BookPage = () =>{
                     likes={comment.likes}
                     dislikes={comment.dislikes}
                     commentText={comment.comment}
-                    Username={comment.userId === userId ? "You" : comment.userName}
+                    Username={comment.userName === Username ? "You" : comment.userName}
                     handleCommentFeedback={handleCommentFeedback}
                 />  
             ));
