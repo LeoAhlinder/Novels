@@ -41,6 +41,7 @@ const BookPage = () =>{
     const [postCommentText,changePostCommentText] = useState("")
     const [postCommentAlert,changePostCommentAlert] = useState("")
     const [Username,changeUsername] = useState("")
+    const [givenFeedback,changeGivenFeedback] = useState([])
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -216,6 +217,7 @@ const BookPage = () =>{
                 changeComments: changeComments,
                 navigate: navigate,
                 changeUsername: changeUsername,
+                changeGivenFeedback:changeGivenFeedback
             });
         }
     }, [bookId]);
@@ -236,15 +238,19 @@ const BookPage = () =>{
     const MemorizedComments = useMemo(() => {
         if (comments.length > 0) {
             return comments.map((comment, index) => (
-                <Comment
-                    key={index}
-                    value={comment.commentid}
-                    likes={comment.likes}
-                    dislikes={comment.dislikes}
-                    commentText={comment.comment}
-                    Username={comment.userName === Username ? "You" : comment.userName}
-                    handleCommentFeedback={handleCommentFeedback}
-                />  
+                <>
+                    <Comment
+                        id={comment.commentid}
+                        key={index}
+                        value={comment.commentid}
+                        likes={comment.likes}
+                        dislikes={comment.dislikes}
+                        commentText={comment.comment}
+                        recievedFeedback={givenFeedback !== null ? givenFeedback : null}
+                        Username={comment.userName === Username ? "You" : comment.userName}
+                        handleCommentFeedback={handleCommentFeedback}
+                    />  
+                </>
             ));
         } else {
             return <p>No comments</p>;
@@ -264,7 +270,9 @@ const BookPage = () =>{
                 return prevState.map((comment) => {
                     if (comment.commentid === commentId){
                         if (feedback === "likes"){
-                            comment.likes += 1
+                            comment.likes += 1;
+                            comment.commentLiked = true;
+
                         }else{
                             comment.dislikes += 1
                         }
@@ -275,7 +283,6 @@ const BookPage = () =>{
                 })
             })
         }
-        
     }
     
     return(

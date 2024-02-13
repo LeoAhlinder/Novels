@@ -992,7 +992,7 @@ app.get("/api/comments", function (req, res) {
   jwt.verify(
     req.cookies.authToken,
     user_secretkey,
-    function (err, decodedToken) {
+    async function async(err, decodedToken) {
       const bookId = req.query.bookid;
       let userId;
       if (req.cookies.authToken !== undefined) {
@@ -1008,6 +1008,7 @@ app.get("/api/comments", function (req, res) {
       }
 
       let userName;
+      let likedAndDislikedComments;
 
       if (userId !== undefined) {
         const query = "SELECT userName FROM users WHERE userid = ?";
@@ -1017,6 +1018,7 @@ app.get("/api/comments", function (req, res) {
           }
           userName = results[0].userName;
         });
+        likedAndDislikedComments = await fetchLikedAndDislikedComments(userId);
       }
 
       const query = `
@@ -1041,7 +1043,12 @@ app.get("/api/comments", function (req, res) {
           }
           if (results.length > 0) {
             if (userName !== undefined) {
-              return res.json({ comments: results, userName: userName });
+              console.log(likedAndDislikedComments);
+              return res.json({
+                comments: results,
+                userName: userName,
+                likedAndDislikedComments: likedAndDislikedComments,
+              });
             }
             return res.json({ comments: results });
           } else {
@@ -1054,6 +1061,21 @@ app.get("/api/comments", function (req, res) {
     }
   );
 });
+
+function fetchLikedAndDislikedComments(userId) {
+  const query =
+    "SELECT commentid, feedback FROM commentfeedback WHERE userid = ?";
+
+  return new Promise((resolve, reject) => {
+    connection.query(query, [userId], function (error, results) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
 
 app.post("/api/postComment", function (req, res) {
   jwt.verify(
@@ -1095,13 +1117,23 @@ app.post("/api/commentFeedback", function (req, res) {
 
       const commentId = req.body.commentId;
       const feedback = req.body.feedback;
+      const userId = decodedToken.user;
+
+      const insertFeedback = await insertCommentFeedback(
+        userId,
+        commentId,
+        feedback
+      );
+      if (insertFeedback === "Error") {
+        return res.json({ error: "Database error" });
+      }
+      console.log(insertFeedback);
 
       if (feedback === "dislikes") {
         const query =
           "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1 WHERE commentid = ?";
         connection.query(query, [commentId], function (error, results) {
           if (error) {
-            console.log(error);
             return res.json({ error: "database error" });
           }
           return res.json({ message: "Feedback posted" });
@@ -1119,5 +1151,52 @@ app.post("/api/commentFeedback", function (req, res) {
     }
   );
 });
+
+async function insertCommentFeedback(userId, commentId, feedback) {
+  return new Promise((resolve, reject) => {
+    const checkQuery =
+      "SELECT feedback FROM commentfeedback WHERE userid = ? AND commentid = ?";
+
+    connection.query(
+      checkQuery,
+      [userId, commentId],
+      function (error, results) {
+        if (error) {
+          reject("Error");
+        }
+
+        if (results.length === 0) {
+          const insertQuery =
+            "INSERT INTO commentfeedback (userid, commentid, feedback) VALUES (?, ?, ?)";
+          connection.query(
+            insertQuery,
+            [userId, commentId, feedback],
+            function (error, results) {
+              if (error) {
+                reject("Error");
+              }
+              resolve("Success");
+            }
+          );
+        }
+        // If feedback for this user and comment already exists, update it
+        else if (results.length > 0 && results[0].feedback !== feedback) {
+          const updateQuery =
+            "UPDATE commentfeedback SET feedback = ? WHERE userid = ? AND commentid = ?";
+          connection.query(
+            updateQuery,
+            [feedback, userId, commentId],
+            function (error, results) {
+              if (error) {
+                reject("Error");
+              }
+              resolve("Success");
+            }
+          );
+        }
+      }
+    );
+  });
+}
 
 module.exports = app;

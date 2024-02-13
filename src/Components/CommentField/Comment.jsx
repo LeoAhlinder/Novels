@@ -1,7 +1,17 @@
 import downvotePicture from "../../Icons/downvote.svg"
-import upvotePicture from "../../Icons/upvote.svg"
+import downvotePictureFill from "../../Icons/downvote-fill.svg"
 
-const Comment = ({dislikes,likes,commentText,Username,handleCommentFeedback,value}) =>{
+import upvotePicture from "../../Icons/upvote.svg"
+import upvotePicutreFill from "../../Icons/upvote-fill.svg"
+
+const Comment = ({id,dislikes,likes,commentText,Username,handleCommentFeedback,value,recievedFeedback,commentLiked,commentDisliked}) =>{
+
+    const likedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "likes");
+    const dislikedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "dislikes");
+
+    commentLiked = likedFeedback.length > 0;
+    commentDisliked = dislikedFeedback.length > 0;
+
     return(
         <div className="Comment">
             <h3 className="commentUsername">{Username}</h3>
@@ -10,17 +20,17 @@ const Comment = ({dislikes,likes,commentText,Username,handleCommentFeedback,valu
                 <div className="feedbackButton">
                     <span className="feedbackText">{likes === null ? 0 : likes}</span>
                     <button onClick={() => handleCommentFeedback(value,"likes")}>
-                        <img src={upvotePicture} className="voteButtons" alt="upvote comment image" />
+                        <img src={commentLiked === true ? upvotePicutreFill : upvotePicture} className="voteButtons" alt="upvote comment image" />
                     </button>
                 </div>
                 <span>|</span>
                 <div className="feedbackButton">
                     <span className="feedbackText">{dislikes === null ? 0 : dislikes}</span>
                     <button onClick={() => handleCommentFeedback(value,"dislikes")}>
-                        <img src={downvotePicture} className="voteButtons" alt="downvote comment image" />
+                        <img src={commentDisliked === true ? downvotePictureFill : downvotePicture} className="voteButtons" alt="downvote comment image" />
                     </button>
-                </div>                                    
                 </div>
+            </div>
         </div>
     )
 }
