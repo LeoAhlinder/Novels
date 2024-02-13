@@ -256,8 +256,26 @@ const BookPage = () =>{
         adjustHeight(e)
     }
 
-    function handleCommentFeedback(commentId,feedback){
-        CommentFeedback({commentId:commentId,feedback:feedback})
+    async function handleCommentFeedback(commentId,feedback){
+
+        let feedbackPosted = await CommentFeedback({commentId:commentId,feedback:feedback,navigate:navigate})
+        if (feedbackPosted === true){
+            changeComments(prevState => { //Will add/subtract 2 because React.StrictMode is on
+                return prevState.map((comment) => {
+                    if (comment.commentid === commentId){
+                        if (feedback === "likes"){
+                            comment.likes += 1
+                        }else{
+                            comment.dislikes += 1
+                        }
+                        return comment
+                    }else{
+                        return comment
+                    }
+                })
+            })
+        }
+        
     }
     
     return(
