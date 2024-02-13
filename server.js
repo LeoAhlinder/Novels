@@ -1026,7 +1026,7 @@ app.get("/api/comments", function (req, res) {
           COALESCE(comments.likes, 0) AS likes, 
           users.userName, 
           comments.commentid,
-          (COALESCE(comments.likes, 0) - COALESCE(comments.dislikes, 0)) AS likesDislikes
+          (COALESCE(comments.likes, 0) - COALESCE(comments.dislikes, 0) / 2) AS likesDislikes
       FROM comments
       INNER JOIN users ON comments.userid = users.userid
       WHERE comments.bookid = ?
