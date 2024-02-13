@@ -262,7 +262,6 @@ const BookPage = () =>{
     
     return(
         <>
-
         {bookInfo.length > 0 ? (
             <>  
             <img id="backgroundImage" src={bookCoverImages[bookInfo[0].bookcover]} alt={bookInfo.bookcove} />

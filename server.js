@@ -1020,12 +1020,19 @@ app.get("/api/comments", function (req, res) {
       }
 
       const query = `
-        SELECT comments.comment, comments.dislikes, comments.likes, users.userName, comments.commentid
-        FROM comments
-        INNER JOIN users ON comments.userid = users.userid
-        WHERE comments.bookid = ?
-        ORDER BY (comments.likes - comments.dislikes) DESC
-        LIMIT 0, 8`;
+      SELECT 
+          comments.comment, 
+          COALESCE(comments.dislikes, 0) AS dislikes, 
+          COALESCE(comments.likes, 0) AS likes, 
+          users.userName, 
+          comments.commentid,
+          (COALESCE(comments.likes, 0) - COALESCE(comments.dislikes, 0)) AS likesDislikes
+      FROM comments
+      INNER JOIN users ON comments.userid = users.userid
+      WHERE comments.bookid = ?
+      ORDER BY likesDislikes DESC
+      LIMIT 0, 8;
+      `;
 
       try {
         connection.query(query, [bookId], function (error, results) {
