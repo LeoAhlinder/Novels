@@ -1,6 +1,6 @@
-const FetchComments = async ({bookId,changeComments,navigate,changeUsername,changeGivenFeedback}) => {
+const FetchComments = async ({bookId,changeComments,navigate,changeUsername,changeGivenFeedback,loadSet,onlyReturn}) => {
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/comments?bookid=${bookId}`, {
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/comments?bookid=${bookId}&loadSet=${loadSet}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -18,6 +18,9 @@ const FetchComments = async ({bookId,changeComments,navigate,changeUsername,chan
                 changeComments([])
             }
             else if (response.comments.length > 0){
+                if (onlyReturn){
+                    return response.comments
+                }
                 changeComments(response.comments)
                 changeUsername(response.userName)
                 changeGivenFeedback(response.likedAndDislikedComments)

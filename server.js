@@ -10,6 +10,7 @@ const validator = require("validator");
 
 const { env } = require("process");
 const { config } = require("dotenv");
+const e = require("express");
 
 // Load environment variables from .env file
 config();
@@ -989,6 +990,7 @@ app.get("/api/comments", function (req, res) {
     user_secretkey,
     async function async(err, decodedToken) {
       const bookId = req.query.bookid;
+      const loadSet = Number(req.query.loadSet);
       let userId;
       if (req.cookies.authToken !== undefined) {
         userId = decodedToken.user;
@@ -1016,6 +1018,9 @@ app.get("/api/comments", function (req, res) {
         likedAndDislikedComments = await fetchLikedAndDislikedComments(userId);
       }
 
+      let maxLimit = loadSet + 1 * 8;
+      let minLimit = loadSet * 8;
+
       const query = `
       SELECT 
           comments.comment, 
@@ -1028,27 +1033,32 @@ app.get("/api/comments", function (req, res) {
       INNER JOIN users ON comments.userid = users.userid
       WHERE comments.bookid = ?
       ORDER BY likesDislikes DESC
-      LIMIT 0, 8;
+      LIMIT ? , ?;
       `;
 
       try {
-        connection.query(query, [bookId], function (error, results) {
-          if (error) {
-            return res.status(500).json({ error: "Database error" });
-          }
-          if (results.length > 0) {
-            if (userName !== undefined) {
-              return res.json({
-                comments: results,
-                userName: userName,
-                likedAndDislikedComments: likedAndDislikedComments,
-              });
+        connection.query(
+          query,
+          [bookId, minLimit, maxLimit],
+          function (error, results) {
+            if (error) {
+              console.log(error);
+              return res.status(500).json({ error: "Database error" });
             }
-            return res.json({ comments: results });
-          } else {
-            return res.json({ noComment: "No comments found" });
+            if (results.length > 0) {
+              if (userName !== undefined) {
+                return res.json({
+                  comments: results,
+                  userName: userName,
+                  likedAndDislikedComments: likedAndDislikedComments,
+                });
+              }
+              return res.json({ comments: results });
+            } else {
+              return res.json({ noComment: "No comments found" });
+            }
           }
-        });
+        );
       } catch (err) {
         return res.status(500).json({ error: "Unknown error" });
       }

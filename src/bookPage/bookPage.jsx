@@ -42,6 +42,7 @@ const BookPage = () =>{
     const [postCommentAlert,changePostCommentAlert] = useState("")
     const [Username,changeUsername] = useState("")
     const [givenFeedback,changeGivenFeedback] = useState([])
+    const [loadSet,changeLoadSet] = useState(0)
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -220,7 +221,8 @@ const BookPage = () =>{
                 changeComments: changeComments,
                 navigate: navigate,
                 changeUsername: changeUsername,
-                changeGivenFeedback:changeGivenFeedback
+                changeGivenFeedback:changeGivenFeedback,
+                loadSet: 0
             });
         }
     }, [bookId]);
@@ -307,6 +309,29 @@ const BookPage = () =>{
             });
         }
     }
+
+    useEffect(()=>{
+        const fetchMoreComments = async () =>{
+            const newComments = await FetchComments({
+                onlyReturn: true,
+                bookId: bookId,
+                changeComments: changeComments,
+                navigate: navigate,
+                changeUsername: changeUsername,
+                changeGivenFeedback:changeGivenFeedback,
+                loadSet: loadSet
+            });
+            if (newComments !== undefined){
+                changeComments(prevState => [
+                    ...prevState,
+                    ...newComments
+                ]);
+            }
+        }
+        if (loadSet !== 0){
+            fetchMoreComments()
+        }
+    },[loadSet])
     
     
     return(
@@ -370,6 +395,7 @@ const BookPage = () =>{
                                 <div className="commentField">
                                    {MemorizedComments}
                                 </div>
+                                {comments.length === 8 ? <button className="loadMoreButton" onClick={() => changeLoadSet(loadSet + 1)}>Load More</button> : null}
                         </div>
                         <div id="footer"></div>
                     </div>
@@ -428,6 +454,8 @@ const BookPage = () =>{
                             <div className="commentField">
                                    {MemorizedComments}
                             </div>
+                            {comments.length === 8 ? <button className="loadMoreButton" onClick={() => changeLoadSet(loadSet + 1)}>Load More</button> : null}
+
                         </div>
                         <div id="footer"></div>
                             </div>

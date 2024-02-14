@@ -125,6 +125,19 @@
     padding: 10px;
 }
 
+.loadMoreButton{
+    background-color: rgb(96, 114, 122);
+    border: none;
+    height: 40px;
+    width: auto;
+    font-size: 1.2em;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+
+}
+
 .writeCommentButton:hover{
     opacity: 0.8;
     color: black;
