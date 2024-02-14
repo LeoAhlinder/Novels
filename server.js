@@ -1084,6 +1084,15 @@ app.post("/api/postComment", function (req, res) {
       const comment = req.body.comment;
       const userId = decodedToken.user;
 
+      if (!bookId) {
+        return res.json({ message: "Something went wrong" });
+      }
+      if (comment.length > 1500) {
+        return res.json({ message: "Comment is to long" });
+      } else if (comment.lenght < 1) {
+        return res.json({ message: "Comment is to short" });
+      }
+
       const query =
         "INSERT INTO comments (userid, bookid, comment) VALUES (?, ?, ?)";
       connection.query(

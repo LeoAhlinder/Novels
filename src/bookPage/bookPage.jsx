@@ -193,21 +193,24 @@ const BookPage = () =>{
         }    
     }
 
-    const postCommentHandler = () =>{
-        const didCommentPost = PostComment({
+    const postCommentHandler = async () =>{
+        const didCommentPost = await PostComment({
             bookId:bookId,
             postCommentText:postCommentText,
             navigate:navigate,
             changePostCommentAlert:changePostCommentAlert
         })
-        if (didCommentPost){
-            changePostCommentText("")
-            changeWriteCommentView(false)
+        if (didCommentPost === true){
+            changePostCommentAlert("Comment posted")
             changeComments(prevState => [
                 ...prevState,
                 {likes:0, dislikes:0, comment:postCommentText, userName:"You",commentid:prevState.length+1}
             ]);
         }
+        else{
+            changePostCommentAlert("Error posting comment")
+        }
+
     }
 
     useEffect(() => {

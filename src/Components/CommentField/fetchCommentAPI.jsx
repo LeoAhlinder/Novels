@@ -20,7 +20,6 @@ const FetchComments = async ({bookId,changeComments,navigate,changeUsername,chan
             else if (response.comments.length > 0){
                 changeComments(response.comments)
                 changeUsername(response.userName)
-                console.log(response.likedAndDislikedComments)
                 changeGivenFeedback(response.likedAndDislikedComments)
             }
         } else {
