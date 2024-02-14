@@ -12,12 +12,16 @@ const CommentFeedback= async ({commentId,feedback,navigate}) =>{
         });
         if (res.ok) {
             const response = await res.json();
-            if (response.error){
+            if (response.error || response.message === "Already given feedback"){
                 return false
+            }
+            if (response.insertedType === "Updated"){
+                return "Updated"
             }
             else if (response.message === "Feedback posted"){
                 return true
             }
+            
         }
     }catch(err){
         navigate("error")

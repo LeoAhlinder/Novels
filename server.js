@@ -64,7 +64,6 @@ app.get("/api/library/", async (req, res) => {
     user_secretkey,
     async function (err, decodedToken) {
       if (err) {
-        console.log(err);
         res.sendStatus(403);
       } else {
         try {
@@ -126,7 +125,7 @@ app.get(`/api/book`, async (req, res) => {
       bookInfoData: bookInfoData,
     });
   } catch (err) {
-    console.log(err);
+    res.status(500).json({ error: "An error occurred" });
   }
 });
 
@@ -196,7 +195,6 @@ app.post("/api/createaccount", function (req, res) {
     !validator.isEmail(data.email) ||
     !validator.isAlphanumeric(data.username)
   ) {
-    console.log("Invalid data");
     return res.json({ error: "Invalid" });
   }
 
@@ -232,7 +230,7 @@ app.post("/api/createaccount", function (req, res) {
           [data.username, data.password, data.email],
           function (error, results) {
             if (error) {
-              console.log(error);
+              res.status(500).json({ error: "An error occurred." });
             } else {
               res.json({ message: "user created" });
             }
@@ -249,7 +247,7 @@ app.post("/api/logIn", function (req, res) {
   const query = "SELECT * FROM users WHERE userName = ? AND userPassword = ?";
   connection.query(query, [data[0], data[1]], function (error, results) {
     if (error) {
-      console.log(error);
+      res.status(500).json({ error: "An error occurred." });
     }
     if (results == null || results == undefined) {
       res.json({ message: "no user exist" });
@@ -356,14 +354,14 @@ app.post("/api/AddToLibrary", function (req, res) {
           [userId, req.body.id],
           function (error, result) {
             if (error) {
-              console.log(error);
+              res.status(500).json({ error: "An error occurred." });
             } else {
               connection.query(
                 "UPDATE books SET totalinlibrary = COALESCE(totalinlibrary, 0) + 1 WHERE bookid = ?",
                 [req.body.id],
                 function (err, results) {
                   if (err) {
-                    console.log(err);
+                    res.status(500).json({ error: "An error occurred." });
                   } else {
                     res.sendStatus(200);
                   }
@@ -393,7 +391,7 @@ app.delete("/api/RemoveFromLibrary", function (req, res) {
 
         connection.query(query, [bookId, userId], function (error, results) {
           if (error) {
-            console.log(error);
+            res.status(500).json({ error: "An error occurred." });
           } else {
             connection.query(
               "UPDATE books SET totalinlibrary = totalinlibrary - 1 WHERE bookid = ?",
@@ -437,7 +435,7 @@ app.post("/api/checkLibrary", function (req, res) {
           "SELECT currentpage FROM userlibrary WHERE userid = ? AND bookid = ?";
         connection.query(query, [userid, bookid], function (error, results) {
           if (error) {
-            console.log(error);
+            res.status(500).json({ error: "An error occurred." });
           } else {
             if (results.length > 0) {
               res.json({
@@ -492,7 +490,6 @@ app.post("/api/createNewBook", function (req, res) {
         [userId],
         function (err, results) {
           if (err) {
-            console.log(err);
             return res.sendStatus(500);
           }
 
@@ -508,7 +505,6 @@ app.post("/api/createNewBook", function (req, res) {
             [data.bookTitle, data.Synopsis],
             function (err, results) {
               if (err) {
-                console.log(err);
                 return res.sendStatus(500);
               }
 
@@ -660,7 +656,7 @@ app.get("/api/authorInfo", function (req, res) {
 
   connection.query(query, [author], function (err, results) {
     if (err) {
-      console.log(err);
+      res.status(500).json({ error: "An error occurred." });
     } else {
       if (results.length === 0) {
         res.json({ message: "no author found" });
@@ -677,7 +673,7 @@ app.get("/api/authorInfo", function (req, res) {
       `;
       connection.query(query, [authorId], function (err, results) {
         if (err) {
-          console.log(err);
+          res.status(500).json({ error: "An error occurred." });
         } else {
           res.json({ books: results });
         }
@@ -692,7 +688,7 @@ app.post("/api/admin/login", function (req, res) {
 
   connection.query(query, [req.body[0], req.body[1]], function (err, results) {
     if (err) {
-      console.log(err);
+      res.status(500).json({ error: "An error occurred." });
     } else {
       if (results === undefined) {
         res.json({ message: "error" });
@@ -733,7 +729,7 @@ app.post("/api/checkOwnerOfBook", function (req, res) {
           "SELECT author, bookid,totalpages FROM lightnovelonline.books WHERE title = ?";
         connection.query(query, [bookTitle], function (err, results) {
           if (err) {
-            console.log(err);
+            res.status(500).json({ error: "An error occurred." });
           } else {
             if (results.length === 0) {
               res.json({ message: "invalid" });
@@ -792,7 +788,7 @@ app.post("/api/publishChapter", function (req, res) {
         [bookId],
         function (err, results) {
           if (err) {
-            console.log(err);
+            res.status(500).json({ error: "An error occurred." });
           } else {
             if (results.length > 5000) {
               res.json({ message: "To many chapters" });
@@ -825,7 +821,6 @@ app.post("/api/publishChapter", function (req, res) {
         [bookId, currentChapter, chapterContent, chapterTitle],
         function (err, results) {
           if (err) {
-            console.log(err);
             res.json({ message: "error" });
           } else {
             if (addChapterNumber(bookId, currentChapter) === "Error") {
@@ -1043,7 +1038,6 @@ app.get("/api/comments", function (req, res) {
           }
           if (results.length > 0) {
             if (userName !== undefined) {
-              console.log(likedAndDislikedComments);
               return res.json({
                 comments: results,
                 userName: userName,
@@ -1127,25 +1121,48 @@ app.post("/api/commentFeedback", function (req, res) {
       if (insertFeedback === "Error") {
         return res.json({ error: "Database error" });
       }
-      console.log(insertFeedback);
+
+      if (insertFeedback === "Already given feedback") {
+        return res.json({ message: "Already given feedback" });
+      }
 
       if (feedback === "dislikes") {
-        const query =
-          "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1 WHERE commentid = ?";
+        let query;
+        if (insertFeedback === "New") {
+          query =
+            "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1 WHERE commentid = ?";
+        } else if (insertFeedback === "Updated") {
+          query =
+            "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1, likes = likes - 1 WHERE commentid = ?";
+        }
+
         connection.query(query, [commentId], function (error, results) {
           if (error) {
             return res.json({ error: "database error" });
           }
-          return res.json({ message: "Feedback posted" });
+          return res.json({
+            message: "Feedback posted",
+            insertedType: insertFeedback,
+          });
         });
       } else {
-        const query =
-          "UPDATE comments SET likes = Coalesce(likes, 0) + 1 WHERE commentid = ?";
+        let query;
+        if (insertFeedback === "New") {
+          query =
+            "UPDATE comments SET likes = Coalesce(likes, 0) + 1 WHERE commentid = ?";
+        } else if (insertFeedback === "Updated") {
+          query =
+            "UPDATE comments SET likes = Coalesce(likes, 0) + 1, dislikes = dislikes - 1 WHERE commentid = ?";
+        }
+
         connection.query(query, [commentId], function (error, results) {
           if (error) {
             return res.json({ error: "database error" });
           }
-          return res.json({ message: "Feedback posted" });
+          return res.json({
+            message: "Feedback posted",
+            insertedType: insertFeedback,
+          });
         });
       }
     }
@@ -1175,7 +1192,7 @@ async function insertCommentFeedback(userId, commentId, feedback) {
               if (error) {
                 reject("Error");
               }
-              resolve("Success");
+              resolve("New");
             }
           );
         }
@@ -1190,9 +1207,11 @@ async function insertCommentFeedback(userId, commentId, feedback) {
               if (error) {
                 reject("Error");
               }
-              resolve("Success");
+              resolve("Updated");
             }
           );
+        } else {
+          return "Already given feedback";
         }
       }
     );

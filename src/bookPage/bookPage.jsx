@@ -205,7 +205,7 @@ const BookPage = () =>{
             changeWriteCommentView(false)
             changeComments(prevState => [
                 ...prevState,
-                {likes:0, dislikes:0, comment:postCommentText, userName:"You"}
+                {likes:0, dislikes:0, comment:postCommentText, userName:"You",commentid:prevState.length+1}
             ]);
         }
     }
@@ -238,19 +238,17 @@ const BookPage = () =>{
     const MemorizedComments = useMemo(() => {
         if (comments.length > 0) {
             return comments.map((comment, index) => (
-                <>
-                    <Comment
-                        id={comment.commentid}
-                        key={index}
-                        value={comment.commentid}
-                        likes={comment.likes}
-                        dislikes={comment.dislikes}
-                        commentText={comment.comment}
-                        recievedFeedback={givenFeedback !== null ? givenFeedback : null}
-                        Username={comment.userName === Username ? "You" : comment.userName}
-                        handleCommentFeedback={handleCommentFeedback}
-                    />  
-                </>
+                <Comment
+                    id={comment.commentid}
+                    key={index}
+                    value={comment.commentid}
+                    likes={comment.likes}
+                    dislikes={comment.dislikes}
+                    commentText={comment.comment}
+                    recievedFeedback={givenFeedback !== null ? givenFeedback : null}
+                    Username={comment.userName === Username ? "You" : comment.userName}
+                    handleCommentFeedback={handleCommentFeedback}
+                />  
             ));
         } else {
             return <p>No comments</p>;
@@ -262,28 +260,51 @@ const BookPage = () =>{
         adjustHeight(e)
     }
 
-    async function handleCommentFeedback(commentId,feedback){
-
-        let feedbackPosted = await CommentFeedback({commentId:commentId,feedback:feedback,navigate:navigate})
-        if (feedbackPosted === true){
-            changeComments(prevState => { //Will add/subtract 2 because React.StrictMode is on
-                return prevState.map((comment) => {
-                    if (comment.commentid === commentId){
-                        if (feedback === "likes"){
-                            comment.likes += 1;
-                            comment.commentLiked = true;
-
-                        }else{
-                            comment.dislikes += 1
+    async function handleCommentFeedback(commentId, feedback) {
+        let feedbackPosted = await CommentFeedback({ commentId: commentId, feedback: feedback, navigate: navigate });
+    
+        if (feedbackPosted === "Updated") {
+            changeComments(prevState => {
+                return prevState.map(comment => {
+                    if (comment.commentid === commentId) {
+                        const updatedComment = { ...comment };
+    
+                        if (feedback === "likes") {
+                            updatedComment.likes += 1;
+                            updatedComment.dislikes -= 1;
+                        } else {
+                            updatedComment.dislikes += 1;
+                            updatedComment.likes -= 1;
                         }
-                        return comment
-                    }else{
-                        return comment
+    
+                        return updatedComment;
                     }
-                })
-            })
+                    return comment;
+                });
+            });
+        }
+    
+        if (feedbackPosted === true) {
+            changeComments(prevState => {
+                return prevState.map(comment => {
+                    if (comment.commentid === commentId) {
+                        const updatedComment = { ...comment };
+    
+                        if (feedback === "likes") {
+                            updatedComment.likes += 1;
+                            updatedComment.commentLiked = true;
+                        } else {
+                            updatedComment.dislikes += 1;
+                        }
+    
+                        return updatedComment;
+                    }
+                    return comment;
+                });
+            });
         }
     }
+    
     
     return(
         <>

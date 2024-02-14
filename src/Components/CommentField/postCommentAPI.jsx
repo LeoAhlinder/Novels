@@ -25,7 +25,6 @@ const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAle
     }catch(err){
         navigate("/error")
     }
-
 }
 
 export default PostComment;
