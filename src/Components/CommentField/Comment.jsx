@@ -5,17 +5,24 @@ import downvotePictureFill from "../../Icons/downvote-fill.svg"
 
 import upvotePicture from "../../Icons/upvote.svg"
 import upvotePicutreFill from "../../Icons/upvote-fill.svg"
+import { use } from "chai";
 
-const Comment = ({ id, dislikes, likes, commentText, Username, handleCommentFeedback, value, recievedFeedback }) => {
+const Comment = ({ id, dislikes, likes, commentText, Username, handleCommentFeedback, value, recievedFeedback,feedbackPosted }) => {
     const likedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "likes");
     const dislikedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "dislikes");
 
     const [commentLiked, setCommentLiked] = useState(likedFeedback.length > 0);
     const [commentDisliked, setCommentDisliked] = useState(dislikedFeedback.length > 0);
 
-    const handleFeedbackClick = async (feedbackType) => {
+    const handleFeedbackClick = async (feedbackType,feedbackPosted) => {
+        console.log(feedbackType,feedbackPosted)
         await handleCommentFeedback(value, feedbackType);
-        if (feedbackType === "likes") {
+        if (feedbackPosted === "Deleted"){
+            setCommentLiked(false);
+            setCommentDisliked(false);
+            console.log("Deleted")
+        }     
+        else if (feedbackType === "likes") {
             setCommentLiked(true);
             setCommentDisliked(false);
         } else if (feedbackType === "dislikes") {
@@ -31,7 +38,7 @@ const Comment = ({ id, dislikes, likes, commentText, Username, handleCommentFeed
             <div className="likeDislikeContainer">
                 <div className="feedbackButton">
                     <span className="feedbackText">{likes === null ? 0 : likes}</span>
-                    <button onClick={() => handleFeedbackClick("likes")}>
+                    <button onClick={() => handleFeedbackClick("likes",feedbackPosted)}>
                         <img src={commentLiked ? upvotePicutreFill : upvotePicture} className="voteButtons" alt="upvote comment image" />
                     </button>
                 </div>

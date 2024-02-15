@@ -16,7 +16,6 @@ const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAle
         });
         if (res.ok){
             const response = await res.json()
-            console.log(response)
             if (response.message === "Commented posted"){
                 changePostCommentAlert("Comment posted")
                 return true

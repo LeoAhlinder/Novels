@@ -18,8 +18,11 @@ const CommentFeedback= async ({commentId,feedback,navigate}) =>{
             if (response.insertedType === "Updated"){
                 return "Updated"
             }
+            else if (response.insertedType === "Deleted"){
+                return "Deleted"
+            }
             else if (response.message === "Feedback posted"){
-                return true
+                return "New"
             }
             
         }

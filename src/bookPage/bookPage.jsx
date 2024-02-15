@@ -43,6 +43,9 @@ const BookPage = () =>{
     const [Username,changeUsername] = useState("")
     const [givenFeedback,changeGivenFeedback] = useState([])
     const [loadSet,changeLoadSet] = useState(0)
+    const [feedbackPosted,changeFeedbackPosted] = useState("")
+    const [commentId, changeCommentId] = useState(0);
+    const [feedback, changeFeedback] = useState("likes");
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -202,6 +205,7 @@ const BookPage = () =>{
             changePostCommentAlert:changePostCommentAlert
         })
         if (didCommentPost === true){
+            changePostCommentText("")
             changePostCommentAlert("Comment posted")
             changeComments(prevState => [
                 ...prevState,
@@ -211,7 +215,6 @@ const BookPage = () =>{
         else{
             changePostCommentAlert("Error posting comment")
         }
-
     }
 
     useEffect(() => {
@@ -253,6 +256,7 @@ const BookPage = () =>{
                     recievedFeedback={givenFeedback !== null ? givenFeedback : null}
                     Username={comment.userName === Username ? "You" : comment.userName}
                     handleCommentFeedback={handleCommentFeedback}
+                    feedbackPosted={feedbackPosted}
                 />  
             ));
         } else {
@@ -265,15 +269,14 @@ const BookPage = () =>{
         adjustHeight(e)
     }
 
-    async function handleCommentFeedback(commentId, feedback) {
-        let feedbackPosted = await CommentFeedback({ commentId: commentId, feedback: feedback, navigate: navigate });
-    
+    useEffect(()=>{
         if (feedbackPosted === "Updated") {
             changeComments(prevState => {
                 return prevState.map(comment => {
                     if (comment.commentid === commentId) {
                         const updatedComment = { ...comment };
-    
+                        updatedComment.feedbackPosted = feedbackPosted;
+
                         if (feedback === "likes") {
                             updatedComment.likes += 1;
                             updatedComment.dislikes -= 1;
@@ -281,33 +284,57 @@ const BookPage = () =>{
                             updatedComment.dislikes += 1;
                             updatedComment.likes -= 1;
                         }
-    
+        
                         return updatedComment;
                     }
                     return comment;
                 });
             });
-        }
-    
-        if (feedbackPosted === true) {
+        } else if (feedbackPosted === "Deleted") {
             changeComments(prevState => {
                 return prevState.map(comment => {
                     if (comment.commentid === commentId) {
                         const updatedComment = { ...comment };
-    
+                        updatedComment.feedbackPosted = feedbackPosted;
+                        if (feedback === "likes") {
+                            updatedComment.likes -= 1;
+                        } else {
+                            updatedComment.dislikes -= 1;
+                        }
+        
+                        return updatedComment;
+                    }
+                    return comment;
+                });
+            });
+        } else if (feedbackPosted === "New") {
+            changeComments(prevState => {
+                return prevState.map(comment => {
+                    if (comment.commentid === commentId) {
+                        const updatedComment = { ...comment };
+                        updatedComment.feedbackPosted = feedbackPosted;
                         if (feedback === "likes") {
                             updatedComment.likes += 1;
-                            updatedComment.commentLiked = true;
                         } else {
                             updatedComment.dislikes += 1;
                         }
-    
+        
                         return updatedComment;
                     }
                     return comment;
                 });
             });
         }
+    },[feedbackPosted,commentId,feedback])
+
+
+
+    async function handleCommentFeedback(commentId, feedback) {
+        let feedbackPosted = await CommentFeedback({ commentId: commentId, feedback: feedback, navigate: navigate });
+
+        changeCommentId(commentId);
+        changeFeedback(feedback);
+        changeFeedbackPosted(feedbackPosted)
     }
 
     useEffect(()=>{

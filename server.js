@@ -1153,6 +1153,9 @@ app.post("/api/commentFeedback", function (req, res) {
         } else if (insertFeedback === "Updated") {
           query =
             "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1, likes = likes - 1 WHERE commentid = ?";
+        } else if (insertFeedback === "Deleted") {
+          query =
+            "UPDATE comments SET dislikes = dislikes - 1 WHERE commentid = ?";
         }
 
         connection.query(query, [commentId], function (error, results) {
@@ -1172,6 +1175,8 @@ app.post("/api/commentFeedback", function (req, res) {
         } else if (insertFeedback === "Updated") {
           query =
             "UPDATE comments SET likes = Coalesce(likes, 0) + 1, dislikes = dislikes - 1 WHERE commentid = ?";
+        } else if (insertFeedback === "Deleted") {
+          query = "UPDATE comments SET likes = likes - 1 WHERE commentid = ?";
         }
 
         connection.query(query, [commentId], function (error, results) {
@@ -1230,7 +1235,14 @@ async function insertCommentFeedback(userId, commentId, feedback) {
             }
           );
         } else {
-          return "Already given feedback";
+          const updateQuery =
+            "DELETE FROM commentfeedback WHERE userid = ? AND commentid = ?";
+          connection.query(updateQuery, [userId, commentId], function (error) {
+            if (error) {
+              reject("Error");
+            }
+            resolve("Deleted");
+          });
         }
       }
     );
