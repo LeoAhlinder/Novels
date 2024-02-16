@@ -13,6 +13,8 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
 
     const [likes, setLikes] = useState(initialLikes);
     const [dislikes, setDislikes] = useState(initialDislikes);
+
+    // Check if the user has already liked or disliked the comment
     const [commentLiked, setCommentLiked] = useState(likedFeedback.length > 0 ? true : false);
     const [commentDisliked, setCommentDisliked] = useState(dislikedFeedback.length > 0 ? true : false);
 
