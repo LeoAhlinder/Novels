@@ -679,8 +679,20 @@ function checkIfDataCorrect(data) {
 
 app.get("/api/ranking", function (req, res) {
   try {
-    const query =
-      "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary LIMIT 0,50";
+    const type = req.query.type;
+    let query;
+    if (type === "overall") {
+      query =
+        "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary DESC LIMIT 0,50";
+    } else if (type === "collections") {
+      query =
+        "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary DESC LIMIT 0,50";
+    } else if (type === "rating") {
+      query =
+        "SELECT * FROM lightnovelonline.books ORDER BY rating DESC LIMIT 0,50";
+    } else {
+      return res.json({ error: "error" });
+    }
 
     connection.query(query, function (err, results) {
       if (err) {

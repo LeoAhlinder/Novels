@@ -25,61 +25,58 @@ const MostPopular  = () =>{
     ChangeDocumentTitle("Most Popular")
 
     const [books,setBooks] = useState([])
-    const [type,setType] = useState("overall") 
 
     const navigate = useNavigate()
 
-    useEffect(()=>{
+    useEffect(() => {
+        ranking("overall")
+    },[])
 
-        const ranking = async () =>{
 
-            if (Cookies.get("Popular")){
+    const ranking = async (type) =>{
+        if (Cookies.get("Popular") && type === "overall"){
     
-                let cookieValue = document.cookie
-                        .split('; ')
-                        .find(row => row.startsWith('Popular='))
-                        .split('=')[1];
+            let cookieValue = document.cookie
+                    .split('; ')
+                    .find(row => row.startsWith('Popular='))
+                    .split('=')[1];
     
-                let retrievedArray = JSON.parse(cookieValue);
-                setBooks(retrievedArray)
-                setIsLoaded(true)
-            }
-            else{
-                try{
-                    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/ranking?type=${type}`,{
-                        method:"GET",
-                        headers:{
-                            "Content-Type": "application/json",
-                            "Accept": "application/json",
-                        }
-                    });
-                    if (res.ok){
-                        const response = await res.json();
-                        if (response.error === "error"){ 
-                            setBooks([])
-                        }
-                        else if (response.books.length === 0){
-                            setBooks([])
-                        }
-                        else{
-                            setBooks(response.books.reverse())    
-                            setCookie("Popular",response.books,3) //Name,data,expire date in hours
-                        }
-                        setIsLoaded(true)
+            let retrievedArray = JSON.parse(cookieValue);
+            setBooks(retrievedArray)
+            setIsLoaded(true)
+        }
+        else{
+            try{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/ranking?type=${type}`,{
+                    method:"GET",
+                    headers:{
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    }
+                });
+                if (res.ok){
+                    const response = await res.json();
+                    if (response.error === "error"){ 
+                        setBooks([])
+                    }
+                    else if (response.books.length === 0){
+                        setBooks([])
                     }
                     else{
-                        console.log(res)
-                        //navigate("/error")
+                        setBooks(response.books)
+                        setCookie("Popular",response.books,3) //Name,data,expire date in hours
                     }
+                    setIsLoaded(true)
                 }
-                catch(err){
-                    console.log(err)
-                    //navigate("/error")
+                else{
+                    navigate("/error")
                 }
             }
+            catch(err){
+                    navigate("/error")
+            }
         }
-        ranking()
-    },[type])
+    }
 
     const goToBook = (book) =>{
         navigate({pathname:`/novel/${book.title}`})
@@ -90,9 +87,9 @@ const MostPopular  = () =>{
                 <div className="containerPopular">
                     <div className="categories">
                         <div className="button-container">
-                            <button className="category-button" onClick={() => setType("overall")}>Overall Ranking</button>
-                            <button className="category-button" onClick={() => setType("collections")}>Collections</button>
-                            <button className="category-button" onClick={() => setType("rating")}>Rating</button>
+                            <button className="category-button" onClick={() => ranking("overall")}>Overall Ranking</button>
+                            <button className="category-button" onClick={() => ranking("collections")}>Collections</button>
+                            <button className="category-button" onClick={() => ranking("rating")}>Rating</button>
                         </div>
                             
                     </div>
