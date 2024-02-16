@@ -1,31 +1,56 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
+import CommentFeedback from "./APIs/commentFeedbackAPI";
+import downvotePicture from "../../Icons/downvote.svg";
+import downvotePictureFill from "../../Icons/downvote-fill.svg";
+import upvotePicture from "../../Icons/upvote.svg";
+import upvotePicutreFill from "../../Icons/upvote-fill.svg";
 
-import downvotePicture from "../../Icons/downvote.svg"
-import downvotePictureFill from "../../Icons/downvote-fill.svg"
+const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback }) => {
 
-import upvotePicture from "../../Icons/upvote.svg"
-import upvotePicutreFill from "../../Icons/upvote-fill.svg"
-import { use } from "chai";
-
-const Comment = ({ id, dislikes, likes, commentText, Username, handleCommentFeedback, value, recievedFeedback,feedbackPosted }) => {
     const likedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "likes");
     const dislikedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "dislikes");
 
-    const [commentLiked, setCommentLiked] = useState(likedFeedback.length > 0);
-    const [commentDisliked, setCommentDisliked] = useState(dislikedFeedback.length > 0);
 
-    const handleFeedbackClick = async (feedbackType,feedbackPosted) => {
-        console.log(feedbackType,feedbackPosted)
-        await handleCommentFeedback(value, feedbackType);
-        if (feedbackPosted === "Deleted"){
+    const [likes, setLikes] = useState(initialLikes);
+    const [dislikes, setDislikes] = useState(initialDislikes);
+    const [commentLiked, setCommentLiked] = useState(likedFeedback.length > 0 ? true : false);
+    const [commentDisliked, setCommentDisliked] = useState(dislikedFeedback.length > 0 ? true : false);
+
+    async function handleCommentFeedback(commentId, feedback) {
+        let feedbackPosted = await CommentFeedback({ commentId: commentId, feedback: feedback });
+        return feedbackPosted;
+    }
+
+    const handleFeedbackClick = async (feedbackType) => {
+        let feedbackPosted = await handleCommentFeedback(value, feedbackType);
+        if (feedbackPosted === "Updated"){
+            if (feedbackType === "likes") {
+                setLikes(prevLikes => prevLikes + 1); 
+                setDislikes(prevDislikes => prevDislikes - 1);
+                setCommentLiked(true);
+                setCommentDisliked(false);
+            }
+            else{
+                setLikes(prevLikes => prevLikes - 1); 
+                setDislikes(prevDislikes => prevDislikes + 1);
+                setCommentLiked(false);
+                setCommentDisliked(true);
+            }
+        }
+        else if (feedbackPosted === "Deleted"){
             setCommentLiked(false);
             setCommentDisliked(false);
-            console.log("Deleted")
-        }     
-        else if (feedbackType === "likes") {
+            if (feedbackType === "likes") {
+                setLikes(prevLikes => prevLikes - 1);
+            } else if (feedbackType === "dislikes") {
+                setDislikes(prevDislikes => prevDislikes - 1); 
+            }
+        } else if (feedbackType === "likes") {
+            setLikes(prevLikes => prevLikes + 1); 
             setCommentLiked(true);
             setCommentDisliked(false);
         } else if (feedbackType === "dislikes") {
+            setDislikes(prevDislikes => prevDislikes + 1); 
             setCommentLiked(false);
             setCommentDisliked(true);
         }
@@ -38,7 +63,7 @@ const Comment = ({ id, dislikes, likes, commentText, Username, handleCommentFeed
             <div className="likeDislikeContainer">
                 <div className="feedbackButton">
                     <span className="feedbackText">{likes === null ? 0 : likes}</span>
-                    <button onClick={() => handleFeedbackClick("likes",feedbackPosted)}>
+                    <button onClick={() => handleFeedbackClick("likes")}>
                         <img src={commentLiked ? upvotePicutreFill : upvotePicture} className="voteButtons" alt="upvote comment image" />
                     </button>
                 </div>
@@ -53,6 +78,5 @@ const Comment = ({ id, dislikes, likes, commentText, Username, handleCommentFeed
         </div>
     );
 };
-
 
 export default Comment;

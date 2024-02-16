@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 import FetchComments from "../Components/CommentField/APIs/fetchCommentAPI";
 import PostComment from "../Components/CommentField/APIs/postCommentAPI";
-import CommentFeedback from "../Components/CommentField/APIs/commentFeedbackAPI";
 
 import Comment from "../Components/CommentField/Comment"
 
@@ -43,9 +42,6 @@ const BookPage = () =>{
     const [Username,changeUsername] = useState("")
     const [givenFeedback,changeGivenFeedback] = useState([])
     const [loadSet,changeLoadSet] = useState(0)
-    const [feedbackPosted,changeFeedbackPosted] = useState("")
-    const [commentId, changeCommentId] = useState(0);
-    const [feedback, changeFeedback] = useState("likes");
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -255,8 +251,6 @@ const BookPage = () =>{
                     commentText={comment.comment}
                     recievedFeedback={givenFeedback !== null ? givenFeedback : null}
                     Username={comment.userName === Username ? "You" : comment.userName}
-                    handleCommentFeedback={handleCommentFeedback}
-                    feedbackPosted={feedbackPosted}
                 />  
             ));
         } else {
@@ -267,74 +261,6 @@ const BookPage = () =>{
     function onChangeHandler(e){
         changePostCommentText(e.target.value)
         adjustHeight(e)
-    }
-
-    useEffect(()=>{
-        if (feedbackPosted === "Updated") {
-            changeComments(prevState => {
-                return prevState.map(comment => {
-                    if (comment.commentid === commentId) {
-                        const updatedComment = { ...comment };
-                        updatedComment.feedbackPosted = feedbackPosted;
-
-                        if (feedback === "likes") {
-                            updatedComment.likes += 1;
-                            updatedComment.dislikes -= 1;
-                        } else {
-                            updatedComment.dislikes += 1;
-                            updatedComment.likes -= 1;
-                        }
-        
-                        return updatedComment;
-                    }
-                    return comment;
-                });
-            });
-        } else if (feedbackPosted === "Deleted") {
-            changeComments(prevState => {
-                return prevState.map(comment => {
-                    if (comment.commentid === commentId) {
-                        const updatedComment = { ...comment };
-                        updatedComment.feedbackPosted = feedbackPosted;
-                        if (feedback === "likes") {
-                            updatedComment.likes -= 1;
-                        } else {
-                            updatedComment.dislikes -= 1;
-                        }
-        
-                        return updatedComment;
-                    }
-                    return comment;
-                });
-            });
-        } else if (feedbackPosted === "New") {
-            changeComments(prevState => {
-                return prevState.map(comment => {
-                    if (comment.commentid === commentId) {
-                        const updatedComment = { ...comment };
-                        updatedComment.feedbackPosted = feedbackPosted;
-                        if (feedback === "likes") {
-                            updatedComment.likes += 1;
-                        } else {
-                            updatedComment.dislikes += 1;
-                        }
-        
-                        return updatedComment;
-                    }
-                    return comment;
-                });
-            });
-        }
-    },[feedbackPosted,commentId,feedback])
-
-
-
-    async function handleCommentFeedback(commentId, feedback) {
-        let feedbackPosted = await CommentFeedback({ commentId: commentId, feedback: feedback, navigate: navigate });
-
-        changeCommentId(commentId);
-        changeFeedback(feedback);
-        changeFeedbackPosted(feedbackPosted)
     }
 
     useEffect(()=>{
