@@ -111,8 +111,8 @@ function getBookInfo(bookId) {
 }
 
 app.get(`/api/book`, async (req, res) => {
-  const bookName = req.query.title;
   try {
+    const bookName = req.query.title;
     const [bookInfo] = await Promise.all([bookData(bookName)]);
     if (bookInfo.length === 0) {
       res.json({ message: "No book found" });
@@ -190,86 +190,94 @@ function bookData(bookName) {
 }
 
 app.post("/api/createaccount", function (req, res) {
-  const data = req.body;
+  try {
+    const data = req.body;
 
-  if (
-    !validator.isEmail(data.email) ||
-    !validator.isAlphanumeric(data.username)
-  ) {
-    return res.json({ error: "Invalid" });
-  }
-
-  const email = validator.normalizeEmail(data.email);
-  const username = validator.trim(data.username);
-
-  connection.query(
-    "SELECT * FROM users WHERE userEmail = ? OR userName = ?",
-    [email, username],
-    function (error, results) {
-      if (error) {
-        console.error("Error executing query:", error);
-        res.status(500).json({ error: "An error occurred." });
-        return;
-      }
-      if (results.length > 0) {
-        const existingUser = results[0];
-        if (
-          existingUser.userEmail === data.email &&
-          existingUser.userName === data.username
-        ) {
-          res.json({ message: "both exist" });
-        } else if (existingUser.userEmail === data.email) {
-          res.json({ message: "email exist" });
-        } else if (existingUser.userName === data.username) {
-          res.json({ message: "userName exist" });
-        }
-      } else {
-        const query =
-          "INSERT INTO users (userName,userPassword,userEmail) VALUES (?,?,?)";
-        connection.query(
-          query,
-          [data.username, data.password, data.email],
-          function (error, results) {
-            if (error) {
-              res.status(500).json({ error: "An error occurred." });
-            } else {
-              res.json({ message: "user created" });
-            }
-          }
-        );
-      }
+    if (
+      !validator.isEmail(data.email) ||
+      !validator.isAlphanumeric(data.username)
+    ) {
+      return res.json({ error: "Invalid" });
     }
-  );
+
+    const email = validator.normalizeEmail(data.email);
+    const username = validator.trim(data.username);
+
+    connection.query(
+      "SELECT * FROM users WHERE userEmail = ? OR userName = ?",
+      [email, username],
+      function (error, results) {
+        if (error) {
+          console.error("Error executing query:", error);
+          res.status(500).json({ error: "An error occurred." });
+          return;
+        }
+        if (results.length > 0) {
+          const existingUser = results[0];
+          if (
+            existingUser.userEmail === data.email &&
+            existingUser.userName === data.username
+          ) {
+            res.json({ message: "both exist" });
+          } else if (existingUser.userEmail === data.email) {
+            res.json({ message: "email exist" });
+          } else if (existingUser.userName === data.username) {
+            res.json({ message: "userName exist" });
+          }
+        } else {
+          const query =
+            "INSERT INTO users (userName,userPassword,userEmail) VALUES (?,?,?)";
+          connection.query(
+            query,
+            [data.username, data.password, data.email],
+            function (error, results) {
+              if (error) {
+                res.status(500).json({ error: "An error occurred." });
+              } else {
+                res.json({ message: "user created" });
+              }
+            }
+          );
+        }
+      }
+    );
+  } catch (err) {
+    res.json({ error: "error" });
+  }
 });
 
 app.post("/api/logIn", function (req, res) {
-  const data = req.body;
+  try {
+    const data = req.body;
 
-  const query = "SELECT * FROM users WHERE userName = ? AND userPassword = ?";
-  connection.query(query, [data[0], data[1]], function (error, results) {
-    if (error) {
-      res.status(500).json({ error: "An error occurred." });
-    }
-    if (results == null || results == undefined) {
-      res.json({ message: "no user exist" });
-      return;
-    }
-    if (results.length > 0) {
-      const user = results[0]; // Assuming results contain user data
-      const userName = user.userName;
-      const token = jwt.sign({ user: user.userid }, user_secretkey);
-      res.cookie("authToken", token, {
-        httpOnly: true,
-        sameSite: "none",
-        path: "/",
-        expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-        secure: true,
-      });
-      res.json({ message: "user exist", userName: userName, token: token });
-    } else {
-      res.json({ message: "no user exist" });
-    }
-  });
+    const query = "SELECT * FROM users WHERE userName = ? AND userPassword = ?";
+    connection.query(query, [data[0], data[1]], function (error, results) {
+      if (error) {
+        res.status(500).json({ error: "An error occurred." });
+      }
+      if (results == null || results == undefined) {
+        res.json({ message: "no user exist" });
+        return;
+      }
+      if (results.length > 0) {
+        const user = results[0]; // Assuming results contain user data
+        const userName = user.userName;
+        const token = jwt.sign({ user: user.userid }, user_secretkey);
+        res.cookie("authToken", token, {
+          httpOnly: true,
+          sameSite: "none",
+          path: "/",
+          expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+          secure: true,
+        });
+        res.json({ message: "user exist", userName: userName, token: token });
+      } else {
+        res.json({ message: "no user exist" });
+      }
+    });
+  } catch (err) {
+    res.json({ error: "error" });
+  }
 });
 
 app.post("/api/removecookie", function (req, res) {
@@ -278,33 +286,41 @@ app.post("/api/removecookie", function (req, res) {
 });
 
 app.get("/api/protected", function (req, res) {
-  if (!req.cookies.authToken) {
-    res.json({ message: "no token" });
-    return;
-  }
-  jwt.verify(req.cookies.authToken, user_secretkey, function (err, data) {
-    if (err) {
-      res.json({ message: "token invalid" });
-    } else {
-      res.json({
-        message: "this is protected",
-        data: data,
-      });
+  try {
+    if (!req.cookies.authToken) {
+      res.json({ message: "no token" });
+      return;
     }
-  });
+    jwt.verify(req.cookies.authToken, user_secretkey, function (err, data) {
+      if (err) {
+        res.json({ message: "token invalid" });
+      } else {
+        res.json({
+          message: "this is protected",
+          data: data,
+        });
+      }
+    });
+  } catch (err) {
+    res.json({ message: "error" });
+  }
 });
 
 app.get("/api/latest", function (req, res) {
-  const query =
-    " SELECT * FROM lightnovelonline.books ORDER BY STR_TO_DATE(release_date, '%Y/%m/%d') DESC LIMIT 0,22;";
+  try {
+    const query =
+      " SELECT * FROM lightnovelonline.books ORDER BY STR_TO_DATE(release_date, '%Y/%m/%d') DESC LIMIT 0,22;";
 
-  connection.query(query, function (err, results) {
-    if (err) {
-      res.json({ error: "error" });
-      return;
-    }
-    res.json({ books: results });
-  });
+    connection.query(query, function (err, results) {
+      if (err) {
+        res.json({ error: "error" });
+        return;
+      }
+      res.json({ books: results });
+    });
+  } catch (err) {
+    res.json({ error: "error" });
+  }
 });
 
 app.get("/api/novelsCreated", function (req, res) {
@@ -315,9 +331,13 @@ app.get("/api/novelsCreated", function (req, res) {
       if (err) {
         res.sendStatus(403);
       } else {
-        const userID = decodedToken.user;
-        const data = await usersNovels(userID);
-        res.json({ data: data });
+        try {
+          const userID = decodedToken.user;
+          const data = await usersNovels(userID);
+          res.json({ data: data });
+        } catch (err) {
+          res.json({ error: "error" });
+        }
       }
     }
   );
@@ -345,32 +365,36 @@ app.post("/api/AddToLibrary", function (req, res) {
       if (err) {
         res.sendStatus(403);
       } else {
-        const userId = decodedToken.user;
+        try {
+          const userId = decodedToken.user;
 
-        const query =
-          "INSERT INTO userlibrary (userid,bookid,currentpage) VALUES (?,?,0)";
+          const query =
+            "INSERT INTO userlibrary (userid,bookid,currentpage) VALUES (?,?,0)";
 
-        connection.query(
-          query,
-          [userId, req.body.id],
-          function (error, result) {
-            if (error) {
-              res.status(500).json({ error: "An error occurred." });
-            } else {
-              connection.query(
-                "UPDATE books SET totalinlibrary = COALESCE(totalinlibrary, 0) + 1 WHERE bookid = ?",
-                [req.body.id],
-                function (err, results) {
-                  if (err) {
-                    res.status(500).json({ error: "An error occurred." });
-                  } else {
-                    res.sendStatus(200);
+          connection.query(
+            query,
+            [userId, req.body.id],
+            function (error, result) {
+              if (error) {
+                res.status(500).json({ error: "An error occurred." });
+              } else {
+                connection.query(
+                  "UPDATE books SET totalinlibrary = COALESCE(totalinlibrary, 0) + 1 WHERE bookid = ?",
+                  [req.body.id],
+                  function (err, results) {
+                    if (err) {
+                      res.status(500).json({ error: "An error occurred." });
+                    } else {
+                      res.sendStatus(200);
+                    }
                   }
-                }
-              );
+                );
+              }
             }
-          }
-        );
+          );
+        } catch (err) {
+          res.status(500).json({ error: "An error occurred." });
+        }
       }
     }
   );
@@ -384,29 +408,33 @@ app.delete("/api/RemoveFromLibrary", function (req, res) {
       if (err) {
         res.sendStatus(403);
       } else {
-        const userId = decodedToken.user;
-        const bookId = req.body.id;
+        try {
+          const userId = decodedToken.user;
+          const bookId = req.body.id;
 
-        const query =
-          "DELETE FROM userlibrary WHERE bookid = ? AND userid = ? ";
+          const query =
+            "DELETE FROM userlibrary WHERE bookid = ? AND userid = ? ";
 
-        connection.query(query, [bookId, userId], function (error, results) {
-          if (error) {
-            res.status(500).json({ error: "An error occurred." });
-          } else {
-            connection.query(
-              "UPDATE books SET totalinlibrary = totalinlibrary - 1 WHERE bookid = ?",
-              [bookId],
-              function (error, results) {
-                if (error) {
-                  res.json({ error: error });
-                } else {
-                  res.json({ message: "Book removed from library" });
+          connection.query(query, [bookId, userId], function (error, results) {
+            if (error) {
+              res.status(500).json({ error: "An error occurred." });
+            } else {
+              connection.query(
+                "UPDATE books SET totalinlibrary = totalinlibrary - 1 WHERE bookid = ?",
+                [bookId],
+                function (error, results) {
+                  if (error) {
+                    res.json({ error: error });
+                  } else {
+                    res.json({ message: "Book removed from library" });
+                  }
                 }
-              }
-            );
-          }
-        });
+              );
+            }
+          });
+        } catch (err) {
+          res.json({ error: "error" });
+        }
       }
     }
   );
@@ -426,48 +454,56 @@ app.post("/api/checkLibrary", function (req, res) {
     req.cookies.authToken,
     user_secretkey,
     function (err, decodedToken) {
-      if (err) {
-        res.sendStatus(403);
-      } else {
-        const userid = decodedToken.user;
-        const bookid = req.body.id;
+      try {
+        if (err) {
+          res.sendStatus(403);
+        } else {
+          const userid = decodedToken.user;
+          const bookid = req.body.id;
 
-        const query =
-          "SELECT currentpage FROM userlibrary WHERE userid = ? AND bookid = ?";
-        connection.query(query, [userid, bookid], function (error, results) {
-          if (error) {
-            res.status(500).json({ error: "An error occurred." });
-          } else {
-            if (results.length > 0) {
-              res.json({
-                message: "exist",
-                currentPage: results[0].currentpage,
-              });
+          const query =
+            "SELECT currentpage FROM userlibrary WHERE userid = ? AND bookid = ?";
+          connection.query(query, [userid, bookid], function (error, results) {
+            if (error) {
+              res.status(500).json({ error: "An error occurred." });
             } else {
-              res.json({ message: "does not exist" });
+              if (results.length > 0) {
+                res.json({
+                  message: "exist",
+                  currentPage: results[0].currentpage,
+                });
+              } else {
+                res.json({ message: "does not exist" });
+              }
             }
-          }
-        });
+          });
+        }
+      } catch (err) {
+        res.json({ error: "error" });
       }
     }
   );
 });
 
 app.post("/api/BooksBasedOnSearch", function (req, res) {
-  const input = req.body.data;
+  try {
+    const input = req.body.data;
 
-  const query = "SELECT * FROM books WHERE title LIKE ? LIMIT 10";
-  const searchTerm = `%${input}%`;
+    const query = "SELECT * FROM books WHERE title LIKE ? LIMIT 10";
+    const searchTerm = `%${input}%`;
 
-  connection.query(query, [searchTerm], function (err, results) {
-    if (err) {
-      res.json({ error: "error" });
-    } else if (results.length > 0) {
-      res.json({ books: results });
-    } else {
-      res.json({ empty: "No books" });
-    }
-  });
+    connection.query(query, [searchTerm], function (err, results) {
+      if (err) {
+        res.json({ error: "error" });
+      } else if (results.length > 0) {
+        res.json({ books: results });
+      } else {
+        res.json({ empty: "No books" });
+      }
+    });
+  } catch (err) {
+    res.json({ error: "error" });
+  }
 });
 
 app.post("/api/createNewBook", function (req, res) {
@@ -478,86 +514,90 @@ app.post("/api/createNewBook", function (req, res) {
       if (err) {
         return res.sendStatus(403);
       }
-      const userId = decodedToken.user;
-      const data = req.body;
+      try {
+        const userId = decodedToken.user;
+        const data = req.body;
 
-      const checkData = checkIfDataCorrect(data);
-      if (checkData !== "OK") {
-        return res.json({ errorData: checkData });
-      }
-
-      connection.query(
-        "SELECT * FROM books WHERE author = ?",
-        [userId],
-        function (err, results) {
-          if (err) {
-            return res.sendStatus(500);
-          }
-
-          if (results.length >= 10) {
-            return res.json({ message: "Maximum of 10 books allowed" });
-          }
-
-          // Check if a book with the same title or synopsis exists
-          const checkQuery =
-            "SELECT * FROM books WHERE title = ? OR bookid IN (SELECT bookid FROM bookinfo WHERE synopsis = ?)";
-          connection.query(
-            checkQuery,
-            [data.bookTitle, data.Synopsis],
-            function (err, results) {
-              if (err) {
-                return res.sendStatus(500);
-              }
-
-              if (results.length > 0) {
-                if (results[0].title === data.bookTitle) {
-                  return res.json({ message: "Title exists" });
-                } else {
-                  return res.json({ message: "Synopsis exists" });
-                }
-              }
-
-              const currentDate = new Date().toISOString().split("T")[0];
-              const authorid = userId;
-
-              // Neither title nor synopsis exists, so proceed to insert the new book
-              const insertBookQuery =
-                "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
-              connection.query(
-                insertBookQuery,
-                [data.bookTitle, data.picture, currentDate, userId],
-                function (err, insertResult) {
-                  if (err) {
-                    return res.sendStatus(500);
-                  }
-
-                  const insertBookInfoQuery =
-                    "INSERT INTO bookinfo (bookid, synopsis, genres, language, tags, warnings, authorid) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                  connection.query(
-                    insertBookInfoQuery,
-                    [
-                      insertResult.insertId,
-                      data.Synopsis,
-                      data.inputGenre,
-                      data.Language,
-                      data.Tags,
-                      data.Warnings,
-                      authorid,
-                    ],
-                    function (err, results) {
-                      if (err) {
-                        return res.json({ error: "Something went wrong" });
-                      } else {
-                        return res.json({ message: "New book inserted" });
-                      }
-                    }
-                  );
-                }
-              );
-            }
-          );
+        const checkData = checkIfDataCorrect(data);
+        if (checkData !== "OK") {
+          return res.json({ errorData: checkData });
         }
-      );
+
+        connection.query(
+          "SELECT * FROM books WHERE author = ?",
+          [userId],
+          function (err, results) {
+            if (err) {
+              return res.sendStatus(500);
+            }
+
+            if (results.length >= 10) {
+              return res.json({ message: "Maximum of 10 books allowed" });
+            }
+
+            // Check if a book with the same title or synopsis exists
+            const checkQuery =
+              "SELECT * FROM books WHERE title = ? OR bookid IN (SELECT bookid FROM bookinfo WHERE synopsis = ?)";
+            connection.query(
+              checkQuery,
+              [data.bookTitle, data.Synopsis],
+              function (err, results) {
+                if (err) {
+                  return res.sendStatus(500);
+                }
+
+                if (results.length > 0) {
+                  if (results[0].title === data.bookTitle) {
+                    return res.json({ message: "Title exists" });
+                  } else {
+                    return res.json({ message: "Synopsis exists" });
+                  }
+                }
+
+                const currentDate = new Date().toISOString().split("T")[0];
+                const authorid = userId;
+
+                // Neither title nor synopsis exists, so proceed to insert the new book
+                const insertBookQuery =
+                  "INSERT INTO books (title, bookcover, release_date, author) VALUES (?, ?, ?, ?)";
+                connection.query(
+                  insertBookQuery,
+                  [data.bookTitle, data.picture, currentDate, userId],
+                  function (err, insertResult) {
+                    if (err) {
+                      return res.sendStatus(500);
+                    }
+
+                    const insertBookInfoQuery =
+                      "INSERT INTO bookinfo (bookid, synopsis, genres, language, tags, warnings, authorid) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                    connection.query(
+                      insertBookInfoQuery,
+                      [
+                        insertResult.insertId,
+                        data.Synopsis,
+                        data.inputGenre,
+                        data.Language,
+                        data.Tags,
+                        data.Warnings,
+                        authorid,
+                      ],
+                      function (err, results) {
+                        if (err) {
+                          return res.json({ error: "Something went wrong" });
+                        } else {
+                          return res.json({ message: "New book inserted" });
+                        }
+                      }
+                    );
+                  }
+                );
+              }
+            );
+          }
+        );
+      } catch (err) {
+        return res.json({ error: "Something went wrong" });
+      }
     }
   );
 });
@@ -638,16 +678,20 @@ function checkIfDataCorrect(data) {
 }
 
 app.get("/api/ranking", function (req, res) {
-  const query =
-    "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary LIMIT 0,50";
+  try {
+    const query =
+      "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary LIMIT 0,50";
 
-  connection.query(query, function (err, results) {
-    if (err) {
-      res.json({ error: "error" });
-    } else {
-      res.json({ books: results });
-    }
-  });
+    connection.query(query, function (err, results) {
+      if (err) {
+        res.json({ error: "error" });
+      } else {
+        res.json({ books: results });
+      }
+    });
+  } catch (err) {
+    res.json({ error: "error" });
+  }
 });
 
 app.get("/api/authorInfo", function (req, res) {
@@ -659,26 +703,30 @@ app.get("/api/authorInfo", function (req, res) {
     if (err) {
       res.status(500).json({ error: "An error occurred." });
     } else {
-      if (results.length === 0) {
-        res.json({ message: "no author found" });
-        return;
-      }
-
-      const authorId = results[0].userid;
-
-      const query = `
-        SELECT *
-        FROM lightnovelonline.books AS b
-        JOIN lightnovelonline.bookinfo AS bi ON b.bookid = bi.bookid
-        WHERE b.author = ?;
-      `;
-      connection.query(query, [authorId], function (err, results) {
-        if (err) {
-          res.status(500).json({ error: "An error occurred." });
-        } else {
-          res.json({ books: results });
+      try {
+        if (results.length === 0) {
+          res.json({ message: "no author found" });
+          return;
         }
-      });
+
+        const authorId = results[0].userid;
+
+        const query = `
+          SELECT *
+          FROM lightnovelonline.books AS b
+          JOIN lightnovelonline.bookinfo AS bi ON b.bookid = bi.bookid
+          WHERE b.author = ?;
+        `;
+        connection.query(query, [authorId], function (err, results) {
+          if (err) {
+            res.status(500).json({ error: "An error occurred." });
+          } else {
+            res.json({ books: results });
+          }
+        });
+      } catch (err) {
+        res.json({ message: "error" });
+      }
     }
   });
 });
@@ -691,15 +739,22 @@ app.post("/api/admin/login", function (req, res) {
     if (err) {
       res.status(500).json({ error: "An error occurred." });
     } else {
-      if (results === undefined) {
+      try {
+        if (results === undefined) {
+          res.json({ message: "error" });
+          return;
+        }
+        if (results.length > 0) {
+          const token = jwt.sign(
+            { admin: results[0].adminid },
+            admin_secretkey
+          );
+          res.json({ message: "success", token: token });
+        } else {
+          res.json({ message: "fail" });
+        }
+      } catch (err) {
         res.json({ message: "error" });
-        return;
-      }
-      if (results.length > 0) {
-        const token = jwt.sign({ admin: results[0].adminid }, admin_secretkey);
-        res.json({ message: "success", token: token });
-      } else {
-        res.json({ message: "fail" });
       }
     }
   });
@@ -707,10 +762,14 @@ app.post("/api/admin/login", function (req, res) {
 
 app.get("/api/admin/access", function (req, res) {
   jwt.verify(req.cookies.authToken, admin_secretkey, function (err, decoded) {
-    if (err) {
+    try {
+      if (err) {
+        res.json({ message: "error" });
+      } else {
+        res.json({ message: "success" });
+      }
+    } catch (err) {
       res.json({ message: "error" });
-    } else {
-      res.json({ message: "success" });
     }
   });
 });
@@ -723,31 +782,35 @@ app.post("/api/checkOwnerOfBook", function (req, res) {
       if (err) {
         res.sendStatus(403);
       } else {
-        const userId = decodedToken.user;
-        const bookTitle = req.body.bookName.replaceAll("-", " ");
+        try {
+          const userId = decodedToken.user;
+          const bookTitle = req.body.bookName.replaceAll("-", " ");
 
-        const query =
-          "SELECT author, bookid,totalpages FROM lightnovelonline.books WHERE title = ?";
-        connection.query(query, [bookTitle], function (err, results) {
-          if (err) {
-            res.status(500).json({ error: "An error occurred." });
-          } else {
-            if (results.length === 0) {
-              res.json({ message: "invalid" });
-              return;
-            }
-            if (results[0].author === userId) {
-              res.json({
-                message: "valid",
-                bookId: results[0].bookid,
-                totalpages: results[0].totalpages,
-              });
+          const query =
+            "SELECT author, bookid,totalpages FROM lightnovelonline.books WHERE title = ?";
+          connection.query(query, [bookTitle], function (err, results) {
+            if (err) {
+              res.status(500).json({ error: "An error occurred." });
             } else {
-              res.json({ message: "invalid" });
-              return;
+              if (results.length === 0) {
+                res.json({ message: "invalid" });
+                return;
+              }
+              if (results[0].author === userId) {
+                res.json({
+                  message: "valid",
+                  bookId: results[0].bookid,
+                  totalpages: results[0].totalpages,
+                });
+              } else {
+                res.json({ message: "invalid" });
+                return;
+              }
             }
-          }
-        });
+          });
+        } catch (err) {
+          res.json({ error: "error" });
+        }
       }
     }
   );
@@ -761,11 +824,15 @@ app.get("/api/getBookInfo", function (req, res) {
       if (err) {
         res.sendStatus(403);
       }
-      const bookId = req.query.id;
+      try {
+        const bookId = req.query.id;
 
-      bookDataID(bookId).then((results) => {
-        res.json({ data: results });
-      });
+        bookDataID(bookId).then((results) => {
+          res.json({ data: results });
+        });
+      } catch (err) {
+        res.json({ error: "error" });
+      }
     }
   );
 });
@@ -778,74 +845,80 @@ app.post("/api/publishChapter", function (req, res) {
       if (err) {
         res.sendStatus(403);
       }
+      try {
+        const bookId = req.body.bookId;
+        const chapterContent = req.body.chapterContent;
+        const currentChapter = req.body.chapterNumber;
+        const chapterTitle = req.body.chapterTitle;
 
-      const bookId = req.body.bookId;
-      const chapterContent = req.body.chapterContent;
-      const currentChapter = req.body.chapterNumber;
-      const chapterTitle = req.body.chapterTitle;
-
-      connection.query(
-        "SELECT * FROM chapters WHERE bookid = ?",
-        [bookId],
-        function (err, results) {
-          if (err) {
-            res.status(500).json({ error: "An error occurred." });
-          } else {
-            if (results.length > 5000) {
-              res.json({ message: "To many chapters" });
-              return;
+        connection.query(
+          "SELECT * FROM chapters WHERE bookid = ?",
+          [bookId],
+          function (err, results) {
+            if (err) {
+              res.status(500).json({ error: "An error occurred." });
+            } else {
+              if (results.length > 5000) {
+                res.json({ message: "To many chapters" });
+                return;
+              }
             }
           }
+        );
+
+        if (chapterContent.length > 50000) {
+          res.json({ error: "To long chapter" });
+          return;
+        } else if (chapterContent.length < 2500) {
+          res.json({ error: "To short chapter" });
+          return;
         }
-      );
+        if (chapterTitle.length > 25) {
+          res.json({ error: "To long title" });
+          return;
+        } else if (chapterTitle.length < 1) {
+          res.json({ error: "To short title" });
+          return;
+        }
 
-      if (chapterContent.length > 50000) {
-        res.json({ error: "To long chapter" });
-        return;
-      } else if (chapterContent.length < 2500) {
-        res.json({ error: "To short chapter" });
-        return;
-      }
-      if (chapterTitle.length > 25) {
-        res.json({ error: "To long title" });
-        return;
-      } else if (chapterTitle.length < 1) {
-        res.json({ error: "To short title" });
-        return;
-      }
+        const query =
+          "INSERT INTO chapters (bookid,chapterNumber,chapterText,chapterTitle) VALUES (?,?,?,?)";
 
-      const query =
-        "INSERT INTO chapters (bookid,chapterNumber,chapterText,chapterTitle) VALUES (?,?,?,?)";
-
-      connection.query(
-        query,
-        [bookId, currentChapter, chapterContent, chapterTitle],
-        function (err, results) {
-          if (err) {
-            res.json({ message: "error" });
-          } else {
-            if (addChapterNumber(bookId, currentChapter) === "Error") {
+        connection.query(
+          query,
+          [bookId, currentChapter, chapterContent, chapterTitle],
+          function (err, results) {
+            if (err) {
               res.json({ message: "error" });
             } else {
-              res.json({ message: "success" });
+              if (addChapterNumber(bookId, currentChapter) === "Error") {
+                res.json({ message: "error" });
+              } else {
+                res.json({ message: "success" });
+              }
             }
           }
-        }
-      );
+        );
+      } catch (err) {
+        res.json({ message: "error" });
+      }
     }
   );
 });
 
 function addChapterNumber(bookId, chapterNumber) {
   const query = "UPDATE books SET totalpages = ? WHERE bookid = ?";
-
-  connection.query(query, [chapterNumber, bookId], function (err, results) {
-    if (err) {
-      return "Error";
-    } else {
-      return "Success";
-    }
-  });
+  try {
+    connection.query(query, [chapterNumber, bookId], function (err, results) {
+      if (err) {
+        return "Error";
+      } else {
+        return "Success";
+      }
+    });
+  } catch (err) {
+    return "Error";
+  }
 }
 
 app.get("/api/chapters/:bookName", async (req, res) => {
@@ -898,45 +971,48 @@ app.post("/api/chapterInfo", function (req, res) {
     async function (err, decodedToken) {
       if (err) {
       }
+      try {
+        const bookName = req.body.bookName.replaceAll("%20", " ");
+        const chapterNumber = req.body.chapterNumber;
 
-      const bookName = req.body.bookName.replaceAll("%20", " ");
-      const chapterNumber = req.body.chapterNumber;
+        connection.query(
+          "SELECT bookid,totalpages FROM books WHERE title = ?",
+          [bookName],
+          function (err, results) {
+            if (err) {
+              res.json({ error: "error" });
+            }
 
-      connection.query(
-        "SELECT bookid,totalpages FROM books WHERE title = ?",
-        [bookName],
-        function (err, results) {
-          if (err) {
-            res.json({ error: "error" });
-          }
+            if (results.length === 0) {
+              res.json({ message: "No book found" });
+              return;
+            }
 
-          if (results.length === 0) {
-            res.json({ message: "No book found" });
-            return;
-          }
+            const bookId = results[0].bookid;
+            const totalPages = results[0].totalpages;
 
-          const bookId = results[0].bookid;
-          const totalPages = results[0].totalpages;
-
-          const query =
-            "SELECT chapterText,chapterTitle FROM chapters WHERE bookid = ? AND chapterNumber = ?";
-          connection.query(
-            query,
-            [bookId, chapterNumber],
-            function (err, results) {
-              if (err) {
-                res.json({ error: "error" });
-              } else {
-                if (results.length > 0) {
-                  res.json({ data: results, totalPages: totalPages });
+            const query =
+              "SELECT chapterText,chapterTitle FROM chapters WHERE bookid = ? AND chapterNumber = ?";
+            connection.query(
+              query,
+              [bookId, chapterNumber],
+              function (err, results) {
+                if (err) {
+                  res.json({ error: "error" });
                 } else {
-                  res.json({ message: "Nothing found" });
+                  if (results.length > 0) {
+                    res.json({ data: results, totalPages: totalPages });
+                  } else {
+                    res.json({ message: "Nothing found" });
+                  }
                 }
               }
-            }
-          );
-        }
-      );
+            );
+          }
+        );
+      } catch (err) {
+        res.json({ error: "error" });
+      }
     }
   );
 });
@@ -949,36 +1025,39 @@ app.post("/api/setLatestReadChapter", function (req, res) {
       if (err) {
         return res.sendStatus(403);
       }
+      try {
+        const bookName = req.body.bookName;
+        const chapterNumber = req.body.chapterNumber;
+        const totalPages = req.body.totalPages;
 
-      const bookName = req.body.bookName;
-      const chapterNumber = req.body.chapterNumber;
-      const totalPages = req.body.totalPages;
-
-      if (totalPages >= chapterNumber) {
-        connection.query(
-          "SELECT bookid FROM books WHERE title = ?",
-          [bookName],
-          function (err, results) {
-            if (err) {
-              res.json({ error: "error" });
-            }
-            const bookId = results[0].bookid;
-
-            const query =
-              "UPDATE userlibrary SET currentPage = ? WHERE bookid = ? AND userid = ?";
-            connection.query(
-              query,
-              [chapterNumber, bookId, decodedToken.user],
-              function (err, results) {
-                if (err) {
-                  res.json({ error: "error" });
-                } else {
-                  res.json({ message: "success" });
-                }
+        if (totalPages >= chapterNumber) {
+          connection.query(
+            "SELECT bookid FROM books WHERE title = ?",
+            [bookName],
+            function (err, results) {
+              if (err) {
+                res.json({ error: "error" });
               }
-            );
-          }
-        );
+              const bookId = results[0].bookid;
+
+              const query =
+                "UPDATE userlibrary SET currentPage = ? WHERE bookid = ? AND userid = ?";
+              connection.query(
+                query,
+                [chapterNumber, bookId, decodedToken.user],
+                function (err, results) {
+                  if (err) {
+                    res.json({ error: "error" });
+                  } else {
+                    res.json({ message: "success" });
+                  }
+                }
+              );
+            }
+          );
+        }
+      } catch (err) {
+        res.json({ error: "error" });
       }
     }
   );
@@ -989,39 +1068,49 @@ app.get("/api/comments", function (req, res) {
     req.cookies.authToken,
     user_secretkey,
     async function async(err, decodedToken) {
-      const bookId = req.query.bookid;
-      const loadSet = Number(req.query.loadSet);
-      let userId;
-      if (req.cookies.authToken !== undefined) {
-        userId = decodedToken.user;
-      }
+      try {
+        const bookId = req.query.bookid;
+        const loadSet = Number(req.query.loadSet);
+        let userId;
+        if (req.cookies.authToken !== undefined) {
+          userId = decodedToken.user;
+        }
 
-      if (!bookId) {
-        return res.status(400).json({ error: "bookId is required" });
-      }
+        if (!bookId) {
+          return res.status(400).json({ error: "bookId is required" });
+        }
 
-      if (typeof bookId !== "string") {
-        return res.status(400).json({ error: "bookId must be a string" });
-      }
+        if (typeof bookId !== "string") {
+          return res.status(400).json({ error: "bookId must be a string" });
+        }
 
-      let userName;
-      let likedAndDislikedComments;
+        let userName;
+        let likedAndDislikedComments;
 
-      if (userId !== undefined) {
-        const query = "SELECT userName FROM users WHERE userid = ?";
-        connection.query(query, [userId], function (error, results) {
-          if (error) {
-            return res.status(500).json({ error: "Database error" });
-          }
-          userName = results[0].userName;
-        });
-        likedAndDislikedComments = await fetchLikedAndDislikedComments(userId);
-      }
+        if (userId !== undefined) {
+          const query = "SELECT userName FROM users WHERE userid = ?";
+          connection.query(query, [userId], function (error, results) {
+            if (error) {
+              return res.status(500).json({ error: "Database error" });
+            }
+            userName = results[0].userName;
+          });
+          likedAndDislikedComments = await fetchLikedAndDislikedComments(
+            userId
+          );
+        }
 
-      let maxLimit = loadSet + 1 * 8;
-      let minLimit = loadSet * 8;
+        const amountOfComments = 9;
 
-      const query = `
+        let maxLimit = loadSet + 1 * amountOfComments;
+        let minLimit;
+        if (loadSet > 0) {
+          minLimit = loadSet * amountOfComments - 1;
+        } else {
+          minLimit = loadSet * amountOfComments;
+        }
+
+        const query = `
       SELECT 
           comments.comment, 
           COALESCE(comments.dislikes, 0) AS dislikes, 
@@ -1036,21 +1125,34 @@ app.get("/api/comments", function (req, res) {
       LIMIT ? , ?;
       `;
 
-      try {
         connection.query(
           query,
           [bookId, minLimit, maxLimit],
           function (error, results) {
             if (error) {
-              console.log(error);
               return res.status(500).json({ error: "Database error" });
             }
             if (results.length > 0) {
-              if (userName !== undefined) {
+              if (
+                userName !== undefined &&
+                results.length === amountOfComments
+              ) {
+                results.pop();
                 return res.json({
                   comments: results,
                   userName: userName,
                   likedAndDislikedComments: likedAndDislikedComments,
+                  moreComments: true,
+                });
+              } else if (
+                userName !== undefined &&
+                results.length < amountOfComments
+              ) {
+                return res.json({
+                  comments: results,
+                  userName: userName,
+                  likedAndDislikedComments: likedAndDislikedComments,
+                  moreComments: false,
                 });
               }
               return res.json({ comments: results });
@@ -1090,31 +1192,35 @@ app.post("/api/postComment", function (req, res) {
         return res.sendStatus(403);
       }
 
-      const bookId = req.body.bookid;
-      const comment = req.body.comment;
-      const userId = decodedToken.user;
+      try {
+        const bookId = req.body.bookid;
+        const comment = req.body.comment;
+        const userId = decodedToken.user;
 
-      if (!bookId) {
+        if (!bookId) {
+          return res.json({ message: "Something went wrong" });
+        }
+        if (comment.length > 1500) {
+          return res.json({ message: "Comment is to long" });
+        } else if (comment.lenght < 1) {
+          return res.json({ message: "Comment is to short" });
+        }
+
+        const query =
+          "INSERT INTO comments (userid, bookid, comment) VALUES (?, ?, ?)";
+        connection.query(
+          query,
+          [userId, bookId, comment],
+          function (error, results) {
+            if (error) {
+              return res.json({ error: "database error" });
+            }
+            return res.json({ message: "Commented posted" });
+          }
+        );
+      } catch (err) {
         return res.json({ message: "Something went wrong" });
       }
-      if (comment.length > 1500) {
-        return res.json({ message: "Comment is to long" });
-      } else if (comment.lenght < 1) {
-        return res.json({ message: "Comment is to short" });
-      }
-
-      const query =
-        "INSERT INTO comments (userid, bookid, comment) VALUES (?, ?, ?)";
-      connection.query(
-        query,
-        [userId, bookId, comment],
-        function (error, results) {
-          if (error) {
-            return res.json({ error: "database error" });
-          }
-          return res.json({ message: "Commented posted" });
-        }
-      );
     }
   );
 });
@@ -1127,67 +1233,70 @@ app.post("/api/commentFeedback", function (req, res) {
       if (err) {
         return res.sendStatus(403);
       }
+      try {
+        const commentId = req.body.commentId;
+        const feedback = req.body.feedback;
+        const userId = decodedToken.user;
 
-      const commentId = req.body.commentId;
-      const feedback = req.body.feedback;
-      const userId = decodedToken.user;
-
-      const insertFeedback = await insertCommentFeedback(
-        userId,
-        commentId,
-        feedback
-      );
-      if (insertFeedback === "Error") {
-        return res.json({ error: "Database error" });
-      }
-
-      if (insertFeedback === "Already given feedback") {
-        return res.json({ message: "Already given feedback" });
-      }
-
-      if (feedback === "dislikes") {
-        let query;
-        if (insertFeedback === "New") {
-          query =
-            "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1 WHERE commentid = ?";
-        } else if (insertFeedback === "Updated") {
-          query =
-            "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1, likes = likes - 1 WHERE commentid = ?";
-        } else if (insertFeedback === "Deleted") {
-          query =
-            "UPDATE comments SET dislikes = dislikes - 1 WHERE commentid = ?";
+        const insertFeedback = await insertCommentFeedback(
+          userId,
+          commentId,
+          feedback
+        );
+        if (insertFeedback === "Error") {
+          return res.json({ error: "Database error" });
         }
 
-        connection.query(query, [commentId], function (error, results) {
-          if (error) {
-            return res.json({ error: "database error" });
-          }
-          return res.json({
-            message: "Feedback posted",
-            insertedType: insertFeedback,
-          });
-        });
-      } else {
-        let query;
-        if (insertFeedback === "New") {
-          query =
-            "UPDATE comments SET likes = Coalesce(likes, 0) + 1 WHERE commentid = ?";
-        } else if (insertFeedback === "Updated") {
-          query =
-            "UPDATE comments SET likes = Coalesce(likes, 0) + 1, dislikes = dislikes - 1 WHERE commentid = ?";
-        } else if (insertFeedback === "Deleted") {
-          query = "UPDATE comments SET likes = likes - 1 WHERE commentid = ?";
+        if (insertFeedback === "Already given feedback") {
+          return res.json({ message: "Already given feedback" });
         }
 
-        connection.query(query, [commentId], function (error, results) {
-          if (error) {
-            return res.json({ error: "database error" });
+        if (feedback === "dislikes") {
+          let query;
+          if (insertFeedback === "New") {
+            query =
+              "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1 WHERE commentid = ?";
+          } else if (insertFeedback === "Updated") {
+            query =
+              "UPDATE comments SET dislikes = Coalesce(dislikes,0) + 1, likes = likes - 1 WHERE commentid = ?";
+          } else if (insertFeedback === "Deleted") {
+            query =
+              "UPDATE comments SET dislikes = dislikes - 1 WHERE commentid = ?";
           }
-          return res.json({
-            message: "Feedback posted",
-            insertedType: insertFeedback,
+
+          connection.query(query, [commentId], function (error, results) {
+            if (error) {
+              return res.json({ error: "database error" });
+            }
+            return res.json({
+              message: "Feedback posted",
+              insertedType: insertFeedback,
+            });
           });
-        });
+        } else {
+          let query;
+          if (insertFeedback === "New") {
+            query =
+              "UPDATE comments SET likes = Coalesce(likes, 0) + 1 WHERE commentid = ?";
+          } else if (insertFeedback === "Updated") {
+            query =
+              "UPDATE comments SET likes = Coalesce(likes, 0) + 1, dislikes = dislikes - 1 WHERE commentid = ?";
+          } else if (insertFeedback === "Deleted") {
+            query = "UPDATE comments SET likes = likes - 1 WHERE commentid = ?";
+          }
+
+          connection.query(query, [commentId], function (error, results) {
+            if (error) {
+              return res.json({ error: "database error" });
+            }
+            return res.json({
+              message: "Feedback posted",
+              insertedType: insertFeedback,
+            });
+          });
+        }
+      } catch (err) {
+        return res.json({ error: "Something went wrong" });
       }
     }
   );
