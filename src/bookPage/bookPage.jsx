@@ -3,9 +3,9 @@ import "./bookpageStyle.css"
 import { useNavigate } from "react-router-dom";
 
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
-import FetchComments from "../Components/CommentField/fetchCommentAPI";
-import PostComment from "../Components/CommentField/postCommentAPI";
-import CommentFeedback from "../Components/CommentField/commentFeedbackAPI";
+import FetchComments from "../Components/CommentField/APIs/fetchCommentAPI";
+import PostComment from "../Components/CommentField/APIs/postCommentAPI";
+import CommentFeedback from "../Components/CommentField/APIs/commentFeedbackAPI";
 
 import Comment from "../Components/CommentField/Comment"
 
