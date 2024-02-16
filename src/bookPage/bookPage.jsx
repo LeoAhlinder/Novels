@@ -24,6 +24,8 @@ const BookPage = () =>{
 
     const navigate = useNavigate()
 
+    const amountOfComments = 9;
+
     const bookName = window.location.pathname.split("/")[2].replaceAll("-", " ");
  
     const [bookInfo, setBookInfo] = useState([])
@@ -42,6 +44,7 @@ const BookPage = () =>{
     const [Username,changeUsername] = useState("")
     const [givenFeedback,changeGivenFeedback] = useState([])
     const [loadSet,changeLoadSet] = useState(0)
+    const [moreCommentsExist,changeMoreCommentsExist] = useState(false)
 
     useEffect(() =>{
         const bookInfo = async (bookName) =>{
@@ -221,7 +224,8 @@ const BookPage = () =>{
                 navigate: navigate,
                 changeUsername: changeUsername,
                 changeGivenFeedback:changeGivenFeedback,
-                loadSet: 0
+                loadSet: 0,
+                changeMoreCommentsExist:changeMoreCommentsExist
             });
         }
     }, [bookId]);
@@ -263,30 +267,29 @@ const BookPage = () =>{
         adjustHeight(e)
     }
 
-    useEffect(()=>{
-        const fetchMoreComments = async () =>{
-            const newComments = await FetchComments({
-                onlyReturn: true,
-                bookId: bookId,
-                changeComments: changeComments,
-                navigate: navigate,
-                changeUsername: changeUsername,
-                changeGivenFeedback:changeGivenFeedback,
-                loadSet: loadSet
-            });
-            if (newComments !== undefined){
-                changeComments(prevState => [
-                    ...prevState,
-                    ...newComments
-                ]);
-            }
+    const fetchMoreComments = async () =>{
+        
+        let newComments = await FetchComments({
+            onlyReturn: true,
+            bookId: bookId,
+            changeComments: changeComments,
+            navigate: navigate,
+            changeUsername: changeUsername,
+            changeGivenFeedback:changeGivenFeedback,
+            loadSet: loadSet + 1,
+            changeMoreCommentsExist:changeMoreCommentsExist
+        });
+        changeLoadSet(loadSet + 1)
+
+        if (newComments !== undefined){
+            changeComments(prevState => [
+                ...prevState,
+                ...newComments
+            ]);
         }
-        if (loadSet !== 0){
-            fetchMoreComments()
-        }
-    },[loadSet])
-    
-    
+    }
+
+
     return(
         <>
         {bookInfo.length > 0 ? (
@@ -348,7 +351,7 @@ const BookPage = () =>{
                                 <div className="commentField">
                                    {MemorizedComments}
                                 </div>
-                                {comments.length === 8 ? <button className="loadMoreButton" onClick={() => changeLoadSet(loadSet + 1)}>Load More</button> : null}
+                                {moreCommentsExist === true ? <button className="loadMoreButton" onClick={() => fetchMoreComments()}>Load More</button> : null}
                         </div>
                         <div id="footer"></div>
                     </div>
@@ -407,7 +410,7 @@ const BookPage = () =>{
                             <div className="commentField">
                                    {MemorizedComments}
                             </div>
-                            {comments.length === 8 ? <button className="loadMoreButton" onClick={() => changeLoadSet(loadSet + 1)}>Load More</button> : null}
+                            {moreCommentsExist === true ? <button className="loadMoreButton" onClick={() => fetchMoreComments()}>Load More</button> : null}
 
                         </div>
                         <div id="footer"></div>
