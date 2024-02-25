@@ -62,7 +62,8 @@ body {
 }
 
 .profileHeader {
-    color: white;
+    color: rgb(204, 197, 197);
+
     text-align: start;
     display: flex;
     justify-content: space-evenly;
@@ -117,11 +118,11 @@ body {
 
 }
 .profileButton{
-    color: white;
+    color: rgb(204, 197, 197);
     border: none;
     border-bottom: transparent;
     transition: 0.3s ease-out;
-    font-size: 1rem;
+    font-size: 1.2rem;
     background-color: transparent;
     bottom: 2%;
     display: flex;
@@ -164,7 +165,7 @@ body {
     border-top: none;
     border-bottom:1px solid dodgerblue;
     transition: 0.3s ease-out;
-    font-size: 1rem;
+    font-size: 1.2rem;
     background-color: transparent;
     color: dodgerblue;
     display: flex;
