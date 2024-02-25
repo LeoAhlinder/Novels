@@ -31,7 +31,6 @@ const App = () => {
   useEffect(() => {
     const fetchServerStatus = async () => {
       const status = await checkServerStatus();
-      console.log(status)
       setServerStatus(status);
       if (!status) ChangeDocumentTitle("Novels | Server Down");
     };

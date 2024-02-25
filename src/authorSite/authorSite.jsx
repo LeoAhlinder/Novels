@@ -26,13 +26,13 @@ const AuthorSite = () =>{
     const { authorName } = useParams();
     const [authorFound,changeAuthorFound] = useState(true)  
 
-    ChangeDocumentTitle(`Author site: ${authorName}`)
+    ChangeDocumentTitle(`${authorName} Author | Novels`)
 
     useEffect(()=>{
 
         const fetchAuthorInfo = async () =>{
             try{
-                const res = await fetch(`http://localhost:3001/api/authorInfo?authorName=${authorName}`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/authorInfo?authorName=${authorName}`,{
                     method:"GET",
                     headers:{    
                     "Content-Type": "application/json",
@@ -87,7 +87,7 @@ const AuthorSite = () =>{
                 <li key={index} className="authorBookItem" >
                     <h3 id="Title" onClick={() => goToBook(book)}>{book.title}</h3>
                     <h4 className="bookInfo" id="Chapters">{book.totalpages != null ? book.totalpages : "0"} Chapters</h4>
-                    <h4 className="bookInfo" id="totalInLibrary">{book.totalinlibrary === null ? 0 : book.totalinlibrary} Bookmarks</h4>
+                    <h4 className="bookInfo" id="totalInLibrary">{book.totalinlibrary === null ? 0 : book.totalinlibrary} {book.totalinlibrary === 1 ? "Bookmark" : "Bookmarks"}</h4>
                     <h4 className="bookInfo" id="Genre">Genre: {book.genres}</h4>
                     <h4 className="bookInfo" id="PR" >PR: {book.warnings}</h4>
 
