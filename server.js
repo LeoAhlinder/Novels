@@ -37,10 +37,6 @@ app.listen(port, () => {
   console.log(`Server running on ${port}`);
 });
 
-app.get("/api/ping", function (req, res) {
-  res.json({ status: "Online" });
-});
-
 const connection = mysql.createConnection({
   user: env.DB_USERNAME,
   password: env.DB_PASSWORD,
@@ -50,13 +46,15 @@ const connection = mysql.createConnection({
   sslmode: "REQUIRED",
 });
 
-connection.connect((error) => {
-  if (error) {
-    console.log("error", error);
-    return;
-  } else {
-    console.log("SUCCESS database");
-  }
+app.get("/api/ping", function (req, res) {
+    connection.connect((error) => {
+      if (error) {
+        console.log("error", error);
+        return res.status(500).send('Database connection failed');
+      } else {
+        return res.json({ status: "Online" });
+      }
+    });
 });
 
 app.get("/api/library/", async (req, res) => {
