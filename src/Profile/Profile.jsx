@@ -6,13 +6,14 @@ import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 import removeHttpCookie from "../Global/removeHttpCookie";
 
 import Library from "./Library"
-import NovelCreated from "./profileComponents/novelsCreated";
+import NovelCreated from "./profileComponents/novelsCreated/novelsCreated";
+import Info from "./profileComponents/Info/Info";
 
 const Profile = () => {
 
     const [loggedIn, setLoggedIn] = useState(false);
 
-    ChangeDocumentTitle("Profile")
+    ChangeDocumentTitle("Profile | Novels")
 
     const navigate = useNavigate();
 
@@ -81,6 +82,7 @@ const Profile = () => {
                 <div>
                     {selected === "NovelCreated" && <NovelCreated/>}
                     {selected === "Library" && <Library/>}
+                    {selected === "Info" && <Info/>}
                 </div>
             </>
             }
