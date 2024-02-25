@@ -89,7 +89,7 @@ const AuthorSite = () =>{
                     <h4 className="bookInfo" id="Chapters">{book.totalpages != null ? book.totalpages : "0"} Chapters</h4>
                     <h4 className="bookInfo" id="totalInLibrary">{book.totalinlibrary === null ? 0 : book.totalinlibrary} {book.totalinlibrary === 1 ? "Bookmark" : "Bookmarks"}</h4>
                     <h4 className="bookInfo" id="Genre">Genre: {book.genres}</h4>
-                    <h4 className="bookInfo" id="PR" >PR: {book.warnings}</h4>
+                    <h4 className="bookInfo" id="PR" >Age limit: {book.warnings}</h4>
 
                     <div id="bookContainer" onClick={() => goToBook(book)}>
                         <img id="bookPicture" src={bookCoverImages[book.bookcover]} alt="Book picture" />
