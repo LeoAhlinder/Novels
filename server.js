@@ -46,15 +46,16 @@ const connection = mysql.createConnection({
   sslmode: "REQUIRED",
 });
 
+connection.connect((error) => {
+  if (error) {
+    console.log("db error", error);
+  } else {
+    console.log("Connected to the database");
+  }
+});
+
 app.get("/api/ping", function (req, res) {
-    connection.connect((error) => {
-      if (error) {
-        console.log("error", error);
-        return res.status(500).send('Database connection failed');
-      } else {
-        return res.json({ status: "Online" });
-      }
-    });
+   connection.status === "disconnected" ? res.status(500).json({ error: "An error occurred." }) : res.status(200).json({ message: "Online" });
 });
 
 app.get("/api/library/", async (req, res) => {
