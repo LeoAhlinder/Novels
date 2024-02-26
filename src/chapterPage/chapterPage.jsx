@@ -228,7 +228,7 @@ const ChapterPage = () => {
                     <button>
                             <a
                                 className="chapterSwitchButton"
-                                id={Number(chapterNumber) === 1 || Number(chapterNumber) > totalChapters ? "inActiveButton" : ""}
+                                id={Number(chapterNumber) === 1 || Number(chapterNumber) > totalChapters || Number(chapterNumber) === 0 ? "inActiveButton" : ""}
                                 href={Number(chapterNumber) === 1 || Number(chapterNumber) > totalChapters ? "" 
                                 : `/chapters/${bookName.replaceAll(" ", "-")}/${Number(chapterNumber) - 1}`}
                                 onClick={(e) => {
