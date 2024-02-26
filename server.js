@@ -55,7 +55,9 @@ connection.connect((error) => {
 });
 
 app.get("/api/ping", function (req, res) {
-   connection.status === "disconnected" ? res.status(500).json({ error: "An error occurred." }) : res.status(200).json({ message: "Online" });
+  connection.status === "disconnected"
+    ? res.status(500).json({ error: "An error occurred." })
+    : res.status(200).json({ message: "Online" });
 });
 
 app.get("/api/library/", async (req, res) => {
@@ -1368,5 +1370,29 @@ async function insertCommentFeedback(userId, commentId, feedback) {
     );
   });
 }
+
+app.delete("/api/deleteAccount", function (req, res) {
+  try {
+    jwt.verify(
+      req.cookies.authToken,
+      user_secretkey,
+      async function (err, decodedToken) {
+        if (err) {
+          return res.sendStatus(403);
+        }
+        const userId = decodedToken.user;
+        const query = "DELETE FROM users WHERE userid = ?";
+        connection.query(query, [userId], function (error, results) {
+          if (error) {
+            return res.json({ error: "error" });
+          }
+          return res.json({ message: "Account deleted" });
+        });
+      }
+    );
+  } catch (err) {
+    return res.json({ error: "error" });
+  }
+});
 
 module.exports = app;

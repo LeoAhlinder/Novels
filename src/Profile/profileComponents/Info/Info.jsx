@@ -18,6 +18,31 @@ const Info = () =>{
         }
     }
 
+    async function deleteAccount (){
+        try
+        {
+            const res = await fetch (`${process.env.REACT_APP_API_URL}/api/deleteAccount`,{
+                method:"DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                    "Allow-Credentials": "true"
+                },
+                credentials:"include"
+            });
+            const response = await res.json();
+            if (response.message === "Account deleted"){
+                logOut()
+            }
+            else{
+                navigate("/error")
+            }
+        }catch(error){
+            navigate("/error")
+        }
+           
+    }
+
 
     return (
         <>
@@ -45,10 +70,9 @@ const Info = () =>{
                     {deleteAccountAlertVisible === true ? <>
                     <p id="deleteAccountAlertText">Are you sure you want to delete your account?</p> 
                     <div id="deleteAccountButtonContainer">
-                        <button className="deleteAccountConfirmButtons" onClick={() => logOut()}>Yes</button>
-                        <button className="deleteAccountConfirmButtons" onClick={() => changeDeleteAccountAlertVisible(true)}>No</button>
+                        <button className="deleteAccountConfirmButtons" onClick={() => deleteAccount()}>Yes</button>
+                        <button className="deleteAccountConfirmButtons" onClick={() => changeDeleteAccountAlertVisible(false)}>No</button>
                     </div> </>  : ""}
-
                 </div>
             </div>
         </>
