@@ -259,6 +259,7 @@ const BookPage = () =>{
                     dislikes={comment.dislikes}
                     commentText={comment.comment}
                     recievedFeedback={givenFeedback !== null ? givenFeedback : null}
+                    viewingUser={Username}
                     Username={comment.userName === Username ? "You" : comment.userName}
                 />  
             ));

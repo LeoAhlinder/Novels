@@ -5,7 +5,9 @@ import downvotePictureFill from "../../Icons/downvote-fill.svg";
 import upvotePicture from "../../Icons/upvote.svg";
 import upvotePicutreFill from "../../Icons/upvote-fill.svg";
 
-const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback }) => {
+const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback,viewingUser }) => {
+
+    console.log(viewingUser)
 
     let likedFeedback = [];
     let dislikedFeedback = [];
@@ -28,37 +30,39 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
     }
 
     const handleFeedbackClick = async (feedbackType) => {
-        let feedbackPosted = await handleCommentFeedback(value, feedbackType);
-        if (feedbackPosted === "Updated"){
-            if (feedbackType === "likes") {
+        if (viewingUser !== undefined){
+            let feedbackPosted = await handleCommentFeedback(value, feedbackType);
+            if (feedbackPosted === "Updated"){
+                if (feedbackType === "likes") {
+                    setLikes(prevLikes => prevLikes + 1); 
+                    setDislikes(prevDislikes => prevDislikes - 1);
+                    setCommentLiked(true);
+                    setCommentDisliked(false);
+                }
+                else{
+                    setLikes(prevLikes => prevLikes - 1); 
+                    setDislikes(prevDislikes => prevDislikes + 1);
+                    setCommentLiked(false);
+                    setCommentDisliked(true);
+                }
+            }
+            else if (feedbackPosted === "Deleted"){
+                setCommentLiked(false);
+                setCommentDisliked(false);
+                if (feedbackType === "likes") {
+                    setLikes(prevLikes => prevLikes - 1);
+                } else if (feedbackType === "dislikes") {
+                    setDislikes(prevDislikes => prevDislikes - 1); 
+                }
+            } else if (feedbackType === "likes") {
                 setLikes(prevLikes => prevLikes + 1); 
-                setDislikes(prevDislikes => prevDislikes - 1);
                 setCommentLiked(true);
                 setCommentDisliked(false);
-            }
-            else{
-                setLikes(prevLikes => prevLikes - 1); 
-                setDislikes(prevDislikes => prevDislikes + 1);
+            } else if (feedbackType === "dislikes") {
+                setDislikes(prevDislikes => prevDislikes + 1); 
                 setCommentLiked(false);
                 setCommentDisliked(true);
             }
-        }
-        else if (feedbackPosted === "Deleted"){
-            setCommentLiked(false);
-            setCommentDisliked(false);
-            if (feedbackType === "likes") {
-                setLikes(prevLikes => prevLikes - 1);
-            } else if (feedbackType === "dislikes") {
-                setDislikes(prevDislikes => prevDislikes - 1); 
-            }
-        } else if (feedbackType === "likes") {
-            setLikes(prevLikes => prevLikes + 1); 
-            setCommentLiked(true);
-            setCommentDisliked(false);
-        } else if (feedbackType === "dislikes") {
-            setDislikes(prevDislikes => prevDislikes + 1); 
-            setCommentLiked(false);
-            setCommentDisliked(true);
         }
     };
 
