@@ -7,9 +7,13 @@ import upvotePicutreFill from "../../Icons/upvote-fill.svg";
 
 const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback }) => {
 
-    const likedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "likes");
-    const dislikedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "dislikes");
+    let likedFeedback = [];
+    let dislikedFeedback = [];
 
+    if (recievedFeedback !== undefined) {
+        likedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "likes");
+        dislikedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "dislikes");
+    }
 
     const [likes, setLikes] = useState(initialLikes);
     const [dislikes, setDislikes] = useState(initialDislikes);
