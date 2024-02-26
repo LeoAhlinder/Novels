@@ -172,9 +172,9 @@ const ChapterPage = () => {
     return(
         <>
             {loading === false ?
-            <div id="chapterPageContainer">
-                <a id="chapterPageBookTitle" href={`/novel/${bookName}`}>{bookName}</a>
-                <h1 id="chapterPageTitle">
+            <div id="chapterPageContainer" style={{backgroundColor:themeColors[chapterTheme].backgroundColor}}>
+                <a id="chapterPageBookTitle" href={`/novel/${bookName}`} style={{color:themeColors[chapterTheme].color}}>{bookName}</a>
+                <h1 id="chapterPageTitle" style={{color:themeColors[chapterTheme].color}}>
                     Chapter {chapterNumber}: {chapterTitle}
                 </h1>
                 {viewCustomOptions === false ? 
@@ -218,7 +218,7 @@ const ChapterPage = () => {
                 }
                    
                 <p id="chapterText" style={chapterTextSize !== null ? 
-                    {fontFamily:chapterFontType,fontSize:chapterTextSize + "px", backgroundColor:themeColors[chapterTheme].backgroundColor,color:themeColors[chapterTheme].color} : {}}
+                    {fontFamily:chapterFontType,fontSize:chapterTextSize + "px", color:themeColors[chapterTheme].color} : {}}
                     dangerouslySetInnerHTML={{
                         __html: chapterText.length === 0 ? "" : DOMPurify.sanitize(chapterText.replace(/\n/g, '<br>'))
                       }}
