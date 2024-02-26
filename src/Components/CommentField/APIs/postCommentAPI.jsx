@@ -28,7 +28,6 @@ const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAle
                 changePostCommentAlert("Comment is to long")
             }
             else{
-                console.log(response.message)
                 changePostCommentAlert("Error posting comment")
             }
             
@@ -38,7 +37,6 @@ const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAle
             navigate("/error")
         }
     }catch(err){
-        console.log(err)
         navigate("/error")
     }
 }
