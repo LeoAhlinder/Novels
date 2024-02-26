@@ -1404,4 +1404,45 @@ app.delete("/api/deleteAccount", function (req, res) {
   }
 });
 
+app.get("/api/getUserInfo", function (req, res) {
+  try {
+    jwt.verify(
+      req.cookies.authToken,
+      user_secretkey,
+      function (err, decodedToken) {
+        if (err) {
+          return res.sendStatus(403);
+        }
+        const userId = decodedToken.user;
+        const query =
+          "SELECT userName, userEmail, dateCreated FROM users WHERE userid = ?";
+        connection.query(query, [userId], function (error, results) {
+          if (error) {
+            return res.json({ error: "error" });
+          }
+          if (results.length > 0) {
+            const userDetails = results[0];
+            const query = "SELECT COUNT(author) FROM books WHERE author = ?";
+            connection.query(query, [userId], function (error, results) {
+              if (error) {
+                console.log(error);
+
+                return res.json({ error: "error" });
+              }
+              if (results.length > 0) {
+                const booksCreated = results[0]["COUNT(author)"];
+                return res.json({ userData: userDetails, books: booksCreated });
+              }
+            });
+          } else {
+            return res.json({ error: "No data found" });
+          }
+        });
+      }
+    );
+  } catch (err) {
+    return res.json({ error: "error" });
+  }
+});
+
 module.exports = app;

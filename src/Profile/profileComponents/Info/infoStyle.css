@@ -42,6 +42,16 @@
     border: 1px solid #807d7d;
 }
 
+@media screen and (max-width:650px) {
+    .profileInfo{
+        flex-direction: column;
+    }
+}
+
+.Info{
+    word-break: break-all;
+}
+
 #profileButtonContainer{
     display: flex;
     justify-content: center;
