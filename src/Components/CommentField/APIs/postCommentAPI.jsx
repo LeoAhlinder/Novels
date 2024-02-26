@@ -1,5 +1,4 @@
 const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAlert}) => {
-    console.log(postCommentText.length)
     if (postCommentText === "" || postCommentText.length <= 0) return changePostCommentAlert("Comment cannot be empty")
     if (postCommentText.length > 1500) return changePostCommentAlert("Comment cannot be longer than 1500 characters")
     if (bookId === "") return navigate("/error")
@@ -16,7 +15,10 @@ const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAle
         });
         if (res.ok){
             const response = await res.json()
-            if (response.message === "Commented posted"){
+            if (response.message === "Not logged in"){
+                changePostCommentAlert("You need to be logged in to post a comment")
+            }
+            else if (response.message === "Commented posted"){
                 changePostCommentAlert("Comment posted")
                 return true
             }else if (response.message === "Comment is to short"){
@@ -26,14 +28,17 @@ const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAle
                 changePostCommentAlert("Comment is to long")
             }
             else{
+                console.log(response.message)
                 changePostCommentAlert("Error posting comment")
             }
+            
             return false
         }
         else{
             navigate("/error")
         }
     }catch(err){
+        console.log(err)
         navigate("/error")
     }
 }

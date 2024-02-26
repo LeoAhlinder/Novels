@@ -94,7 +94,7 @@ const BookPage = () =>{
                         "Allow-Credentials": "true"
                       },
                       credentials: 'include',
-                        body: JSON.stringify({id:bookId})
+                      body: JSON.stringify({id:bookId})
                 });
                 if (res.ok){
                     const response = await res.json()
@@ -216,7 +216,7 @@ const BookPage = () =>{
                 {likes:0, dislikes:0, comment:postCommentText, userName:"You",commentid:prevState.length+1}
             ]);
         }
-        else{
+        if (didCommentPost !== false && didCommentPost !== true){
             changePostCommentAlert("Error posting comment")
         }
     }
@@ -349,7 +349,7 @@ const BookPage = () =>{
                                         <textarea className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} value={postCommentText} placeholder="Write a comment"></textarea>
                                         <button className="submitCommentButton" onClick={() => postCommentHandler()}>Submit</button>
                                     </div>
-                                    <p className="commentAlert" style={postCommentAlert === "Comment posted" ? {color:"green"} : {color:"red"}}>{postCommentAlert}</p>
+                                    {postCommentAlert !== "" ? <p className="commentAlert" style={postCommentAlert === "Comment posted" ? {color:"green"} : {color:"red"}}>{postCommentAlert}</p> : null}
                                 </> 
                                 : null
                                 }
@@ -407,7 +407,7 @@ const BookPage = () =>{
                                     <textarea className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} placeholder="Write a comment"></textarea>
                                     <button className="submitCommentButton" onClick={() => postCommentHandler()}>Submit</button>
                                 </div>
-                                <p className="commentAlert">{postCommentAlert}</p>
+                                {postCommentAlert !== "" ? <p className="commentAlert" style={postCommentAlert === "Comment posted" ? {color:"green"} : {color:"red"}}>{postCommentAlert}</p> : null}
 
                             </> 
                             : null

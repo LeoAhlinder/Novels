@@ -1202,7 +1202,7 @@ app.post("/api/postComment", function (req, res) {
     user_secretkey,
     async function (err, decodedToken) {
       if (err) {
-        return res.sendStatus(403);
+        return res.json({ message: "Not logged in" });
       }
 
       try {

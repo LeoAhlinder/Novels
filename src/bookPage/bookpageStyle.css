@@ -403,7 +403,11 @@
     .commentAlert{
         text-align: center;
         height: 20px;
-        margin: 10px 0;
+        margin: 0 auto;
+        width: 70%;
+        height: 50px;
+        margin-bottom: 15px;
+        font-size: 0.85em;
     }
     #authorPhone{
         font-size: 1rem;
