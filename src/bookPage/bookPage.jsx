@@ -235,7 +235,7 @@ const BookPage = () =>{
     }
 
     const goToChapter = () => {
-        navigate({pathname:`/chapters/${bookInfo[0].title}/${currentPage === 0 ? 1 : currentPage}`})
+        navigate({pathname:`/chapters/${bookInfo[0].title}/${Number(currentPage) === 0 ? 1 : currentPage}`})
     }
 
     function adjustHeight(e) {
@@ -307,7 +307,8 @@ const BookPage = () =>{
                             <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                             <h3 className="rating">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating}</h3>
                             <div id="buttonContainer">
-                                <button className="readButton" onClick={() => goToChapter()}>{currentPage !== 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
+                                {console.log(currentPage)}
+                                <button className="readButton" onClick={() => goToChapter()}>{Number(currentPage) !== 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                 <button className="readButton" onClick={() => goToChapterPage()}>View Chapters</button>
                                 <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                             </div>
