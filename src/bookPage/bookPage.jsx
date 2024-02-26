@@ -60,7 +60,12 @@ const BookPage = () =>{
             if (res.ok){
                 const response = await res.json();
                 setBookInfo(response.data)
-                setAuthor(response.author[0].userName)
+                if (response.author[0] !== undefined){
+                    setAuthor(response.author[0].userName)
+                }
+                else{
+                    setAuthor("Not Found")
+                }
                 setID(response.data[0].bookid)
                 ChangeDocumentTitle(response.data[0].title + " - Book Page")
                 changeCheckBookInLibrary(true)
@@ -191,7 +196,7 @@ const BookPage = () =>{
     }
 
     const goToAuthor = () =>{
-        if (authorName !== ""){
+        if (authorName !== "" && authorName !== "Not Found"){
             navigate({pathname:`/author/${authorName}`})
         }    
     }
@@ -307,7 +312,6 @@ const BookPage = () =>{
                             <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                             <h3 className="rating">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating}</h3>
                             <div id="buttonContainer">
-                                {console.log(currentPage)}
                                 <button className="readButton" onClick={() => goToChapter()}>{Number(currentPage) !== 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                 <button className="readButton" onClick={() => goToChapterPage()}>View Chapters</button>
                                 <button id="addButton" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
