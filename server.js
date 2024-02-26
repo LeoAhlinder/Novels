@@ -194,15 +194,22 @@ app.post("/api/createaccount", function (req, res) {
   try {
     const data = req.body;
 
-    if (
-      !validator.isEmail(data.email) ||
-      !validator.isAlphanumeric(data.username)
-    ) {
-      return res.json({ error: "Invalid" });
+    if (!data.email || !data.username || !data.password) {
+      return res.json({ error: "Empty input fields" });
+    }
+
+    if (!validator.isEmail(data.email)) {
+      return res.json({ error: "Invalid email" });
+    }
+
+    if (!validator.isAlphanumeric(data.username)) {
+      return res.json({ error: "Invalid username" });
     }
 
     const email = validator.normalizeEmail(data.email);
     const username = validator.trim(data.username);
+
+    const currentDate = new Date().toISOString().split("T")[0];
 
     connection.query(
       "SELECT * FROM users WHERE userEmail = ? OR userName = ?",
@@ -227,10 +234,10 @@ app.post("/api/createaccount", function (req, res) {
           }
         } else {
           const query =
-            "INSERT INTO users (userName,userPassword,userEmail) VALUES (?,?,?)";
+            "INSERT INTO users (userName,userPassword,userEmail,dateCreated) VALUES (?,?,?,?)";
           connection.query(
             query,
-            [data.username, data.password, data.email],
+            [data.username, data.password, data.email, currentDate],
             function (error, results) {
               if (error) {
                 res.status(500).json({ error: "An error occurred." });
@@ -1106,7 +1113,9 @@ app.get("/api/comments", function (req, res) {
             if (error) {
               return res.status(500).json({ error: "Database error" });
             }
-            userName = results[0].userName;
+            if (results.length > 0) {
+              userName = results[0].userName;
+            }
           });
           likedAndDislikedComments = await fetchLikedAndDislikedComments(
             userId

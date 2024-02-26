@@ -62,21 +62,42 @@ const LogIn = () =>{
                     });
                     if (res.ok){
                         const response = await res.json();
-                        if (response.error){
-                            changeAlerts("Please select another username and email")
+
+                        if (response.error) {
+                            switch(response.error) {
+                                case "Invalid email":
+                                    changeAlerts("Please enter a valid email");
+                                    break;
+                                case "Invalid username":
+                                    changeAlerts("Please enter a valid username, no special characters allowed");
+                                    break;
+                                case "Empty input fields":
+                                    changeAlerts("Please fill in all the fields");
+                                    break;
+                                default:
+                                    navigate("/error");
+                            }
+                        } else if (response.message) {
+                            switch(response.message) {
+                                case "both exist":
+                                    changeAlerts("The email and username are already in use");
+                                    break;
+                                case "email exist":
+                                    changeAlerts("Email already in use");
+                                    break;
+                                case "userName exist":
+                                    changeAlerts("Username already in use");
+                                    break;
+                                case "user created":
+                                    logIn();
+                                    break;
+                                default:
+                                    navigate("/error");
+                            }
+                        } else {
+                            navigate("/error");
                         }
-                        else if (response.message === "both exist"){
-                            changeAlerts("The email and username is already in use")
-                        }
-                        else if (response.message === "email exist"){
-                            changeAlerts("Email already in use")
-                        }
-                        else if (response.message === "userName exist"){
-                            changeAlerts("Username already in use")
-                        }
-                        else if (response.message === "user created"){
-                            logIn()
-                        }
+
                     }else{
                         navigate("/error")
                     }

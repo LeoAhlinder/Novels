@@ -25,12 +25,12 @@
     #termsOfServiceText{
         margin-bottom: 50px;
         margin-right: 20px;
-
+        font-size: 1em;
     }
 }
 
-@media screen and (max-width:400px) {
+@media screen and (max-width:500px) {
     #termsOfServiceText{
-        font-size: 0.8em;
+        font-size: 0.6em;
     }
 }
