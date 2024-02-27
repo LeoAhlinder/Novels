@@ -1133,18 +1133,18 @@ app.get("/api/comments", function (req, res) {
         }
 
         const query = `
-      SELECT 
+        SELECT 
           comments.comment, 
           COALESCE(comments.dislikes, 0) AS dislikes, 
           COALESCE(comments.likes, 0) AS likes, 
-          users.userName, 
+          IFNULL(users.userName, 'Deleted User') AS userName, 
           comments.commentid,
           (COALESCE(comments.likes, 0) - COALESCE(comments.dislikes, 0) / 2) AS likesDislikes
-      FROM comments
-      INNER JOIN users ON comments.userid = users.userid
-      WHERE comments.bookid = ?
-      ORDER BY likesDislikes DESC
-      LIMIT ? , ?;
+        FROM comments
+        LEFT JOIN users ON comments.userid = users.userid
+        WHERE comments.bookid = ?
+        ORDER BY likesDislikes DESC
+        LIMIT ? , ?;
       `;
 
         connection.query(
