@@ -49,7 +49,7 @@ const LogIn = () =>{
             if (checkEmail(user.email) === true){
                 try{
                     if (termsOfService === false){
-                        alert("Please accept the terms of service")
+                        changeAlerts("Please accept the terms of service")
                         return
                     }
                     const res = await fetch(`${process.env.REACT_APP_API_URL}/api/createaccount`,{
@@ -129,7 +129,7 @@ const LogIn = () =>{
             missingList.length === 1
                 ? `Please fill in the ${missingList[0]} input field`
                 : `Please fill in the following input fields: ${missingList.join(', ')}`;
-            alert(message)
+            changeAlerts(message)
         }
         else{
             return true
@@ -163,7 +163,7 @@ const LogIn = () =>{
                         navigate("/Profile");
                     }
                     if (response.message === "no user exist"){
-                        alert("No user with those login details exist")
+                        changeAlerts("No user with those login details exist")
                     }
                 }
                 else{
