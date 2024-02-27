@@ -67,7 +67,10 @@ const Info = () =>{
                     changeBooksCreated(response.books)
                 }
                 else{
-                    navigate("/error")
+                    changeUserName("No user found")
+                    changeEmail("No Email found")
+                    changeAccountCreated("No Date found")
+                    changeBooksCreated("No Info found")
                 }
            }catch(error){
                 navigate("/error")
