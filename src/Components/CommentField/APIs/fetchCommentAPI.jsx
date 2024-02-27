@@ -11,7 +11,6 @@ const FetchComments = async ({bookId,changeComments,navigate,changeUsername,chan
         });
         if (res.ok) {
             const response = await res.json();
-            console.log(response)
             if (response.noComment){
                 changeComments([])
             }
