@@ -8,6 +8,7 @@ import removeHttpCookie from "../Global/removeHttpCookie";
 import Library from "./Library"
 import NovelCreated from "./profileComponents/novelsCreated/novelsCreated";
 import Info from "./profileComponents/Info/Info";
+import ViewAllComments from "./profileComponents/Comments/viewAllComments";
 
 const Profile = () => {
 
@@ -83,6 +84,7 @@ const Profile = () => {
                     {selected === "NovelCreated" && <NovelCreated/>}
                     {selected === "Library" && <Library/>}
                     {selected === "Info" && <Info/>}
+                    {selected === "Comments" && <ViewAllComments/>}
                 </div>
             </>
             }

@@ -1,0 +1,33 @@
+#commentSectionContainer{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(50, 52, 53);
+    margin-left: 5%;
+    margin-right: 5%;
+    border-radius: 10px;
+    margin-bottom: 4%;
+}
+
+
+#commentsContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    padding: 30px;
+}
+
+.commentProfile{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: start;
+    background-color: rgb(38, 40, 41);
+    padding: 10px;
+    color: white;
+    width: 80%;
+    border: 1px solid #807d7d;
+}

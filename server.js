@@ -1445,4 +1445,32 @@ app.get("/api/getUserInfo", function (req, res) {
   }
 });
 
+app.get("/api/getUsersComments", function (req, res) {
+  try {
+    jwt.verify(
+      req.cookies.authToken,
+      user_secretkey,
+      function (err, decodedToken) {
+        if (err) {
+          return res.sendStatus(403);
+        }
+        const userId = decodedToken.user;
+        const query = "SELECT * FROM comments WHERE userid = ?";
+        connection.query(query, [userId], function (error, results) {
+          if (error) {
+            return res.json({ error: "error" });
+          }
+          if (results.length > 0) {
+            return res.json({ comments: results });
+          } else {
+            return res.json({ message: "No comments found" });
+          }
+        });
+      }
+    );
+  } catch (err) {
+    return res.json({ error: "error" });
+  }
+});
+
 module.exports = app;
