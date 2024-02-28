@@ -42,7 +42,7 @@ const BookList = ({books,openBook,bookCoverImages,showPageProgress,showText,text
                             <p id="libraryBookTitle">{book.title}</p>
                         </div>
                         <span id="pageInfo">
-                            {showPageProgress === true
+                            {showPageProgress === true && books !== "error"
                             ? `Page: ${book.currentPage}/${
                                 book.totalpages === null ? "0" : book.totalpages
                                 }`

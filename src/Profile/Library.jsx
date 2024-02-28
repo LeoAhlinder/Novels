@@ -19,10 +19,11 @@ const Library = () => {
     pinkForest: pinkForest,
   };
 
-  ChangeDocumentTitle("Library")
+  ChangeDocumentTitle("Library | Novels")
 
   const [books, setBooks] = useState([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [loading, changeLoading] = useState(false);
+  const [showPageProgress, changeShowPageProgress] = useState(true);
 
   const navigate = useNavigate();
 
@@ -40,11 +41,17 @@ const Library = () => {
         });
         if (res.ok) {
           const response = await res.json();
-          setBooks(response.data);
+          if (response.data.length > 0){
+            setBooks(response.data);
+          }else{
+            setBooks([])
+            changeShowPageProgress(false)
+          }
         } else {
-          setBooks("error");
+          setBooks("error")
+          changeShowPageProgress(false)
         }
-        setIsLoaded(true)
+        changeLoading(false)
       } catch (err) {
         navigate("/error")
       }
@@ -59,14 +66,15 @@ const Library = () => {
 
   return (
     <>
-      {isLoaded ? 
+      {loading === false ? 
         <BookList
           books={books}
           openBook={openBook}
           bookCoverImages={bookCoverImages}
-          showPageProgress={true}
+          showPageProgress={showPageProgress}
+          showText={showPageProgress}
           textIfEmpty="Add your favorite books to your library so you never forget them!"
-          isLoaded={isLoaded}
+          loading={loading}
         /> 
         : 
         null
