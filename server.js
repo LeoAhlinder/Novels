@@ -1431,7 +1431,11 @@ app.get("/api/getUserInfo", function (req, res) {
               }
               if (results.length > 0) {
                 const booksCreated = results[0]["COUNT(author)"];
-                return res.json({ userData: userDetails, books: booksCreated });
+                return res.json({
+                  userData: userDetails,
+                  books: booksCreated,
+                  message: "success",
+                });
               }
             });
           } else {
@@ -1454,18 +1458,40 @@ app.get("/api/getUsersComments", function (req, res) {
         if (err) {
           return res.sendStatus(403);
         }
+
+        const loadSet = Number(req.query.loadSet);
+
+        const amountOfComments = 3;
+
+        let maxLimit = loadSet + 1 * amountOfComments;
+        let minLimit;
+        if (loadSet > 0) {
+          minLimit = loadSet * amountOfComments - 1;
+        } else {
+          minLimit = loadSet * amountOfComments;
+        }
+
         const userId = decodedToken.user;
-        const query = "SELECT * FROM comments WHERE userid = ?";
-        connection.query(query, [userId], function (error, results) {
-          if (error) {
-            return res.json({ error: "error" });
+        const query =
+          "SELECT comments.comment, comments.bookid, books.title FROM comments LEFT JOIN books ON comments.bookid = books.bookid WHERE userid = ? ORDER BY comments.commentid DESC LIMIT ?,?";
+        connection.query(
+          query,
+          [userId, minLimit, maxLimit],
+          function (error, results) {
+            if (error) {
+              return res.json({ error: "error" });
+            } else if (results.length > 0) {
+              if (results.length === amountOfComments) {
+                results.pop();
+                return res.json({ comments: results, moreComments: true });
+              } else {
+                return res.json({ comments: results, moreComments: false });
+              }
+            } else {
+              return res.json({ message: "No comments found" });
+            }
           }
-          if (results.length > 0) {
-            return res.json({ comments: results });
-          } else {
-            return res.json({ message: "No comments found" });
-          }
-        });
+        );
       }
     );
   } catch (err) {
