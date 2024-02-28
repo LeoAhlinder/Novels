@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./createnewstyle.css"
 import { useNavigate } from "react-router-dom";
 
-import Cookies from "js-cookie";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 import pinkForest from "../picturesForBooks/pinkForest.webp"
@@ -151,7 +150,6 @@ const CreateNew = () =>{
 
             if (res.ok){
                 const response = await res.json()
-                console.log(response)
                 if (response.message === "Title exists"){
                     changeAlert("The requested title is already in use. Please select a different one.")
                     changeAlertColor("red")
@@ -179,12 +177,10 @@ const CreateNew = () =>{
                 }
             }
             else{
-                console.log(res)
                 navigate("/error")
             }
 
         }catch(error){
-            console.log(error)
             navigate("/error")
         }
     }
@@ -217,7 +213,7 @@ const CreateNew = () =>{
                 <label htmlFor="Tags" className="Label">Custom Tags {tagsLength}/3</label>
                 <input type="text" id="Tags" onChange={handleCustomTags} className="bookNameInput" placeholder="Tags are seperated by spaces. ex 'tag1 tag2'. Tags can be 10 characters long max!" />
 
-                <label htmlFor="Warnings" className="Label">Warnings</label>
+                <label htmlFor="Warnings" className="Label">Age Restriction</label>
                 <select 
                     name="Warnings" 
                     className="Selector" 

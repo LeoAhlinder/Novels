@@ -528,7 +528,7 @@ app.post("/api/createNewBook", function (req, res) {
 
         const checkData = checkIfDataCorrect(data);
         if (checkData !== "OK") {
-          return res.json({ errorData: checkData });
+          return res.json({ error: checkData });
         }
 
         connection.query(
@@ -636,7 +636,7 @@ function checkIfDataCorrect(data) {
     "For everyone",
     "PG-13",
     "Guardian guidance recommended",
-    "For 18+",
+    "18+",
   ];
 
   const requiredFields = [
