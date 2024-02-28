@@ -61,23 +61,36 @@ const Info = () =>{
                 });
                 if (res.ok){
                     const response = await res.json();
-                    changeUserName(response.userData.userName)
-                    changeEmail(response.userData.userEmail)
-                    changeAccountCreated(response.userData.dateCreated.split("T")[0])
-                    changeBooksCreated(response.books)
+                    console.log(response)
+                    if (response.message === "success")
+                    {
+                        changeUserName(response.userData.userName)
+                        changeEmail(response.userData.userEmail)
+                        changeAccountCreated(response.userData.dateCreated.split("T")[0])
+                        changeBooksCreated(response.books)
+                    }
+                    else{
+                        noUserFound()
+                    }
+                    
                 }
                 else{
-                    changeUserName("No user found")
-                    changeEmail("No Email found")
-                    changeAccountCreated("No Date found")
-                    changeBooksCreated("No Info found")
+                    noUserFound()
+
                 }
            }catch(error){
-                navigate("/error")
+                noUserFound()
            }
         }
         getProfileInfo()
     },[])
+
+    function noUserFound(){
+        changeUserName("No user found")
+        changeEmail("No Email found")
+        changeAccountCreated("No Date found")
+        changeBooksCreated("No Info found")
+    }
 
 
     return (
