@@ -67,7 +67,7 @@ const BookPage = () =>{
                     setAuthor("Not Found")
                 }
                 setID(response.data[0].bookid)
-                ChangeDocumentTitle(response.data[0].title + " - Book Page")
+                ChangeDocumentTitle(response.data[0].title + " | Novels")
                 changeCheckBookInLibrary(true)
                 changeBookExtraInfo(response.bookInfoData[0])
                 changeTags(response.bookInfoData[0].tags.split(" "))
