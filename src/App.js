@@ -22,6 +22,7 @@ import Workspace from "./Create/Workspace/Workspace";
 import NovelWorkSpace from "./Create/Workspace/novelWorkSpace/novelWorkSpace";
 import UnkownPage from "./404Site/unknown";
 import TermsOfService from "./termsOfService/termsOfService";
+import Rating from "./Rating/Rating";
 
 import CookiesForm from "./Components/CookiesForm/cookiesForm";
 
@@ -62,6 +63,7 @@ const App = () => {
                 <Route path="/login" element={<LogIn />} />
                 <Route path="/search" element={<SearchBar />} />
                 <Route path="/popular" element={<MostPopular />} />
+                <Route path="/novel/:bookname/rating" element={<Rating />} />
                 /* Create */
                 <Route path="/create" element={<Create />} />
                 <Route path="/createnovel" element={<CreateNew />} />

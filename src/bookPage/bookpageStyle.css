@@ -300,6 +300,17 @@
     padding: 10px;
 }
 
+.rateButton{
+    background-color: rgb(96, 114, 122);
+    border: none;
+    width: auto;
+    font-size: 0.8em;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 3px;
+}
+
 .commentText{
     width: 90%;
     height: auto;

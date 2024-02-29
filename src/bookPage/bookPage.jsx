@@ -295,6 +295,9 @@ const BookPage = () =>{
         }
     }
 
+    const goToRatingSite = () =>{
+        navigate("./rating")
+    }
 
     return(
         <>
@@ -311,7 +314,7 @@ const BookPage = () =>{
                             <h2 className="genre">Genre: {bookExtraInfo.genres}</h2>
                             <h5 className="author"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                             <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
-                            <h3 className="rating">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating}</h3>
+                            <h3 className="rating">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating} <button className="rateButton" onClick={() => goToRatingSite()}>Rate</button></h3>
                             <div id="buttonContainer">
                                 <button className="readButton" onClick={() => goToChapter()}>{Number(currentPage) !== 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                 <button className="readButton" onClick={() => goToChapterPage()}>View Chapters</button>
@@ -371,7 +374,7 @@ const BookPage = () =>{
                                         <h4 className="genrePhone">Genre: {bookExtraInfo.genres}</h4>
                                         <h5 id="authorPhone"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                                         <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
-                                        <h3 className="ratingPhone">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating}</h3>
+                                        <h3 className="ratingPhone">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating}<button className="rateButton">Rate</button></h3>
                                     <div id="phoneButtonContainer">
                                         <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                         <button className="readButtonPhone" onClick={() => goToChapterPage()}>View Chapters</button>
