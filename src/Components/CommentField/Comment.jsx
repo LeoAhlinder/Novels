@@ -7,8 +7,6 @@ import upvotePicutreFill from "../../Icons/upvote-fill.svg";
 
 const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback,viewingUser }) => {
 
-    console.log(viewingUser)
-
     let likedFeedback = [];
     let dislikedFeedback = [];
 
