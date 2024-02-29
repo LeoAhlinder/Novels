@@ -15,10 +15,15 @@ const Info = () =>{
     const navigate = useNavigate()
 
     async function logOut(){
-        const res = await removeHttpCookie()
-        if (res === true){
-            navigate("/")
-            localStorage.removeItem("userName")
+        try{
+            const res = await removeHttpCookie()
+            if (res === true){
+                navigate("/")
+                localStorage.removeItem("userName")
+            }
+        }
+        catch(error){
+            navigate("/error")
         }
     }
 

@@ -202,22 +202,26 @@ const BookPage = () =>{
     }
 
     const postCommentHandler = async () =>{
-        const didCommentPost = await PostComment({
-            bookId:bookId,
-            postCommentText:postCommentText,
-            navigate:navigate,
-            changePostCommentAlert:changePostCommentAlert
-        })
-        if (didCommentPost === true){
-            changePostCommentText("")
-            changePostCommentAlert("Comment posted")
-            changeComments(prevState => [
-                ...prevState,
-                {likes:0, dislikes:0, comment:postCommentText, userName:"You",commentid:prevState.length+1}
-            ]);
-        }
-        if (didCommentPost !== false && didCommentPost !== true){
-            changePostCommentAlert("Error posting comment")
+        try{
+            const didCommentPost = await PostComment({
+                bookId:bookId,
+                postCommentText:postCommentText,
+                navigate:navigate,
+                changePostCommentAlert:changePostCommentAlert
+            })
+            if (didCommentPost === true){
+                changePostCommentText("")
+                changePostCommentAlert("Comment posted")
+                changeComments(prevState => [
+                    ...prevState,
+                    {likes:0, dislikes:0, comment:postCommentText, userName:"You",commentid:prevState.length+1}
+                ]);
+            }
+            if (didCommentPost !== false && didCommentPost !== true){
+                changePostCommentAlert("Error posting comment")
+            }
+        }catch(err){
+            navigate("/error")
         }
     }
 
@@ -274,25 +278,29 @@ const BookPage = () =>{
     }
 
     const fetchMoreComments = async () =>{
-        
-        let newComments = await FetchComments({
-            onlyReturn: true,
-            bookId: bookId,
-            changeComments: changeComments,
-            navigate: navigate,
-            changeUsername: changeUsername,
-            changeGivenFeedback:changeGivenFeedback,
-            loadSet: loadSet + 1,
-            changeMoreCommentsExist:changeMoreCommentsExist
-        });
-        changeLoadSet(loadSet + 1)
-
-        if (newComments !== undefined){
-            changeComments(prevState => [
-                ...prevState,
-                ...newComments
-            ]);
+        try{
+            let newComments = await FetchComments({
+                onlyReturn: true,
+                bookId: bookId,
+                changeComments: changeComments,
+                navigate: navigate,
+                changeUsername: changeUsername,
+                changeGivenFeedback:changeGivenFeedback,
+                loadSet: loadSet + 1,
+                changeMoreCommentsExist:changeMoreCommentsExist
+            });
+            changeLoadSet(loadSet + 1)
+    
+            if (newComments !== undefined){
+                changeComments(prevState => [
+                    ...prevState,
+                    ...newComments
+                ]);
+            }
+        }catch(err){
+            navigate("/error")
         }
+        
     }
 
     const goToRatingSite = () =>{

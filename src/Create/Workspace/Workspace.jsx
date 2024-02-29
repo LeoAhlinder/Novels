@@ -4,7 +4,6 @@ import "./workspaceStyle.css"
 
 import ChangeDocumentTitle from "../../Global/changeDocumentTitle";
 import BookList from "../../Components/Books/bookListProfile";
-import Cookies from 'js-cookie'
 
 import forest from "../../picturesForBooks/forestSmall.webp"
 import forestHut from "../../picturesForBooks/hutInForestSmall.webp"

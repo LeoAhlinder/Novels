@@ -1,8 +1,8 @@
 const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAlert}) => {
-    if (postCommentText === "" || postCommentText.length <= 0) return changePostCommentAlert("Comment cannot be empty")
-    if (postCommentText.length > 1500) return changePostCommentAlert("Comment cannot be longer than 1500 characters")
-    if (bookId === "") return navigate("/error")
     try{
+        if (postCommentText === "" || postCommentText.length <= 0) return changePostCommentAlert("Comment cannot be empty")
+        if (postCommentText.length > 1500) return changePostCommentAlert("Comment cannot be longer than 1500 characters")
+        if (bookId === "") return navigate("/error")
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/postComment`, {
             method:"POST",
             headers:{

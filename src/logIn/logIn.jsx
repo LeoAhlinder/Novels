@@ -36,7 +36,7 @@ const LogIn = () =>{
     }
 
     const createUser = async () =>{
-
+        try{
         const logIns = inputFields.map((i) => document.getElementById(i.id).value);
 
         if (checkInputFields() === true)
@@ -47,7 +47,7 @@ const LogIn = () =>{
                 email:logIns[2]
             }
             if (checkEmail(user.email) === true){
-                try{
+                
                     if (termsOfService === false){
                         changeAlerts("Please accept the terms of service")
                         return
@@ -62,7 +62,6 @@ const LogIn = () =>{
                     });
                     if (res.ok){
                         const response = await res.json();
-                        console.log(response)
 
                         if (response.error) {
                             switch(response.error) {
@@ -111,12 +110,13 @@ const LogIn = () =>{
                     }else{
                         navigate("/error")
                     }
-                }catch(err){
-                    navigate("/error") 
+                 navigate("/error") 
                 }
             }else{
                 changeAlerts("Please enter a valid email")
             }
+        }catch(err){
+            navigate("/error")
         }
     }
 

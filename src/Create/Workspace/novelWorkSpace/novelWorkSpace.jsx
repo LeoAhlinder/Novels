@@ -139,20 +139,24 @@ export default function NovelWorkSpace() {
     useEffect(() => {
 
         const fetchChapters = async () => {
-          const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapters/${bookTitle}`, {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Accept": "application/json"
-            },
-          });
-          const response = await res.json();
-          if (res.ok) {
-            setChapters(response.data);
-            setLoading(false);
-          } else {
-            console.log(response.message);
-            setLoading(false);
+          try{
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapters/${bookTitle}`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+              },
+            });
+            const response = await res.json();
+            if (res.ok) {
+              setChapters(response.data);
+              setLoading(false);
+            } else {
+              console.log(response.message);
+              setLoading(false);
+            }
+          }catch(err){
+            navigate("/error")
           }
           };
           fetchChapters(); 

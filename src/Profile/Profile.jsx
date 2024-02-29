@@ -19,10 +19,15 @@ const Profile = () => {
     const navigate = useNavigate();
 
     async function logOut(){
-        const res = await removeHttpCookie()
-        if (res === true){
-            navigate("/")
-            localStorage.removeItem("userName")
+        try{
+            const res = await removeHttpCookie()
+            if (res === true){
+                navigate("/")
+                localStorage.removeItem("userName")
+            }
+        }
+        catch(error){
+            navigate("/error")
         }
     }
 
@@ -33,16 +38,20 @@ const Profile = () => {
     localStorage.setItem("selectedProfile",selected)
 
     useEffect(() => {
-        const checkToken = async () => {
-            const token = await CheckToken();
-            if (token === "invalid") {
-                navigate("/login")
+        try{
+            const checkToken = async () => {
+                const token = await CheckToken();
+                if (token === "invalid") {
+                    navigate("/login")
+                }
+                else if (token === "valid") {
+                    setLoggedIn(true)
+                }
             }
-            else if (token === "valid") {
-                setLoggedIn(true)
-            }
+            checkToken()
+        }catch(err){
+            navigate("/error")
         }
-        checkToken()
     },[])
 
     return (

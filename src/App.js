@@ -30,12 +30,16 @@ const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
 
   useEffect(() => {
-    const fetchServerStatus = async () => {
-      const status = await checkServerStatus();
-      setServerStatus(status);
-      if (!status) ChangeDocumentTitle("Novels | Server Down");
-    };
-    fetchServerStatus();
+    try{
+      const fetchServerStatus = async () => {
+        const status = await checkServerStatus();
+        setServerStatus(status);
+        if (!status) ChangeDocumentTitle("Novels | Server Down");
+      };
+      fetchServerStatus();
+    }catch(err){
+      setServerStatus(false);
+    }
   }, []);
 
   useEffect(() => {

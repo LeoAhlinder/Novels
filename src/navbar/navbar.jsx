@@ -10,25 +10,33 @@ const Header = () => {
     const [loggedIn, setLoggedIn] = useState(false);
 
     useEffect(() => {
-        (async () => {
-          const tok = await checkToken();
-          if (tok === "valid"){
-            setLoggedIn(true)
-          }
-          else{
-            setLoggedIn(false)
-          }
-        })();
+        try{
+            (async () => {
+                const tok = await checkToken();
+                if (tok === "valid"){
+                  setLoggedIn(true)
+                }
+                else{
+                  setLoggedIn(false)
+                }
+              })();
+        }catch(err){
+            navigate("/error")
+        }
     });
 
     const profileButtonClicked = async () =>{
-        const token = await checkToken()
+        try{
+            const token = await checkToken()
         closeMenu()
         if (token === "valid"){
             navigate("/profile")
         }
         else{
             navigate("login")
+        }
+        }catch(err){
+            navigate("/error")
         }
     }
 

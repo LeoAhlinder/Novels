@@ -60,14 +60,18 @@ const ViewAllComments = () => {
     }
 
     async function fetchMoreComments(loadSet){
-        const newComments = await fetchUsersComments(loadSet)
-        changeLoadSet(loadSet + 1)
+        try{
+            const newComments = await fetchUsersComments(loadSet)
+            changeLoadSet(loadSet + 1)
 
-        if (newComments !== undefined){
-            changeComments(prevState => [
-                ...prevState,
-                ...newComments
-            ]);
+            if (newComments !== undefined){
+                changeComments(prevState => [
+                    ...prevState,
+                    ...newComments
+                ]);
+            }
+        }catch(err){
+            navigate("/error")
         }
     }
     

@@ -82,17 +82,21 @@ const ChapterPage = () => {
     useEffect(() => {
         const setLatestReadChapter = async () => {
 
-            await fetch(`${process.env.REACT_APP_API_URL}/api/setLatestReadChapter`,{
-                method:"POST",
-                  headers:{
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                    "Allow-Credentials": "true"
-                },
-                credentials:"include",
-                body: JSON.stringify({bookName:bookName,chapterNumber:chapterNumber,totalPages:totalChapters})
-            });
-        }
+            try{
+                await fetch(`${process.env.REACT_APP_API_URL}/api/setLatestReadChapter`,{
+                    method:"POST",
+                      headers:{
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Allow-Credentials": "true"
+                    },
+                    credentials:"include",
+                    body: JSON.stringify({bookName:bookName,chapterNumber:chapterNumber,totalPages:totalChapters})
+                });
+            }catch(err){
+                console.log(err)
+            }
+            }
         if (loading === false){
             const timeoutId = setTimeout(() => {
                 if (chapterNumber <= totalChapters && chapterNumber > 0)

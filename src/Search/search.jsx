@@ -28,6 +28,7 @@ const SearchBar = () =>{
     const [viewingBooks,SetViewing] = useState(false)
 
     useEffect(() =>{
+        try{
             if (search.length === 0){
                 newBooks([])
                 SetViewing(false)
@@ -36,8 +37,7 @@ const SearchBar = () =>{
                 fetchBooks();
             },1600)
                 const fetchBooks = async () =>{
-                    try{
-                        if (search !== "" && search.length > 2){
+                    if (search !== "" && search.length > 2){
                         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/BooksBasedOnSearch`,{
                             method:"POST",
                             headers:{
@@ -46,26 +46,26 @@ const SearchBar = () =>{
                             },
                             body:JSON.stringify({data:search})
                         });
-                            if (res.ok){
-                                const response = await res.json();
-                                if (response.books){
-                                    newBooks(response.books)
-                                }
-                                else if (response.empty){
-                                    newBooks([])
-                                }
-                                SetViewing(true)
-
+                        if (res.ok){
+                            const response = await res.json();
+                            if (response.books){
+                                newBooks(response.books)
                             }
-                            if (res.error === "error"){
-                                navigate("/error")
+                            else if (response.empty){
+                                newBooks([])
                             }
+                            SetViewing(true)
+                            }
+                        if (res.error === "error"){
+                            navigate("/error")
                         }
-                    }catch(err){
-                        navigate("/error")
                     }
                 }
-            return () => clearTimeout(waitForInput)
+                return () => clearTimeout(waitForInput)
+            }catch(err){
+            navigate("/error")
+        }
+            
     },[search,navigate]);
 
     
