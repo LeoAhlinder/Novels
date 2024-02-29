@@ -62,6 +62,7 @@ const LogIn = () =>{
                     });
                     if (res.ok){
                         const response = await res.json();
+                        console.log(response)
 
                         if (response.error) {
                             switch(response.error) {
@@ -74,8 +75,17 @@ const LogIn = () =>{
                                 case "Empty input fields":
                                     changeAlerts("Please fill in all the fields");
                                     break;
+                                case "Password is too long":
+                                    changeAlerts("Password is too long, max 20 characters");
+                                    break;
+                                case "Password is too short":
+                                    changeAlerts("Password is too short, min 5 characters");
+                                    break;
+                                case "Username is too long":
+                                    changeAlerts("Username is too long, max 20 characters");
+                                    break;
                                 default:
-                                    navigate("/error");
+                                    changeAlerts("An error occurred, please try again");
                             }
                         } else if (response.message) {
                             switch(response.message) {
@@ -92,7 +102,7 @@ const LogIn = () =>{
                                     logIn();
                                     break;
                                 default:
-                                    navigate("/error");
+                                    changeAlerts("An error occurred, please try again");
                             }
                         } else {
                             navigate("/error");

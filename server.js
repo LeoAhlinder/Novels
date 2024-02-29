@@ -190,20 +190,42 @@ function bookData(bookName) {
   });
 }
 
+function validateUserCredientles(data) {
+
+  if (!data.email || !data.username || !data.password || data === undefined || data === null) {
+    return "Empty input fields"
+  }
+
+  if (!validator.isEmail(data.email)) {
+    return "Invalid email"
+  }
+
+  if (!validator.isAlphanumeric(data.username)) {
+    return "Invalid username"
+  }
+
+  if (data.username.length > 20) {
+    return "Username is too long"
+  }
+
+  if (data.password.length < 5) {
+    return "Password is too short"
+  }
+
+  if (data.password.length > 20){
+    return "Password is too long"
+  }
+
+  return "OK";
+}
+
 app.post("/api/createaccount", function (req, res) {
   try {
     const data = req.body;
 
-    if (!data.email || !data.username || !data.password) {
-      return res.json({ error: "Empty input fields" });
-    }
-
-    if (!validator.isEmail(data.email)) {
-      return res.json({ error: "Invalid email" });
-    }
-
-    if (!validator.isAlphanumeric(data.username)) {
-      return res.json({ error: "Invalid username" });
+    const validation = validateUserCredientles(data);
+    if (validation !== "OK") {
+      return res.json({ error: validation });
     }
 
     const email = validator.normalizeEmail(data.email);
