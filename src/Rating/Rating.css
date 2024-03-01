@@ -157,6 +157,11 @@
     margin-right: 15px;
 }
 
+.reviewSiteButton:active {
+  box-shadow: #422800 2px 2px 0 0;
+  transform: scale(1.02);
+}
+
 .addReviewStar{
     width: 30px;
 }

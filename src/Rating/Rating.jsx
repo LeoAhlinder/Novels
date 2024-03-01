@@ -74,14 +74,14 @@ const Rating = () => {
                         <img className="star" src={whiteStar} alt="star" />
                         <p id="reviewText">This book has a rating of 5/5</p>
                     </div>
-                    <button id="enableWriteReviewButton" onClick={() => changeWriteReviewView(!writeReviewView)}>{writeReviewView ? "Stop Writing Review" : "Write a Review"}</button>
+                    <button className="reviewSiteButton" id="enableWriteReviewButton" onClick={() => changeWriteReviewView(!writeReviewView)}>{writeReviewView ? "Stop Writing Review" : "Write a Review"}</button>
                 </div>
             </div>
             {writeReviewView ?
             <div id="addReviewContainer">
                 <textarea id="addReviewInput" onChange={(e) => onChangeHandler(e)} placeholder="Write your review!"/>
                 <div id="addReviewStarAndButtonRow">
-                    <button id="addReviewButton">Add review</button>
+                    <button className="reviewSiteButton" id="addReviewButton">Add review</button>
                     <div>
                         <img className="addReviewStar" onClick={() => addReviewStar(0)} src={addReviewStars[0] ? yellowStar : whiteStar} alt="star" />
                         <img className="addReviewStar" onClick={() => addReviewStar(1)} src={addReviewStars[1] ? yellowStar : whiteStar} alt="star" />
