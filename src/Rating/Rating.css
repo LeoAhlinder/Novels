@@ -179,6 +179,12 @@
     #bookLink{
         font-size: 1em;
     }
+    #addReviewContainer{
+        width: 90%;
+    }
+    .addReviewStar{
+        width: 25px;
+    }
 }
 
 @media screen and (max-width:415px) {
@@ -202,5 +208,8 @@
     }
     #reviewText{
         font-size: 0.6em;
+    }
+    .addReviewStar{
+        width: 20px;
     }
 }
