@@ -11,10 +11,15 @@
 }
 
 .ratingItem{
-    background-color: rgb(93, 99, 101);
+    background-color: rgb(50, 52, 53);
     width: 60%;
     padding: 10px;
     border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#ratingText{
+    color: white;
 }
 
 .commentField{
@@ -50,6 +55,18 @@
 #bookCover{
     width: auto;
     max-height: 100%;
+}
+
+.reviewStar{
+    width: 20px;
+}
+
+#reviewStarsRow{
+    display: flex;
+    flex-direction: row;
+    gap: 2px;
+    width: auto;
+    height: auto;
 }
 
 #bookInfoRow{

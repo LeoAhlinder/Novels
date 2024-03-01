@@ -1,14 +1,28 @@
 import React, {useEffect,useState} from "react"
+import { useNavigate } from "react-router";
+
 import "./Rating.css"
 
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
-import forestPicture from "../picturesForBooks/forest.webp"
+import forest from "../picturesForBooks/forest.webp"
+import Moon from "../picturesForBooks/moon.webp"
+import forestHut from "../picturesForBooks/hutInForest.webp"
+import pinkForest from "../picturesForBooks/pinkForest.webp"
 
 import whiteStar from "../Icons/star-white.svg"
 import yellowStar from "../Icons/star-yellow.svg"
 
 const Rating = () => {
+
+    const bookCoverImages = {
+        Moon, Moon,
+        Forest: forest,
+        hutInForest: forestHut,
+        pinkForest: pinkForest,
+    };
+
+    const navigate = useNavigate();
 
     const bookName = window.location.pathname.split("/")[2].replace(/%20/g, " ")
     const bookLink = "/novel/" + bookName.replace(/ /g, "%20")
@@ -16,26 +30,114 @@ const Rating = () => {
     ChangeDocumentTitle(bookName + " Reviews | Novels")
 
     const [writeReviewView, changeWriteReviewView] = useState(false)
-
     const [reviewText, changePostCommentText] = useState("")
-    
     const [addReviewStars, changeAddReviewStars] = useState([false,false,false,false,false])
+    const [rating, changeRating] = useState(0)
 
+    const [reviews, changeReviews] = useState([])
+    const [loading, changeLoading] = useState(true)
+    const [responseMessage, changeResponseMessage] = useState("")
+    const [responseMessageColor, changeResponseMessageColor] = useState("red")
+    const [bookCover, changeBookCover] = useState("")
 
     useEffect(() => {
-        const getRatingAndInfo = async () => {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getRaingAndInfo?bookName=${bookName}`,{
-                method:"GET",
-                headers: {  
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                },
-            });
-            const response = await res.json();
-            console.log(response)
-        }
+        try{
+            const getRatingAndInfo = async () => {
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getRatingAndInfo?bookName=${bookName}`,{
+                    method:"GET",
+                    headers: {  
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                    },
+                });
+                const response = await res.json();
+                if (response.error){
+                    changeReviews([])
+                    changeLoading(false)
+                }
+                else if (response.message === "No reviews found"){
+                    changeReviews([])
+                    changeLoading(false)
+                    changeBookCover(response.bookCover)
+                    changeRating(0)
+                }
+                else if (response.data.length > 0 && response.message === "success"){
+                    changeReviews(response.data)
+                    changeLoading(false)
+                    changeBookCover(response.bookCover)
+                    let sumOfRatings = 0;
+                    for (let i = 0; i < response.data.length; i++){
+                        sumOfRatings += response.data[i].rating
+                    }
+                    changeRating((sumOfRatings/response.data.length))
+
+                }
+                else{
+                    changeReviews([])
+                    changeLoading(false)
+                }
+            }
+
         getRatingAndInfo();
+
+        }catch(err){
+            navigate("/error")
+        }
     },[])
+
+    async function postReview(){
+        try{
+            const review = addReviewStars.filter(star => star).length
+
+            if (reviewText.length > 3 && reviewText.length < 2000 && review > 0 && review <= 5){
+                const data = {
+                    bookName: bookName,
+                    review: reviewText,
+                    rating: review
+                }
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/postReview`,{
+                    method:"POST",
+                    headers: {  
+                        "Content-Type": "application/json",
+                        "Accept": "application/json",
+                        "Accept-Credentials": "include"
+                    },
+                    credentials: "include",
+                    body: JSON.stringify(data)
+                });
+                const response = await res.json();
+                if (response.message === "Review posted"){
+                    changeResponseMessageColor("green")
+                    changeResponseMessage("Review posted")
+                    changePostCommentText("")
+                    changeAddReviewStars([false,false,false,false,false])
+                    changeWriteReviewView(false)
+                    changeReviews([...reviews, {userName:"You", text:reviewText, rating:review}])
+                }
+                else{
+                    changeResponseMessageColor("red")
+                    changeResponseMessage("Error posting review")
+                }
+
+            }else{
+                if (reviewText.length < 3){
+                    changeResponseMessageColor("red")
+                    changeResponseMessage("Your review is too short")
+                }
+                else if (reviewText.length > 2000){
+                    changeResponseMessageColor("red")
+                    changeResponseMessage("Your review is too long")
+                }
+                else if (review === 0 || review > 5){
+                    changeResponseMessageColor("red")
+                    changeResponseMessage("Please give a valid rating")
+                }
+            }
+
+        }catch(err){
+            navigate("/error")
+        }
+    }
 
     function onChangeHandler(e){
         changePostCommentText(e.target.value)
@@ -57,31 +159,32 @@ const Rating = () => {
         changeAddReviewStars(newAddReviewStars)
     }
 
-
     return (
         <div className="ratingContainer">
             <div id="ratingDescription">
                 <div id="bookInfoRow">                      
-                    <img id="bookCover" src={forestPicture} alt=""/>
+                    <img id="bookCover" src={bookCoverImages[bookCover]} alt=""/>
                     <a id="bookLink" href={bookLink}>{bookName}</a>
                 </div>
                 <div id="starAndButtonRow">
                     <div>
-                        <img className="star" src={yellowStar} alt="star" />
-                        <img className="star" src={yellowStar} alt="star" />
-                        <img className="star" src={whiteStar} alt="star" />
-                        <img className="star" src={whiteStar} alt="star" />
-                        <img className="star" src={whiteStar} alt="star" />
-                        <p id="reviewText">This book has a rating of 5/5</p>
+                        <img className="star" src={rating >= 1 ? yellowStar : whiteStar} alt="star" />
+                        <img className="star" src={rating >= 2 ? yellowStar : whiteStar} alt="star" />
+                        <img className="star" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
+                        <img className="star" src={rating >= 3 ? yellowStar : whiteStar} alt="star" />
+                        <img className="star" src={rating >= 5 ? yellowStar : whiteStar} alt="star" />
+                        <p id="reviewText">This book has a rating of {rating}/5</p>
                     </div>
                     <button className="reviewSiteButton" id="enableWriteReviewButton" onClick={() => changeWriteReviewView(!writeReviewView)}>{writeReviewView ? "Stop Writing Review" : "Write a Review"}</button>
                 </div>
             </div>
             {writeReviewView ?
             <div id="addReviewContainer">
-                <textarea id="addReviewInput" onChange={(e) => onChangeHandler(e)} placeholder="Write your review!"/>
+                <textarea id="addReviewInput" value={reviewText} onChange={(e) => onChangeHandler(e)} placeholder="Write your review!"/>
+                <p style={{color:responseMessageColor}}>{responseMessage}</p>
                 <div id="addReviewStarAndButtonRow">
-                    <button className="reviewSiteButton" id="addReviewButton">Add review</button>
+                    
+                    <button className="reviewSiteButton" id="addReviewButton" onClick={() => postReview()}>Add review</button>
                     <div>
                         <img className="addReviewStar" onClick={() => addReviewStar(0)} src={addReviewStars[0] ? yellowStar : whiteStar} alt="star" />
                         <img className="addReviewStar" onClick={() => addReviewStar(1)} src={addReviewStars[1] ? yellowStar : whiteStar} alt="star" />
@@ -93,11 +196,32 @@ const Rating = () => {
             </div>
             : null
             }
-            
-            <div className="ratingItem">
-                <h3 className="commentUsername">1</h3>
-                <p className="commentText">text</p>
-            </div>
+            {loading ? <p style={{color:"white"}}>Loading reviews...</p> 
+            :
+                reviews.length > 0 ?  
+                <>
+                    {
+                        reviews.map((review, index) => (
+                            <div className="ratingItem" key={index}>
+                                <h3 className="commentUsername">{review.userName}</h3>
+                                <div id="reviewStarsRow">
+                                    <img className="reviewStar" src={yellowStar} alt="star" />
+                                    <img className="reviewStar" src={review.rating >= 2 ? yellowStar : whiteStar} alt="star" />
+                                    <img className="reviewStar" src={review.rating >= 3 ? yellowStar : whiteStar} alt="star" />
+                                    <img className="reviewStar" src={review.rating >= 4 ? yellowStar : whiteStar} alt="star" />
+                                    <img className="reviewStar" src={review.rating === 5 ? yellowStar : whiteStar} alt="star" />
+                                    <p id="ratingText">({`${review.rating}/5`})</p>
+                                </div>
+                                <p className="commentText">{review.text}</p>
+                            </div>
+                        ))
+                    }
+                </>
+                :   
+                <div className="ratingItem">
+                    <p style={{color:"white"}}>No reviews yet</p>
+                </div>
+            }
         </div>
     );
 }
