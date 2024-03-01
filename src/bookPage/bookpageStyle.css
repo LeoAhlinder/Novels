@@ -33,7 +33,7 @@
     width: 100%;
     height: auto;
     margin: 3em 0;
-    background-color: rgb(71, 75, 77);
+    background-color: rgb(50, 52, 53);
     border-radius: 5px;
     display: flex;
     align-items: flex-start; 
@@ -161,7 +161,7 @@
 }
 
 .bookExtraInfoTag{
-    background-color: rgb(65, 69, 71);
+    background-color: rgb(30, 30, 31);
     padding: 5px;
     border-radius: 5px;
     color: white;
@@ -275,7 +275,7 @@
     width: 100%;
     height: auto;
     border: none;
-    background-color: rgb(71, 75, 77);
+    background-color: rgb(50, 52, 53);
     color: white;
     border-radius: 5px;
     margin-top: 5%;
@@ -365,7 +365,7 @@
         display: block;
         height: 50vh;
         max-height: 700px;
-        background-color: rgb(50, 52, 53);
+        background-color: rgb(38, 40, 41);
         padding: 20px;
         border-radius: 5px;
     }
