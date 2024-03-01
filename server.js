@@ -1495,7 +1495,8 @@ app.get("/api/getUsersComments", function (req, res) {
 
         const userId = decodedToken.user;
         const query =
-          "SELECT comments.comment, comments.bookid, books.title FROM comments LEFT JOIN books ON comments.bookid = books.bookid WHERE userid = ? ORDER BY comments.commentid DESC LIMIT ?,?";
+          `SELECT comments.comment, comments.bookid, books.title FROM comments LEFT JOIN books ON 
+          comments.bookid = books.bookid WHERE userid = ? ORDER BY comments.commentid DESC LIMIT ?,?`;
         connection.query(
           query,
           [userId, minLimit, maxLimit],
@@ -1520,5 +1521,54 @@ app.get("/api/getUsersComments", function (req, res) {
     return res.json({ error: "error" });
   }
 });
+
+app.get("/api/getRaingAndInfo", async function (req, res){ 
+  try{
+    const bookName = req.query.bookName;
+    const getBookIdQuery = "SELECT bookid FROM books WHERE title = ?";
+    connection.query(getBookIdQuery, [bookName], async function (error, results) {
+      if (error){
+        return res.json({error: "error"});
+      }
+      else if (results.length > 0){
+        const bookId = results[0].bookid;
+        try {
+          const response = await getBookReviews(bookId);
+
+          console.log(response)
+
+          return res.json(response);
+        } catch (error) {
+          console.log(error);
+          return res.json({error: "error getting reviews"});
+        }
+      }
+      else{
+        return res.json({message: "No data found"});
+      }
+    });
+  }catch(err){
+    return res.json({error: "error"});
+  }
+});
+
+function getBookReviews(id){
+  return new Promise((resolve, reject) => {
+    const query = "SELECT reviews.rating, reviews.text, reviews.userid, users.userid FROM reviews LEFT JOIN users on users.userid = reviews.userid WHERE bookid = ?";
+    connection.query(query, [id], function (error, results){
+      if (error){
+        console.log(error)
+        reject("Error");
+      }
+      else if (results.length > 0){
+        resolve(results);
+      }
+      else{
+        resolve("No reviews found");
+      }
+    });
+  });
+}
+
 
 module.exports = app;
