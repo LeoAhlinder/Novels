@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    background-color: rgba(255, 0, 0, 0.233);
+    
 }
 
 .ratingItem{
@@ -26,6 +26,18 @@
     padding: 10px;
 }
 
+#addReviewInput{
+    width: 100%;
+    height: 50px;
+    border: none;
+    resize: none;
+    margin-bottom: 10px;
+    text-align: top;
+    border-radius: 5px;
+    background-color: rgb(195, 199, 201);
+    padding: 5px;
+}
+
 .commentText{
     width: 90%;
     height: auto;
@@ -35,17 +47,123 @@
     color: white;
 }
 
+#bookCover{
+    width: auto;
+    max-height: 100%;
+}
+
+#bookInfoRow{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 100%;
+    height: auto;
+}
+
+#bookLink{
+    font-family: Madimi;
+    color: rgb(42, 42, 230);
+    font-size: 1.3em;
+    cursor: pointer;
+    max-height: 35px;
+    max-width: 200px;
+}
+
+#starAndButtonRow{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: auto;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+#addReviewStarAndButtonRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    width: 100%;
+    height: auto;
+    margin-top: 5px;
+    align-items: center;
+
+}
+
+.star{
+    max-width: 50px;
+    margin-right: 3px;
+
+}
+
 #ratingDescription{
     width: 60%;
     height: auto;
     text-overflow: ellipsis;
+    display: flex;
     word-break: break-word;
     border: none;
+    flex-direction: column;
     color: white;
-    background-color: blue;
-    padding: 10px;
+    background-color: rgb(38, 40, 41);
+    border-radius: 10px;
+    padding: 15px;
     margin-bottom: 25px;
+}
 
+#enableWriteReviewButton{
+    font-family: Madimi;
+    width: 60%;
+    max-width: 100px;
+    height: 50px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(65, 69, 71);
+    border: 1px solid;
+    border-radius: 15px;
+    box-shadow: rgb(41, 42, 43) 4px 4px 0 0;
+    margin-top: auto;
+}
+
+#addReviewContainer{
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    background-color: rgb(68, 73, 75);
+    height: auto;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;}
+
+#reviewText{
+    color: white;
+    font-size: 1.1em;
+    font-family: Madimi;
+}
+
+#addReviewButton{
+    font-family: Madimi;
+    width: 60%;
+    max-width: 100px;
+    height: 50px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(65, 69, 71);
+    border: 1px solid;
+    border-radius: 15px;
+    box-shadow: rgb(41, 42, 43) 4px 4px 0 0;
+    margin-right: 15px;
+}
+
+.addReviewStar{
+    width: 30px;
+}
+
+@font-face {
+    font-family: Madimi;
+    src: url("../Fonts/Madimi_One/MadimiOne-Regular.ttf");
 }
 
 @media screen and (max-width:650px) {
@@ -54,5 +172,35 @@
     }
     #ratingDescription{
         width: 90%;
+    }
+    #addReviewInput{
+        width: 90%;
+    }
+    #bookLink{
+        font-size: 1em;
+    }
+}
+
+@media screen and (max-width:415px) {
+    .star{
+        max-width: 35px;
+    }
+}
+
+@media screen and (max-width:370px) {
+    .star{
+        max-width: 25px;
+    }
+    #reviewText{
+        font-size: 0.75em;
+    }
+}
+
+@media screen and (max-width:275px) {
+    .star{
+        max-width: 20px;
+    }
+    #reviewText{
+        font-size: 0.6em;
     }
 }
