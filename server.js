@@ -1591,15 +1591,27 @@ app.post("/api/postReview", function (req, res){
         }
         else if (results.length > 0){
           const bookId = results[0].bookid;
-          const insertQuery = "INSERT INTO reviews (bookid, userid, rating, text) VALUES (?, ?, ?, ?)";
-          connection.query(insertQuery, [bookId, userId, req.body.rating, req.body.review], function (error, results){
+          const checkIfUserHasReviewd = "SELECT * FROM reviews WHERE bookid = ? AND userid = ?";
+          connection.query(checkIfUserHasReviewd, [bookId,req.query.userId], async function (error, results) {
             if (error){
               return res.json({error: "error"});
             }
+            else if (results.length > 0){
+              const insertQuery = "INSERT INTO reviews (bookid, userid, rating, text) VALUES (?, ?, ?, ?)";
+              connection.query(insertQuery, [bookId, userId, req.body.rating, req.body.review], function (error, results){
+                if (error){
+                  return res.json({error: "error"});
+                }
+                else{
+                  return res.json({message: "Review posted"});
+                }
+              });
+            }
             else{
-              return res.json({message: "Review posted"});
+              return res.json({message: "User has not reviewed",bookCover:bookCover});
             }
           });
+         
         }
         else{
           return res.json({message: "No data found"});

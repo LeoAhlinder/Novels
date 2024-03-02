@@ -61,17 +61,20 @@ const Rating = () => {
                     changeBookCover(response.bookCover)
                     changeRating(0)
                 }
-                else if (response.data.length > 0 && response.message === "success"){
-                    changeReviews(response.data)
-                    changeLoading(false)
-                    changeBookCover(response.bookCover)
-                    let sumOfRatings = 0;
-                    for (let i = 0; i < response.data.length; i++){
-                        sumOfRatings += response.data[i].rating
+                else if (response.data){
+                    if (response.data.length > 0 && response.message === "success"){
+                        changeReviews(response.data)
+                        changeLoading(false)
+                        changeBookCover(response.bookCover)
+                        let sumOfRatings = 0;
+                        for (let i = 0; i < response.data.length; i++){
+                            sumOfRatings += response.data[i].rating
+                        }
+                        sumOfRatings = sumOfRatings.toFixed(1)
+                        changeRating((sumOfRatings/response.data.length).toFixed(1))
                     }
-                    changeRating((sumOfRatings/response.data.length))
-
                 }
+               
                 else{
                     changeReviews([])
                     changeLoading(false)
