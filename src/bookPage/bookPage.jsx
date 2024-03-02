@@ -13,6 +13,9 @@ import Moon from "../picturesForBooks/moonBig.webp"
 import forest from "../picturesForBooks/forestBig.webp"
 import forestHut from "../picturesForBooks/hutInForestBig.webp"
 
+import yellowStar from "../Icons/star-yellow.svg"
+import whiteStar from "../Icons/star-white.svg"
+
 const BookPage = () =>{
 
     const bookCoverImages = {
@@ -45,42 +48,57 @@ const BookPage = () =>{
     const [givenFeedback,changeGivenFeedback] = useState([])
     const [loadSet,changeLoadSet] = useState(0)
     const [moreCommentsExist,changeMoreCommentsExist] = useState(false)
+    const [rating,changeRating] = useState(0)
 
-    useEffect(() =>{
-        const bookInfo = async (bookName) =>{
-        try
-        {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/book?title=${bookName}`,{
-                method:"GET",
-                headers: {  
-                    "Content-Type": "application/json",
-                    "Accept": "application/json",
-                  }
-             });
-            if (res.ok){
-                const response = await res.json();
-                setBookInfo(response.data)
-                if (response.author[0] !== undefined){
-                    setAuthor(response.author[0].userName)
-                }
-                else{
-                    setAuthor("Not Found")
-                }
-                setID(response.data[0].bookid)
-                ChangeDocumentTitle(response.data[0].title + " | Novels")
-                changeCheckBookInLibrary(true)
-                changeBookExtraInfo(response.bookInfoData[0])
-                changeTags(response.bookInfoData[0].tags.split(" "))
-            }else{
-                navigate("/error")
+    useEffect(() => {
+        const fetchBookInfo = async () => {
+          try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/book?title=${bookName}`, {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+              },
+            });
+      
+            if (!response.ok) {
+                navigate("/error");
             }
-        }
-        catch(err){
-            navigate("/error")
-        }
-    }
-        bookInfo(bookName)
-    },[]);
+      
+            const data = await response.json();
+      
+            if (data.error) {
+              navigate("/error");
+            }
+      
+            if (data.data.length > 0) {
+              setBookInfo(data.data);
+              setID(data.data[0].bookid);
+              ChangeDocumentTitle(`${data.data[0].title} | Novels`);
+            }
+      
+            if (data.author[0]) {
+              setAuthor(data.author[0].userName);
+            } else {
+              setAuthor("Not Found");
+            }
+      
+            if (data.bookInfoData[0]) {
+              changeCheckBookInLibrary(true);
+              changeBookExtraInfo(data.bookInfoData[0]);
+              changeTags(data.bookInfoData[0].tags.split(" "));
+            }
+
+            if (data.rating[0]){
+                changeRating(data.rating[0].rating)
+            }
+          } catch (error) {
+            navigate("/error");
+          }
+        };
+      
+        fetchBookInfo();
+      }, [bookName]);
 
     useEffect(() =>{
         const isBookInLibrary = async () =>{
@@ -322,7 +340,16 @@ const BookPage = () =>{
                             <h2 className="genre">Genre: {bookExtraInfo.genres}</h2>
                             <h5 className="author"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                             <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
-                            <h3 className="rating">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating} <button className="rateButton" onClick={() => goToRatingSite()}>Rate</button></h3>
+                            <div className="rating">
+                                <div>
+                                    <img className="bookPageStar" src={rating >= 1 ? yellowStar : whiteStar} alt="star" />
+                                    <img className="bookPageStar" src={rating >= 2 ? yellowStar : whiteStar} alt="star" />
+                                    <img className="bookPageStar" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
+                                    <img className="bookPageStar" src={rating >= 3 ? yellowStar : whiteStar} alt="star" />
+                                    <img className="bookPageStar" src={rating >= 5 ? yellowStar : whiteStar} alt="star" />
+                                </div>
+                                <button className="rateButton" onClick={() => goToRatingSite()}>Rate this book</button>
+                            </div>
                             <div id="buttonContainer">
                                 <button className="readButton" onClick={() => goToChapter()}>{Number(currentPage) !== 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                 <button className="readButton" onClick={() => goToChapterPage()}>View Chapters</button>
@@ -379,10 +406,20 @@ const BookPage = () =>{
                                 </div>
                                 <div id="bookInfoPhone">
                                         <h1 className="titlePhone">{bookInfo[0].title}</h1>
+                                        <div className="ratingPhone">
+                                            <div>
+                                                <img className="bookPageStar" src={rating >= 1 ? yellowStar : whiteStar} alt="star" />
+                                                <img className="bookPageStar" src={rating >= 2 ? yellowStar : whiteStar} alt="star" />
+                                                <img className="bookPageStar" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
+                                                <img className="bookPageStar" src={rating >= 3 ? yellowStar : whiteStar} alt="star" />
+                                                <img className="bookPageStar" src={rating >= 5 ? yellowStar : whiteStar} alt="star" />
+                                            </div>
+                                        </div>
                                         <h4 className="genrePhone">Genre: {bookExtraInfo.genres}</h4>
                                         <h5 id="authorPhone"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                                         <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
-                                        <h3 className="ratingPhone">{bookInfo[0].rating === null ? "No Rating" : bookInfo[0].rating}<button className="rateButton">Rate</button></h3>
+                                        <button className="rateButton" onClick={() => goToRatingSite()}>Rate this book</button>
+
                                     <div id="phoneButtonContainer">
                                         <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                         <button className="readButtonPhone" onClick={() => goToChapterPage()}>View Chapters</button>

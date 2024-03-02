@@ -137,6 +137,11 @@
     padding: 10px;
 }
 
+.bookPageStar{
+    max-width: 40px;
+    margin-right: 3px;
+}
+
 .writeCommentButton:hover{
     opacity: 0.8;
     color: black;
@@ -427,7 +432,7 @@
     #chaptersPhone{
         font-size: 1rem;
     }
-    #titlePhone{
+    .titlePhone{
         font-size: 1.8rem;
     }
     .ratingPhone{
@@ -494,6 +499,13 @@
     }
 }
 
+@media screen and (max-width:650px) {
+    .bookPageStar{
+        max-width: 30px;
+        margin-right: 3px;
+    }
+}
+
 @media screen and (max-width:500px) {
     #phoneButtonContainer{
         display: flex;
@@ -534,11 +546,16 @@
 }
 
 @media screen and (max-width:400px) {
-    #titlePhone{
-        font-size: 1.3rem;
+    .titlePhone{
+        font-size: 1.5rem;
     }
     #commentsTitle{
         font-size: 1.1rem;
+    }
+
+    .bookPageStar{
+        max-width: 28px;
+        margin-right: 3px;
     }
 
     .headerContainer{

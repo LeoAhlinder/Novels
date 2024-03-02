@@ -114,22 +114,49 @@ function getBookInfo(bookId) {
 app.get(`/api/book`, async (req, res) => {
   try {
     const bookName = req.query.title;
-    const [bookInfo] = await Promise.all([bookData(bookName)]);
-    if (bookInfo.length === 0) {
-      res.json({ message: "No book found" });
+
+    if (!bookName) {
+      res.status(400).json({ error: "Something went wront" });
       return;
     }
+
+    const [bookInfo] = await Promise.all([bookData(bookName)]);
+
+    if (bookInfo.length === 0) {
+      res.status(404).json({ message: "No book found" });
+      return;
+    }
+
     const authorInfo = await authorData(bookInfo[0].bookid);
     const bookInfoData = await getBookInfo(bookInfo[0].bookid);
+    const bookRating = await getBookRating(bookInfo[0].bookid);
+
+    // Ensure no sensitive data is included in the response
     res.json({
       data: bookInfo,
       author: authorInfo,
       bookInfoData: bookInfoData,
+      rating: bookRating
     });
   } catch (err) {
-    res.status(500).json({ error: "An error occurred" });
+    console.error(err); // Log the error for debugging
+    res.status(500).json({ error: "An internal server error occurred" });
   }
 });
+
+function getBookRating(bookId) {
+  const query = "SELECT AVG(rating) AS rating FROM reviews WHERE bookid = ?";
+
+  return new Promise((resolve, reject) => {
+    connection.query(query, [bookId], function (error, results) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+    });
+  });
+}
 
 function authorData(id) {
   const query = "SELECT author FROM books WHERE bookid = ?";
