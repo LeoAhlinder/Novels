@@ -62,7 +62,6 @@ const LogIn = () =>{
                     });
                     if (res.ok){
                         const response = await res.json();
-
                         if (response.error) {
                             switch(response.error) {
                                 case "Invalid email":
@@ -78,10 +77,10 @@ const LogIn = () =>{
                                     changeAlerts("Password is too long, max 20 characters");
                                     break;
                                 case "Password is too short":
-                                    changeAlerts("Password is too short, min 5 characters");
+                                    changeAlerts("Password is too short, minimum 5 characters");
                                     break;
                                 case "Username is too long":
-                                    changeAlerts("Username is too long, max 20 characters");
+                                    changeAlerts("Username is too long, maxixmum 20 characters");
                                     break;
                                 default:
                                     changeAlerts("An error occurred, please try again");
@@ -104,13 +103,12 @@ const LogIn = () =>{
                                     changeAlerts("An error occurred, please try again");
                             }
                         } else {
-                            navigate("/error");
+                            changeAlerts("An error occurred, please try again")
                         }
 
                     }else{
-                        navigate("/error")
-                    }
-                 navigate("/error") 
+                        changeAlerts("An error occurred, please try again")
+                    }                
                 }
             }else{
                 changeAlerts("Please enter a valid email")
