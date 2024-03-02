@@ -121,6 +121,10 @@ const Rating = () => {
                     changeResponseMessage("You need to be logged in to post a review")
                     changeResponseMessageColor("red")
                 }
+                else if (response.message === "User has reviewed already"){
+                    changeResponseMessageColor("red")
+                    changeResponseMessage("You have already reviewed this book")
+                }
                 else{
                     changeResponseMessageColor("red")
                     changeResponseMessage("Error posting review")

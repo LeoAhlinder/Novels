@@ -1592,11 +1592,11 @@ app.post("/api/postReview", function (req, res){
         else if (results.length > 0){
           const bookId = results[0].bookid;
           const checkIfUserHasReviewd = "SELECT * FROM reviews WHERE bookid = ? AND userid = ?";
-          connection.query(checkIfUserHasReviewd, [bookId,req.query.userId], async function (error, results) {
+          connection.query(checkIfUserHasReviewd, [bookId,userId], async function (error, results) {
             if (error){
               return res.json({error: "error"});
             }
-            else if (results.length > 0){
+            else if (results.length === 0){
               const insertQuery = "INSERT INTO reviews (bookid, userid, rating, text) VALUES (?, ?, ?, ?)";
               connection.query(insertQuery, [bookId, userId, req.body.rating, req.body.review], function (error, results){
                 if (error){
@@ -1608,7 +1608,7 @@ app.post("/api/postReview", function (req, res){
               });
             }
             else{
-              return res.json({message: "User has not reviewed",bookCover:bookCover});
+              return res.json({message: "User has reviewed already"});
             }
           });
          
