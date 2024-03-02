@@ -39,6 +39,8 @@ const Rating = () => {
     const [responseMessage, changeResponseMessage] = useState("")
     const [responseMessageColor, changeResponseMessageColor] = useState("red")
     const [bookCover, changeBookCover] = useState("")
+    const [reviewsFullyViewed, changeReviewsFullyViewed] = useState([])
+    const maxReviewLength = 650
 
     useEffect(() => {
         try{
@@ -129,7 +131,6 @@ const Rating = () => {
                     changeResponseMessageColor("red")
                     changeResponseMessage("Error posting review")
                 }
-
             }else{
                 if (reviewText.length < 3){
                     changeResponseMessageColor("red")
@@ -168,6 +169,10 @@ const Rating = () => {
             return false
         })
         changeAddReviewStars(newAddReviewStars)
+    }
+
+    function readMoreReview(index){
+        changeReviewsFullyViewed([...reviewsFullyViewed, index])
     }
 
     return (
@@ -213,8 +218,13 @@ const Rating = () => {
                 <>
                     {
                         reviews.map((review, index) => (
-                            <div className="ratingItem" key={index}>
-                                <h3 className="commentUsername">{review.userName}</h3>
+                            <div style={reviewsFullyViewed.includes(index) === true ? {height:"auto"}: {maxHeight:150+"px"}} className={`ratingItem ${review.text.length > 650 ? "loadMoreReviewText" : ""}`} key={index}>
+                                <h3 className="reviewUser">{review.userName !== null ? review.userName : "Deleted user"}</h3>
+                                {reviewsFullyViewed.includes(index) === false && review.text.length > maxReviewLength
+                                ?
+                                    <button className="loadMoreText" onClick={() => readMoreReview(index)}>Read More</button>
+                                : null
+                                }
                                 <div id="reviewStarsRow">
                                     <img className="reviewStar" src={yellowStar} alt="star" />
                                     <img className="reviewStar" src={review.rating >= 2 ? yellowStar : whiteStar} alt="star" />
@@ -223,7 +233,7 @@ const Rating = () => {
                                     <img className="reviewStar" src={review.rating === 5 ? yellowStar : whiteStar} alt="star" />
                                     <p id="ratingText">({`${review.rating}/5`})</p>
                                 </div>
-                                <p className="commentText">{review.text}</p>
+                                <p className="reviewText" >{review.text}</p>
                             </div>
                         ))
                     }
