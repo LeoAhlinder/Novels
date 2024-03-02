@@ -1483,7 +1483,7 @@ app.get("/api/getUsersComments", function (req, res) {
 
         const loadSet = Number(req.query.loadSet);
 
-        const amountOfComments = 3;
+        const amountOfComments = 11;
 
         let maxLimit = loadSet + 1 * amountOfComments;
         let minLimit;
