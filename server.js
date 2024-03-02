@@ -1575,7 +1575,7 @@ app.post("/api/postReview", function (req, res){
   try{
     jwt.verify(req.cookies.authToken, user_secretkey, async function (err, decodedToken){
       if (err){
-        return res.sendStatus(403);
+        return res.json({error: "no token"});
       }
       const userId = decodedToken.user;
 

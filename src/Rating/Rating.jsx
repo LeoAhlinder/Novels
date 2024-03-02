@@ -114,6 +114,10 @@ const Rating = () => {
                     changeWriteReviewView(false)
                     changeReviews([...reviews, {userName:"You", text:reviewText, rating:review}])
                 }
+                else if (response.error === "no token"){
+                    changeResponseMessage("You need to be logged in to post a review")
+                    changeResponseMessageColor("red")
+                }
                 else{
                     changeResponseMessageColor("red")
                     changeResponseMessage("Error posting review")
