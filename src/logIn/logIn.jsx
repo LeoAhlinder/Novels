@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./logIn.css"
 import { useNavigate } from "react-router-dom"
 import validator from "email-validator";
 
 import LoginForm from '../Components/logInComp/logInForm';
 import ChangeDocumentTitle from '../Global/changeDocumentTitle';
+import CheckToken from '../Global/checkToken';
 
 const LogIn = () =>{
 
@@ -34,6 +35,16 @@ const LogIn = () =>{
     const removeInputField = () =>{
         setInputFields(inputFields.slice(0,-1))
     }
+
+    useEffect(() => {
+        const check = async () => {
+            const token = await CheckToken();
+            if (token === "valid") {
+                navigate("/Profile");
+            }
+        }
+        check();
+    }, []);
 
     const createUser = async () =>{
         try{
