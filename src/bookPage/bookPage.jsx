@@ -228,11 +228,12 @@ const BookPage = () =>{
                 changePostCommentAlert:changePostCommentAlert
             })
             if (didCommentPost === true){
+                console.log("postComment")
                 changePostCommentText("")
                 changePostCommentAlert("Comment posted")
                 changeComments(prevState => [
                     ...prevState,
-                    {likes:0, dislikes:0, comment:postCommentText, userName:"You",commentid:prevState.length+1}
+                    {likes:0, dislikes:0, comment:postCommentText, userName:"You",commentid:prevState.length+1,thisUserComment:true}
                 ]);
             }
             if (didCommentPost !== false && didCommentPost !== true){
@@ -283,6 +284,7 @@ const BookPage = () =>{
                     recievedFeedback={givenFeedback !== null ? givenFeedback : null}
                     viewingUser={Username}
                     Username={comment.userName === Username ? "You" : comment.userName}
+                    thisUserComment={comment.userName === Username ? true : false}
                 />  
             ));
         } else {

@@ -1723,5 +1723,24 @@ app.get("/api/getUsersReviews", function (req, res) {
   }
 });
 
+app.delete("/api/deleteComment", function (req, res) {
+  jwt.verify(req.cookies.authToken, user_secretkey, function (err, decodedToken) {
+    if (err){
+      return res.sendStatus(403);
+    }
+    const userId = decodedToken.user;
+    const commentId = req.body.commentId;
+
+    const query = "DELETE FROM comments WHERE userid = ? AND commentid = ?";
+
+    connection.query(query, [userId, commentId], function (error, results){
+      if (error){
+        console.log(error)
+        return res.json({error: "error"});
+      }
+      return res.json({message: "Comment deleted"});
+    });
+  });
+});
 
 module.exports = app;

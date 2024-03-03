@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
+
 import CommentFeedback from "./APIs/commentFeedbackAPI";
+import DeleteComment from "./APIs/deleteCommentAPI";
+
 import downvotePicture from "../../Icons/downvote.svg";
 import downvotePictureFill from "../../Icons/downvote-fill.svg";
 import upvotePicture from "../../Icons/upvote.svg";
 import upvotePicutreFill from "../../Icons/upvote-fill.svg";
 
-const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback,viewingUser }) => {
+import trashcanOpen from "../../Icons/trashcan-open.svg"
+import trashcanClosed from "../../Icons/trashcan-closed.svg"
+
+const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback,viewingUser,thisUserComment }) => {
 
     let likedFeedback = [];
     let dislikedFeedback = [];
@@ -14,6 +20,9 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
         likedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "likes");
         dislikedFeedback = recievedFeedback.filter(feedback => feedback.commentid === id && feedback.feedback === "dislikes");
     }
+
+    const [trashCanHoverd, setTrashCanHoverd] = useState(false);
+    const [commentDeleted, setCommentDeleted] = useState(false);
 
     const [likes, setLikes] = useState(initialLikes);
     const [dislikes, setDislikes] = useState(initialDislikes);
@@ -64,10 +73,29 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
         }
     };
 
+    const deleteComment = async (commentId) => {
+        let commentDeleted = await DeleteComment(commentId);
+        if (commentDeleted === "Deleted") {
+            setCommentDeleted(true); 
+        }
+    }
+
+    if (commentDeleted) {
+        return null;
+    }
+
     return (
         <div className="Comment">
             <h3 className="commentUsername">{Username}</h3>
             <p className="commentText">{commentText}</p>
+            {
+                thisUserComment ?
+                <div className="TrashcanContainer">
+                    <img onMouseEnter={() => setTrashCanHoverd(true)} onMouseLeave={() => setTrashCanHoverd(false)} onClick={() => deleteComment(value)}
+                    className="Trashcan"  src={trashCanHoverd ? trashcanOpen : trashcanClosed} alt="Trash can" />
+                </div>
+            : null
+            }
             <div className="likeDislikeContainer">
                 <div className="feedbackButton">
                     <span className="feedbackText">{likes === null ? 0 : likes}</span>

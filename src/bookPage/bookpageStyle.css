@@ -290,7 +290,21 @@
     justify-content: center;
 }
 
+.Trashcan{
+    max-width: 25px;
+    cursor: pointer;
+}
+
+.TrashcanContainer{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
 .Comment{
+    position: relative;
     background-color: rgb(55, 57, 58);
     padding: 20px;
     border-radius: 5px;
