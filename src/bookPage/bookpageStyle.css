@@ -33,7 +33,7 @@
     width: 100%;
     height: auto;
     margin: 3em 0;
-    background-color: rgb(50, 52, 53);
+    background-color: rgb(38, 40, 41);
     border-radius: 5px;
     display: flex;
     align-items: flex-start; 
@@ -280,7 +280,7 @@
     width: 100%;
     height: auto;
     border: none;
-    background-color: rgb(50, 52, 53);
+    background-color: rgb(38, 40, 41);
     color: white;
     border-radius: 5px;
     margin-top: 5%;
@@ -291,7 +291,7 @@
 }
 
 .Comment{
-    background-color: rgb(93, 99, 101);
+    background-color: rgb(55, 57, 58);
     padding: 20px;
     border-radius: 5px;
 }
