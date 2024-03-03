@@ -66,9 +66,10 @@ const Profile = () => {
                     <p className='userName'>Welcome {userName}</p>
                     <button onClick={() => changeSelected("Info")}className={selected === "Info" ? "buttonClicked" : "profileButton"} id="infoButton">Info</button>
                     <button onClick={() => changeSelected("Comments")} className={selected === "Comments" ? "buttonClicked" : "profileButton"} id="commentsButton">Comments</button>
+                    <button onClick={() => changeSelected("Reviews")} className={selected === "Reviews" ? "buttonClicked" : "profileButton"} id="reviewButton">Reviews</button>
                     <button onClick={() => changeSelected("NovelCreated")}className={selected === "NovelCreated" ? "buttonClicked" : "profileButton"} id="novelsCreatedButton">Novels Created</button>
                     <button onClick={() => changeSelected("Library")} className={selected === "Library" ? "buttonClicked" : "profileButton"} id="libraryButton">Library</button>
-                    <button onClick={() => changeSelected("Reviews")} className={selected === "Reviews" ? "buttonClicked" : "profileButton"} id="reviewButton">Reviews</button>
+
                 </div>
                 <div className="profileHeaderSmall">
                     <button onClick={() => changeSelected("Info")} className="item" id={selected === "Info" ? "itemSelected" : ""}>
