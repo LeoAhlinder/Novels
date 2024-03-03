@@ -290,6 +290,10 @@
     justify-content: center;
 }
 
+.thisUserComment{
+    color: rgb(230, 101, 101);
+}
+
 .Trashcan{
     max-width: 25px;
     cursor: pointer;

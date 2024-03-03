@@ -86,7 +86,7 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
 
     return (
         <div className="Comment">
-            <h3 className="commentUsername">{Username}</h3>
+            <h3 className={thisUserComment ? "thisUserComment commentUsername" : "commentUsername"}>{Username}</h3>
             <p className="commentText">{commentText}</p>
             {
                 thisUserComment ?
