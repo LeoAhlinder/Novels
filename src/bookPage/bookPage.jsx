@@ -228,7 +228,6 @@ const BookPage = () =>{
                 changePostCommentAlert:changePostCommentAlert
             })
             if (didCommentPost === true){
-                console.log("postComment")
                 changePostCommentText("")
                 changePostCommentAlert("Comment posted")
                 changeComments(prevState => [
@@ -346,8 +345,8 @@ const BookPage = () =>{
                                 <div>
                                     <img className="bookPageStar" src={rating >= 1 ? yellowStar : whiteStar} alt="star" />
                                     <img className="bookPageStar" src={rating >= 2 ? yellowStar : whiteStar} alt="star" />
-                                    <img className="bookPageStar" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
                                     <img className="bookPageStar" src={rating >= 3 ? yellowStar : whiteStar} alt="star" />
+                                    <img className="bookPageStar" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
                                     <img className="bookPageStar" src={rating >= 5 ? yellowStar : whiteStar} alt="star" />
                                 </div>
                                 <button className="rateButton" onClick={() => goToRatingSite()}>Rate this book</button>
@@ -412,8 +411,8 @@ const BookPage = () =>{
                                             <div>
                                                 <img className="bookPageStar" src={rating >= 1 ? yellowStar : whiteStar} alt="star" />
                                                 <img className="bookPageStar" src={rating >= 2 ? yellowStar : whiteStar} alt="star" />
-                                                <img className="bookPageStar" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
                                                 <img className="bookPageStar" src={rating >= 3 ? yellowStar : whiteStar} alt="star" />
+                                                <img className="bookPageStar" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
                                                 <img className="bookPageStar" src={rating >= 5 ? yellowStar : whiteStar} alt="star" />
                                             </div>
                                         </div>

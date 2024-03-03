@@ -73,7 +73,13 @@ const Rating = () => {
                             sumOfRatings += response.data[i].rating
                         }
                         sumOfRatings = sumOfRatings.toFixed(1)
-                        changeRating((sumOfRatings/response.data.length).toFixed(1))
+                        const averageRating = (sumOfRatings/response.data.length).toFixed(1)
+                        if (averageRating.split(".")[1] === "0"){
+                            changeRating(averageRating.split(".")[0])
+                        }
+                        else{
+                            changeRating(averageRating)
+                        }
                     }
                 }
                
@@ -186,8 +192,8 @@ const Rating = () => {
                     <div>
                         <img className="star" src={rating >= 1 ? yellowStar : whiteStar} alt="star" />
                         <img className="star" src={rating >= 2 ? yellowStar : whiteStar} alt="star" />
-                        <img className="star" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
                         <img className="star" src={rating >= 3 ? yellowStar : whiteStar} alt="star" />
+                        <img className="star" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
                         <img className="star" src={rating >= 5 ? yellowStar : whiteStar} alt="star" />
                         <p id="reviewText">This book has a rating of {rating}/5</p>
                     </div>
