@@ -1673,5 +1673,55 @@ function validateUserReview(data){
   }
 }
 
+app.get("/api/getUsersReviews", function (req, res) {
+  try {
+    jwt.verify(
+      req.cookies.authToken,
+      user_secretkey,
+      function (err, decodedToken) {
+        if (err) {
+          return res.sendStatus(403);
+        }
+
+        const loadSet = Number(req.query.loadSet);
+
+        const amountOfComments = 11;
+
+        let maxLimit = loadSet + 1 * amountOfComments;
+        let minLimit;
+        if (loadSet > 0) {
+          minLimit = loadSet * amountOfComments - 1;
+        } else {
+          minLimit = loadSet * amountOfComments;
+        }
+
+        const userId = decodedToken.user;
+        const query = "SELECT books.title, reviews.rating, reviews.text FROM reviews LEFT JOIN books ON reviews.bookid = books.bookid WHERE reviews.userid = ? ORDER BY reviews.reviewid DESC LIMIT ?,?";
+
+        connection.query(
+          query,
+          [userId, minLimit, maxLimit],
+          function (error, results) {
+            if (error) {
+              return res.json({ error: "error" });
+            } else if (results.length > 0) {
+              if (results.length === amountOfComments) {
+                results.pop();
+                return res.json({ reviews: results, moreReviews: true });
+              } else {
+                return res.json({ reviews: results, moreReviews: false });
+              }
+            } else {
+              return res.json({ message: "No comments found" });
+            }
+          }
+        );
+      }
+    );
+  } catch (err) {
+    return res.json({ error: "error" });
+  }
+});
+
 
 module.exports = app;

@@ -9,6 +9,7 @@ import Library from "./Library"
 import NovelCreated from "./profileComponents/novelsCreated/novelsCreated";
 import Info from "./profileComponents/Info/Info";
 import ViewAllComments from "./profileComponents/Comments/viewAllComments";
+import ViewAllReviews from "./profileComponents/Reviews/viewAllReviews";
 
 const Profile = () => {
 
@@ -94,6 +95,7 @@ const Profile = () => {
                     {selected === "Library" && <Library/>}
                     {selected === "Info" && <Info/>}
                     {selected === "Comments" && <ViewAllComments/>}
+                    {selected === "Reviews" && <ViewAllReviews/>}
                 </div>
             </>
             }

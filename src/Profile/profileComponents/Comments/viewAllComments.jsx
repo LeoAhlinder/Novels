@@ -1,7 +1,8 @@
-import React, {useEffect,useState,useMemo} from "react";
+import React, {useEffect,useState} from "react";
 import "./viewAllCommentsStyle.css"
 
 import { useNavigate } from "react-router";
+import ReviewsAndComments from "../../../Components/Profile/ReviewsAndComments"
 
 const ViewAllComments = () => {
 
@@ -80,30 +81,17 @@ const ViewAllComments = () => {
     }
 
     return (
-        <div id="commentSectionContainer">
-            <h1 id="commentProfileHeader">Your Comments</h1>
-            {loading ? <p>Loading...</p> : 
-            <>
-                <div id="commentsContainer">
-                    {comments.length > 0 ? comments.map((comment,index) => {
-                        return(
-                            <div className="commentProfile" key={index}>
-                                <h2>{comment.title}</h2>
-                                <p className="commentTextProfile">{comment.comment}</p>
-                                <button className="navigateBookButton" onClick={() => goToBook(comment.title)}>Go To Book</button>
-                            </div>
-                        )
-                    })
-                    : 
-                    <div className="noComments">{noticeText}</div>}
-                </div>
-                <div>
-                    {moreCommentsExist ? <button onClick={() => fetchMoreComments(loadSet + 1)} id="loadMoreComments">Load More Comments</button> : ""}
-                </div>
-            </>
-            
-            }
-        </div>
+        <ReviewsAndComments
+            loading={loading}
+            contents={comments}
+            fetchMoreContent={fetchMoreComments}
+            goToBook={goToBook}
+            noticeText={noticeText}
+            moreCommentsExist={moreCommentsExist}
+            loadSet={loadSet}
+            loadMoreText="Load More Comments"
+            viewText="Your Comments"
+        />
     )
 }
 
