@@ -66,7 +66,6 @@ const Info = () =>{
                 });
                 if (res.ok){
                     const response = await res.json();
-                    console.log(response)
                     if (response.message === "success")
                     {
                         changeUserName(response.userData.userName)
