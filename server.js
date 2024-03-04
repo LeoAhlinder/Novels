@@ -1713,7 +1713,6 @@ app.get("/api/getUsersReviews", function (req, res) {
           minLimit = loadSet * amountOfComments;
         }
 
-
         const userId = decodedToken.user;
         const query = "SELECT books.title, reviews.rating, reviews.text FROM reviews LEFT JOIN books ON reviews.bookid = books.bookid WHERE reviews.userid = ? ORDER BY reviews.reviewid DESC LIMIT ?,?";
 
@@ -1731,7 +1730,7 @@ app.get("/api/getUsersReviews", function (req, res) {
                 return res.json({ reviews: results, moreReviews: false});
               }
             } else {
-              return res.json({ message: "No comments found" });
+              return res.json({ message: "No reviews found" });
             }
           }
         );

@@ -37,14 +37,16 @@ const ViewAllReviews = () => {
                     }
                     return response.reviews
                 }
-                if (response.error){
+                if (response.message === "No reviews found"){
+                    changeNoticeText("You have not reviewed any novels yet")
+                }
+
+                else if (response.error){
                     changeNoticeText("Something went wrong, please try again later")
                 }
                 else if (response.reviews.length > 0){
                     changeReviews(response.reviews)
-                    if (response.moreReviews === true){
-                        changeMoreReviewsExists(true)
-                    }
+                    changeMoreReviewsExists(response.moreReviews)
                 }
                 else{
                     changeReviews([])
@@ -56,7 +58,8 @@ const ViewAllReviews = () => {
                 changeNoticeText("Something went wrong, please try again later")
             }
         } catch (err) {
-            navigate("/error");
+            console.log(err)
+            //navigate("/error");
         }
     }
 
