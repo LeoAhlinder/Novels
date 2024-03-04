@@ -195,7 +195,7 @@ const Rating = () => {
         changeReviewsFullyViewed([...reviewsFullyViewed, index])
     }
 
-    async function deleteReview(){
+    async function deleteReview(index){
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/deleteReview`,{
             method:"DELETE",
             headers: {  
@@ -209,7 +209,9 @@ const Rating = () => {
         const response = await res.json();
         if (response.message === "Review deleted"){
             changeReviewPosted(false)
-            window.location.reload()
+            const newReviews = [...reviews];
+            newReviews.splice(index, 1);
+            changeReviews(newReviews);
         }
     }
 
@@ -275,7 +277,7 @@ const Rating = () => {
                                 {
                                     review.userName === userName ?
                                     <div className="TrashcanContainer">
-                                        <img onMouseEnter={() => setTrashCanHoverd(true)} onMouseLeave={() => setTrashCanHoverd(false)} onClick={() => deleteReview()}
+                                        <img onMouseEnter={() => setTrashCanHoverd(true)} onMouseLeave={() => setTrashCanHoverd(false)} onClick={() => deleteReview(index)}
                                         className="Trashcan"  src={trashCanHoverd ? trashcanClosed : trashcanOpen} alt="Trash can" />
                                     </div>
                                     : null
