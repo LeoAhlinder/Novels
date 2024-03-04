@@ -441,7 +441,7 @@ const BookPage = () =>{
                                     <div className="bookExtraInfoText">
                                         <h2>Overall Information</h2>
                                         <div className="extraInfoRow">
-                                            <p className="bookExtraRowText">Recommended Age:&nbsp;{bookExtraInfo.warnings}</p>
+                                            <p className="bookExtraRowText">Recommended&nbsp;Age: {bookExtraInfo.warnings}</p>
                                             <p className="bookExtraRowText">Language:&nbsp;{bookExtraInfo.language}</p>
                                             <div className="bookExtraInfoTags">
                                                 Tags:

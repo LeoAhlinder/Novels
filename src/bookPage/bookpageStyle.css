@@ -157,6 +157,7 @@
     text-align: start;
     padding: 4%;
     height: auto;
+    word-break: break-word;
     text-overflow: ellipsis;
 }
 
@@ -201,7 +202,7 @@
 
 @media screen and (max-width:1200px) {
     .Wrapper{
-        max-width: 90%;
+        max-width: 100%;
     }
 }
 
@@ -424,10 +425,8 @@
 
     #phone{
         display: block;
-        background-color: rgb(50, 52, 53);
         padding-bottom: 15px;
         border-radius: 10px;
-        padding: 10px;
     }
     #desktop{
         display: none;
@@ -515,12 +514,23 @@
         align-items: center;
         text-align: center;
     }
+    .commentField{
+        width: 40em;
+    }
 }
 
+@media screen and (max-width:800px) {
+    .commentField{
+        width: 33em;
+    }
+}
 @media screen and (max-width:650px) {
     .bookPageStar{
         max-width: 30px;
         margin-right: 3px;
+    }
+    .commentField{
+        width: 26em;
     }
 }
 
@@ -542,17 +552,10 @@
         height: 60px;
     }
 
-    .commentContainer{
-        padding: 10px;
-    }
-
     .headerContainer{
         width: 100%;
         display: flex;
         flex-direction: column;
-    }
-    .writeCommentButton{
-        font-size: 0.8em;
     }
     .writeCommentContainer{
         display: flex;
@@ -560,6 +563,15 @@
         justify-content: center;
         padding: 0;
         margin-top: 5px;
+    }
+    .commentField{
+        width: 22em;
+    }
+}
+
+@media screen and (max-width:450px) {
+    .commentField{
+        width: 19em;
     }
 }
 
@@ -587,8 +599,14 @@
         padding: 4px;
     }
     .commentField{
-        width: 12em;
-        padding: 0px;
+        width: 18em;
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width:315px) {
+    .commentField{
+        width: 16em;
     }
 }
 
