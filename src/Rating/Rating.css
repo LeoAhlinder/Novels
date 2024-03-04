@@ -29,6 +29,10 @@
     color: white;
 }
 
+.thisUsersComment{
+    color: rgb(230, 101, 101);
+}
+
 .loadMoreText{
     position: absolute;
     background-color: rgba(47, 51, 66, 0.9);

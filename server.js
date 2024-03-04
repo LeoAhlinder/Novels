@@ -1549,32 +1549,50 @@ app.get("/api/getUsersComments", function (req, res) {
   }
 });
 
-app.get("/api/getRatingAndInfo", async function (req, res){ 
+app.get("/api/getRatingAndInfo", function (req, res){ 
   try{
-    const bookName = req.query.bookName;
-    const getBookIdQuery = "SELECT bookid,bookcover FROM books WHERE title = ?";
-    connection.query(getBookIdQuery, [bookName], async function (error, results) {
-      if (error){
-        return res.json({error: "error"});
-      }
-      else if (results.length > 0){
-        const bookId = results[0].bookid;
-        const bookCover = results[0].bookcover;
-        try {
-          const response = await getBookReviews(bookId);
-          if (response === "No reviews found"){
-            return res.json({message: "No reviews found",bookCover:bookCover});
-          }else if (response === "Error"){
+    jwt.verify(req.cookies.authToken, user_secretkey, async function (err, decodedToken){
+      const bookName = req.query.bookName;
+      const getBookIdQuery = "SELECT bookid,bookcover FROM books WHERE title = ?";
+      connection.query(getBookIdQuery, [bookName], async function (error, results) {
+        if (error){
+          return res.json({error: "error"});
+        }
+        else if (results.length > 0){
+          const bookId = results[0].bookid;
+          const bookCover = results[0].bookcover;
+          const userId = decodedToken.user;
+  
+          let userName;
+  
+          if (userId !== undefined) {
+            const query = "SELECT userName FROM users WHERE userid = ?";
+            connection.query(query, [userId], function (error, results) {
+              if (error) {
+                return res.status(500).json({ error: "Database error" });
+              }
+              if (results.length > 0) {
+                userName = results[0].userName;
+              }
+            });
+          }
+  
+          try {
+            const response = await getBookReviews(bookId);
+            if (response === "No reviews found"){
+              return res.json({message: "No reviews found",bookCover:bookCover});
+            }else if (response === "Error"){
+              return res.json({error: "error getting reviews"});
+            }
+            return res.json({message: "success", data: response,bookCover:bookCover,userName:userName});
+          } catch (error) {
             return res.json({error: "error getting reviews"});
           }
-          return res.json({message: "success", data: response,bookCover:bookCover});
-        } catch (error) {
-          return res.json({error: "error getting reviews"});
         }
-      }
-      else{
-        return res.json({message: "No data found"});
-      }
+        else{
+          return res.json({message: "No data found"});
+        }
+      });
     });
   }catch(err){
     return res.json({error: "error"});
@@ -1695,6 +1713,7 @@ app.get("/api/getUsersReviews", function (req, res) {
           minLimit = loadSet * amountOfComments;
         }
 
+
         const userId = decodedToken.user;
         const query = "SELECT books.title, reviews.rating, reviews.text FROM reviews LEFT JOIN books ON reviews.bookid = books.bookid WHERE reviews.userid = ? ORDER BY reviews.reviewid DESC LIMIT ?,?";
 
@@ -1707,9 +1726,9 @@ app.get("/api/getUsersReviews", function (req, res) {
             } else if (results.length > 0) {
               if (results.length === amountOfComments) {
                 results.pop();
-                return res.json({ reviews: results, moreReviews: true });
+                return res.json({ reviews: results, moreReviews: true});
               } else {
-                return res.json({ reviews: results, moreReviews: false });
+                return res.json({ reviews: results, moreReviews: false});
               }
             } else {
               return res.json({ message: "No comments found" });

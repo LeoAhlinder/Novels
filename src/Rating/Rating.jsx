@@ -13,6 +13,9 @@ import pinkForest from "../picturesForBooks/pinkForest.webp"
 import whiteStar from "../Icons/star-white.svg"
 import yellowStar from "../Icons/star-yellow.svg"
 
+import TrashcanOpen from "../Icons/trashcan-closed.svg"
+import TrashcanClosed from "../Icons/trashcan-open.svg" 
+
 const Rating = () => {
 
     const bookCoverImages = {
@@ -40,6 +43,8 @@ const Rating = () => {
     const [responseMessageColor, changeResponseMessageColor] = useState("red")
     const [bookCover, changeBookCover] = useState("")
     const [reviewsFullyViewed, changeReviewsFullyViewed] = useState([])
+    const [userName, changeUserName] = useState("")
+
     const maxReviewLength = 650
 
     useEffect(() => {
@@ -50,7 +55,9 @@ const Rating = () => {
                     headers: {  
                         "Content-Type": "application/json",
                         "Accept": "application/json",
+                        "Allow-Credentials": "true",
                     },
+                    credentials: "include"
                 });
                 const response = await res.json();
                 if (response.error){
@@ -66,6 +73,7 @@ const Rating = () => {
                 else if (response.data){
                     if (response.data.length > 0 && response.message === "success"){
                         changeReviews(response.data)
+                        changeUserName(response.userName)
                         changeLoading(false)
                         changeBookCover(response.bookCover)
                         let sumOfRatings = 0;
@@ -82,13 +90,11 @@ const Rating = () => {
                         }
                     }
                 }
-               
                 else{
                     changeReviews([])
                     changeLoading(false)
                 }
             }
-
         getRatingAndInfo();
 
         }catch(err){
@@ -225,7 +231,7 @@ const Rating = () => {
                     {
                         reviews.map((review, index) => (
                             <div style={reviewsFullyViewed.includes(index) === true ? {height:"auto"}: {maxHeight:150+"px"}} className={`ratingItem ${review.text.length > 650 ? "loadMoreReviewText" : ""}`} key={index}>
-                                <h3 className="reviewUser">{review.userName !== null ? review.userName : "Deleted user"}</h3>
+                                <h3 className={`reviewUser ${review.userName === userName ? "thisUsersComment" : ""}`}>{review.userName !== null ? review.userName === userName ? "You" : review.userName : "Deleted user"}</h3>
                                 {reviewsFullyViewed.includes(index) === false && review.text.length > maxReviewLength
                                 ?
                                     <button className="loadMoreText" onClick={() => readMoreReview(index)}>Read More</button>
