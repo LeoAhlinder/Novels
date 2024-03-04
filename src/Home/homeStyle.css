@@ -111,6 +111,9 @@ body{
   }
 
 @media screen and (max-width:600px) {
+    #bookTitle{
+        font-size: 0.65em
+    }
     .introText:nth-child(2) {
         margin-top: 60px !important;
         font-size: 1.4rem !important;
