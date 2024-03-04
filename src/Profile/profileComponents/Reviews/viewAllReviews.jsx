@@ -58,8 +58,7 @@ const ViewAllReviews = () => {
                 changeNoticeText("Something went wrong, please try again later")
             }
         } catch (err) {
-            console.log(err)
-            //navigate("/error");
+            navigate("/error");
         }
     }
 

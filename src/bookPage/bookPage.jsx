@@ -230,13 +230,19 @@ const BookPage = () =>{
             if (didCommentPost === true){
                 changePostCommentText("")
                 changePostCommentAlert("Comment posted")
-                changeComments(prevState => [
-                    ...prevState,
-                    {likes:0, dislikes:0, comment:postCommentText, userName:"You",commentid:prevState.length+1,thisUserComment:true}
-                ]);
+                FetchComments({
+                    bookId: bookId,
+                    changeComments: changeComments,
+                    navigate: navigate,
+                    changeUsername: changeUsername,
+                    changeGivenFeedback:changeGivenFeedback,
+                    loadSet: loadSet,
+                    changeMoreCommentsExist:changeMoreCommentsExist
+                });
             }
             if (didCommentPost !== false && didCommentPost !== true){
                 changePostCommentAlert("Error posting comment")
+               
             }
         }catch(err){
             navigate("/error")

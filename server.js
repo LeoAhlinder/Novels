@@ -1191,7 +1191,7 @@ app.get("/api/comments", function (req, res) {
           (COALESCE(comments.likes, 0) - COALESCE(comments.dislikes, 0) / 2) AS likesDislikes
         FROM comments
         LEFT JOIN users ON comments.userid = users.userid
-        WHERE comments.bookid = ?
+        WHERE comments.bookid = ? AND DELETED = 0
         ORDER BY likesDislikes DESC
         LIMIT ? , ?;
       `;
@@ -1278,7 +1278,7 @@ app.post("/api/postComment", function (req, res) {
         }
 
         const query =
-          "INSERT INTO comments (userid, bookid, comment) VALUES (?, ?, ?)";
+          "INSERT INTO comments (userid, bookid, comment,DELETED) VALUES (?, ?, ?,0)";
         connection.query(
           query,
           [userId, bookId, comment],
@@ -1749,8 +1749,8 @@ app.delete("/api/deleteComment", function (req, res) {
     const userId = decodedToken.user;
     const commentId = req.body.commentId;
 
-    const query = "DELETE FROM comments WHERE userid = ? AND commentid = ?";
-
+    const query = "UPDATE comments SET DELETED = 1 WHERE userid = ? AND commentid = ?";
+    
     connection.query(query, [userId, commentId], function (error, results){
       if (error){
         console.log(error)
