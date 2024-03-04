@@ -1762,4 +1762,26 @@ app.delete("/api/deleteComment", function (req, res) {
   });
 });
 
+app.delete("/api/deleteReview", function (req, res) {
+  try{
+    jwt.verify(req.cookies.authToken, user_secretkey, function (err, decodedToken) {
+      if (err){
+        return res.sendStatus(403);
+      }
+      const userId = decodedToken.user;
+      const bookName = req.body.bookName;
+
+      const query = "DELETE FROM reviews WHERE userid = ? AND bookid = (SELECT bookid FROM books WHERE title = ?)";
+      connection.query(query, [userId, bookName], function (error, results){
+        if (err){
+          return res.json({error: "error"});
+        }
+        return res.json({message: "Review deleted"});
+      });
+    });
+  }catch(err){
+    return res.json({error: "error"});
+  }
+});
+
 module.exports = app;

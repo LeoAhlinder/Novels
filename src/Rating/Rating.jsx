@@ -13,8 +13,8 @@ import pinkForest from "../picturesForBooks/pinkForest.webp"
 import whiteStar from "../Icons/star-white.svg"
 import yellowStar from "../Icons/star-yellow.svg"
 
-import TrashcanOpen from "../Icons/trashcan-closed.svg"
-import TrashcanClosed from "../Icons/trashcan-open.svg" 
+import trashcanOpen from "../Icons/trashcan-closed.svg"
+import trashcanClosed from "../Icons/trashcan-open.svg" 
 
 const Rating = () => {
 
@@ -44,6 +44,8 @@ const Rating = () => {
     const [bookCover, changeBookCover] = useState("")
     const [reviewsFullyViewed, changeReviewsFullyViewed] = useState([])
     const [userName, changeUserName] = useState("")
+    const [trashCanHoverd, setTrashCanHoverd] = useState(false)
+    const [reviewPosted, changeReviewPosted] = useState(false)
 
     const maxReviewLength = 650
 
@@ -104,6 +106,11 @@ const Rating = () => {
 
     async function postReview(){
         try{
+            if (reviewPosted){
+                changeResponseMessageColor("red")
+                changeResponseMessage("You have already posted a review")
+                return
+            }
             const review = addReviewStars.filter(star => star).length
 
             if (reviewText.length > 3 && reviewText.length < 2000 && review > 0 && review <= 5){
@@ -125,6 +132,7 @@ const Rating = () => {
                 const response = await res.json();
                 if (response.message === "Review posted"){
                     changeResponseMessageColor("green")
+                    changeReviewPosted(true)
                     changeResponseMessage("Review posted")
                     changePostCommentText("")
                     changeAddReviewStars([false,false,false,false,false])
@@ -187,6 +195,24 @@ const Rating = () => {
         changeReviewsFullyViewed([...reviewsFullyViewed, index])
     }
 
+    async function deleteReview(){
+        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/deleteReview`,{
+            method:"DELETE",
+            headers: {  
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Accept-Credentials": "include"
+            },  
+            credentials: "include",
+            body: JSON.stringify({bookName:bookName})
+        });
+        const response = await res.json();
+        if (response.message === "Review deleted"){
+            changeReviewPosted(false)
+            window.location.reload()
+        }
+    }
+
     return (
         <div className="ratingContainer">
             <div id="ratingDescription">
@@ -231,7 +257,7 @@ const Rating = () => {
                     {
                         reviews.map((review, index) => (
                             <div style={reviewsFullyViewed.includes(index) === true ? {height:"auto"}: {maxHeight:150+"px"}} className={`ratingItem ${review.text.length > 650 ? "loadMoreReviewText" : ""}`} key={index}>
-                                <h3 className={`reviewUser ${review.userName === userName ? "thisUsersComment" : ""}`}>{review.userName !== null ? review.userName === userName ? "You" : review.userName : "Deleted user"}</h3>
+                                <h3 className={`thisUsersComment ${review.userName === userName ? "reviewUser" : ""}`}>{review.userName !== null ? review.userName === userName ? "You" : review.userName : "Deleted user"}</h3>
                                 {reviewsFullyViewed.includes(index) === false && review.text.length > maxReviewLength
                                 ?
                                     <button className="loadMoreText" onClick={() => readMoreReview(index)}>Read More</button>
@@ -246,6 +272,14 @@ const Rating = () => {
                                     <p id="ratingText">({`${review.rating}/5`})</p>
                                 </div>
                                 <p className="reviewText" >{review.text}</p>
+                                {
+                                    review.userName === userName ?
+                                    <div className="TrashcanContainer">
+                                        <img onMouseEnter={() => setTrashCanHoverd(true)} onMouseLeave={() => setTrashCanHoverd(false)} onClick={() => deleteReview()}
+                                        className="Trashcan"  src={trashCanHoverd ? trashcanClosed : trashcanOpen} alt="Trash can" />
+                                    </div>
+                                    : null
+                                }
                             </div>
                         ))
                     }
