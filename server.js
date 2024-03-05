@@ -1523,7 +1523,7 @@ app.get("/api/getUsersComments", function (req, res) {
         const userId = decodedToken.user;
         const query =
           `SELECT comments.comment, comments.bookid, books.title FROM comments LEFT JOIN books ON 
-          comments.bookid = books.bookid WHERE userid = ? ORDER BY comments.commentid DESC LIMIT ?,?`;
+          comments.bookid = books.bookid WHERE userid = ? AND DELETED = 0 ORDER BY comments.commentid DESC LIMIT ?,?`;
         connection.query(
           query,
           [userId, minLimit, maxLimit],
@@ -1714,7 +1714,8 @@ app.get("/api/getUsersReviews", function (req, res) {
         }
 
         const userId = decodedToken.user;
-        const query = "SELECT books.title, reviews.rating, reviews.text FROM reviews LEFT JOIN books ON reviews.bookid = books.bookid WHERE reviews.userid = ? ORDER BY reviews.reviewid DESC LIMIT ?,?";
+        const query = `SELECT books.title, reviews.rating, reviews.text FROM reviews LEFT JOIN books ON 
+        reviews.bookid = books.bookid WHERE reviews.userid = ? ORDER BY reviews.reviewid DESC LIMIT ?,?`;
 
         connection.query(
           query,
