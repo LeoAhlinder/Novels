@@ -9,7 +9,7 @@ import CheckToken from '../Global/checkToken';
 
 const LogIn = () =>{
 
-    ChangeDocumentTitle("Log In")
+    ChangeDocumentTitle("Log In | Novels")
 
     const navigate = useNavigate();
 

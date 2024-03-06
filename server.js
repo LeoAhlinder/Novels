@@ -7,10 +7,10 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const validator = require("validator");
+const bcrypt = require("bcrypt");
 
 const { env } = require("process");
 const { config } = require("dotenv");
-const e = require("express");
 
 // Load environment variables from .env file
 config();
@@ -230,7 +230,7 @@ function bookData(bookName) {
   });
 }
 
-function validateUserCredientles(data) {
+function validateUserCredentials(data) {
   if (
     !data.email ||
     !data.username ||
@@ -268,13 +268,14 @@ app.post("/api/createaccount", function (req, res) {
   try {
     const data = req.body;
 
-    const validation = validateUserCredientles(data);
+    const validation = validateUserCredentials(data);
     if (validation !== "OK") {
       return res.json({ error: validation });
     }
 
     const email = validator.normalizeEmail(data.email);
     const username = validator.trim(data.username);
+    const password = data.password;
 
     const currentDate = new Date().toISOString().split("T")[0];
 
@@ -300,19 +301,27 @@ app.post("/api/createaccount", function (req, res) {
             res.json({ message: "userName exist" });
           }
         } else {
-          const query =
-            "INSERT INTO users (userName,userPassword,userEmail,dateCreated) VALUES (?,?,?,?)";
-          connection.query(
-            query,
-            [data.username, data.password, data.email, currentDate],
-            function (error, results) {
-              if (error) {
-                res.status(500).json({ error: "An error occurred." });
-              } else {
-                res.json({ message: "user created" });
-              }
+          bcrypt.hash(password, 10, function (err, hashedPassword) {
+            if (err) {
+              console.error("Error hashing password:", err);
+              res.status(500).json({ error: "An error occurred." });
+              return;
             }
-          );
+            const query =
+              "INSERT INTO users (userName,userPassword,userEmail,dateCreated) VALUES (?,?,?,?)";
+            connection.query(
+              query,
+              [username, hashedPassword, email, currentDate],
+              function (error, results) {
+                if (error) {
+                  console.log(error);
+                  res.status(500).json({ error: "An error occurred." });
+                } else {
+                  res.json({ message: "user created" });
+                }
+              }
+            );
+          });
         }
       }
     );
@@ -324,31 +333,43 @@ app.post("/api/createaccount", function (req, res) {
 app.post("/api/logIn", function (req, res) {
   try {
     const data = req.body;
+    const username = data[0];
+    const password = data[1];
 
-    const query = "SELECT * FROM users WHERE userName = ? AND userPassword = ?";
-    connection.query(query, [data[0], data[1]], function (error, results) {
+    const query = "SELECT * FROM users WHERE userName = ?";
+    connection.query(query, [username], function (error, results) {
       if (error) {
         res.status(500).json({ error: "An error occurred." });
+        return;
       }
-      if (results == null || results == undefined) {
+      if (results.length === 0) {
         res.json({ message: "no user exist" });
         return;
       }
-      if (results.length > 0) {
-        const user = results[0]; // Assuming results contain user data
-        const userName = user.userName;
-        const token = jwt.sign({ user: user.userid }, user_secretkey);
-        res.cookie("authToken", token, {
-          httpOnly: true,
-          sameSite: "none",
-          path: "/",
-          expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-          secure: true,
-        });
-        res.json({ message: "user exist", userName: userName, token: token });
-      } else {
-        res.json({ message: "no user exist" });
-      }
+
+      const user = results[0];
+      bcrypt.compare(password, user.userPassword, function (err, result) {
+        if (err) {
+          console.error("Error comparing passwords:", err);
+          res.status(500).json({ error: "An error occurred." });
+          return;
+        }
+
+        if (result) {
+          const userName = user.userName;
+          const token = jwt.sign({ user: user.userid }, user_secretkey);
+          res.cookie("authToken", token, {
+            httpOnly: true,
+            sameSite: "none",
+            path: "/",
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
+            secure: true,
+          });
+          res.json({ message: "user exist", userName: userName, token: token });
+        } else {
+          res.json({ message: "no user exist" });
+        }
+      });
     });
   } catch (err) {
     res.json({ error: "error" });
@@ -1508,7 +1529,6 @@ app.get("/api/getUserInfo", function (req, res) {
             connection.query(query, [userId], function (error, results) {
               if (error) {
                 console.log(error);
-
                 return res.json({ error: "error" });
               }
               if (results.length > 0) {
