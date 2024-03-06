@@ -3,8 +3,11 @@ import "./infoStyle.css"
 
 import removeHttpCookie from "../../../Global/removeHttpCookie";
 import { useNavigate } from "react-router";
+import ChangeDocumentTitle from "../../../Global/changeDocumentTitle";
 
 const Info = () =>{
+
+    ChangeDocumentTitle("Profile Info | Novels")
 
     const [deleteAccountAlertVisible,changeDeleteAccountAlertVisible] = useState(false)
     const [userName,changeUserName] = useState("")

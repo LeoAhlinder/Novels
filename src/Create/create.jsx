@@ -6,7 +6,7 @@ import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 const Create = () =>{
 
-    ChangeDocumentTitle("Create")
+    ChangeDocumentTitle("Create | Novels")
 
     const navigate = useNavigate()
 

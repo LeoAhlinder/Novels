@@ -19,7 +19,7 @@ const NovelCreated = () =>{
         pinkForest: pinkForest,
       };
 
-    ChangeDocumentTitle("Novels Created")
+    ChangeDocumentTitle("Novels Created | Novels")
 
     const navigate = useNavigate()
 

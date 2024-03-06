@@ -19,7 +19,7 @@ const SearchBar = () =>{
         pinkForest: pinkForest,
     };
 
-    ChangeDocumentTitle("Search")
+    ChangeDocumentTitle("Search | Novels")
 
     const navigate = useNavigate()
 

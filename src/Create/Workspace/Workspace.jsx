@@ -24,7 +24,7 @@ const Workspace = () =>{
         pinkForest: pinkForest,
     };
 
-    ChangeDocumentTitle("Workspace")
+    ChangeDocumentTitle("Workspace | Novels")
 
     useEffect(()=>{
         try{

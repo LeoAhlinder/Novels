@@ -23,7 +23,7 @@ const MostPopular  = () =>{
         pinkForest: pinkForest,
     };
 
-    ChangeDocumentTitle("Most Popular")
+    ChangeDocumentTitle("Most Popular | Novels")
 
     const [books,setBooks] = useState([])
 

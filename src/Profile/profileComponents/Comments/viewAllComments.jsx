@@ -31,13 +31,19 @@ const ViewAllComments = () => {
             });
             if (res.ok) {
                 const response = await res.json();
+                console.log(response)
                 if (loadSet > 0){
                     if (response.moreComments === false){
                         changeMoreCommentsExist(false)
                     }
                     return response.comments
                 }
-                if (response.error){
+                if (response.message === "No comments found"){
+                    changeComments([])
+                    changeLoading(false)
+                    changeNoticeText("You have not commented on any novels")
+                }
+                else if (response.error){
                     changeNoticeText("Something went wrong, please try again later")
                 }
                 else if (response.comments.length > 0){
@@ -56,6 +62,7 @@ const ViewAllComments = () => {
                 changeNoticeText("Something went wrong, please try again later")
             }
         } catch (err) {
+            console.log(err)
             navigate("/error");
         }
     }

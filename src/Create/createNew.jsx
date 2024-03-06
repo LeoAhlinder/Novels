@@ -11,7 +11,7 @@ import forest from "../picturesForBooks/forest.webp"
 
 const CreateNew = () =>{
 
-    ChangeDocumentTitle("Create Novel")
+    ChangeDocumentTitle("Create Novel | Novels")
 
     const navigate = useNavigate()
 

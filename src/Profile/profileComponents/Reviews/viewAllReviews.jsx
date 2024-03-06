@@ -3,8 +3,12 @@ import React, {useEffect,useState} from "react";
 import { useNavigate } from "react-router";
 import ReviewsAndComments from "../../../Components/Profile/ReviewsAndComments"
 
+import ChangeDocumentTitle from "../../../Global/changeDocumentTitle";
+
 
 const ViewAllReviews = () => {
+
+    ChangeDocumentTitle("Your Reviews | Novels")
 
     const navigate = useNavigate()
 
