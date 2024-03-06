@@ -75,6 +75,12 @@
     resize: none;
     font-size: 1.2em;
     overflow-y: auto;
+    font-family: Roboto;
+}
+
+@font-face {
+    font-family: Roboto;
+    src: url("../../../Fonts/Roboto-Black.ttf");
 }
 
 #maxChaptersText{
