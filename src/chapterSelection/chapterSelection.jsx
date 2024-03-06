@@ -36,10 +36,11 @@ const ChapterSelection = () => {
               setLoading(false);
             }
           };
+          fetchChapters(); 
+
         }catch(err){
           navigate("/error")
         }
-        fetchChapters(); 
     }, []);
 
     function goToChapterPage(chapterNumber){
