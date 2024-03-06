@@ -26,6 +26,7 @@ const MostPopular  = () =>{
     ChangeDocumentTitle("Most Popular | Novels")
 
     const [books,setBooks] = useState([])
+    const [type,changeType] = useState("")
 
     const navigate = useNavigate()
 
@@ -46,7 +47,11 @@ const MostPopular  = () =>{
             });
             if (res.ok){
                 const response = await res.json();
+                changeType(type)
                 if (response.error === "error"){ 
+                    setBooks([])
+                }
+                else if (response.message === "No books found"){
                     setBooks([])
                 }
                 else if (response.books.length === 0){
@@ -57,12 +62,12 @@ const MostPopular  = () =>{
                 }
                 setIsLoaded(true)
             }
-                else{
+            else{
                 navigate("/error")
             }
         }
         catch(err){
-                navigate("/error")
+            navigate("/error")
         }
     }
 
@@ -105,7 +110,7 @@ const MostPopular  = () =>{
                                 </li>
                             ))}
                         </ul>
-                    </>): <h2 id="errorText">We had an error fetching the most popular books. Please try again!</h2>}
+                    </>): <h2 id="errorText">{type === "rating" ? "No books with any rating were found!" : "No books were found!"}</h2>}
                 </div>
         ) : null  }
         </>

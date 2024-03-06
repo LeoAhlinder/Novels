@@ -809,7 +809,11 @@ app.get("/api/ranking", function (req, res) {
         console.log(err);
         res.json({ error: "error" });
       } else {
-        res.json({ books: results });
+        if (results.length > 0) {
+          res.json({ books: results });
+        } else {
+          res.json({ message: "No books found" });
+        }
       }
     });
   } catch (err) {
