@@ -37,27 +37,40 @@ app.listen(port, () => {
   console.log(`Server running on ${port}`);
 });
 
-const connection = mysql.createConnection({
-  user: env.DB_USERNAME,
-  password: env.DB_PASSWORD,
-  host: env.DB_HOST,
-  port: env.DB_PORT,
-  database: env.DB_DATABASE,
-  sslmode: "REQUIRED",
-});
+let connection;
 
-connection.connect((error) => {
-  if (error) {
-    console.log("db error", error);
-  } else {
+async function connectToDatabase() {
+  try {
+    connection = await mysql.createConnection({
+      user: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      host: process.env.DB_HOST,
+      port: process.env.DB_PORT,
+      database: process.env.DB_DATABASE,
+      sslmode: "REQUIRED",
+      connectionLimit: 100,
+    });
     console.log("Connected to the database");
+  } catch (error) {
+    console.error("Error connecting to the database:", error);
   }
+}
+
+connectToDatabase().catch((error) => {
+  console.error("Failed to connect to database on startup:", error);
 });
 
-app.get("/api/ping", function (req, res) {
-  connection.status === "disconnected"
-    ? res.status(500).json({ error: "An error occurred." })
-    : res.status(200).json({ message: "Online" });
+app.get("/api/ping", async (req, res) => {
+  try {
+    if (!connection) {
+      await connectToDatabase();
+    }
+
+    res.status(200).json({ message: "Online" });
+  } catch (error) {
+    console.error("Error processing request:", error);
+    res.status(500).json({ error: "An error occurred." });
+  }
 });
 
 app.get("/api/library/", async (req, res) => {
@@ -136,7 +149,7 @@ app.get(`/api/book`, async (req, res) => {
       data: bookInfo,
       author: authorInfo,
       bookInfoData: bookInfoData,
-      rating: bookRating
+      rating: bookRating,
     });
   } catch (err) {
     console.error(err); // Log the error for debugging
@@ -218,29 +231,34 @@ function bookData(bookName) {
 }
 
 function validateUserCredientles(data) {
-
-  if (!data.email || !data.username || !data.password || data === undefined || data === null) {
-    return "Empty input fields"
+  if (
+    !data.email ||
+    !data.username ||
+    !data.password ||
+    data === undefined ||
+    data === null
+  ) {
+    return "Empty input fields";
   }
 
   if (!validator.isEmail(data.email)) {
-    return "Invalid email"
+    return "Invalid email";
   }
 
   if (!validator.isAlphanumeric(data.username)) {
-    return "Invalid username"
+    return "Invalid username";
   }
 
   if (data.username.length > 20) {
-    return "Username is too long"
+    return "Username is too long";
   }
 
   if (data.password.length < 5) {
-    return "Password is too short"
+    return "Password is too short";
   }
 
-  if (data.password.length > 20){
-    return "Password is too long"
+  if (data.password.length > 20) {
+    return "Password is too long";
   }
 
   return "OK";
@@ -1521,8 +1539,7 @@ app.get("/api/getUsersComments", function (req, res) {
         }
 
         const userId = decodedToken.user;
-        const query =
-          `SELECT comments.comment, comments.bookid, books.title FROM comments LEFT JOIN books ON 
+        const query = `SELECT comments.comment, comments.bookid, books.title FROM comments LEFT JOIN books ON 
           comments.bookid = books.bookid WHERE userid = ? AND DELETED = 0 ORDER BY comments.commentid DESC LIMIT ?,?`;
         connection.query(
           query,
@@ -1549,145 +1566,170 @@ app.get("/api/getUsersComments", function (req, res) {
   }
 });
 
-app.get("/api/getRatingAndInfo", function (req, res){ 
-  try{
-    jwt.verify(req.cookies.authToken, user_secretkey, async function (err, decodedToken){
-      const bookName = req.query.bookName;
-      const getBookIdQuery = "SELECT bookid,bookcover FROM books WHERE title = ?";
-      connection.query(getBookIdQuery, [bookName], async function (error, results) {
-        if (error){
-          return res.json({error: "error"});
-        }
-        else if (results.length > 0){
-          const bookId = results[0].bookid;
-          const bookCover = results[0].bookcover;
-          const userId = decodedToken.user;
-  
-          let userName;
-  
-          if (userId !== undefined) {
-            const query = "SELECT userName FROM users WHERE userid = ?";
-            connection.query(query, [userId], function (error, results) {
-              if (error) {
-                return res.status(500).json({ error: "Database error" });
+app.get("/api/getRatingAndInfo", function (req, res) {
+  try {
+    jwt.verify(
+      req.cookies.authToken,
+      user_secretkey,
+      async function (err, decodedToken) {
+        const bookName = req.query.bookName;
+        const getBookIdQuery =
+          "SELECT bookid,bookcover FROM books WHERE title = ?";
+        connection.query(
+          getBookIdQuery,
+          [bookName],
+          async function (error, results) {
+            if (error) {
+              return res.json({ error: "error" });
+            } else if (results.length > 0) {
+              const bookId = results[0].bookid;
+              const bookCover = results[0].bookcover;
+              const userId = decodedToken.user;
+
+              let userName;
+
+              if (userId !== undefined) {
+                const query = "SELECT userName FROM users WHERE userid = ?";
+                connection.query(query, [userId], function (error, results) {
+                  if (error) {
+                    return res.status(500).json({ error: "Database error" });
+                  }
+                  if (results.length > 0) {
+                    userName = results[0].userName;
+                  }
+                });
               }
-              if (results.length > 0) {
-                userName = results[0].userName;
+
+              try {
+                const response = await getBookReviews(bookId);
+                if (response === "No reviews found") {
+                  return res.json({
+                    message: "No reviews found",
+                    bookCover: bookCover,
+                  });
+                } else if (response === "Error") {
+                  return res.json({ error: "error getting reviews" });
+                }
+                return res.json({
+                  message: "success",
+                  data: response,
+                  bookCover: bookCover,
+                  userName: userName,
+                });
+              } catch (error) {
+                return res.json({ error: "error getting reviews" });
               }
-            });
-          }
-  
-          try {
-            const response = await getBookReviews(bookId);
-            if (response === "No reviews found"){
-              return res.json({message: "No reviews found",bookCover:bookCover});
-            }else if (response === "Error"){
-              return res.json({error: "error getting reviews"});
+            } else {
+              return res.json({ message: "No data found" });
             }
-            return res.json({message: "success", data: response,bookCover:bookCover,userName:userName});
-          } catch (error) {
-            return res.json({error: "error getting reviews"});
           }
-        }
-        else{
-          return res.json({message: "No data found"});
-        }
-      });
-    });
-  }catch(err){
-    return res.json({error: "error"});
+        );
+      }
+    );
+  } catch (err) {
+    return res.json({ error: "error" });
   }
 });
 
-function getBookReviews(id){
+function getBookReviews(id) {
   return new Promise((resolve, reject) => {
-    const query = "SELECT reviews.rating, reviews.text, reviews.userid,users.userName FROM reviews LEFT JOIN users on users.userid = reviews.userid WHERE bookid = ?";
-    connection.query(query, [id], function (error, results){
-      if (error){
+    const query =
+      "SELECT reviews.rating, reviews.text, reviews.userid,users.userName FROM reviews LEFT JOIN users on users.userid = reviews.userid WHERE bookid = ?";
+    connection.query(query, [id], function (error, results) {
+      if (error) {
         reject("Error");
-      }
-      else if (results.length > 0){
+      } else if (results.length > 0) {
         resolve(results);
-      }
-      else{
+      } else {
         resolve("No reviews found");
       }
     });
   });
 }
 
-app.post("/api/postReview", function (req, res){
-  try{
-    jwt.verify(req.cookies.authToken, user_secretkey, async function (err, decodedToken){
-      if (err){
-        return res.json({error: "no token"});
-      }
-      const userId = decodedToken.user;
+app.post("/api/postReview", function (req, res) {
+  try {
+    jwt.verify(
+      req.cookies.authToken,
+      user_secretkey,
+      async function (err, decodedToken) {
+        if (err) {
+          return res.json({ error: "no token" });
+        }
+        const userId = decodedToken.user;
 
-      const validation = validateUserReview(req.body);
-      if (validation !== "OK"){
-        return res.json({error: validation});
-      }
-      const getBookIdQuery = "SELECT bookid FROM books WHERE title = ?";
+        const validation = validateUserReview(req.body);
+        if (validation !== "OK") {
+          return res.json({ error: validation });
+        }
+        const getBookIdQuery = "SELECT bookid FROM books WHERE title = ?";
 
-      connection.query(getBookIdQuery, [req.body.bookName], function (error, results){
-        if (error){
-          return res.json({error: "error"});
-        }
-        else if (results.length > 0){
-          const bookId = results[0].bookid;
-          const checkIfUserHasReviewd = "SELECT * FROM reviews WHERE bookid = ? AND userid = ?";
-          connection.query(checkIfUserHasReviewd, [bookId,userId], async function (error, results) {
-            if (error){
-              return res.json({error: "error"});
-            }
-            else if (results.length === 0){
-              const insertQuery = "INSERT INTO reviews (bookid, userid, rating, text) VALUES (?, ?, ?, ?)";
-              connection.query(insertQuery, [bookId, userId, req.body.rating, req.body.review], function (error, results){
-                if (error){
-                  return res.json({error: "error"});
+        connection.query(
+          getBookIdQuery,
+          [req.body.bookName],
+          function (error, results) {
+            if (error) {
+              return res.json({ error: "error" });
+            } else if (results.length > 0) {
+              const bookId = results[0].bookid;
+              const checkIfUserHasReviewd =
+                "SELECT * FROM reviews WHERE bookid = ? AND userid = ?";
+              connection.query(
+                checkIfUserHasReviewd,
+                [bookId, userId],
+                async function (error, results) {
+                  if (error) {
+                    return res.json({ error: "error" });
+                  } else if (results.length === 0) {
+                    const insertQuery =
+                      "INSERT INTO reviews (bookid, userid, rating, text) VALUES (?, ?, ?, ?)";
+                    connection.query(
+                      insertQuery,
+                      [bookId, userId, req.body.rating, req.body.review],
+                      function (error, results) {
+                        if (error) {
+                          return res.json({ error: "error" });
+                        } else {
+                          return res.json({ message: "Review posted" });
+                        }
+                      }
+                    );
+                  } else {
+                    return res.json({ message: "User has reviewed already" });
+                  }
                 }
-                else{
-                  return res.json({message: "Review posted"});
-                }
-              });
+              );
+            } else {
+              return res.json({ message: "No data found" });
             }
-            else{
-              return res.json({message: "User has reviewed already"});
-            }
-          });
-         
-        }
-        else{
-          return res.json({message: "No data found"});
-        }
-      })
-    });
-  }catch(err){
-    return res.json({error: "error"});
+          }
+        );
+      }
+    );
+  } catch (err) {
+    return res.json({ error: "error" });
   }
-})
+});
 
-function validateUserReview(data){
-  
-  try{
-    if (data.rating === undefined || data.review === undefined || data.bookName === undefined){
-      return "Missing fields"
+function validateUserReview(data) {
+  try {
+    if (
+      data.rating === undefined ||
+      data.review === undefined ||
+      data.bookName === undefined
+    ) {
+      return "Missing fields";
+    } else if (data.rating > 5 || data.rating < 1) {
+      return "Invalid rating";
+    } else if (data.review.length > 2000) {
+      return "Review is too long";
+    } else if (data.review.length < 3) {
+      return "Review is too short";
+    } else {
+      return "OK";
     }
-    else if (data.rating > 5 || data.rating < 1){
-      return "Invalid rating"
-    }
-    else if (data.review.length > 2000){
-      return "Review is too long"
-    }
-    else if (data.review.length < 3){
-      return "Review is too short"
-    }
-    else{
-      return "OK"
-    }
-  }catch(err){
-    return "Error"
+  } catch (err) {
+    return "Error";
   }
 }
 
@@ -1726,9 +1768,9 @@ app.get("/api/getUsersReviews", function (req, res) {
             } else if (results.length > 0) {
               if (results.length === amountOfComments) {
                 results.pop();
-                return res.json({ reviews: results, moreReviews: true});
+                return res.json({ reviews: results, moreReviews: true });
               } else {
-                return res.json({ reviews: results, moreReviews: false});
+                return res.json({ reviews: results, moreReviews: false });
               }
             } else {
               return res.json({ message: "No reviews found" });
@@ -1743,44 +1785,54 @@ app.get("/api/getUsersReviews", function (req, res) {
 });
 
 app.delete("/api/deleteComment", function (req, res) {
-  jwt.verify(req.cookies.authToken, user_secretkey, function (err, decodedToken) {
-    if (err){
-      return res.sendStatus(403);
-    }
-    const userId = decodedToken.user;
-    const commentId = req.body.commentId;
-
-    const query = "UPDATE comments SET DELETED = 1 WHERE userid = ? AND commentid = ?";
-    
-    connection.query(query, [userId, commentId], function (error, results){
-      if (error){
-        console.log(error)
-        return res.json({error: "error"});
-      }
-      return res.json({message: "Comment deleted"});
-    });
-  });
-});
-
-app.delete("/api/deleteReview", function (req, res) {
-  try{
-    jwt.verify(req.cookies.authToken, user_secretkey, function (err, decodedToken) {
-      if (err){
+  jwt.verify(
+    req.cookies.authToken,
+    user_secretkey,
+    function (err, decodedToken) {
+      if (err) {
         return res.sendStatus(403);
       }
       const userId = decodedToken.user;
-      const bookName = req.body.bookName;
+      const commentId = req.body.commentId;
 
-      const query = "DELETE FROM reviews WHERE userid = ? AND bookid = (SELECT bookid FROM books WHERE title = ?)";
-      connection.query(query, [userId, bookName], function (error, results){
-        if (err){
-          return res.json({error: "error"});
+      const query =
+        "UPDATE comments SET DELETED = 1 WHERE userid = ? AND commentid = ?";
+
+      connection.query(query, [userId, commentId], function (error, results) {
+        if (error) {
+          console.log(error);
+          return res.json({ error: "error" });
         }
-        return res.json({message: "Review deleted"});
+        return res.json({ message: "Comment deleted" });
       });
-    });
-  }catch(err){
-    return res.json({error: "error"});
+    }
+  );
+});
+
+app.delete("/api/deleteReview", function (req, res) {
+  try {
+    jwt.verify(
+      req.cookies.authToken,
+      user_secretkey,
+      function (err, decodedToken) {
+        if (err) {
+          return res.sendStatus(403);
+        }
+        const userId = decodedToken.user;
+        const bookName = req.body.bookName;
+
+        const query =
+          "DELETE FROM reviews WHERE userid = ? AND bookid = (SELECT bookid FROM books WHERE title = ?)";
+        connection.query(query, [userId, bookName], function (error, results) {
+          if (err) {
+            return res.json({ error: "error" });
+          }
+          return res.json({ message: "Review deleted" });
+        });
+      }
+    );
+  } catch (err) {
+    return res.json({ error: "error" });
   }
 });
 
