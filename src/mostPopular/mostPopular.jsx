@@ -34,47 +34,34 @@ const MostPopular  = () =>{
 
 
     const ranking = async (type) =>{
-        if (Cookies.get("Popular") && type === "overall"){
-    
-            let cookieValue = document.cookie
-                    .split('; ')
-                    .find(row => row.startsWith('Popular='))
-                    .split('=')[1];
-    
-            let retrievedArray = JSON.parse(cookieValue);
-            setBooks(retrievedArray)
-            setIsLoaded(true)
-        }
-        else{
-            try{
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/ranking?type=${type}`,{
-                    method:"GET",
-                    headers:{
-                        "Content-Type": "application/json",
-                        "Accept": "application/json",
-                    }
-                });
-                if (res.ok){
-                    const response = await res.json();
-                    if (response.error === "error"){ 
-                        setBooks([])
-                    }
-                    else if (response.books.length === 0){
-                        setBooks([])
-                    }
-                    else{
-                        setBooks(response.books)
-                        setCookie("Popular",response.books,3) //Name,data,expire date in hours
-                    }
-                    setIsLoaded(true)
+        
+        try{
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/ranking?type=${type}`,{
+                method:"GET",
+                headers:{
+                    "Content-Type": "application/json",
+                    "Accept": "application/json",
+                }
+            });
+            if (res.ok){
+                const response = await res.json();
+                if (response.error === "error"){ 
+                    setBooks([])
+                }
+                else if (response.books.length === 0){
+                    setBooks([])
                 }
                 else{
-                    navigate("/error")
+                    setBooks(response.books)
                 }
+                setIsLoaded(true)
             }
-            catch(err){
-                    navigate("/error")
+                else{
+                navigate("/error")
             }
+        }
+        catch(err){
+                navigate("/error")
         }
     }
 
