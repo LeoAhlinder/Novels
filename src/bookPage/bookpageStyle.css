@@ -242,6 +242,13 @@
     font-size: 1.2em;
 }
 
+.Bookmarks{
+    margin-left: 2%;
+    margin-top: 1%;
+    color: white;
+    font-size: 1.2em;
+}
+
 #addButton{
     border: none;
     background-color: rgb(65, 69, 71);
@@ -413,6 +420,13 @@
     .commentField{
         display: flex;
         justify-content: center;
+    }
+
+    .Bookmarks{
+        margin-left: 2%;
+        margin-top: 1%;
+        color: white;
+        font-size: 1em;
     }
     
     #bookPagePictureContainer{

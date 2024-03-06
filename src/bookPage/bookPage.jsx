@@ -347,6 +347,7 @@ const BookPage = () =>{
                             <h2 className="genre">Genre: {bookExtraInfo.genres}</h2>
                             <h5 className="author"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
                             <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
+                            <h5 className="Bookmarks">Bookmarks: {bookInfo[0].totalinlibrary === null ? "0" : bookInfo[0].totalinlibrary}</h5>
                             <div className="rating">
                                 <div>
                                     <img className="bookPageStar" src={rating >= 1 ? yellowStar : whiteStar} alt="star" />
@@ -424,9 +425,9 @@ const BookPage = () =>{
                                         </div>
                                         <h4 className="genrePhone">Genre: {bookExtraInfo.genres}</h4>
                                         <h5 id="authorPhone"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
+                                        <h5 className="Bookmarks">Bookmarks: {bookInfo[0].totalinlibrary === null ? "0" : bookInfo[0].totalinlibrary}</h5>
                                         <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                                         <button className="rateButton" onClick={() => goToRatingSite()}>Rate this book</button>
-
                                     <div id="phoneButtonContainer">
                                         <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                         <button className="readButtonPhone" onClick={() => goToChapterPage()}>View Chapters</button>
