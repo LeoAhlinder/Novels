@@ -122,6 +122,10 @@
     color: rgb(201, 196, 196);
 }
 
+.starRating{
+    max-width: 20px;
+}
+
 #subText{
     font-size: 1rem;
     margin: 5px;

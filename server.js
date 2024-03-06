@@ -764,8 +764,12 @@ app.get("/api/ranking", function (req, res) {
       ORDER BY b.totalinlibrary DESC, average_rating DESC
       LIMIT 50;`;
     } else if (type === "collections") {
-      query =
-        "SELECT * FROM lightnovelonline.books ORDER BY totalinlibrary DESC LIMIT 0,50";
+      query = `SELECT b.bookid, b.title, b.bookcover, AVG(r.rating) AS average_rating
+      FROM books b
+      LEFT JOIN reviews r ON b.bookid = r.bookid
+      GROUP BY b.bookid, b.title, b.bookcover
+      ORDER BY b.totalinlibrary DESC
+      LIMIT 50;`;
     } else if (type === "rating") {
       query = `
         SELECT books.bookid, books.title,books.bookcover, AVG(reviews.rating) AS average_rating
@@ -781,6 +785,7 @@ app.get("/api/ranking", function (req, res) {
 
     connection.query(query, function (err, results) {
       if (err) {
+        console.log(err);
         res.json({ error: "error" });
       } else {
         res.json({ books: results });

@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import "./mostPopularStyle.css"
-import Cookies from 'js-cookie'
 import { useNavigate } from "react-router";
-import setCookie from "../Global/setCookie";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 
 import forest from "../picturesForBooks/forest.webp"
 import forestHut from "../picturesForBooks/hutInForest.webp"
 import Moon from "../picturesForBooks/moon.webp"
 import pinkForest from "../picturesForBooks/pinkForest.webp"
+
+import yellowStar from "../Icons/star-yellow.svg"
+import whiteStar from "../Icons/star-white.svg"
 
 
 const MostPopular  = () =>{
@@ -78,7 +79,6 @@ const MostPopular  = () =>{
                             <button className="category-button" onClick={() => ranking("collections")}>Collections</button>
                             <button className="category-button" onClick={() => ranking("rating")}>Rating</button>
                         </div>
-                            
                     </div>
 
                     <div className="popularDescription">
@@ -92,8 +92,16 @@ const MostPopular  = () =>{
                                 <li key={index} className="gridItem">
                                 <div onClick={() => goToBook(book)} className="book">
                                     <img src={bookCoverImages[book.bookcover]} alt={book.title} className="bookCover"/>
+                                    <div>
+                                        <img className="starRating" src={book.average_rating != null ? yellowStar : whiteStar} alt="" />
+                                        <img className="starRating" src={book.average_rating >= 2 ? yellowStar : whiteStar} alt="" />
+                                        <img className="starRating" src={book.average_rating >= 3 ? yellowStar : whiteStar} alt="" />
+                                        <img className="starRating" src={book.average_rating >= 4 ? yellowStar : whiteStar} alt="" />
+                                        <img className="starRating" src={book.average_rating >= 5 ? yellowStar : whiteStar} alt="" />
+                                    </div>
                                     <p id="bookTitle">{book.title}</p>
                                 </div>
+                              
                                 </li>
                             ))}
                         </ul>
