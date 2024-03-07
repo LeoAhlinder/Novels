@@ -25,7 +25,7 @@ const Home = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const navigate = useNavigate()
 
-  ChangeDocumentTitle("Light Novels")
+  ChangeDocumentTitle("Home | Novels")
 
   useEffect(() => {
     const fetchLatestReleases = async () => {
