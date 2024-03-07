@@ -88,7 +88,7 @@ const MostPopular  = () =>{
 
                     <div className="popularDescription">
                         <h3 id="subTitle">Most popular novels</h3>
-                        <h4 id="subText">The overall ranking is based on rating and collections.</h4>
+                        <h4 id="subText">{type === "overall" ? "The overall ranking is based on rating and collections." : type === "rating" ? "The ranking is based on rating" : "The ranking is based on bookmarks" }</h4>
                     </div>
 
                     {books.length > 0 ? ( <>
