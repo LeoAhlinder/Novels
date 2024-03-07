@@ -9,7 +9,6 @@ const BookListGrid = ({books,goToBook,bookCoverImages,noBooksFoundText}) => {
         <>
             {books.length > 0 ? ( <>
                 <ul className="gridContainerHome">
-                    
                     {books.map((book, index) => (
                         <li key={index} className="gridItem">
                         <div onClick={() => goToBook(book)} className="book">

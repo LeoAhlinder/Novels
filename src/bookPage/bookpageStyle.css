@@ -46,6 +46,7 @@
     color: white;
     text-align: start;
     padding: 4%;
+    padding-top: 0%;
 }
 
 .likeDislikeContainer{
@@ -125,6 +126,25 @@
     padding: 10px;
 }
 
+.bookSummary{
+    margin: 0 8%;
+    color: white;
+    font-size: 1.1em;
+}
+
+.summaryHeader{
+    font-size: 1.5em;
+    margin: 3% 4%;
+    width: auto;
+    color: white;
+}
+
+.summaryBorder{
+    border-bottom: 1px solid white;
+    margin: 3% 4%;
+    width: auto;
+}
+
 .loadMoreButton{
     background-color: rgb(96, 114, 122);
     border: none;
@@ -181,7 +201,6 @@
     font-size: 1.2em;
     display: flex;
     flex-direction: row;
-    gap: 10px;
     margin: 0 auto;
     width: auto;
     gap: 10vw;
@@ -294,7 +313,7 @@
     margin-top: 5%;
     display: grid;
     align-items: center;
-    padding: 20px;
+    padding: 20px 0px;
     justify-content: center;
 }
 
@@ -471,6 +490,7 @@
     }
     .extraInfoRow{
         flex-direction: column;
+        gap: 5vw;
     }
     .bookExtraInfo{
         margin-top: 10%;

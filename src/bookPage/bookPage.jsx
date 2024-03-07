@@ -365,9 +365,10 @@ const BookPage = () =>{
                             </div>
                         </div>
                         <div className="bookExtraInfo">
-                            <div className="bookExtraInfoText">
-                                <h1>Summary</h1>
-                                <p>{bookExtraInfo.synopsis}</p>
+                            <div>
+                                <h1 className="summaryHeader">Summary</h1>
+                                <p className="bookSummary">{bookExtraInfo.synopsis}</p>
+                                <div className="summaryBorder"></div>
                             </div>
                             <div className="bookExtraInfoText">
                                 <h2>Overall Information</h2>
