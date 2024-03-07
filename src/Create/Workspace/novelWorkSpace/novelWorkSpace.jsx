@@ -180,10 +180,11 @@ export default function NovelWorkSpace() {
                 <h2 id="novelWorkShopTitle">{bookTitle}</h2>
                   <div id="novelWorkShopContainer">
                     <p id="novelWorkShopAlertMessage" style={{color:alertMessageColor}}>{alertMessage}</p>
-                    <p id="novelWorkSpaceTotalChapters">{viewingMode === "viewChapters" ? `Chapters: ${bookInfo[0].totalpages === null ? 0 : bookInfo[0].totalpages}` : null}</p>
                       <button id="novelWorkspaceNewChapterButton" onClick={() => setViewingMode(viewingMode === "viewChapters" ? "newChapter" : "viewChapters")}>
                         {viewingMode === "viewChapters" ? "Make New Chapter" : "View All Chapters"}
                       </button>
+                      <p id="novelWorkSpaceTotalChapters">{viewingMode === "viewChapters" ? `Chapters: ${bookInfo[0].totalpages === null ? 0 : bookInfo[0].totalpages}` : null}</p>
+
                       <div id="novelWorkspaceViewingContainer">
                       {
                       viewingMode === "viewChapters" ? 
