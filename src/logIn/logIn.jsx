@@ -120,9 +120,12 @@ const LogIn = () =>{
                     }else{
                         changeAlerts("An error occurred, please try again")
                     }                
+                }else{
+                    changeAlerts("Please enter a valid email")
                 }
-            }else{
-                changeAlerts("Please enter a valid email")
+            }
+            else{
+                changeAlerts("Please fill in all the input fields")
             }
         }catch(err){
             navigate("/error")
