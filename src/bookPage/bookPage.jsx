@@ -379,8 +379,8 @@ const BookPage = () =>{
                                     </div>
                                     <div className="bookExtraInfoTags">
                                         Tags:
-                                        {tags.map((tag,index)=>{
-                                            return <p key={index} className="bookExtraInfoTag" >{tag}</p>
+                                        {tags.map((tag, index) => {
+                                            return tag !== "" ? <p key={index} className="bookExtraInfoTag">{tag}</p> : null;
                                         })}
                                     </div>
                                 </div>
@@ -447,8 +447,8 @@ const BookPage = () =>{
                                             <p className="bookExtraRowText">Language:&nbsp;{bookExtraInfo.language}</p>
                                             <div className="bookExtraInfoTags">
                                                 Tags:
-                                                {tags.map((tag,index)=>{
-                                                    return <p key={index} className="bookExtraInfoTag" >{tag}</p>
+                                                {tags.map((tag, index) => {
+                                                    return tag !== "" ? <p key={index} className="bookExtraInfoTag">{tag}</p> : null;
                                                 })}
                                             </div>
                                         </div>
