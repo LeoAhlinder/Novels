@@ -405,10 +405,11 @@ app.get("/api/protected", function (req, res) {
 app.get("/api/latest", function (req, res) {
   try {
     const query =
-      " SELECT * FROM lightnovelonline.books ORDER BY STR_TO_DATE(release_date, '%Y/%m/%d') DESC LIMIT 0,22;";
+      "SELECT books.bookid,books.title,books.bookcover,books.totalpages,AVG(reviews.rating) AS averageRating FROM books LEFT JOIN reviews ON reviews.bookid = books.bookid GROUP BY books.bookid,books.title,books.bookcover ORDER BY STR_TO_DATE(release_date, '%Y/%m/%d') DESC LIMIT 0,22;";
 
     connection.query(query, function (err, results) {
       if (err) {
+        console.log(err);
         res.json({ error: "error" });
         return;
       }
