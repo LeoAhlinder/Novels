@@ -1,0 +1,8 @@
+@media screen and (max-width: 600px){
+    .chapterSelectionText{
+        font-size: 0.7em;
+    }
+    #chapterItem{
+        padding: 5px;
+    }
+}

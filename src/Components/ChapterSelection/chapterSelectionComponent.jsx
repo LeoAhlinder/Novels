@@ -1,5 +1,7 @@
 import React from "react";
 
+import "./chapterSelectionStyle.css";
+
 const SelectChapter = ({ chapters, goToChapterPage,loading }) => {
 
     const chapterStylings ={
@@ -32,7 +34,7 @@ const SelectChapter = ({ chapters, goToChapterPage,loading }) => {
                             : {}
                         }
                     >
-                        Chapter {chapter.chapterNumber}: {chapter.chapterTitle}
+                        <p className="chapterSelectionText">Chapter {chapter.chapterNumber}: {chapter.chapterTitle}</p>
                     </li>
                     ))
                 )}
