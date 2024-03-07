@@ -72,7 +72,9 @@ const Home = () => {
           <h3 className="introText">A place to create and read novels online for free.</h3>
           <img src={landscape} alt="Fantasy Landscape" id="introImg"/>
         </div>
-
+        <div className="latestContainer">
+           <h1 className="latestTitle">Latest Releases</h1>
+        </div>
         <BookListGrid 
           books={latestBooks} 
           goToBook={goToBook} 

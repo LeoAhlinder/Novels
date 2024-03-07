@@ -47,6 +47,21 @@ body{
     text-decoration: underline;
 }
 
+.latestContainer{
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    padding-bottom: 5px;
+}
+
+.latestTitle{
+    font-size: 1.5rem;
+    font-family: roboto;
+    color: white;
+    text-align: start;
+    margin: 0 auto;
+    margin-bottom: 1%;
+}
 @media screen and (max-width:800px) {
     .homeIntro{
         font-size: 2rem;
