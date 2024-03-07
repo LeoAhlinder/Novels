@@ -177,7 +177,7 @@ export default function NovelWorkSpace() {
           <>
             {validUser === true && bookInfo.length > 0 ?
               <>
-                <h2 id="novelWorkShopTitle">{bookTitle}</h2>
+                <h2 id="novelWorkShopTitle" onClick={() => navigate(`/novel/${bookNameEdited}`)}>{bookTitle}</h2>
                   <div id="novelWorkShopContainer">
                     <p id="novelWorkShopAlertMessage" style={{color:alertMessageColor}}>{alertMessage}</p>
                       <button id="novelWorkspaceNewChapterButton" onClick={() => setViewingMode(viewingMode === "viewChapters" ? "newChapter" : "viewChapters")}>

@@ -1,8 +1,9 @@
 #novelWorkShopTitle{
     text-align: center;
     font-size: 2em;
-    color: rgb(224, 220, 220);
+    color: rgb(111, 123, 232);
     font-family: NunitoSans;
+    cursor: pointer;
 }
 
 @font-face {
