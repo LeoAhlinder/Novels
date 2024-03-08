@@ -336,9 +336,10 @@
 
 .Comment{
     position: relative;
-    background-color: rgb(55, 57, 58);
+    background-color: rgb(43, 44, 45);
     padding: 20px;
     border-radius: 5px;
+    border: 1px solid rgb(68, 69, 71);
 }
 
 .commentField{
@@ -629,7 +630,8 @@
     }
 
     .Comment{
-        width: 100%;
+        width: 90%;
+        margin: 0 auto;
         padding: 4px;
     }
     .commentField{
