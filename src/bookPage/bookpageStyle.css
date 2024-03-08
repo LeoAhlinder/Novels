@@ -334,6 +334,17 @@
     margin-right: 10px;
 }
 
+.replyContainer{
+    text-align: start;
+    width: 30%;
+}
+
+.replyButton{
+    color: #769af3;
+    text-align: start;
+}
+
+
 .Comment{
     position: relative;
     background-color: rgb(43, 44, 45);

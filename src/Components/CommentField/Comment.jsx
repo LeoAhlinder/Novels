@@ -2,6 +2,7 @@ import React, { useState,useEffect } from "react";
 
 import CommentFeedback from "./APIs/commentFeedbackAPI";
 import DeleteComment from "./APIs/deleteCommentAPI";
+import ReplyToComment from "./APIs/replyToCommentAPI";
 
 import downvotePicture from "../../Icons/downvote.svg";
 import downvotePictureFill from "../../Icons/downvote-fill.svg";
@@ -84,6 +85,11 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
         return null;
     }
 
+    const replyToComment = async (value) => {
+        const response = await ReplyToComment(value, "Replying to comment");
+        console.log(response);
+    }
+
     return (
         <div className="Comment">
             <h3 className={thisUserComment ? "thisUserComment commentUsername" : "commentUsername"}>{Username}</h3>
@@ -110,6 +116,10 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
                         <img src={commentDisliked ? downvotePictureFill : downvotePicture} className="voteButtons" alt="downvote comment image" />
                     </button>
                 </div>
+            </div>
+            <div className="replyContainer">
+                <button className="replyButton" onClick={() => replyToComment(value)}>Reply</button>
+
             </div>
         </div>
     );

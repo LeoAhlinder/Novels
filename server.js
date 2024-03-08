@@ -1876,4 +1876,53 @@ app.delete("/api/deleteReview", function (req, res) {
   }
 });
 
+app.post("/api/replyToComment", function (req, res) {
+  jwt.verify(
+    req.cookies.authToken,
+    user_secretkey,
+    function (err, decodedToken) {
+      if (err) {
+        console.log(err);
+        return res.sendStatus(403);
+      }
+      console.log("HERE");
+      const userId = decodedToken.user;
+      const commentId = req.body.commentId;
+      const reply = req.body.replyText;
+
+      if (
+        commentId === undefined ||
+        reply === undefined ||
+        commentId === "" ||
+        reply === "" ||
+        commentId === null ||
+        reply === null
+      ) {
+        return res.json({ error: "Missing fields" });
+      }
+      if (reply.length > 500) {
+        return res.json({ error: "Reply is too long" });
+      }
+      if (reply.length < 1) {
+        return res.json({ error: "Reply is too short" });
+      }
+
+      const query =
+        "INSERT INTO comments (userid, comment,relatedTo) VALUES (?, ?, ?)";
+
+      connection.query(
+        query,
+        [userId, reply, commentId],
+        function (error, results) {
+          if (error) {
+            console.log(error);
+            return res.json({ error: "error" });
+          }
+          return res.json({ message: "Reply posted" });
+        }
+      );
+    }
+  );
+});
+
 module.exports = app;
