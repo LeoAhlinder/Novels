@@ -1,6 +1,6 @@
 const FetchComments = async ({bookId,changeComments,navigate,changeUsername,changeGivenFeedback,loadSet,onlyReturn,changeMoreCommentsExist}) => {
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/comments?bookid=${bookId}&loadSet=${loadSet}`, {
+        const res = await fetch(`http://152.42.128.44:3001/api/comments?bookid=${bookId}&loadSet=${loadSet}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

@@ -38,7 +38,7 @@ const SearchBar = () =>{
             },1600)
                 const fetchBooks = async () =>{
                     if (search !== "" && search.length > 2){
-                        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/BooksBasedOnSearch`,{
+                        const res = await fetch(`http://152.42.128.44:3001/api/BooksBasedOnSearch`,{
                             method:"POST",
                             headers:{
                                 "Content-Type": "application/json",

@@ -1,6 +1,6 @@
 const CommentFeedback= async ({commentId,feedback,navigate}) =>{
     try{
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/commentFeedback`, {
+        const res = await fetch(`http://152.42.128.44:3001/api/commentFeedback`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

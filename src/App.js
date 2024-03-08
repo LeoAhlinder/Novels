@@ -30,14 +30,14 @@ const App = () => {
   const [serverStatus, setServerStatus] = useState(null);
 
   useEffect(() => {
-    try{
+    try {
       const fetchServerStatus = async () => {
         const status = await checkServerStatus();
         setServerStatus(status);
         if (!status) ChangeDocumentTitle("Novels | Server Down");
       };
       fetchServerStatus();
-    }catch(err){
+    } catch (err) {
       setServerStatus(false);
     }
   }, []);
@@ -47,7 +47,7 @@ const App = () => {
   }, []);
 
   const checkServerStatus = async () => {
-    return await fetch(`${process.env.REACT_APP_API_URL}/api/ping`)
+    return await fetch(`http://152.42.128.44:3001/api/ping`)
       .then((response) => response.ok)
       .catch(() => false);
   };
