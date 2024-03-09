@@ -334,9 +334,17 @@
     margin-right: 10px;
 }
 
+.bottomContainerComment{
+    padding-top: 10px;
+    border-top: 1px solid  rgb(68, 69, 71);
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+}
+
 .replyContainer{
     text-align: start;
-    width: 30%;
 }
 
 .replyButton{
@@ -344,11 +352,11 @@
     text-align: start;
 }
 
-
 .Comment{
     position: relative;
     background-color: rgb(43, 44, 45);
     padding: 20px;
+    padding-bottom: 15px;
     border-radius: 5px;
     border: 1px solid rgb(68, 69, 71);
 }

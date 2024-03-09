@@ -102,25 +102,28 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
                 </div>
             : null
             }
-            <div className="likeDislikeContainer">
-                <div className="feedbackButton">
-                    <span className="feedbackText">{likes === null ? 0 : likes}</span>
-                    <button onClick={() => handleFeedbackClick("likes")}>
-                        <img src={commentLiked ? upvotePicutreFill : upvotePicture} className="voteButtons" alt="upvote comment image" />
-                    </button>
+            <div className="bottomContainerComment">
+                <div className="replyContainer">
+                    <button className="replyButton" onClick={() => replyToComment(value)}>Reply</button>
                 </div>
-                <span>|</span>
-                <div className="feedbackButton">
-                    <span className="feedbackText">{dislikes === null ? 0 : dislikes}</span>
-                    <button onClick={() => handleFeedbackClick("dislikes")}>
-                        <img src={commentDisliked ? downvotePictureFill : downvotePicture} className="voteButtons" alt="downvote comment image" />
-                    </button>
+                <div className="likeDislikeContainer">
+                    <div className="feedbackButton">
+                        <span className="feedbackText">{likes === null ? 0 : likes}</span>
+                        <button onClick={() => handleFeedbackClick("likes")}>
+                            <img src={commentLiked ? upvotePicutreFill : upvotePicture} className="voteButtons" alt="upvote comment image" />
+                        </button>
+                    </div>
+                    <span>|</span>
+                    <div className="feedbackButton">
+                        <span className="feedbackText">{dislikes === null ? 0 : dislikes}</span>
+                        <button onClick={() => handleFeedbackClick("dislikes")}>
+                            <img src={commentDisliked ? downvotePictureFill : downvotePicture} className="voteButtons" alt="downvote comment image" />
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div className="replyContainer">
-                <button className="replyButton" onClick={() => replyToComment(value)}>Reply</button>
-
-            </div>
+            
+            
         </div>
     );
 };
