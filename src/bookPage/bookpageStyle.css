@@ -352,6 +352,34 @@
     text-align: start;
 }
 
+.commentReplies{
+    position: relative;
+    background-color: rgb(43, 44, 45);
+    padding-left: 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(68, 69, 71);
+    border-top: 0px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.replyUser{
+    color: #98abdb;
+    text-align: start;
+
+}
+
+.replyText{
+    text-align: start;
+    color: white;
+}
+
+.Reply{
+    background-color: rgb(43, 44, 45);
+    border-radius: 5px 0px 0px 0px;
+    padding: 20px;
+    border: 1px solid rgb(68, 69, 71);
+}
+
 .Comment{
     position: relative;
     background-color: rgb(43, 44, 45);
@@ -359,6 +387,8 @@
     padding-bottom: 15px;
     border-radius: 5px;
     border: 1px solid rgb(68, 69, 71);
+    border-bottom: 0px;
+    border-radius: 5px 5px 0px 0px;
 }
 
 .commentField{
@@ -423,6 +453,12 @@
     height: 100%;
     display: flex;
     place-content: flex-end;
+}
+
+.commentUsername{
+    cursor: pointer;
+    color: #769af3;
+
 }
 
 

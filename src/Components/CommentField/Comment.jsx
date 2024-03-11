@@ -1,4 +1,5 @@
 import React, { useState,useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 import CommentFeedback from "./APIs/commentFeedbackAPI";
 import DeleteComment from "./APIs/deleteCommentAPI";
@@ -13,6 +14,8 @@ import trashcanOpen from "../../Icons/trashcan-open.svg"
 import trashcanClosed from "../../Icons/trashcan-closed.svg"
 
 const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback,viewingUser,thisUserComment }) => {
+
+    const navigate = useNavigate()
 
     let likedFeedback = [];
     let dislikedFeedback = [];
@@ -86,44 +89,69 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
     }
 
     const replyToComment = async (value) => {
-        const response = await ReplyToComment(value, "Replying to comment");
+        // const response = await ReplyToComment(value, "Replying to comment");
         console.log(response);
     }
 
+    const goToAuthorSite = (username) => {
+        navigate(`/author/${username}`)
+    }
+
     return (
-        <div className="Comment">
-            <h3 className={thisUserComment ? "thisUserComment commentUsername" : "commentUsername"}>{Username}</h3>
-            <p className="commentText">{commentText}</p>
-            {
-                thisUserComment ?
-                <div className="TrashcanContainer">
-                    <img onMouseEnter={() => setTrashCanHoverd(true)} onMouseLeave={() => setTrashCanHoverd(false)} onClick={() => deleteComment(value)}
-                    className="Trashcan"  src={trashCanHoverd ? trashcanOpen : trashcanClosed} alt="Trash can" />
-                </div>
-            : null
-            }
-            <div className="bottomContainerComment">
-                <div className="replyContainer">
-                    <button className="replyButton" onClick={() => replyToComment(value)}>Reply</button>
-                </div>
-                <div className="likeDislikeContainer">
-                    <div className="feedbackButton">
-                        <span className="feedbackText">{likes === null ? 0 : likes}</span>
-                        <button onClick={() => handleFeedbackClick("likes")}>
-                            <img src={commentLiked ? upvotePicutreFill : upvotePicture} className="voteButtons" alt="upvote comment image" />
-                        </button>
+        <div>
+            <div className="Comment">
+                <h3 className={thisUserComment ? "thisUserComment commentUsername" : "commentUsername"} onClick={() => goToAuthorSite(Username)}>{Username}</h3>
+                <p className="commentText">{commentText}</p>
+                {
+                    thisUserComment ?
+                    <div className="TrashcanContainer">
+                        <img onMouseEnter={() => setTrashCanHoverd(true)} onMouseLeave={() => setTrashCanHoverd(false)} onClick={() => deleteComment(value)}
+                        className="Trashcan"  src={trashCanHoverd ? trashcanOpen : trashcanClosed} alt="Trash can" />
                     </div>
-                    <span>|</span>
-                    <div className="feedbackButton">
-                        <span className="feedbackText">{dislikes === null ? 0 : dislikes}</span>
-                        <button onClick={() => handleFeedbackClick("dislikes")}>
-                            <img src={commentDisliked ? downvotePictureFill : downvotePicture} className="voteButtons" alt="downvote comment image" />
-                        </button>
+                : null
+                }
+                <div className="bottomContainerComment">
+                    <div className="replyContainer">
+                        <button className="replyButton" onClick={() => replyToComment(value)}>Reply</button>
+                    </div>
+                    <div className="likeDislikeContainer">
+                        <div className="feedbackButton">
+                            <span className="feedbackText">{likes === null ? 0 : likes}</span>
+                            <button onClick={() => handleFeedbackClick("likes")}>
+                                <img src={commentLiked ? upvotePicutreFill : upvotePicture} className="voteButtons" alt="upvote comment image" />
+                            </button>
+                        </div>
+                        <span>|</span>
+                        <div className="feedbackButton">
+                            <span className="feedbackText">{dislikes === null ? 0 : dislikes}</span>
+                            <button onClick={() => handleFeedbackClick("dislikes")}>
+                                <img src={commentDisliked ? downvotePictureFill : downvotePicture} className="voteButtons" alt="downvote comment image" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            
+            <div className="commentReplies">
+                <div className="Reply">
+                    <h3 className="replyUser">Username</h3>
+                    <p className="replyText">Reply Text</p>
+                    <div className="likeDislikeContainer">
+                        <div className="feedbackButton">
+                            <span className="feedbackText">{likes === null ? 0 : likes}</span>
+                            <button onClick={() => handleFeedbackClick("likes")}>
+                                <img src={commentLiked ? upvotePicutreFill : upvotePicture} className="voteButtons" alt="upvote comment image" />
+                            </button>
+                        </div>
+                        <span>|</span>
+                        <div className="feedbackButton">
+                            <span className="feedbackText">{dislikes === null ? 0 : dislikes}</span>
+                            <button onClick={() => handleFeedbackClick("dislikes")}>
+                                <img src={commentDisliked ? downvotePictureFill : downvotePicture} className="voteButtons" alt="downvote comment image" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     );
 };
