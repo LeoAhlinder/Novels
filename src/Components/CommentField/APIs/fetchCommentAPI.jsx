@@ -28,10 +28,10 @@ const FetchComments = async ({bookId,changeComments,navigate,changeUsername,chan
                 changeMoreCommentsExist(response.moreComments)
             }
         } else {
-            navigate("/error");
+            changeComments([])
         }
     } catch (err) {
-        navigate("/error");
+        changeComments([])
     }
 }
 
