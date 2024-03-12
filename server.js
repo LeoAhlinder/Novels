@@ -1925,4 +1925,26 @@ app.post("/api/replyToComment", function (req, res) {
   );
 });
 
+app.get("/api/getReplies", function (req, res) {
+  const bookId = req.query.bookId;
+
+  if (bookId === undefined || bookId === "") {
+    return res.json({ error: "Missing fields" });
+  }
+
+  const query =
+    "SELECT comment,likes,dislikes,relatedTo FROM comments WHERE bookid = ? AND DELETED == 0 AND relatedTo IS NOT NULL";
+
+  connection.query(query, [bookId], function (error, results) {
+    if (error) {
+      return res.json({ error: "error" });
+    }
+    if (results.length > 0) {
+      return res.json({ replies: results });
+    } else {
+      return res.json({ message: "No replies found" });
+    }
+  });
+});
+
 module.exports = app;
