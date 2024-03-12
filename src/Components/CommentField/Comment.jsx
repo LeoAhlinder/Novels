@@ -97,6 +97,7 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
         navigate(`/author/${username}`)
     }
 
+
     return (
         <div>
             <div className="Comment">

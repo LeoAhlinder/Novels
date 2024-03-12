@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 import FetchComments from "../Components/CommentField/APIs/fetchCommentAPI";
 import PostComment from "../Components/CommentField/APIs/postCommentAPI";
+import FetchReplies from "../Components/CommentField/APIs/fetchRepliesAPI"
 
 import Comment from "../Components/CommentField/Comment"
 
@@ -49,6 +50,7 @@ const BookPage = () =>{
     const [loadSet,changeLoadSet] = useState(0)
     const [moreCommentsExist,changeMoreCommentsExist] = useState(false)
     const [rating,changeRating] = useState(0)
+    const [replies, changeReplies] = useState([])
 
     useEffect(() => {
         const fetchBookInfo = async () => {
@@ -260,6 +262,12 @@ const BookPage = () =>{
                 loadSet: 0,
                 changeMoreCommentsExist:changeMoreCommentsExist
             });
+        }
+        if (bookId !== 0){
+            FetchReplies({
+                bookId: bookId,
+                changeReplies: changeReplies
+            })
         }
     }, [bookId]);
 

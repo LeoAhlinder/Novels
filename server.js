@@ -1933,10 +1933,11 @@ app.get("/api/getReplies", function (req, res) {
   }
 
   const query =
-    "SELECT comment,likes,dislikes,relatedTo FROM comments WHERE bookid = ? AND DELETED == 0 AND relatedTo IS NOT NULL";
+    "SELECT comment,likes,dislikes,relatedTo FROM comments WHERE bookid = ? AND DELETED = 0 AND relatedTo IS NOT NULL";
 
   connection.query(query, [bookId], function (error, results) {
     if (error) {
+      console.log(error);
       return res.json({ error: "error" });
     }
     if (results.length > 0) {
