@@ -33,7 +33,7 @@ const Info = () =>{
     async function deleteAccount (){
         try
         {
-            const res = await fetch (`http://152.42.128.44:3001/api/deleteAccount`,{
+            const res = await fetch (`https://152.42.128.44:3001/api/deleteAccount`,{
                 method:"DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const Info = () =>{
         const getProfileInfo = async () => 
         {
             try{
-                const res = await fetch(`http://152.42.128.44:3001/api/getUserInfo`,{
+                const res = await fetch(`https://152.42.128.44:3001/api/getUserInfo`,{
                     method:"GET",
                     headers: {
                         "Content-Type": "application/json",

@@ -83,7 +83,7 @@ const ChapterPage = () => {
         const setLatestReadChapter = async () => {
 
             try{
-                await fetch(`http://152.42.128.44:3001/api/setLatestReadChapter`,{
+                await fetch(`https://152.42.128.44:3001/api/setLatestReadChapter`,{
                     method:"POST",
                       headers:{
                         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const ChapterPage = () => {
         const getChapterInfo = async () =>{
 
             try{
-                const res = await fetch(`http://152.42.128.44:3001/api/chapterInfo`,{
+                const res = await fetch(`https://152.42.128.44:3001/api/chapterInfo`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",

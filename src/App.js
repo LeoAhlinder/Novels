@@ -47,7 +47,7 @@ const App = () => {
   }, []);
 
   const checkServerStatus = async () => {
-    return await fetch(`http://152.42.128.44:3001/api/ping`)
+    return await fetch(`https://152.42.128.44:3001/api/ping`)
       .then((response) => response.ok)
       .catch(() => false);
   };

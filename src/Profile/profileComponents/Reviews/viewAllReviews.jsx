@@ -24,7 +24,7 @@ const ViewAllReviews = () => {
 
     const fetchUsersReviews = async (loadSet) => {
         try {
-            const res = await fetch(`http://152.42.128.44:3001/api/getUsersReviews?loadSet=${loadSet}`, {
+            const res = await fetch(`https://152.42.128.44:3001/api/getUsersReviews?loadSet=${loadSet}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -1,7 +1,7 @@
 const CheckToken = async () => {
   try {
 
-      const res = await fetch(`http://152.42.128.44:3001/api/protected/`, {
+      const res = await fetch(`https://152.42.128.44:3001/api/protected/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

@@ -38,7 +38,7 @@ const MostPopular  = () =>{
     const ranking = async (type) =>{
         
         try{
-            const res = await fetch(`http://152.42.128.44:3001/api/ranking?type=${type}`,{
+            const res = await fetch(`https://152.42.128.44:3001/api/ranking?type=${type}`,{
                 method:"GET",
                 headers:{
                     "Content-Type": "application/json",
