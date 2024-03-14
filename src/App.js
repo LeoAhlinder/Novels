@@ -105,7 +105,7 @@ const App = () => {
           </div>
         )}
       </div>
-      <CookiesForm />
+      {serverStatus === true ? <CookiesForm /> : null}
     </Router>
   );
 };
