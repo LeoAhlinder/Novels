@@ -28,8 +28,6 @@ const BookPage = () =>{
 
     const navigate = useNavigate()
 
-    const amountOfComments = 9;
-
     const bookName = window.location.pathname.split("/")[2].replaceAll("-", " ");
  
     const [bookInfo, setBookInfo] = useState([])
@@ -162,7 +160,6 @@ const BookPage = () =>{
                 }
                 else{
                     navigate("/error")
-
                 }
             }catch(err){
                 navigate("/error")
@@ -332,8 +329,7 @@ const BookPage = () =>{
             }
         }catch(err){
             navigate("/error")
-        }
-        
+        }   
     }
 
     const goToRatingSite = () =>{
@@ -474,7 +470,6 @@ const BookPage = () =>{
                                     <button className="submitCommentButton" onClick={() => postCommentHandler()}>Submit</button>
                                 </div>
                                 {postCommentAlert !== "" ? <p className="commentAlert" style={postCommentAlert === "Comment posted" ? {color:"green"} : {color:"red"}}>{postCommentAlert}</p> : null}
-
                             </> 
                             : null
                             }
