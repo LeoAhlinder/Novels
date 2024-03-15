@@ -393,7 +393,7 @@ const BookPage = () =>{
                         <div className="commentContainer">
                                 <div className="headerContainer">
                                     <h2>Comments</h2>
-                                    <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
+                                    <button className="writeCommentButton" onClick={Username === undefined ? () => navigate("/login") : () => changeWriteCommentView(!writeCommentView)}>{Username === undefined ? "Log in to comment" : writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
                                 </div>
                                 {writeCommentView === true ? 
                                 <>
@@ -461,7 +461,7 @@ const BookPage = () =>{
                                 <div className="commentContainer">
                             <div className="headerContainer">
                                 <h2 id="commentsTitle">Comments</h2>
-                                <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
+                                <button className="writeCommentButton" onClick={Username === undefined ? () => navigate("/login") : () => changeWriteCommentView(!writeCommentView)}>{Username === undefined ? "Log in to comment" : writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
                             </div>
                             {writeCommentView === true ? 
                             <>
