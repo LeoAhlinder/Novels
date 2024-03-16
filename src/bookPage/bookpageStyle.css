@@ -379,6 +379,7 @@
     padding: 20px;
     border: 1px solid rgb(68, 69, 71);
     border-bottom: 0px;
+    border-right:0px;
 }
 
 .Comment{
@@ -664,6 +665,9 @@
     .commentField{
         width: 19em;
     }
+    .Reply{
+        padding: 10px;
+    }
 }
 
 @media screen and (max-width:400px) {
@@ -684,12 +688,6 @@
         margin: 0 auto;
         margin-bottom: 10px;
     }
-
-    .Comment{
-        width: 90%;
-        margin: 0 auto;
-        padding: 4px;
-    }
     .commentField{
         width: 18em;
         padding: 10px;
@@ -701,6 +699,13 @@
         width: 16em;
     }
 }
+
+@media screen and (max-width:290px) {
+    .commentField{
+        width: 14em;
+    }
+}
+
 
 
 .notLoginIn{
