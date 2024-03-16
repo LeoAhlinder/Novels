@@ -47,10 +47,10 @@ const App = () => {
   }, []);
 
   const checkServerStatus = async () => {
-    return await fetch(`https://152.42.128.44:3001/api/ping`)
+    return await fetch(`https://novels-server.xyz:3001/api/ping`)
       .then((response) => response.ok)
       .catch(() => false);
-  };
+};
 
   return (
     <Router>
