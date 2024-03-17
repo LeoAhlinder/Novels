@@ -398,7 +398,7 @@ const BookPage = () =>{
                                 {writeCommentView === true ? 
                                 <>
                                     <div className="writeCommentContainer">
-                                        <textarea className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} value={postCommentText} placeholder="Write a comment"></textarea>
+                                        <textarea maxLength={1500} className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} value={postCommentText} placeholder="Write a comment"></textarea>
                                         <button className="submitCommentButton" onClick={() => postCommentHandler()}>Submit</button>
                                     </div>
                                     {postCommentAlert !== "" ? <p className="commentAlert" style={postCommentAlert === "Comment posted" ? {color:"green"} : {color:"red"}}>{postCommentAlert}</p> : null}
@@ -466,7 +466,7 @@ const BookPage = () =>{
                             {writeCommentView === true ? 
                             <>
                                 <div className="writeCommentContainer">
-                                    <textarea className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} placeholder="Write a comment"></textarea>
+                                    <textarea maxLength={1500} className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} placeholder="Write a comment"></textarea>
                                     <button className="submitCommentButton" onClick={() => postCommentHandler()}>Submit</button>
                                 </div>
                                 {postCommentAlert !== "" ? <p className="commentAlert" style={postCommentAlert === "Comment posted" ? {color:"green"} : {color:"red"}}>{postCommentAlert}</p> : null}
