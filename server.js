@@ -1885,10 +1885,10 @@ app.post("/api/replyToComment", function (req, res) {
         console.log(err);
         return res.sendStatus(403);
       }
-      console.log("HERE");
       const userId = decodedToken.user;
       const commentId = req.body.commentId;
       const reply = req.body.replyText;
+      const bookId = req.body.bookId;
 
       if (
         commentId === undefined ||
@@ -1908,11 +1908,11 @@ app.post("/api/replyToComment", function (req, res) {
       }
 
       const query =
-        "INSERT INTO comments (userid, comment,relatedTo) VALUES (?, ?, ?)";
+        "INSERT INTO comments (userid, comment,relatedTo,bookid) VALUES (?, ?, ?,?)";
 
       connection.query(
         query,
-        [userId, reply, commentId],
+        [userId, reply, commentId,bookId],
         function (error, results) {
           if (error) {
             console.log(error);

@@ -13,7 +13,10 @@ import upvotePicutreFill from "../../Icons/upvote-fill.svg";
 import trashcanOpen from "../../Icons/trashcan-open.svg"
 import trashcanClosed from "../../Icons/trashcan-closed.svg"
 
-const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback,viewingUser,thisUserComment }) => {
+const Comment = ({bookid,id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback,viewingUser,thisUserComment }) => {
+
+    const [typeReplyState, setTypeReplyState] = useState(false);
+    const [replyText, setReplyText] = useState("");
 
     const navigate = useNavigate()
 
@@ -88,13 +91,28 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
         return null;
     }
 
+    function adjustHeight(e) {
+        e.target.style.height = "1px";
+        e.target.style.height = (25+e.target.scrollHeight)+"px";
+    }
+
     const replyToComment = async (value) => {
-        // const response = await ReplyToComment(value, "Replying to comment");
-        console.log(response);
+        try{
+            console.log(bookid)
+            const response = await ReplyToComment(value, replyText,bookid);
+            console.log(response)
+        }catch(err){
+            console.log(err);
+        }
     }
 
     const goToAuthorSite = (username) => {
         navigate(`/author/${username}`)
+    }
+
+    function handleChange(e){
+        adjustHeight(e);
+        setReplyText(e.target.value);
     }
 
     return (
@@ -112,7 +130,7 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
                 }
                 <div className="bottomContainerComment">
                     <div className="replyContainer">
-                        <button className="replyButton" onClick={() => replyToComment(value)}>Reply</button>
+                        <button className="replyButton" onClick={() => setTypeReplyState(!typeReplyState)}>Reply</button>
                     </div>
                     <div className="likeDislikeContainer">
                         <div className="feedbackButton">
@@ -129,6 +147,17 @@ const Comment = ({ id, dislikes: initialDislikes, likes: initialLikes, commentTe
                             </button>
                         </div>
                     </div>
+                </div>
+                <div>
+                    {typeReplyState ? 
+                        <div className="replyTextContainer">
+                            <textarea maxLength={1500} type="text" placeholder="Reply to comment" className="replyInput" onChange={(e) => handleChange(e)} />
+                            <div className="replyButtonsContainer">
+                                <button className="replyInputButton cancelReply" onClick={() => setTypeReplyState(false)}>Cancel</button>
+                                <button className="replyInputButton sendReply" onClick={() => replyToComment(value)}>Reply</button>
+                            </div>
+                        </div>
+                    : null}
                 </div>
             </div>
             <div className="commentReplies">

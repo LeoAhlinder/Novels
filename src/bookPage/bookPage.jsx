@@ -285,6 +285,7 @@ const BookPage = () =>{
         if (comments.length > 0) {
             return comments.map((comment, index) => (
                 <Comment
+                    bookid={bookId}
                     id={comment.commentid}
                     key={index}
                     value={comment.commentid}

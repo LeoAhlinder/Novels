@@ -402,6 +402,51 @@
     padding: 10px;
 }
 
+.replyInput{
+    width: 90%;
+    background-color: rgb(50, 52, 53);
+    color: white;
+    padding: 5px;
+    border: none;
+    resize: none;
+    height: auto;
+    overflow: hidden;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.replyButtonsContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: flex-end;
+    width: 90%;
+    padding: 5px;
+}
+
+.sendReply{
+    background-color: rgb(81, 205, 50);
+}
+
+.cancelReply{
+    background-color: red;
+}
+
+.replyInputButton{
+    border: none;
+    width: auto;
+    font-size: 0.8em;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.replyTextContainer{
+    margin-top: 15px;
+    width: 90%;
+}
+
 .rateButton{
     background-color: rgb(96, 114, 122);
     border: none;

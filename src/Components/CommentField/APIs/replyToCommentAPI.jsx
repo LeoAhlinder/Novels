@@ -1,4 +1,4 @@
-const ReplyToComment = async (commentId, replyText) => {
+const ReplyToComment = async (commentId, replyText,bookId) => {
     console.log("Replying to comment")
     try {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/replyToComment`, {
@@ -11,7 +11,8 @@ const ReplyToComment = async (commentId, replyText) => {
             credentials: "include",
             body: JSON.stringify({
                 commentId: commentId,
-                replyText: replyText
+                replyText: replyText,
+                bookId: bookId
             })
         });
         const response = await res.json();
