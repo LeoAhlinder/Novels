@@ -173,7 +173,11 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
                 {replies.length > 0 ? replies.map((reply, index) =>
                     reply.relatedTo === id ?  
                     <div className="Reply" key={index}>
-                        <h3 className={reply.userName === viewingUser ? "replyUser thisUserComment" : "replyUser"}>{reply.userName === viewingUser ? "You" : reply.userName}</h3>
+
+                        <h3 onClick={reply.userName === null ? () => goToAuthorSite(reply.userName) : null} className={reply.userName === viewingUser ? "replyUser thisUserComment" : "replyUser"}>
+                            {reply.userName === null ? "Deleted User" : reply.userName === viewingUser ? "You" : reply.userName}
+                        </h3>
+
                         <p className="replyText">{reply.comment}</p>
                         {
                             reply.userName === viewingUser ?

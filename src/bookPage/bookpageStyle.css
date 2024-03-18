@@ -365,7 +365,7 @@
 .replyUser{
     color: #98abdb;
     text-align: start;
-
+    cursor:pointer;
 }
 
 .replyText{
