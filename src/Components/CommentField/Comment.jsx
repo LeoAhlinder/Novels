@@ -121,13 +121,7 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
     }
 
     async function deleteReview(replyText,replyUsername){
-        let response = await DeleteReply(replyText,replyUsername,id);
-        if (response === "Deleted"){
-            console.log("Reply deleted")
-        }
-        else{
-            console.log("Error deleting reply");
-        }
+        await DeleteReply(replyText,replyUsername,id);
     }
 
     return (
@@ -145,7 +139,7 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
                 }
                 <div className="bottomContainerComment">
                     <div className="replyContainer">
-                        <button className="replyButton" onClick={() => setTypeReplyState(!typeReplyState)}>Reply</button>
+                        {viewingUser !== undefined ? <button className="replyButton" onClick={() => setTypeReplyState(!typeReplyState)}>Reply</button> : null}
                     </div>
                     <div className="likeDislikeContainer">
                         <div className="feedbackButton">
@@ -164,7 +158,7 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
                     </div>
                 </div>
                 <div>
-                    {typeReplyState ? 
+                    {typeReplyState && viewingUser !== undefined ? 
                         <div className="replyTextContainer">
                             <textarea maxLength={1500} type="text" placeholder="Reply to comment" className="replyInput" onChange={(e) => handleChange(e)} />
                             <div className="replyButtonsContainer">
