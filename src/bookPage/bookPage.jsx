@@ -261,10 +261,10 @@ const BookPage = () =>{
             });
         }
         if (bookId !== 0){
-            FetchReplies({
+            changeReplies(FetchReplies({
                 bookId: bookId,
                 changeReplies: changeReplies
-            })
+            }))
         }
     }, [bookId]);
 
@@ -285,6 +285,7 @@ const BookPage = () =>{
         if (comments.length > 0) {
             return comments.map((comment, index) => (
                 <Comment
+                    replies={replies}
                     bookid={bookId}
                     id={comment.commentid}
                     key={index}
@@ -294,8 +295,7 @@ const BookPage = () =>{
                     commentText={comment.comment}
                     recievedFeedback={givenFeedback !== null ? givenFeedback : null}
                     viewingUser={Username}
-                    Username={comment.userName === Username ? "You" : comment.userName}
-                    thisUserComment={comment.userName === Username ? true : false}
+                    Username={comment.userName}
                 />  
             ));
         } else {
@@ -435,7 +435,7 @@ const BookPage = () =>{
                                         <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                                         <button className="rateButton" onClick={() => goToRatingSite()}>Rate this book</button>
                                     <div id="phoneButtonContainer">
-                                        <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
+                                        <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage !== 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                         <button className="readButtonPhone" onClick={() => goToChapterPage()}>View Chapters</button>
                                         <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                                     </div>

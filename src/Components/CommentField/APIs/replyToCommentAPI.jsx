@@ -16,7 +16,6 @@ const ReplyToComment = async (commentId, replyText,bookId) => {
             })
         });
         const response = await res.json();
-        console.log(response);
         return response;
     }catch(err){
         console.log(err);

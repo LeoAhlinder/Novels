@@ -318,7 +318,7 @@
 }
 
 .thisUserComment{
-    color: rgb(230, 101, 101);
+    color: rgb(230, 101, 101) !important;
 }
 
 .Trashcan{
@@ -505,7 +505,6 @@
 .commentUsername{
     cursor: pointer;
     color: #769af3;
-
 }
 
 

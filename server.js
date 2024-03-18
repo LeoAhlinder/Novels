@@ -1250,7 +1250,7 @@ app.get("/api/comments", function (req, res) {
           (COALESCE(comments.likes, 0) - COALESCE(comments.dislikes, 0) / 2) AS likesDislikes
         FROM comments
         LEFT JOIN users ON comments.userid = users.userid
-        WHERE comments.bookid = ? AND DELETED = 0
+        WHERE comments.bookid = ? AND DELETED = 0 AND relatedTo = 0
         ORDER BY likesDislikes DESC
         LIMIT ? , ?;
       `;
@@ -1337,7 +1337,7 @@ app.post("/api/postComment", function (req, res) {
         }
 
         const query =
-          "INSERT INTO comments (userid, bookid, comment,DELETED) VALUES (?, ?, ?,0)";
+          "INSERT INTO comments (userid, bookid, comment,DELETED,relatedTo) VALUES (?, ?, ?,0,0)";
         connection.query(
           query,
           [userId, bookId, comment],
@@ -1908,7 +1908,7 @@ app.post("/api/replyToComment", function (req, res) {
       }
 
       const query =
-        "INSERT INTO comments (userid, comment,relatedTo,bookid) VALUES (?, ?, ?,?)";
+        "INSERT INTO comments (userid, comment,relatedTo,bookid,DELETED) VALUES (?, ?, ?,?,0)";
 
       connection.query(
         query,
@@ -1933,11 +1933,13 @@ app.get("/api/getReplies", function (req, res) {
   }
 
   const query =
-    "SELECT comment,likes,dislikes,relatedTo FROM comments WHERE bookid = ? AND DELETED = 0 AND relatedTo IS NOT NULL";
+    `SELECT comments.comment, comments.likes, comments.dislikes, comments.relatedTo, users.userName 
+    FROM comments 
+    LEFT JOIN users ON users.userid = comments.userid 
+    WHERE bookid = ? AND DELETED = 0 AND relatedTo != 0;`;
 
   connection.query(query, [bookId], function (error, results) {
     if (error) {
-      console.log(error);
       return res.json({ error: "error" });
     }
     if (results.length > 0) {
@@ -1947,5 +1949,40 @@ app.get("/api/getReplies", function (req, res) {
     }
   });
 });
+
+app.delete("/api/deleteReply",function(req,res){
+  jwt.verify(
+    req.cookies.authToken,
+    user_secretkey,
+    function (err, decodedToken) {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      if (req.body.commentId === undefined || req.body.commentId === "") {
+        return res.json({ error: "Missing fields" });
+      }
+      if (req.body.replyUser === undefined || req.body.replyUser === "") {
+        return res.json({ error: "Missing fields" });
+      }
+      if (req.body.replyText === undefined || req.body.replyText === "") {
+        return res.json({ error: "Missing fields" });
+      }
+      const replyText = req.body.replyText;
+      const commentId = req.body.commentId;
+      const replyUser = req.body.replyUser;
+
+      const query =
+        "UPDATE comments SET DELETED = 1 WHERE userid = (SELECT userid FROM users WHERE userName = ?) AND relatedTo = ? AND comment = ?";
+
+      connection.query(query, [replyUser,commentId,replyText], function (error, results) {
+        if (error) {
+          console.log(error);
+          return res.json({ error: "error" });
+        }
+        return res.json({ message: "Reply deleted" });
+      });
+    }
+  );
+})
 
 module.exports = app;

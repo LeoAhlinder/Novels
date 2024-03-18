@@ -1,9 +1,10 @@
-import React, { useState,useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import CommentFeedback from "./APIs/commentFeedbackAPI";
 import DeleteComment from "./APIs/deleteCommentAPI";
 import ReplyToComment from "./APIs/replyToCommentAPI";
+import DeleteReply from "./APIs/deleteReplyAPI";
 
 import downvotePicture from "../../Icons/downvote.svg";
 import downvotePictureFill from "../../Icons/downvote-fill.svg";
@@ -13,7 +14,9 @@ import upvotePicutreFill from "../../Icons/upvote-fill.svg";
 import trashcanOpen from "../../Icons/trashcan-open.svg"
 import trashcanClosed from "../../Icons/trashcan-closed.svg"
 
-const Comment = ({bookid,id, dislikes: initialDislikes, likes: initialLikes, commentText, Username, value, recievedFeedback,viewingUser,thisUserComment }) => {
+const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLikes, commentText,Username, value, recievedFeedback,viewingUser }) => {
+
+    let thisUserComment = viewingUser === Username ? true : false;
 
     const [typeReplyState, setTypeReplyState] = useState(false);
     const [replyText, setReplyText] = useState("");
@@ -98,9 +101,11 @@ const Comment = ({bookid,id, dislikes: initialDislikes, likes: initialLikes, com
 
     const replyToComment = async (value) => {
         try{
-            console.log(bookid)
             const response = await ReplyToComment(value, replyText,bookid);
-            console.log(response)
+            if (response === "Reply posted"){
+                setTypeReplyState(false);
+                setReplyText("");
+            }
         }catch(err){
             console.log(err);
         }
@@ -115,10 +120,20 @@ const Comment = ({bookid,id, dislikes: initialDislikes, likes: initialLikes, com
         setReplyText(e.target.value);
     }
 
+    async function deleteReview(replyText,replyUsername){
+        let response = await DeleteReply(replyText,replyUsername,id);
+        if (response === "Deleted"){
+            console.log("Reply deleted")
+        }
+        else{
+            console.log("Error deleting reply");
+        }
+    }
+
     return (
         <div>
             <div className="Comment">
-                <h3 className={thisUserComment ? "thisUserComment commentUsername" : "commentUsername"} onClick={() => goToAuthorSite(Username)}>{Username}</h3>
+                <h3 className={thisUserComment ? "commentUsername thisUserComment" : "commentUsername"} onClick={() => goToAuthorSite(Username)}>{thisUserComment ? "You" : Username}</h3>
                 <p className="commentText">{commentText}</p>
                 {
                     thisUserComment ?
@@ -161,25 +176,21 @@ const Comment = ({bookid,id, dislikes: initialDislikes, likes: initialLikes, com
                 </div>
             </div>
             <div className="commentReplies">
-                <div className="Reply">
-                    <h3 className="replyUser">Username</h3>
-                    <p className="replyText">Reply Text</p>
-                    <div className="likeDislikeContainer">
-                        <div className="feedbackButton">
-                            <span className="feedbackText">{likes === null ? 0 : likes}</span>
-                            <button onClick={() => handleFeedbackClick("likes")}>
-                                <img src={commentLiked ? upvotePicutreFill : upvotePicture} className="voteButtons" alt="upvote comment image" />
-                            </button>
-                        </div>
-                        <span>|</span>
-                        <div className="feedbackButton">
-                            <span className="feedbackText">{dislikes === null ? 0 : dislikes}</span>
-                            <button onClick={() => handleFeedbackClick("dislikes")}>
-                                <img src={commentDisliked ? downvotePictureFill : downvotePicture} className="voteButtons" alt="downvote comment image" />
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                {replies.length > 0 ? replies.map((reply, index) =>
+                    reply.relatedTo === id ?  
+                    <div className="Reply" key={index}>
+                        <h3 className={reply.userName === viewingUser ? "replyUser thisUserComment" : "replyUser"}>{reply.userName === viewingUser ? "You" : reply.Username}</h3>
+                        <p className="replyText">{reply.comment}</p>
+                        {
+                            reply.userName === viewingUser ?
+                            <div className="TrashcanContainerReply">
+                                <img onMouseEnter={() => setTrashCanHoverd(true)} onMouseLeave={() => setTrashCanHoverd(false)} onClick={() => deleteReview(reply.comment,reply.userName)}
+                                className="Trashcan"  src={trashCanHoverd ? trashcanOpen : trashcanClosed} alt="Trash can"/>
+                            </div>
+                        : null
+                        }
+                    </div> : null
+                ) : null}
             </div>
         </div>
     );

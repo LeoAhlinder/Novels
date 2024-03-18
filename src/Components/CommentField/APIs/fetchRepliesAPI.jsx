@@ -11,7 +11,6 @@ const FetchRepliesAPI = async ({bookId,changeReplies}) =>{
             credentials: 'include',
         });
         const response = await res.json();
-        console.log(response);
         if (response.error){
             changeReplies([])
         }
@@ -25,6 +24,7 @@ const FetchRepliesAPI = async ({bookId,changeReplies}) =>{
             changeReplies([])
         }
     }catch(err){
+        console.log(err);
         changeReplies([])
     }
 }
