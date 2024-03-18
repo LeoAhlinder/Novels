@@ -16,6 +16,7 @@ import forestHut from "../picturesForBooks/hutInForestBig.webp"
 
 import yellowStar from "../Icons/star-yellow.svg"
 import whiteStar from "../Icons/star-white.svg"
+import { use } from "chai";
 
 const BookPage = () =>{
 
@@ -249,7 +250,16 @@ const BookPage = () =>{
     }
 
     useEffect(() => {
-        if (bookId !== 0) {
+        if (bookId !== 0){
+            changeReplies(FetchReplies({
+                bookId: bookId,
+                changeReplies: changeReplies
+            }))
+        }
+    }, [bookId]);
+
+    useEffect(() => {
+        if (replies.length != 0) {
             FetchComments({
                 bookId: bookId,
                 changeComments: changeComments,
@@ -260,13 +270,7 @@ const BookPage = () =>{
                 changeMoreCommentsExist:changeMoreCommentsExist
             });
         }
-        if (bookId !== 0){
-            changeReplies(FetchReplies({
-                bookId: bookId,
-                changeReplies: changeReplies
-            }))
-        }
-    }, [bookId]);
+    }, [replies]);
 
     const goToChapterPage = () => {
         navigate({pathname:`/chapters/${bookInfo[0].title}`})

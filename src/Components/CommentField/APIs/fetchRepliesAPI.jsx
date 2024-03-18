@@ -12,20 +12,20 @@ const FetchRepliesAPI = async ({bookId,changeReplies}) =>{
         });
         const response = await res.json();
         if (response.error){
-            changeReplies([])
+            changeReplies("No replies found")
         }
         else if (response.message === "No replies found"){
-            changeReplies([])
+            changeReplies("No replies found")
         }
         else if (response.replies.length > 0){
             changeReplies(response.replies)
         }
         else{
-            changeReplies([])
+            changeReplies("No replies found")
         }
     }catch(err){
         console.log(err);
-        changeReplies([])
+        changeReplies("No replies found")
     }
 }
 
