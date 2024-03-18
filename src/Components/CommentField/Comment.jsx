@@ -20,6 +20,7 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
 
     const [typeReplyState, setTypeReplyState] = useState(false);
     const [replyText, setReplyText] = useState("");
+    const [replyResponseMessage, setReplyResponseMessage] = useState("");
 
     const navigate = useNavigate()
 
@@ -84,9 +85,13 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
     };
 
     const deleteComment = async (commentId) => {
-        let commentDeleted = await DeleteComment(commentId);
-        if (commentDeleted === "Deleted") {
-            setCommentDeleted(true); 
+        try{
+            let commentDeleted = await DeleteComment(commentId);
+            if (commentDeleted === "Deleted") {
+                setCommentDeleted(true); 
+            }
+        }catch(err){
+            console.log(err);
         }
     }
 
@@ -102,11 +107,20 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
     const replyToComment = async (value) => {
         try{
             const response = await ReplyToComment(value, replyText,bookid);
-            if (response === "Reply posted"){
+            console.log(response);
+            if (response.message === "Reply posted"){
                 setTypeReplyState(false);
                 setReplyText("");
+                setReplyResponseMessage("Reply posted");
+            }
+            else if (response.reply){
+                setReplyResponseMessage(response.reply);
+            }
+            else{
+                setReplyResponseMessage("A error occured, please try again later.");
             }
         }catch(err){
+            setReplyResponseMessage("A error occured, please try again later.");
             console.log(err);
         }
     }
@@ -121,7 +135,12 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
     }
 
     async function deleteReview(replyText,replyUsername){
-        await DeleteReply(replyText,replyUsername,id);
+        try{
+            await DeleteReply(replyText,replyUsername,id);
+        }
+        catch(err){
+            console.log(err);
+        }
     }
 
     return (
@@ -161,10 +180,15 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
                     {typeReplyState && viewingUser !== undefined ? 
                         <div className="replyTextContainer">
                             <textarea maxLength={1500} type="text" placeholder="Reply to comment" className="replyInput" onChange={(e) => handleChange(e)} />
-                            <div className="replyButtonsContainer">
-                                <button className="replyInputButton cancelReply" onClick={() => setTypeReplyState(false)}>Cancel</button>
-                                <button className="replyInputButton sendReply" onClick={() => replyToComment(value)}>Reply</button>
+                            <div className="commentReplyContainer">
+                                <p className="replyCharacterCount">{replyText.length}/1500</p>
+                                <p className={replyResponseMessage === "Reply posted" ? "replySuccess" : "replyError"}>{replyResponseMessage}</p>
+                                <div className="replyButtonsContainer">
+                                    <button className="replyInputButton cancelReply" onClick={() => setTypeReplyState(false)}>Cancel</button>
+                                    <button className="replyInputButton sendReply" onClick={() => replyToComment(value)}>Reply</button>
+                                </div>
                             </div>
+                            
                         </div>
                     : null}
                 </div>

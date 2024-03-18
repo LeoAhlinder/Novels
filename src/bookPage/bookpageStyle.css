@@ -127,6 +127,22 @@
     padding: 10px;
 }
 
+.replySuccess{
+    color: rgb(13, 148, 13);
+    font-size: 0.9em;
+}
+
+.replyError{
+    color: rgb(216, 55, 55);
+    font-size: 0.9em;
+}
+
+.commentReplyContainer{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+}
 
 @font-face {
     font-family: Inter;
@@ -427,7 +443,7 @@
     flex-direction: row;
     gap: 15px;
     justify-content: flex-end;
-    width: 90%;
+    width: auto;
     padding: 5px;
 }
 
@@ -533,6 +549,11 @@
 @media screen and (max-width:1000px) {
 
     .commentContainer{
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .commentReplyContainer{
         width: 90%;
         margin: 0 auto;
     }
@@ -675,6 +696,15 @@
     .commentField{
         width: 26em;
     }
+    .replyError{
+        font-size: 0.7em;
+    }
+    .replySuccess{
+        font-size: 0.7em;
+    }
+    .replyCharacterCount{
+        font-size: 0.7em;
+    }
 }
 
 @media screen and (max-width:500px) {
@@ -682,6 +712,11 @@
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
+        gap: 10px;
+    }
+    .replyButtonsContainer{
+        display: flex;
+        flex-direction: column;
         gap: 10px;
     }
     #addButtonPhone{
