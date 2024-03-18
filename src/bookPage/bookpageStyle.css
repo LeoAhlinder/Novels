@@ -115,6 +115,7 @@
 }
 
 .writeCommentButton{
+    font-family: Inter;
     background-color: rgb(96, 114, 122);
     border: none;
     height: 40px;
@@ -124,6 +125,12 @@
     color: white;
     cursor: pointer;
     padding: 10px;
+}
+
+
+@font-face {
+    font-family: Inter;
+    src: url("../Fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
 }
 
 .bookSummary{
