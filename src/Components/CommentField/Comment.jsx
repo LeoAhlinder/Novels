@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import CommentFeedback from "./APIs/commentFeedbackAPI";
 import DeleteComment from "./APIs/deleteCommentAPI";
 import ReplyToComment from "./APIs/replyToCommentAPI";
-import DeleteReply from "./APIs/deleteReplyAPI";
+import Replies from "./Replies";
 
 import downvotePicture from "../../Icons/downvote.svg";
 import downvotePictureFill from "../../Icons/downvote-fill.svg";
@@ -134,15 +134,6 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
         setReplyText(e.target.value);
     }
 
-    async function deleteReview(replyText,replyUsername){
-        try{
-            await DeleteReply(replyText,replyUsername,id);
-        }
-        catch(err){
-            console.log(err);
-        }
-    }
-
     return (
         <div>
             <div className="Comment">
@@ -193,27 +184,12 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
                     : null}
                 </div>
             </div>
-            <div className="commentReplies">
-                {replies.length > 0 ? replies.map((reply, index) =>
-                    reply.relatedTo === id ?  
-                    <div className="Reply" key={index}>
-
-                        <h3 onClick={reply.userName === null ? () => goToAuthorSite(reply.userName) : null} className={reply.userName === viewingUser ? "replyUser thisUserComment" : "replyUser"}>
-                            {reply.userName === null ? "Deleted User" : reply.userName === viewingUser ? "You" : reply.userName}
-                        </h3>
-
-                        <p className="replyText">{reply.comment}</p>
-                        {
-                            reply.userName === viewingUser ?
-                            <div className="TrashcanContainerReply">
-                                <img onMouseEnter={() => setTrashCanHoverd(true)} onMouseLeave={() => setTrashCanHoverd(false)} onClick={() => deleteReview(reply.comment,reply.userName)}
-                                className="Trashcan"  src={trashCanHoverd ? trashcanOpen : trashcanClosed} alt="Trash can"/>
-                            </div>
-                        : null
-                        }
-                    </div> : null
-                ) : null}
-            </div>
+            <Replies 
+                replies={replies} 
+                goToAuthorSite={goToAuthorSite} 
+                viewingUser={viewingUser} 
+                id={id} 
+            />
         </div>
     );
 };
