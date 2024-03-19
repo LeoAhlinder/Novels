@@ -22,6 +22,8 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
     const [replyText, setReplyText] = useState("");
     const [replyResponseMessage, setReplyResponseMessage] = useState("");
 
+    const [editedReplies, setEditedReplies] = useState(replies);
+
     const navigate = useNavigate()
 
     let likedFeedback = [];
@@ -107,11 +109,11 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
     const replyToComment = async (value) => {
         try{
             const response = await ReplyToComment(value, replyText,bookid);
-            console.log(response);
             if (response.message === "Reply posted"){
                 setTypeReplyState(false);
                 setReplyText("");
                 setReplyResponseMessage("Reply posted");
+                setEditedReplies([...editedReplies, {comment: replyText, userName: "You", relatedTo: value,likes: null,dislikes: null}]);
             }
             else if (response.reply){
                 setReplyResponseMessage(response.reply);
@@ -185,7 +187,7 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
                 </div>
             </div>
             <Replies 
-                replies={replies} 
+                replies={editedReplies} 
                 goToAuthorSite={goToAuthorSite} 
                 viewingUser={viewingUser} 
                 id={id} 

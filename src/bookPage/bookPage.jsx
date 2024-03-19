@@ -16,7 +16,6 @@ import forestHut from "../picturesForBooks/hutInForestBig.webp"
 
 import yellowStar from "../Icons/star-yellow.svg"
 import whiteStar from "../Icons/star-white.svg"
-import { use } from "chai";
 
 const BookPage = () =>{
 

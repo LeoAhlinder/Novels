@@ -1895,7 +1895,7 @@ app.post("/api/replyToComment", function (req, res) {
         const reply = req.body.replyText;
         const bookId = req.body.bookId;
   
-        const checkReplies = "SELECT commentid from comments WHERE userid = ? and relatedTo = ? and comment = ?";
+        const checkReplies = "SELECT commentid from comments WHERE userid = ? and relatedTo = ? and comment = ? AND DELETED = 0";
   
         connection.query(checkReplies, [userId, commentId, reply], function (error, results) {
           if (error) {

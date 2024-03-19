@@ -1,6 +1,5 @@
 const FetchRepliesAPI = async ({bookId,changeReplies}) =>{
     try{
-        console.log("Fetching Replies");
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getReplies?bookId=${bookId}`,{
             method :"GET",
             headers: {
@@ -12,20 +11,20 @@ const FetchRepliesAPI = async ({bookId,changeReplies}) =>{
         });
         const response = await res.json();
         if (response.error){
-            changeReplies("No replies found")
+            changeReplies([])
         }
         else if (response.message === "No replies found"){
-            changeReplies("No replies found")
+            changeReplies([])
         }
         else if (response.replies.length > 0){
             changeReplies(response.replies)
         }
         else{
-            changeReplies("No replies found")
+            changeReplies([])
         }
     }catch(err){
         console.log(err);
-        changeReplies("No replies found")
+        changeReplies([])
     }
 }
 
