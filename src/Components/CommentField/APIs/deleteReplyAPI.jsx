@@ -15,7 +15,6 @@ const DeleteReply = async (replyText,replyUser,commentId) => {
             })
         });
         const response = await res.json();
-        console.log(response);
         if (response.message === "Reply Deleted"){
             return "Deleted"
         }

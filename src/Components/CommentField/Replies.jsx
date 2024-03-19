@@ -15,8 +15,6 @@ const Replies = ({ replies, goToAuthorSite, viewingUser, id }) => {
     return `${reply.userName}-${reply.comment}`; 
   };
 
-  console.log(replies);
-
   useEffect(() => {
     if (replies.length === 0) {
         return;

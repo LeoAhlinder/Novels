@@ -1,5 +1,4 @@
 const ReplyToComment = async (commentId, replyText,bookId) => {
-    console.log("Replying to comment")
     try {
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/replyToComment`, {
             method: "POST",
