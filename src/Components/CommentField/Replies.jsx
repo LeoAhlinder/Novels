@@ -6,7 +6,7 @@ import DeleteReply from "./APIs/deleteReplyAPI";
 import trashcanOpen from "../../Icons/trashcan-open.svg"
 import trashcanClosed from "../../Icons/trashcan-closed.svg"
 
-const Replies = ({ replies, goToAuthorSite, viewingUser, id }) => {
+const Replies = ({ replies, goToAuthorSite,viewingUser, id }) => {
 
   const [repliesWithUniqueIds, setRepliesWithUniqueIds] = useState([]);
   const [trashCanHoveredStates, setTrashCanHoveredStates] = useState({});
@@ -53,7 +53,7 @@ const Replies = ({ replies, goToAuthorSite, viewingUser, id }) => {
           reply.relatedTo === id ? (
             <div className="Reply" key={reply.uniqueId}>
               <h3
-                onClick={reply.userName === null? () => goToAuthorSite(reply.userName): null}
+                onClick={reply.userName !== null ? () => goToAuthorSite(reply.userName): null}
                 className={reply.userName === viewingUser ? "replyUser thisUserComment" : "replyUser"}
                 >
                 {reply.userName === null
