@@ -196,6 +196,7 @@ const Rating = () => {
     }
 
     async function deleteReview(index){
+       try{
         const res = await fetch(`${process.env.REACT_APP_API_URL}/api/deleteReview`,{
             method:"DELETE",
             headers: {  
@@ -213,6 +214,9 @@ const Rating = () => {
             newReviews.splice(index, 1);
             changeReviews(newReviews);
         }
+       }catch(err){
+            console.log("Error deleting review")
+       }
     }
 
     return (
