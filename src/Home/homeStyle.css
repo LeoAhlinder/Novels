@@ -161,7 +161,7 @@ body{
 
 @media screen and (max-width:408px) {
     .gridItem{
-        padding: 0px 20px !important;
+        padding: 0px 10px !important;
     }
 }
 
