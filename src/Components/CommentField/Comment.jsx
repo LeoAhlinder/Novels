@@ -113,7 +113,7 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
                 setTypeReplyState(false);
                 setReplyText("");
                 setReplyResponseMessage("Reply posted");
-                setEditedReplies([...editedReplies, {comment: replyText, userName: "You", relatedTo: value,likes: null,dislikes: null}]);
+                setEditedReplies(prevReplies => [...prevReplies, {comment: replyText, userName: "You", relatedTo: value,likes: null,dislikes: null}]);
             }
             else if (response.reply){
                 setReplyResponseMessage(response.reply);
@@ -190,7 +190,8 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
                 replies={editedReplies} 
                 goToAuthorSite={goToAuthorSite} 
                 viewingUser={viewingUser} 
-                id={id} 
+                id={id}
+                updateRepliesAfterDelete={setEditedReplies}
             />
         </div>
     );
