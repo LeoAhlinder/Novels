@@ -115,6 +115,7 @@
 }
 
 .writeCommentButton{
+    font-family: Inter;
     background-color: rgb(96, 114, 122);
     border: none;
     height: 40px;
@@ -124,6 +125,28 @@
     color: white;
     cursor: pointer;
     padding: 10px;
+}
+
+.replySuccess{
+    color: rgb(13, 148, 13);
+    font-size: 0.9em;
+}
+
+.replyError{
+    color: rgb(216, 55, 55);
+    font-size: 0.9em;
+}
+
+.commentReplyContainer{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-between;
+}
+
+@font-face {
+    font-family: Inter;
+    src: url("../Fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
 }
 
 .bookSummary{
@@ -318,7 +341,7 @@
 }
 
 .thisUserComment{
-    color: rgb(230, 101, 101);
+    color: rgb(230, 101, 101) !important;
 }
 
 .Trashcan{
@@ -334,11 +357,63 @@
     margin-right: 10px;
 }
 
+.bottomContainerComment{
+    padding-top: 10px;
+    border-top: 1px solid  rgb(68, 69, 71);
+    justify-content: space-between;
+    display: flex;
+    flex-direction: row;
+    margin-top: 25px;
+}
+
+.replyContainer{
+    text-align: start;
+}
+
+.replyButton{
+    color: #769af3;
+    text-align: start;
+}
+
+.commentReplies{
+    position: relative;
+    background-color: rgb(43, 44, 45);
+    padding-left: 20px;
+    border-radius: 5px;
+    border: 1px solid rgb(68, 69, 71);
+    border-top: 0px;
+    border-radius: 0px 0px 5px 5px;
+}
+
+.replyUser{
+    color: #98abdb;
+    text-align: start;
+    cursor:pointer;
+}
+
+.replyText{
+    text-align: start;
+    color: white;
+}
+
+.Reply{
+    background-color: rgb(43, 44, 45);
+    border-radius: 5px 0px 0px 0px;
+    padding: 20px;
+    border: 1px solid rgb(68, 69, 71);
+    border-bottom: 0px;
+    border-right:0px;
+}
+
 .Comment{
     position: relative;
-    background-color: rgb(55, 57, 58);
+    background-color: rgb(43, 44, 45);
     padding: 20px;
+    padding-bottom: 15px;
     border-radius: 5px;
+    border: 1px solid rgb(68, 69, 71);
+    border-bottom: 0px;
+    border-radius: 5px 5px 0px 0px;
 }
 
 .commentField{
@@ -348,6 +423,51 @@
     width: 50vw;
     height: auto;
     padding: 10px;
+}
+
+.replyInput{
+    width: 90%;
+    background-color: rgb(50, 52, 53);
+    color: white;
+    padding: 5px;
+    border: none;
+    resize: none;
+    height: auto;
+    overflow: hidden;
+    font-size: 1em;
+    border-radius: 5px;
+}
+
+.replyButtonsContainer{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    justify-content: flex-end;
+    width: auto;
+    padding: 5px;
+}
+
+.sendReply{
+    background-color: rgb(81, 205, 50);
+}
+
+.cancelReply{
+    background-color: red;
+}
+
+.replyInputButton{
+    border: none;
+    width: auto;
+    font-size: 0.8em;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    padding: 3px;
+}
+
+.replyTextContainer{
+    margin-top: 15px;
+    width: 90%;
 }
 
 .rateButton{
@@ -405,6 +525,11 @@
     place-content: flex-end;
 }
 
+.commentUsername{
+    cursor: pointer;
+    color: #769af3;
+}
+
 
 @media screen and (min-width:1000px) {
     #phone{
@@ -424,6 +549,11 @@
 @media screen and (max-width:1000px) {
 
     .commentContainer{
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .commentReplyContainer{
         width: 90%;
         margin: 0 auto;
     }
@@ -566,6 +696,15 @@
     .commentField{
         width: 26em;
     }
+    .replyError{
+        font-size: 0.7em;
+    }
+    .replySuccess{
+        font-size: 0.7em;
+    }
+    .replyCharacterCount{
+        font-size: 0.7em;
+    }
 }
 
 @media screen and (max-width:500px) {
@@ -573,6 +712,11 @@
         display: flex;
         flex-direction: column;
         flex-wrap: wrap;
+        gap: 10px;
+    }
+    .replyButtonsContainer{
+        display: flex;
+        flex-direction: column;
         gap: 10px;
     }
     #addButtonPhone{
@@ -607,6 +751,9 @@
     .commentField{
         width: 19em;
     }
+    .Reply{
+        padding: 10px;
+    }
 }
 
 @media screen and (max-width:400px) {
@@ -627,11 +774,6 @@
         margin: 0 auto;
         margin-bottom: 10px;
     }
-
-    .Comment{
-        width: 100%;
-        padding: 4px;
-    }
     .commentField{
         width: 18em;
         padding: 10px;
@@ -643,6 +785,13 @@
         width: 16em;
     }
 }
+
+@media screen and (max-width:290px) {
+    .commentField{
+        width: 14em;
+    }
+}
+
 
 
 .notLoginIn{

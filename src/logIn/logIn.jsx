@@ -158,6 +158,12 @@ const LogIn = () =>{
         }
     }
 
+    window.addEventListener("keypress", (e) => {
+        if (e.key === "Enter"){
+            logIn()
+        }
+    });
+
     async function logIn(){
 
         if (checkInputFields() === true){

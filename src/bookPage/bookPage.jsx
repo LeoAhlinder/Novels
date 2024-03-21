@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
 import FetchComments from "../Components/CommentField/APIs/fetchCommentAPI";
 import PostComment from "../Components/CommentField/APIs/postCommentAPI";
+import FetchReplies from "../Components/CommentField/APIs/fetchRepliesAPI"
 
 import Comment from "../Components/CommentField/Comment"
 
@@ -27,8 +28,6 @@ const BookPage = () =>{
 
     const navigate = useNavigate()
 
-    const amountOfComments = 9;
-
     const bookName = window.location.pathname.split("/")[2].replaceAll("-", " ");
  
     const [bookInfo, setBookInfo] = useState([])
@@ -49,6 +48,7 @@ const BookPage = () =>{
     const [loadSet,changeLoadSet] = useState(0)
     const [moreCommentsExist,changeMoreCommentsExist] = useState(false)
     const [rating,changeRating] = useState(0)
+    const [replies, changeReplies] = useState([])
 
     useEffect(() => {
         const fetchBookInfo = async () => {
@@ -160,7 +160,6 @@ const BookPage = () =>{
                 }
                 else{
                     navigate("/error")
-
                 }
             }catch(err){
                 navigate("/error")
@@ -250,7 +249,16 @@ const BookPage = () =>{
     }
 
     useEffect(() => {
-        if (bookId !== 0) {
+        if (bookId !== 0){
+            changeReplies(FetchReplies({
+                bookId: bookId,
+                changeReplies: changeReplies
+            }))
+        }
+    }, [bookId]);
+
+    useEffect(() => {
+        if (replies.length != 0) {
             FetchComments({
                 bookId: bookId,
                 changeComments: changeComments,
@@ -261,7 +269,7 @@ const BookPage = () =>{
                 changeMoreCommentsExist:changeMoreCommentsExist
             });
         }
-    }, [bookId]);
+    }, [replies]);
 
     const goToChapterPage = () => {
         navigate({pathname:`/chapters/${bookInfo[0].title}`})
@@ -280,6 +288,8 @@ const BookPage = () =>{
         if (comments.length > 0) {
             return comments.map((comment, index) => (
                 <Comment
+                    replies={replies}
+                    bookid={bookId}
                     id={comment.commentid}
                     key={index}
                     value={comment.commentid}
@@ -288,8 +298,7 @@ const BookPage = () =>{
                     commentText={comment.comment}
                     recievedFeedback={givenFeedback !== null ? givenFeedback : null}
                     viewingUser={Username}
-                    Username={comment.userName === Username ? "You" : comment.userName}
-                    thisUserComment={comment.userName === Username ? true : false}
+                    Username={comment.userName}
                 />  
             ));
         } else {
@@ -324,8 +333,7 @@ const BookPage = () =>{
             }
         }catch(err){
             navigate("/error")
-        }
-        
+        }   
     }
 
     const goToRatingSite = () =>{
@@ -389,12 +397,12 @@ const BookPage = () =>{
                         <div className="commentContainer">
                                 <div className="headerContainer">
                                     <h2>Comments</h2>
-                                    <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
+                                    <button className="writeCommentButton" onClick={Username === undefined ? () => navigate("/login") : () => changeWriteCommentView(!writeCommentView)}>{Username === undefined ? "Log in to comment" : writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
                                 </div>
                                 {writeCommentView === true ? 
                                 <>
                                     <div className="writeCommentContainer">
-                                        <textarea className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} value={postCommentText} placeholder="Write a comment"></textarea>
+                                        <textarea maxLength={1500} className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} value={postCommentText} placeholder="Write a comment"></textarea>
                                         <button className="submitCommentButton" onClick={() => postCommentHandler()}>Submit</button>
                                     </div>
                                     {postCommentAlert !== "" ? <p className="commentAlert" style={postCommentAlert === "Comment posted" ? {color:"green"} : {color:"red"}}>{postCommentAlert}</p> : null}
@@ -430,7 +438,7 @@ const BookPage = () =>{
                                         <h5 id="chaptersPhone">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
                                         <button className="rateButton" onClick={() => goToRatingSite()}>Rate this book</button>
                                     <div id="phoneButtonContainer">
-                                        <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage != 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
+                                        <button className="readButtonPhone" onClick={() => goToChapter()}>{currentPage !== 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>
                                         <button className="readButtonPhone" onClick={() => goToChapterPage()}>View Chapters</button>
                                         <button id="addButtonPhone" className={LibraryAddButton === "Not Login in" ? "notLoginIn" : ""} onClick={LibraryAddButton === "Remove from Library" ? () => removeFromLibrary(): () => addToLibrary()}>{LibraryAddButton}</button>
                                     </div>
@@ -457,16 +465,15 @@ const BookPage = () =>{
                                 <div className="commentContainer">
                             <div className="headerContainer">
                                 <h2 id="commentsTitle">Comments</h2>
-                                <button className="writeCommentButton" onClick={() => changeWriteCommentView(!writeCommentView)}>{writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
+                                <button className="writeCommentButton" onClick={Username === undefined ? () => navigate("/login") : () => changeWriteCommentView(!writeCommentView)}>{Username === undefined ? "Log in to comment" : writeCommentView === false ? "Write a Comment" : "Stop Writing Comments"}</button>
                             </div>
                             {writeCommentView === true ? 
                             <>
                                 <div className="writeCommentContainer">
-                                    <textarea className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} placeholder="Write a comment"></textarea>
+                                    <textarea maxLength={1500} className="writeCommentTextArea" onChange={(e) => onChangeHandler(e)} placeholder="Write a comment"></textarea>
                                     <button className="submitCommentButton" onClick={() => postCommentHandler()}>Submit</button>
                                 </div>
                                 {postCommentAlert !== "" ? <p className="commentAlert" style={postCommentAlert === "Comment posted" ? {color:"green"} : {color:"red"}}>{postCommentAlert}</p> : null}
-
                             </> 
                             : null
                             }
