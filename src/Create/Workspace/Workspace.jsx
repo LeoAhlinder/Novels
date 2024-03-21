@@ -30,7 +30,7 @@ const Workspace = () =>{
         try{
             const fetchNovelsCreated = async () =>{
 
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/novelsCreated`,{
+                const res = await fetch(`https://152.42.128.44:3001/api/novelsCreated`,{
                     method:"GET",
                     headers:{    
                     "Content-Type": "application/json",

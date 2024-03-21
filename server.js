@@ -24,7 +24,7 @@ app.use(cookieParser());
 
 // Allow only requests from a specific domain
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: "https://152.42.128.44:3000",
   credentials: true,
   exposedHeaders: ["Set-cookie"],
 };

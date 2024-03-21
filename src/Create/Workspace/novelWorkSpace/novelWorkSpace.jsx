@@ -37,7 +37,7 @@ export default function NovelWorkSpace() {
     useEffect(() => {
         async function checkIfUserValid() {
           try {      
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkOwnerOfBook`, {
+            const res = await fetch(`https://152.42.128.44:3001/api/checkOwnerOfBook`, {
               method: "POST",
               headers: {
                 "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export default function NovelWorkSpace() {
         if (validUser) {
           async function getBookInfo() {
             try {
-              const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getBookInfo?id=${bookId}`, {
+              const res = await fetch(`https://152.42.128.44:3001/api/getBookInfo?id=${bookId}`, {
                 method: "GET",
                 headers: {
                   "Content-Type": "application/json",
@@ -98,7 +98,7 @@ export default function NovelWorkSpace() {
 
     const publishChapter = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/publishChapter`, {
+        const res = await fetch(`https://152.42.128.44:3001/api/publishChapter`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -140,7 +140,7 @@ export default function NovelWorkSpace() {
 
         const fetchChapters = async () => {
           try{
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapters/${bookTitle}`, {
+            const res = await fetch(`https://152.42.128.44:3001/api/chapters/${bookTitle}`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
