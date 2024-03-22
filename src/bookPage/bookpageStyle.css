@@ -425,6 +425,12 @@
     padding: 10px;
 }
 
+.TrashcanContainerReply{
+    align-items: flex-end;
+    display: flex;
+    justify-content: flex-end;
+}
+
 .replyInput{
     width: 90%;
     background-color: rgb(50, 52, 53);
