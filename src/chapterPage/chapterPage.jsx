@@ -177,7 +177,7 @@ const ChapterPage = () => {
         <>
             {loading === false ?
             <div id="chapterPageContainer" style={{backgroundColor:themeColors[chapterTheme].backgroundColor}}>
-                <a id="chapterPageBookTitle" href={`/novel/${bookName}`} style={{color:themeColors[chapterTheme].color}}>{bookName}</a>
+                <a id="chapterPageBookTitle" href={`/novel/${bookName}`}>{bookName}</a>
                 <h1 id="chapterPageTitle" style={{color:themeColors[chapterTheme].color}}>
                     Chapter {chapterNumber}: {chapterTitle}
                 </h1>
