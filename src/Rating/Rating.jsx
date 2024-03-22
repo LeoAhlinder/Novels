@@ -52,7 +52,7 @@ const Rating = () => {
     useEffect(() => {
         try{
             const getRatingAndInfo = async () => {
-                const res = await fetch(`https://152.42.128.44:3001/api/getRatingAndInfo?bookName=${bookName}`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getRatingAndInfo?bookName=${bookName}`,{
                     method:"GET",
                     headers: {  
                         "Content-Type": "application/json",
@@ -119,7 +119,7 @@ const Rating = () => {
                     review: reviewText,
                     rating: review
                 }
-                const res = await fetch(`https://152.42.128.44:3001/api/postReview`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/postReview`,{
                     method:"POST",
                     headers: {  
                         "Content-Type": "application/json",

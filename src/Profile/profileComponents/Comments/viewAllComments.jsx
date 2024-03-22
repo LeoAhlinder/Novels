@@ -20,7 +20,7 @@ const ViewAllComments = () => {
 
     const fetchUsersComments = async (loadSet) => {
         try {
-            const res = await fetch(`https://152.42.128.44:3001/api/getUsersComments?loadSet=${loadSet}`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getUsersComments?loadSet=${loadSet}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

@@ -32,7 +32,7 @@ const AuthorSite = () =>{
 
         const fetchAuthorInfo = async () =>{
             try{
-                const res = await fetch(`https://152.42.128.44:3001/api/authorInfo?authorName=${authorName}`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/authorInfo?authorName=${authorName}`,{
                     method:"GET",
                     headers:{    
                     "Content-Type": "application/json",

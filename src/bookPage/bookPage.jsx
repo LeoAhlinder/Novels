@@ -53,7 +53,7 @@ const BookPage = () =>{
     useEffect(() => {
         const fetchBookInfo = async () => {
           try {
-            const response = await fetch(`https://152.42.128.44:3001/api/book?title=${bookName}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/book?title=${bookName}`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
@@ -104,7 +104,7 @@ const BookPage = () =>{
         const isBookInLibrary = async () =>{
             try
             {
-                const res = await fetch(`https://152.42.128.44:3001/api/checkLibrary`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkLibrary`,{
                     method:"POST",
                     headers: {  
                         "Content-Type": "application/json",
@@ -143,7 +143,7 @@ const BookPage = () =>{
     const addToLibrary = async () =>{
         if (buttonState === true){
             try{
-                const res = await fetch(`https://152.42.128.44:3001/api/AddToLibrary`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/AddToLibrary`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
@@ -188,7 +188,7 @@ const BookPage = () =>{
     const removeFromLibrary = async () =>{
         if (buttonState === true){
             try{
-                const res = await fetch(`https://152.42.128.44:3001/api/RemoveFromLibrary`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/RemoveFromLibrary`,{
                     method:"DELETE",
                     headers:{
                         "Content-Type": "application/json",

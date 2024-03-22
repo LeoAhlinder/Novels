@@ -15,7 +15,7 @@ const AdminPanel = () => {
 
                 const token = Cookies.get("adminToken")
 
-                const res = await fetch("https://152.42.128.44:3001/api/admin/access",{
+                const res = await fetch("${process.env.REACT_APP_API_URL}/api/admin/access",{
                     method:"GET",
                     headers:{
                         "Content-Type": "application/json",
