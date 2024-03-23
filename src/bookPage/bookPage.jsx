@@ -229,7 +229,7 @@ const BookPage = () =>{
             })
             if (didCommentPost === true){
                 changePostCommentText("")
-                changePostCommentAlert("Comment posted")
+                changeWriteCommentView(false)
                 FetchComments({
                     bookId: bookId,
                     changeComments: changeComments,
@@ -245,7 +245,7 @@ const BookPage = () =>{
                
             }
         }catch(err){
-            navigate("/error")
+            changePostCommentAlert("Error posting comment")
         }
     }
 
