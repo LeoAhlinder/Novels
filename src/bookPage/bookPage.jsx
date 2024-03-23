@@ -49,6 +49,7 @@ const BookPage = () =>{
     const [moreCommentsExist,changeMoreCommentsExist] = useState(false)
     const [rating,changeRating] = useState(0)
     const [replies, changeReplies] = useState([])
+    const [commentsLength, setAmoutOfComments] = useState(0);
 
     useEffect(() => {
         const fetchBookInfo = async () => {
@@ -286,6 +287,7 @@ const BookPage = () =>{
 
     const MemorizedComments = useMemo(() => {
         if (comments.length > 0) {
+            setAmoutOfComments(comments.length)
             return comments.map((comment, index) => (
                 <Comment
                     replies={replies}
@@ -412,7 +414,7 @@ const BookPage = () =>{
                                 <div className="commentField">
                                    {MemorizedComments}
                                 </div>
-                                {moreCommentsExist === true ? <button className="loadMoreButton" onClick={() => fetchMoreComments()}>Load More</button> : null}
+                                {moreCommentsExist === true && commentsLength >= 8 ? <button className="loadMoreButton" onClick={() => fetchMoreComments()}>Load More</button> : null}
                         </div>
                         <div id="footer"></div>
                     </div>
