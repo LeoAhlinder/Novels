@@ -22,7 +22,7 @@ const Comment = ({replies,bookid,id, dislikes: initialDislikes, likes: initialLi
     const [replyText, setReplyText] = useState("");
     const [replyResponseMessage, setReplyResponseMessage] = useState("");
 
-    const [editedReplies, setEditedReplies] = useState(replies);
+    const [editedReplies, setEditedReplies] = useState(replies.filter(reply => reply.relatedTo === id));
 
     const navigate = useNavigate()
 

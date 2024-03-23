@@ -10,6 +10,7 @@ const Replies = ({ replies, goToAuthorSite,viewingUser, id, updateRepliesAfterDe
 
   const [repliesWithUniqueIds, setRepliesWithUniqueIds] = useState([]);
   const [trashCanHoveredStates, setTrashCanHoveredStates] = useState({});
+  const [displayAllReplies, setDisplayAllReplies] = useState(false);
 
   const generateUniqueIdentifier = (reply) => {
     return `${reply.userName}-${reply.comment}`; 
@@ -50,9 +51,9 @@ const Replies = ({ replies, goToAuthorSite,viewingUser, id, updateRepliesAfterDe
   return (
     <div className="commentReplies">
       {repliesWithUniqueIds.length > 0 ? (
-        repliesWithUniqueIds.map((reply) => (
-          reply.relatedTo === id ? (
-            <div className="Reply" key={reply.uniqueId}>
+        repliesWithUniqueIds.map((reply,index) => (
+          (displayAllReplies || index === 0) ? (
+            <div className="Reply" key={index}>
               <h3
                 onClick={reply.userName !== null ? () => goToAuthorSite(reply.userName): null}
                 className={reply.userName === viewingUser ? "replyUser thisUserComment" : "replyUser"}
@@ -87,7 +88,11 @@ const Replies = ({ replies, goToAuthorSite,viewingUser, id, updateRepliesAfterDe
                 </div>
               )}
             </div>
-          ) : null
+          ) : replies.length > 1 && !displayAllReplies && index === 1 ? 
+          <div className="viewAllReplies">
+            <button className="viewAllRepliesButton" onClick={() => setDisplayAllReplies(true)}>View All Replies</button>
+          </div>
+          : null
         ))
       ) : null}
     </div>

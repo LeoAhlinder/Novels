@@ -425,6 +425,16 @@
     padding: 10px;
 }
 
+.viewAllReplies{
+    border-top: 1px solid rgb(68, 69, 71);
+    color:white;
+}
+
+.viewAllRepliesButton{
+    padding: 5px;
+    color: rgb(77, 77, 231);
+}
+
 .TrashcanContainerReply{
     align-items: flex-end;
     display: flex;
