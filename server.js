@@ -742,8 +742,12 @@ function checkIfDataCorrect(data) {
     return `Missing fields: ${missingFields.join(", ")}`;
   }
 
-  if (data.Synopsis.length > 700) {
-    return "Synopsis exceeds maximum length of 700 characters";
+  if (data.Synopsis.length > 1500) {
+    return "Synopsis exceeds maximum length of 1500 characters";
+  }
+
+  if (data.Synopsis.lenght < 150){
+    return "Synopsis is too short"
   }
 
   if (data.bookTitle.length > 20) {
