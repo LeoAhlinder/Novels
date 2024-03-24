@@ -129,10 +129,12 @@ export default function NovelWorkSpace() {
           setAlertMessageColor("rgb(202, 82, 82)")
         }
         else {
-          navigate("/error");
+          setAlertMessage("Something went wrong, please try again later")
+          setAlertMessageColor("rgb(202, 82, 82)")
         }
       } catch (error) {
-        navigate("/error");
+        setAlertMessage("Something went wrong, please try again later")
+        setAlertMessageColor("rgb(202, 82, 82)")
       }
     }
 
