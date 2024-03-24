@@ -143,8 +143,8 @@ app.get(`/api/book`, async (req, res) => {
     const authorInfo = await authorData(bookInfo[0].bookid);
     const bookInfoData = await getBookInfo(bookInfo[0].bookid);
     const bookRating = await getBookRating(bookInfo[0].bookid);
+    await addViewToBook(bookInfo[0].bookid);
 
-    // Ensure no sensitive data is included in the response
     res.json({
       data: bookInfo,
       author: authorInfo,
@@ -156,6 +156,22 @@ app.get(`/api/book`, async (req, res) => {
     res.status(500).json({ error: "An internal server error occurred" });
   }
 });
+
+function addViewToBook(bookId) {
+  try {
+    connection.query(
+      "UPDATE books SET views = COALESCE(views, 0) + 1 WHERE bookid = ?",
+      [bookId],
+      function (error, results) {
+        if (error) {
+          console.error("Error adding view to book:", error);
+        }
+      }
+    );
+    } catch (err) {
+      console.error("Error adding view to book:", err);
+    }
+}
 
 function getBookRating(bookId) {
   const query = "SELECT AVG(rating) AS rating FROM reviews WHERE bookid = ?";
