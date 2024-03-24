@@ -375,7 +375,7 @@ const BookPage = () =>{
                             </div>
                         </div>
                         <div className="bookExtraInfo">
-                            <div>
+                            <div className="summaryConatienr">
                                 <h1 className="summaryHeader">Summary</h1>
                                 <p className="bookSummary">{bookExtraInfo.synopsis}</p>
                                 <div className="summaryBorder"></div>
