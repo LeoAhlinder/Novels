@@ -69,7 +69,7 @@ const ChapterPage = () => {
                 }
             }
             else{
-                setChapterTheme("light")
+                setChapterTheme("dark")
                 setChapterTextSize(16)
                 setChapterFontType("Roboto")
             }

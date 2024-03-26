@@ -1,3 +1,3 @@
-const APIURL = "http://localhost:3001";
+const APIURL = "https://novels-server.xyz";
 
 export default APIURL;

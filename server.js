@@ -35,11 +35,11 @@ const corsOptions = {
   exposedHeaders: ["Set-cookie"],
 };
 
-const SSLOptions = {
-  key: fs.readFileSync("./ssl/private.key"),
-  cert: fs.readFileSync("./ssl/novels-server_xyz.crt"),
-  ca: fs.readFileSync("./ssl/novels-server_xyz.ca-bundle"),
-};
+// const SSLOptions = {
+//   key: fs.readFileSync("./ssl/private.key"),
+//   cert: fs.readFileSync("./ssl/novels-server_xyz.crt"),
+//   ca: fs.readFileSync("./ssl/novels-server_xyz.ca-bundle"),
+// };
 
 app.use(cors(corsOptions));
 

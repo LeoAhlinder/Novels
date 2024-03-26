@@ -151,6 +151,7 @@
 }
 
 #chapterPageBookTitle{
+    padding: 1%;
     width: 80%;
     font-size: 1.8em;
     font-family: Roboto;
@@ -199,6 +200,7 @@
 
     #chapterPageTitle{
         font-size: 1.2em;
+        padding-left: 2%;
     }
 
     #chapterPageBookTitle{
@@ -228,6 +230,10 @@
         height: 50px;
         font-size: 0.9em;
     }
+    .gearIcon{
+        width: 35px;
+        height: 35px;
+    }
 }
 
 @media screen and (max-width:350px) {
@@ -235,6 +241,9 @@
         width: 40px;
         height: 40px;
         font-size: 0.8em;
+    }
+    #chapterPageCustomOptions{
+        margin-top: 10%;
     }
 
 }
