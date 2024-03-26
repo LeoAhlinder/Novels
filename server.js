@@ -8,6 +8,9 @@ const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 const validator = require("validator");
 const bcrypt = require("bcrypt");
+const fs = require("fs");
+const https = require('https');
+
 
 const { env } = require("process");
 const { config } = require("dotenv");
@@ -22,16 +25,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+const origin = "http://localhost:3000";
+const originM = "https://Novels.se"
+
 // Allow only requests from a specific domain
 const corsOptions = {
-  origin: "http://localhost:3000",
+  origin: origin,
   credentials: true,
   exposedHeaders: ["Set-cookie"],
+};
+
+const SSLOptions = {
+  key: fs.readFileSync("./ssl/private.key"),
+  cert: fs.readFileSync("./ssl/novels-server_xyz.crt"),
+  ca: fs.readFileSync("./ssl/novels-server_xyz.ca-bundle"),
 };
 
 app.use(cors(corsOptions));
 
 const port = process.env.PORT || 3001;
+
+// https.createServer(SSLOptions, app).listen(port);
 
 app.listen(port, () => {
   console.log(`Server running on ${port}`);
@@ -1346,6 +1360,7 @@ app.post("/api/postComment", function (req, res) {
         const bookId = req.body.bookid;
         const comment = req.body.comment;
         const userId = decodedToken.user;
+        const date = new Date().toISOString();
 
         if (!bookId) {
           return res.json({ message: "Something went wrong" });
@@ -1357,10 +1372,10 @@ app.post("/api/postComment", function (req, res) {
         }
 
         const query =
-          "INSERT INTO comments (userid, bookid, comment,DELETED,relatedTo) VALUES (?, ?, ?,0,0)";
+          "INSERT INTO comments (userid, bookid, comment,DELETED,relatedTo,postedAt) VALUES (?, ?, ?,0,0,?)";
         connection.query(
           query,
-          [userId, bookId, comment],
+          [userId, bookId, comment,date],
           function (error, results) {
             if (error) {
               return res.json({ error: "database error" });
