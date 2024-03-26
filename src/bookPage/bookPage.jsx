@@ -355,20 +355,22 @@ const BookPage = () =>{
                             <img src={bookCoverImages[bookInfo[0].bookcover]} alt={bookInfo.bookcover} className="novelCover"/>
                         </div>
                         <div className="bookPagebookInfo">
-                            <h1 className="title">{bookInfo[0].title}</h1>
-                            <h2 className="genre">Genre: {bookExtraInfo.genres}</h2>
-                            <h5 className="author"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
-                            <h5 className="chapters">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
-                            <h5 className="Bookmarks">Bookmarks: {bookInfo[0].totalinlibrary === null ? "0" : bookInfo[0].totalinlibrary}</h5>
-                            <div className="rating">
-                                <div>
-                                    <img className="bookPageStar" src={rating >= 1 ? yellowStar : whiteStar} alt="star" />
-                                    <img className="bookPageStar" src={rating >= 2 ? yellowStar : whiteStar} alt="star" />
-                                    <img className="bookPageStar" src={rating >= 3 ? yellowStar : whiteStar} alt="star" />
-                                    <img className="bookPageStar" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
-                                    <img className="bookPageStar" src={rating >= 5 ? yellowStar : whiteStar} alt="star" />
+                            <div className="bookPageInfoColumn">
+                                <h1 className="Title">{bookInfo[0].title}</h1>
+                                <h5 className="bookInfoText"><button id="authorButton" onClick={() => goToAuthor()} >Author: {authorName} </button></h5>
+                                <h2 className="bookInfoText">Genre: {bookExtraInfo.genres}</h2>
+                                <h5 className="bookInfoText">Chapters: {bookInfo[0].totalpages === null ? "0" : bookInfo[0].totalpages}</h5>
+                                <h5 className="bookInfoText">Bookmarks: {bookInfo[0].totalinlibrary === null ? "0" : bookInfo[0].totalinlibrary}</h5>
+                                <div className="rating">
+                                    <div>
+                                        <img className="bookPageStar" src={rating >= 1 ? yellowStar : whiteStar} alt="star" />
+                                        <img className="bookPageStar" src={rating >= 2 ? yellowStar : whiteStar} alt="star" />
+                                        <img className="bookPageStar" src={rating >= 3 ? yellowStar : whiteStar} alt="star" />
+                                        <img className="bookPageStar" src={rating >= 4 ? yellowStar : whiteStar} alt="star" />
+                                        <img className="bookPageStar" src={rating >= 5 ? yellowStar : whiteStar} alt="star" />
+                                    </div>
+                                    <button className="rateButton" onClick={() => goToRatingSite()}>Rate this book</button>
                                 </div>
-                                <button className="rateButton" onClick={() => goToRatingSite()}>Rate this book</button>
                             </div>
                             <div id="buttonContainer">
                                 <button className="readButton" onClick={() => goToChapter()}>{Number(currentPage) !== 0 ? "Continue Reading: " + currentPage : "Start Reading"}</button>

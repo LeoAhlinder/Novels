@@ -24,6 +24,17 @@
     transform: scale(1.1);
 }
 
+.bookPageInfoColumn{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    padding: 10px;
+
+}
+
 .commentAlert{
     text-align: center;
     height: 25px;
@@ -263,36 +274,11 @@
     transform: translate(-50%, -50%);
 }
 
-.title{
-    margin-left: 2%;
+.Title{
     color: white;
-    font-size: 1.7em;
 }
 
-.author{
-    margin-top: 1%;
-    margin-left:2%;
-    color: white;
-    font-size: 1.2em;
-}
-
-.genre{
-    margin-top: 2%;
-    margin-left:2%;
-    color: white;
-    font-size: 1.2em;
-}
-
-.chapters{
-    margin-left: 2%;
-    margin-top: 1%;
-    color: white;
-    font-size: 1.2em;
-}
-
-.Bookmarks{
-    margin-left: 2%;
-    margin-top: 1%;
+.bookInfoText{
     color: white;
     font-size: 1.2em;
 }
@@ -438,7 +424,7 @@
 
 .viewAllRepliesButton{
     padding: 5px;
-    color: rgb(77, 77, 231);
+    color: rgb(109, 109, 226);
 }
 
 .TrashcanContainerReply{
@@ -521,8 +507,6 @@
 }
 
 .rating{
-    margin-top: 1%;
-    margin-left: 2%;
     color: white;
     font-size: 1.2em;
 }
