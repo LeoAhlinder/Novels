@@ -6,6 +6,7 @@ import landscape from "../Pictures/fantasyLandscape.webp"
 
 import BookListGrid from "../Components/Books/bookListGrid";
 import ChangeDocumentTitle from "../Global/changeDocumentTitle";
+import APIURL from "../Global/API-URL";
 
 import forest from "../picturesForBooks/forest.webp"
 import forestHut from "../picturesForBooks/hutInForest.webp"
@@ -30,7 +31,7 @@ const Home = () => {
   useEffect(() => {
     const fetchLatestReleases = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/latest`, {
+        const res = await fetch(`${APIURL}/api/latest`, {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

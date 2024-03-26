@@ -16,6 +16,8 @@ import yellowStar from "../Icons/star-yellow.svg"
 import trashcanOpen from "../Icons/trashcan-closed.svg"
 import trashcanClosed from "../Icons/trashcan-open.svg" 
 
+import APIURL from "../Global/API-URL"
+
 const Rating = () => {
 
     const bookCoverImages = {
@@ -52,7 +54,7 @@ const Rating = () => {
     useEffect(() => {
         try{
             const getRatingAndInfo = async () => {
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getRatingAndInfo?bookName=${bookName}`,{
+                const res = await fetch(`${APIURL}/api/getRatingAndInfo?bookName=${bookName}`,{
                     method:"GET",
                     headers: {  
                         "Content-Type": "application/json",
@@ -119,7 +121,7 @@ const Rating = () => {
                     review: reviewText,
                     rating: review
                 }
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/postReview`,{
+                const res = await fetch(`${APIURL}/api/postReview`,{
                     method:"POST",
                     headers: {  
                         "Content-Type": "application/json",
@@ -197,7 +199,7 @@ const Rating = () => {
 
     async function deleteReview(index){
        try{
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/deleteReview`,{
+        const res = await fetch(`${APIURL}/api/deleteReview`,{
 
             method:"DELETE",
             headers: {  

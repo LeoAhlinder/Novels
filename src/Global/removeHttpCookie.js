@@ -1,6 +1,8 @@
+import APIURL from "./API-URL";
+
 const removeHttpCookie = async () => {
   try {
-    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/removecookie`, {
+    const res = await fetch(`${APIURL}/api/removecookie`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

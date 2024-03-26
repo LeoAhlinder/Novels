@@ -1,9 +1,11 @@
+import APIURL from "../../../Global/API-URL";
+
 const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAlert}) => {
     try{
         if (postCommentText === "" || postCommentText.length <= 0) return changePostCommentAlert("Comment cannot be empty")
         if (postCommentText.length > 1500) return changePostCommentAlert("Comment cannot be longer than 1500 characters")
         if (bookId === "") return navigate("/error")
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/postComment`, {
+        const res = await fetch(`${APIURL}/api/postComment`, {
             method:"POST",
             headers:{
                 "Content-Type": "application/json",

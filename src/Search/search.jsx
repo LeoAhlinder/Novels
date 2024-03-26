@@ -10,6 +10,8 @@ import forestHut from "../picturesForBooks/hutInForest.webp"
 import Moon from "../picturesForBooks/moon.webp"
 import pinkForest from "../picturesForBooks/pinkForest.webp"
 
+import APIURL from "../Global/API-URL";
+
 const SearchBar = () =>{
 
     const bookCoverImages = {
@@ -62,7 +64,7 @@ const SearchBar = () =>{
     const fetchBooks = async () =>{
         try{
             if (search !== "" && search.length > 2){
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/BooksBasedOnSearch`,{
+                const res = await fetch(`${APIURL}/api/BooksBasedOnSearch`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",

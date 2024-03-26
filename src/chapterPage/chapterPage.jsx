@@ -9,6 +9,7 @@ import gearIcon from "../Icons/gear.svg"
 import setCookie from "../Global/setCookie";
 
 import DOMPurify from 'dompurify';
+import APIURL from "../Global/API-URL";
 
 const ChapterPage = () => {
 
@@ -83,7 +84,7 @@ const ChapterPage = () => {
         const setLatestReadChapter = async () => {
 
             try{
-                await fetch(`${process.env.REACT_APP_API_URL}/api/setLatestReadChapter`,{
+                await fetch(`${APIURL}/api/setLatestReadChapter`,{
                     method:"POST",
                       headers:{
                         "Content-Type": "application/json",
@@ -115,7 +116,7 @@ const ChapterPage = () => {
         const getChapterInfo = async () =>{
 
             try{
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapterInfo`,{
+                const res = await fetch(`${APIURL}/api/chapterInfo`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",

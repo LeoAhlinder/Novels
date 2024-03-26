@@ -3,6 +3,8 @@ import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import ChangeDocumentTitle from "../../Global/changeDocumentTitle";
 
+import APIURL from "../../Global/API-URL";
+
 const AdminPanel = () => {
 
     ChangeDocumentTitle("Admin Panel")
@@ -15,7 +17,7 @@ const AdminPanel = () => {
 
                 const token = Cookies.get("adminToken")
 
-                const res = await fetch("${process.env.REACT_APP_API_URL}/api/admin/access",{
+                const res = await fetch(`${APIURL}/api/admin/access`,{
                     method:"GET",
                     headers:{
                         "Content-Type": "application/json",

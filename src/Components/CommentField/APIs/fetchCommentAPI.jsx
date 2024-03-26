@@ -1,6 +1,8 @@
+import APIURL from "../../../Global/API-URL";
+
 const FetchComments = async ({bookId,changeComments,navigate,changeUsername,changeGivenFeedback,loadSet,onlyReturn,changeMoreCommentsExist}) => {
     try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/comments?bookid=${bookId}&loadSet=${loadSet}`, {
+        const res = await fetch(`${APIURL}/api/comments?bookid=${bookId}&loadSet=${loadSet}`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

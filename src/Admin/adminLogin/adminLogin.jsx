@@ -5,6 +5,8 @@ import LoginForm from "../../Components/logInComp/logInForm";
 import setCookie from "../../Global/setCookie";
 import ChangeDocumentTitle from "../../Global/changeDocumentTitle";
 
+import APIURL from "../../Global/API-URL";
+
 const AdminLogin = () => {
 
   ChangeDocumentTitle("Admin Login")
@@ -24,7 +26,7 @@ const AdminLogin = () => {
     );
 
     try {
-      const res = await fetch("${process.env.REACT_APP_API_URL}/api/admin/login", {
+      const res = await fetch(`${APIURL}/api/admin/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -4,6 +4,8 @@ import "./viewAllCommentsStyle.css"
 import { useNavigate } from "react-router";
 import ReviewsAndComments from "../../../Components/Profile/ReviewsAndComments"
 
+import APIURL from "../../../Global/API-URL";
+
 const ViewAllComments = () => {
 
     const navigate = useNavigate()
@@ -20,7 +22,7 @@ const ViewAllComments = () => {
 
     const fetchUsersComments = async (loadSet) => {
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getUsersComments?loadSet=${loadSet}`, {
+            const res = await fetch(`${APIURL}/api/getUsersComments?loadSet=${loadSet}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

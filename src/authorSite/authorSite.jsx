@@ -10,6 +10,8 @@ import forestHut from "../picturesForBooks/hutInForest.webp"
 import Moon from "../picturesForBooks/moon.webp"
 import pinkForest from "../picturesForBooks/pinkForest.webp"
 
+import APIURL from "../Global/API-URL";
+
 
 const AuthorSite = () =>{
 
@@ -32,7 +34,7 @@ const AuthorSite = () =>{
 
         const fetchAuthorInfo = async () =>{
             try{
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/authorInfo?authorName=${authorName}`,{
+                const res = await fetch(`${APIURL}/api/authorInfo?authorName=${authorName}`,{
                     method:"GET",
                     headers:{    
                     "Content-Type": "application/json",

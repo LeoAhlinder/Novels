@@ -5,6 +5,8 @@ import removeHttpCookie from "../../../Global/removeHttpCookie";
 import { useNavigate } from "react-router";
 import ChangeDocumentTitle from "../../../Global/changeDocumentTitle";
 
+import APIURL from "../../../Global/API-URL";
+
 const Info = () =>{
 
     ChangeDocumentTitle("Profile Info | Novels")
@@ -33,7 +35,7 @@ const Info = () =>{
     async function deleteAccount (){
         try
         {
-            const res = await fetch (`${process.env.REACT_APP_API_URL}/api/deleteAccount`,{
+            const res = await fetch (`${APIURL}/api/deleteAccount`,{
                 method:"DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,7 +60,7 @@ const Info = () =>{
         const getProfileInfo = async () => 
         {
             try{
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getUserInfo`,{
+                const res = await fetch(`${APIURL}/api/getUserInfo`,{
                     method:"GET",
                     headers: {
                         "Content-Type": "application/json",

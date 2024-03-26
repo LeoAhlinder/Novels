@@ -4,6 +4,7 @@ import { useNavigate } from "react-router";
 import ReviewsAndComments from "../../../Components/Profile/ReviewsAndComments"
 
 import ChangeDocumentTitle from "../../../Global/changeDocumentTitle";
+import APIURL from "../../../Global/API-URL";
 
 
 const ViewAllReviews = () => {
@@ -24,7 +25,7 @@ const ViewAllReviews = () => {
 
     const fetchUsersReviews = async (loadSet) => {
         try {
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getUsersReviews?loadSet=${loadSet}`, {
+            const res = await fetch(`${APIURL}/api/getUsersReviews?loadSet=${loadSet}`, {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",

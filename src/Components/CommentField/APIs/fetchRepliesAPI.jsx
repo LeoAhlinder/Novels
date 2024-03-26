@@ -1,6 +1,8 @@
+import APIURL from "../../../Global/API-URL";
+
 const FetchRepliesAPI = async ({bookId,changeReplies}) =>{
     try{
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/getReplies?bookId=${bookId}`,{
+        const res = await fetch(`${APIURL}/api/getReplies?bookId=${bookId}`,{
             method :"GET",
             headers: {
                 "Content-Type": "application/json",

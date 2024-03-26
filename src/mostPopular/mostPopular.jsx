@@ -11,6 +11,8 @@ import pinkForest from "../picturesForBooks/pinkForest.webp"
 import yellowStar from "../Icons/star-yellow.svg"
 import whiteStar from "../Icons/star-white.svg"
 
+import APIURL from "../Global/API-URL";
+
 
 const MostPopular  = () =>{
 
@@ -38,7 +40,7 @@ const MostPopular  = () =>{
     const ranking = async (type) =>{
         
         try{
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/ranking?type=${type}`,{
+            const res = await fetch(`${APIURL}/api/ranking?type=${type}`,{
                 method:"GET",
                 headers:{
                     "Content-Type": "application/json",

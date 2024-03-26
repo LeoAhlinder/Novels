@@ -9,6 +9,8 @@ import moon from "../picturesForBooks/moon.webp"
 import hutInForest from "../picturesForBooks/hutInForest.webp"
 import forest from "../picturesForBooks/forest.webp"
 
+import APIURL from "../Global/API-URL";
+
 const CreateNew = () =>{
 
     ChangeDocumentTitle("Create Novel | Novels")
@@ -143,7 +145,7 @@ const CreateNew = () =>{
     async function createNewBook(bookInfo){
 
         try{
-            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/createNewBook`,{
+            const res = await fetch(`${APIURL}/api/createNewBook`,{
                 method:"POST",
                 headers:{
                 "Content-Type": "application/json",

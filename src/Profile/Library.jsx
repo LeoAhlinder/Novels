@@ -9,6 +9,7 @@ import Moon from "../picturesForBooks/moonSmall.webp"
 import pinkForest from "../picturesForBooks/pinkForestSmall.webp"
 
 import BookList from "../Components/Books/bookListProfile"
+import APIURL from "../Global/API-URL"
 
 const Library = () => {
 
@@ -30,7 +31,7 @@ const Library = () => {
   useEffect(() => {
     const userLibrary = async () => {
       try {
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/library/`, {
+        const res = await fetch(`${APIURL}/api/library/`, {
           method: "GET",
           headers: {  
             "Content-Type": "application/json",

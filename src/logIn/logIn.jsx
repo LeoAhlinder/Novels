@@ -7,6 +7,8 @@ import LoginForm from '../Components/logInComp/logInForm';
 import ChangeDocumentTitle from '../Global/changeDocumentTitle';
 import CheckToken from '../Global/checkToken';
 
+import APIURL from '../Global/API-URL';
+
 const LogIn = () =>{
 
     ChangeDocumentTitle("Log In | Novels")
@@ -63,7 +65,7 @@ const LogIn = () =>{
                         changeAlerts("Please accept the terms of service")
                         return
                     }
-                    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/createaccount`,{
+                    const res = await fetch(`${APIURL}/api/createaccount`,{
                         method:"POST",
                         headers: {  
                             "Content-Type": "application/json",
@@ -173,7 +175,7 @@ const LogIn = () =>{
                 return (field.value)
             })
             try{
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/logIn`,{
+                const res = await fetch(`${APIURL}/api/logIn`,{
                     method:"POST",
                     headers: {  
                         "Content-Type": "application/json",

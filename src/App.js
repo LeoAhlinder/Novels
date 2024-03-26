@@ -24,6 +24,7 @@ import UnkownPage from "./404Site/unknown";
 import TermsOfService from "./termsOfService/termsOfService";
 import Rating from "./Rating/Rating";
 
+import APIURL from "./Global/API-URL";
 import CookiesForm from "./Components/CookiesForm/cookiesForm";
 
 const App = () => {
@@ -47,7 +48,7 @@ const App = () => {
   }, []);
 
   const checkServerStatus = async () => {
-    return await fetch(`${process.env.REACT_APP_API_URL}/api/ping`)
+    return await fetch(`${APIURL}/api/ping`)
       .then((response) => response.ok)
       .catch(() => false);
 };

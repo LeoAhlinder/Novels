@@ -17,6 +17,8 @@ import forestHut from "../picturesForBooks/hutInForestBig.webp"
 import yellowStar from "../Icons/star-yellow.svg"
 import whiteStar from "../Icons/star-white.svg"
 
+import APIURL from "../Global/API-URL";
+
 const BookPage = () =>{
 
     const bookCoverImages = {
@@ -54,7 +56,7 @@ const BookPage = () =>{
     useEffect(() => {
         const fetchBookInfo = async () => {
           try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/book?title=${bookName}`, {
+            const response = await fetch(`${APIURL}/api/book?title=${bookName}`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
@@ -105,7 +107,7 @@ const BookPage = () =>{
         const isBookInLibrary = async () =>{
             try
             {
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkLibrary`,{
+                const res = await fetch(`${APIURL}/api/checkLibrary`,{
                     method:"POST",
                     headers: {  
                         "Content-Type": "application/json",
@@ -144,7 +146,7 @@ const BookPage = () =>{
     const addToLibrary = async () =>{
         if (buttonState === true){
             try{
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/AddToLibrary`,{
+                const res = await fetch(`${APIURL}/api/AddToLibrary`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
@@ -189,7 +191,7 @@ const BookPage = () =>{
     const removeFromLibrary = async () =>{
         if (buttonState === true){
             try{
-                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/RemoveFromLibrary`,{
+                const res = await fetch(`${APIURL}/api/RemoveFromLibrary`,{
                     method:"DELETE",
                     headers:{
                         "Content-Type": "application/json",

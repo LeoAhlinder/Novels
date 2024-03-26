@@ -1,6 +1,8 @@
+import APIURL from "../../../Global/API-URL";
+
 const DeleteComment = async (commentId) => {
     try{
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/deleteComment?commentid}`, {
+        const res = await fetch(`${APIURL}/api/deleteComment?commentid}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

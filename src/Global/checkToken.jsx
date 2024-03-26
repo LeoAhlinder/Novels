@@ -1,7 +1,9 @@
+import APIURL from "./API-URL";
+
 const CheckToken = async () => {
   try {
 
-      const res = await fetch(`${process.env.REACT_APP_API_URL}/api/protected/`, {
+      const res = await fetch(`${APIURL}/api/protected/`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

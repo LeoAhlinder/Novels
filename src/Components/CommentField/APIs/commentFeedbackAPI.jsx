@@ -1,6 +1,8 @@
+import APIURL from "../../../Global/API-URL";
+
 const CommentFeedback= async ({commentId,feedback,navigate}) =>{
     try{
-        const res = await fetch(`${process.env.REACT_APP_API_URL}/api/commentFeedback`, {
+        const res = await fetch(`${APIURL}/api/commentFeedback`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
