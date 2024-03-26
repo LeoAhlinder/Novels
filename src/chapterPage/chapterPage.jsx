@@ -83,7 +83,7 @@ const ChapterPage = () => {
         const setLatestReadChapter = async () => {
 
             try{
-                await fetch(`https://152.42.128.44:3001/api/setLatestReadChapter`,{
+                await fetch(`${process.env.REACT_APP_API_URL}/api/setLatestReadChapter`,{
                     method:"POST",
                       headers:{
                         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const ChapterPage = () => {
         const getChapterInfo = async () =>{
 
             try{
-                const res = await fetch(`https://152.42.128.44:3001/api/chapterInfo`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapterInfo`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
@@ -177,7 +177,7 @@ const ChapterPage = () => {
         <>
             {loading === false ?
             <div id="chapterPageContainer" style={{backgroundColor:themeColors[chapterTheme].backgroundColor}}>
-                <a id="chapterPageBookTitle" href={`/novel/${bookName}`} style={{color:themeColors[chapterTheme].color}}>{bookName}</a>
+                <a id="chapterPageBookTitle" href={`/novel/${bookName}`}>{bookName}</a>
                 <h1 id="chapterPageTitle" style={{color:themeColors[chapterTheme].color}}>
                     Chapter {chapterNumber}: {chapterTitle}
                 </h1>

@@ -144,6 +144,10 @@
     justify-content: space-between;
 }
 
+.summaryConatienr{
+    width: 100%;
+}
+
 @font-face {
     font-family: Inter;
     src: url("../Fonts/Inter/Inter-VariableFont_slnt\,wght.ttf");
@@ -153,6 +157,8 @@
     margin: 0 8%;
     color: white;
     font-size: 1.1em;
+    text-align: start;
+    word-break: break-word;
 }
 
 .summaryHeader{
@@ -423,6 +429,22 @@
     width: 50vw;
     height: auto;
     padding: 10px;
+}
+
+.viewAllReplies{
+    border-top: 1px solid rgb(68, 69, 71);
+    color:white;
+}
+
+.viewAllRepliesButton{
+    padding: 5px;
+    color: rgb(77, 77, 231);
+}
+
+.TrashcanContainerReply{
+    align-items: flex-end;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .replyInput{

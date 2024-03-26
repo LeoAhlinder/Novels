@@ -1,6 +1,6 @@
 const removeHttpCookie = async () => {
   try {
-    const res = await fetch(`https://152.42.128.44:3001/api/removecookie`, {
+    const res = await fetch(`${process.env.REACT_APP_API_URL}/api/removecookie`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

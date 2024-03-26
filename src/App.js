@@ -47,7 +47,7 @@ const App = () => {
   }, []);
 
   const checkServerStatus = async () => {
-    return await fetch(`https://novels-server.xyz:3001/api/ping`)
+    return await fetch(`${process.env.REACT_APP_API_URL}/api/ping`)
       .then((response) => response.ok)
       .catch(() => false);
 };

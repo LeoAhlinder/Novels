@@ -117,7 +117,13 @@ const CreateNew = () =>{
                 return
             }
         }
-        if (summaryLength > 700){
+        if (summaryLength < 150){
+            changeAlert("Your summary is too short")
+            changeAlertColor("red")
+            allInfoFilled = false
+            return
+        }
+        if (summaryLength > 1500){
             changeAlert("Your summary is too long")
             changeAlertColor("red")
             allInfoFilled = false
@@ -137,7 +143,7 @@ const CreateNew = () =>{
     async function createNewBook(bookInfo){
 
         try{
-            const res = await fetch(`https://152.42.128.44:3001/api/createNewBook`,{
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/createNewBook`,{
                 method:"POST",
                 headers:{
                 "Content-Type": "application/json",
@@ -193,8 +199,8 @@ const CreateNew = () =>{
 
                 <label htmlFor="bookTitle" className="Label">Book Name {bookName.length}/20</label>
                 <input type="text" className="bookNameInput" maxLength="20"placeholder="20 letters max" id="bookTitle" onChange={handleInputChangeBookName}/>
-                <label htmlFor="Synopsis" className="Label">Synopsis {summary.length}/700</label>
-                <textarea type="text" id="Synopsis" placeholder="Make a awesome synopsis to attract viewers!" maxLength="700" className="summaryInput" onChange={handleSummaryChange}/>
+                <label htmlFor="Synopsis" className="Label">Synopsis {summary.length}/1500</label>
+                <textarea type="text" id="Synopsis" placeholder="Make a awesome synopsis to attract viewers!" maxLength={1500} className="summaryInput" onChange={handleSummaryChange}/>
                 <label htmlFor="inputGenre" className="Label">Genre</label>
 
                 <select 

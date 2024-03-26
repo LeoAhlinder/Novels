@@ -49,11 +49,12 @@ const BookPage = () =>{
     const [moreCommentsExist,changeMoreCommentsExist] = useState(false)
     const [rating,changeRating] = useState(0)
     const [replies, changeReplies] = useState([])
+    const [commentsLength, setAmoutOfComments] = useState(0);
 
     useEffect(() => {
         const fetchBookInfo = async () => {
           try {
-            const response = await fetch(`https://152.42.128.44:3001/api/book?title=${bookName}`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/book?title=${bookName}`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
@@ -104,7 +105,7 @@ const BookPage = () =>{
         const isBookInLibrary = async () =>{
             try
             {
-                const res = await fetch(`https://152.42.128.44:3001/api/checkLibrary`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/checkLibrary`,{
                     method:"POST",
                     headers: {  
                         "Content-Type": "application/json",
@@ -143,7 +144,7 @@ const BookPage = () =>{
     const addToLibrary = async () =>{
         if (buttonState === true){
             try{
-                const res = await fetch(`https://152.42.128.44:3001/api/AddToLibrary`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/AddToLibrary`,{
                     method:"POST",
                     headers:{
                         "Content-Type": "application/json",
@@ -188,7 +189,7 @@ const BookPage = () =>{
     const removeFromLibrary = async () =>{
         if (buttonState === true){
             try{
-                const res = await fetch(`https://152.42.128.44:3001/api/RemoveFromLibrary`,{
+                const res = await fetch(`${process.env.REACT_APP_API_URL}/api/RemoveFromLibrary`,{
                     method:"DELETE",
                     headers:{
                         "Content-Type": "application/json",
@@ -228,7 +229,7 @@ const BookPage = () =>{
             })
             if (didCommentPost === true){
                 changePostCommentText("")
-                changePostCommentAlert("Comment posted")
+                changeWriteCommentView(false)
                 FetchComments({
                     bookId: bookId,
                     changeComments: changeComments,
@@ -244,7 +245,7 @@ const BookPage = () =>{
                
             }
         }catch(err){
-            navigate("/error")
+            changePostCommentAlert("Error posting comment")
         }
     }
 
@@ -286,6 +287,7 @@ const BookPage = () =>{
 
     const MemorizedComments = useMemo(() => {
         if (comments.length > 0) {
+            setAmoutOfComments(comments.length)
             return comments.map((comment, index) => (
                 <Comment
                     replies={replies}
@@ -373,7 +375,7 @@ const BookPage = () =>{
                             </div>
                         </div>
                         <div className="bookExtraInfo">
-                            <div>
+                            <div className="summaryConatienr">
                                 <h1 className="summaryHeader">Summary</h1>
                                 <p className="bookSummary">{bookExtraInfo.synopsis}</p>
                                 <div className="summaryBorder"></div>
@@ -412,7 +414,7 @@ const BookPage = () =>{
                                 <div className="commentField">
                                    {MemorizedComments}
                                 </div>
-                                {moreCommentsExist === true ? <button className="loadMoreButton" onClick={() => fetchMoreComments()}>Load More</button> : null}
+                                {moreCommentsExist === true && commentsLength >= 8 ? <button className="loadMoreButton" onClick={() => fetchMoreComments()}>Load More</button> : null}
                         </div>
                         <div id="footer"></div>
                     </div>

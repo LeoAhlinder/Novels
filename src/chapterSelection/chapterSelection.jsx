@@ -20,7 +20,7 @@ const ChapterSelection = () => {
 
         try{
           const fetchChapters = async () => {
-            const res = await fetch(`https://152.42.128.44:3001/api/chapters/${bookName}`, {
+            const res = await fetch(`${process.env.REACT_APP_API_URL}/api/chapters/${bookName}`, {
               method: "GET",
               headers: {
                 "Content-Type": "application/json",
