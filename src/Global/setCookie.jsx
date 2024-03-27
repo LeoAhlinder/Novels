@@ -1,6 +1,6 @@
 import Cookies from "js-cookie";
 
-const setCookie = (name,value,milliseconds) =>{
+const setCookie = (name,value,milliseconds,path) =>{
 
     if (Cookies.get("cookieOption")){
         var cookieConsent = checkCookieConsent(name)
@@ -16,7 +16,7 @@ const setCookie = (name,value,milliseconds) =>{
     let expiration = new Date();
     expiration.setTime(expiration.getTime() + (milliseconds * 60 * 60 * 1000)); // Convert milliseconds to hours
     let expires = "expires=" + expiration.toUTCString();
-    document.cookie = name + "=" + JSON.stringify(value) + "; " + expires + "; SameSite=Strict; Secure";
+    document.cookie = name + "=" + JSON.stringify(value) + "; " + expires + "; SameSite=Strict; Secure;" + path ? "path=" + path : "path=/";
 }
 
 function checkCookieConsent(name){
