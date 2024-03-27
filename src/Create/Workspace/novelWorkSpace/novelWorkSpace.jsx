@@ -156,7 +156,6 @@ export default function NovelWorkSpace() {
               setChapters(response.data);
               setLoading(false);
             } else {
-              console.log(response.message);
               setLoading(false);
             }
           }catch(err){

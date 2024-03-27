@@ -33,7 +33,6 @@ const ChapterSelection = () => {
               setChapters(response.data);
               setLoading(false);
             } else {
-              console.log(response.message);
               setLoading(false);
             }
           };

@@ -33,7 +33,6 @@ const ViewAllComments = () => {
             });
             if (res.ok) {
                 const response = await res.json();
-                console.log(response)
                 if (loadSet > 0){
                     if (response.moreComments === false){
                         changeMoreCommentsExist(false)
