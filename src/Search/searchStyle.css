@@ -16,6 +16,9 @@
     @media screen and (max-width: 1300px) {
         margin-top: 13%;
     }
+    @media screen and (max-width:1000px) {
+        width: 90%;
+    }
     @media screen and (max-width: 700px) {
         margin-top: 16%;
         width: 100% !important;
@@ -39,23 +42,6 @@
     @media screen and (max-width: 130px) {
         margin-top: 55%;
         font-size: 60%;
-    }
-}
-
-.containerSearch {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    width: 70%;
-    margin: 0 auto;
-    background-color: rgb(50, 52, 53);
-    border-radius: 10px;
-    padding: 10px;
-  }
-
-  @media screen and (max-width:340px) {
-    .containerSearch{
-        width: 80%;
     }
 }
 

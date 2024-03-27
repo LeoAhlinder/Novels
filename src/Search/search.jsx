@@ -120,16 +120,14 @@ const SearchBar = () =>{
                     placeholder="Search for Book by Title"
                 />   
             </div>
-            <ul className={viewingBooks === true ? "containerSearch" : ""}>
-                {viewingBooks === true ? 
+            {viewingBooks === true ? 
                 <BookListGrid
                     books={books}
                     goToBook={goToBook}
                     bookCoverImages={bookCoverImages}
                     noBooksFoundText="No books with that title were found"
-                /> 
-                : ""}
-            </ul>
+                />
+            : ""}
         </>
     )
 }
