@@ -12,34 +12,57 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
 
-    @media screen and (max-width: 1300px) {
+@media screen and (max-width: 1300px) {
+    .searchBar {
         margin-top: 13%;
     }
-    @media screen and (max-width:1000px) {
+}
+
+@media screen and (max-width:1000px) {
+    .searchBar {
         width: 90%;
     }
-    @media screen and (max-width: 700px) {
+}
+
+@media screen and (max-width: 700px) {
+    .searchBar {
         margin-top: 16%;
         width: 100% !important;
     }
-    @media screen and (max-width: 480px) {
+}
+
+@media screen and (max-width: 480px) {
+    .searchBar {
         margin-top: 25%;
         font-size: 70%;
     }
-    @media screen and (max-width: 330px) {
+}
+
+@media screen and (max-width: 330px) {
+    .searchBar {
         margin-top: 29%;
         font-size: 50%;
     }
-    @media screen and (max-width: 250px) {
+}
+
+@media screen and (max-width: 250px) {
+    .searchBar {
         margin-top: 40%;
         font-size: 45%;
     }
-    @media screen and (max-width: 180px) {
+}
+
+@media screen and (max-width: 180px) {
+    .searchBar {
         margin-top: 50%;
         font-size: 60%;
     }
-    @media screen and (max-width: 130px) {
+}
+
+@media screen and (max-width: 130px) {
+    .searchBar {
         margin-top: 55%;
         font-size: 60%;
     }
