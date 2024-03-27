@@ -1372,7 +1372,9 @@ app.post("/api/postComment", function (req, res) {
         }
 
         const query =
-          "INSERT INTO comments (userid, bookid, comment,DELETED,relatedTo,postedAt) VALUES (?, ?, ?,0,0,?)";
+          `INSERT INTO comments (userid, bookid, comment, DELETED, relatedTo, postedAt) 
+          VALUES (3, 1, 'test!', 0, 0, STR_TO_DATE('2024-03-27T20:28:47.503Z', '%Y-%m-%dT%H:%i:%s.%fZ'));`
+          ;
         connection.query(
           query,
           [userId, bookId, comment,date],

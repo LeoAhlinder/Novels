@@ -36,10 +36,10 @@ const PostComment = async ({bookId,postCommentText,navigate,changePostCommentAle
             return false
         }
         else{
-            navigate("/error")
+            changePostCommentAlert("Error posting comment")
         }
     }catch(err){
-        navigate("/error")
+        changePostCommentAlert("Error posting comment")
     }
 }
 
