@@ -59,7 +59,7 @@
 
 .chapterSwitchButton{
     background-color: rgb(111, 113, 114);
-    padding: 5px;
+    padding: 10px;
     border-radius: 5px;
     margin: 0 5px;
     font-size: 1.3em;
@@ -228,6 +228,7 @@
     .chapterSwitchButton{
         width: 50px;
         height: 50px;
+        padding: 15px;
         font-size: 0.9em;
     }
     .gearIcon{
